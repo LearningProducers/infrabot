@@ -2,6 +2,14 @@ infrabot is a single-file HTML console for founders prospecting like-minded prof
 
 ## Quick start
 
+
+1. Get the files  
+   Green **Code** button → **Download ZIP**  
+   (or `git clone` below)
+
+2. Unzip → double-click `open-infrabot.command`  
+   *or* run:
+
     git clone https://github.com/LearningProducers/infrabot.git
     cd infrabot
     python3 serve.py
