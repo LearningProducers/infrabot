@@ -13,6 +13,7 @@ infrabot is a single-file HTML console for founders prospecting like-minded prof
 git clone https://github.com/LearningProducers/infrabot.git
 cd infrabot
 python3 serve.py
+```
 
 Open http://127.0.0.1:8119/infrabot.html, or just double-click `open-infrabot.command`. No dependencies beyond Python 3. Everything runs on your machine and stays there; the only network calls are the Groq API calls you configure.
 
