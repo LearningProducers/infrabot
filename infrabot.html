@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.4.7 (secrets out of serialization; import keeps session key) 26-07-29    ║
+║  v0.5.0 (file-backed state: /state rev sync, snapshots, heartbeat) 26-08-10  ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -163,6 +163,11 @@
 ║      review find, verified against the artifact); importJson keeps the       ║
 ║      session key across a full replace: an imported key wins, else the       ║
 ║      pre-import key survives. buildStateExport chain: zero diff hunks.       ║
+║  ·  v0.5.0 FILE-BACKED NARROW STATE: comms+network live in ONE server        ║
+║      file (serve.py /state, rev-guarded 409 + dated snapshots + heartbeat    ║
+║      fence); page merges at boot/focus, file wins for records the tab did    ║
+║      not author (founder constraint 2026-08-10); external writer = the       ║
+║      lpi-ops post-send close. Serverless open: localStorage-only, as ever.   ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -677,7 +682,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.4.7</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1020,7 +1025,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.4.7';
+const APP_VERSION='infrabot-v0.5.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1566,6 +1571,12 @@ function saveState(){
   // If localStorage silently failed (ok===false), IDB is what saves the work, and boot
   // recovery (idbBootRecover) pulls it back on next load.
   idbSave(payload);
+  // v0.5.0: schedule the narrow-slice POST to the launcher's /state file.
+  // NOT the removed v0.3.0 export hook returning: that fired browser
+  // DOWNLOADS (noise, SILENT SESSIONS ruling); this is a silent loopback
+  // write, debounced, feature-detected once per boot, and a no-op the
+  // moment the endpoint is dead or the write is a merge echo.
+  scheduleStateSync();
   // v4.4.0-fix3: any state change means the on-disk snapshot is now stale. Surface the
   // amber dirty dot on the SNAPSHOT button so the founder knows to download before closing.
   markSnapshotDirty();
@@ -2163,7 +2174,10 @@ function launchApp(){
   // v4.4.0-fix2: open the IndexedDB mirror and recover any work that localStorage dropped
   // (the file:// open-context case). Async; if IDB has more-complete data than localStorage
   // gave us at boot, it swaps in and re-renders. Harmless no-op when localStorage is healthy.
-  idbBootRecover();
+  // v0.5.0: state sync SEQUENCES AFTER the IDB recovery promise. idbBootRecover
+  // can swap the whole state object in; a server merge racing that swap would
+  // be lost until the next refetch, so the chain is explicit.
+  idbBootRecover().then(initStateSync);
   // v4.7.0 (infrabot v0.1): attempt dossier fetch once booted + rendered.
   // Deferred so it never blocks first paint; silent no-op on file:// or 404.
   setTimeout(fetchDossierOnLoad,400);
@@ -5630,6 +5644,149 @@ function _autoExportDeliver(text){
       })
       .catch(function(){_exportEndpointAlive=false;_autoExportDownload(text);});
   }catch(e){_exportEndpointAlive=false;_autoExportDownload(text);}
+}
+
+// ============================================================================
+// v0.5.0 FILE-BACKED NARROW STATE (founder fork rulings 2026-08-10).
+// The comms+network slice lives in ONE server-authoritative file
+// (serve.py /state) so an external writer, the lpi-ops post-send close, can
+// flip a card to sent and this page trues itself without a founder import
+// motion. NARROW by ruling: never profile, models, councilHistory, or
+// state.groqKey (the credential is the reason narrow won the fork).
+// Three fences, all founder-ruled in one build:
+//   C  the page heartbeats while open; the external writer refuses while
+//      the beat is fresh (its refusal is named, never silent).
+//   A  every write carries the rev it was built on; the server 409s a
+//      stale base and the loser refetches + re-merges before one retry.
+//   B  the server snapshots the prior file before every accepted write.
+// THE AUTHORSHIP CONSTRAINT (founder-stamped 2026-08-10): after a merge,
+// any record this tab did not originate re-renders FROM THE FILE, and the
+// DOM stops being its author. The one exception is the record open under
+// edit right now (editingCommId / editingContactId): its unsaved keystrokes
+// are this tab's own authorship and ride out on the next sync or its 409
+// dance. Cost, named: a committed-but-unsynced local edit to a record the
+// file also changed loses to the file inside the debounce window; fence B's
+// snapshot holds the server side of that race, and the window is seconds.
+// Serverless open (file://, plain http.server): every fetch fails once,
+// _stateEndpointAlive goes false, and the app is byte-for-byte the old
+// localStorage-only app. Nothing here is load-bearing for a stranger's clone.
+// ============================================================================
+const STATE_ENDPOINT_PATH='/state';
+const HEARTBEAT_ENDPOINT_PATH='/heartbeat';
+const STATE_SYNC_DEBOUNCE_MS=3000;   // same coalescing window as auto-export
+const HEARTBEAT_INTERVAL_MS=30000;   // writer-side freshness wall is 90s (3 beats)
+const STATE_REFETCH_MIN_MS=10000;    // visibility refetch throttle
+var _stateRev=0;               // the rev this tab last built on / received
+var _stateEndpointAlive=null;  // null=unprobed; false=dead this boot; true=live
+var _stateSyncTimer=null;
+var _isMergingServerState=false; // suppresses the POST echo while a merge persists locally
+var _heartbeatTimer=null;
+var _lastStateRefetchMs=0;
+
+function buildStateSyncPayload(){
+  // ONE canon serializer (buildStateExport, key-sorted, clock-free,
+  // names-only); the sync payload wraps the same bytes with the base rev.
+  return '{"baseRev":'+_stateRev+',"state":'+buildStateExport()+'}';
+}
+function scheduleStateSync(){
+  if(_isMergingServerState)return; // a merge is not new authorship
+  if(_stateEndpointAlive===false||typeof fetch!=='function')return;
+  if(_stateSyncTimer)clearTimeout(_stateSyncTimer);
+  _stateSyncTimer=setTimeout(function(){_stateSyncTimer=null;syncStateToServer(false);},STATE_SYNC_DEBOUNCE_MS);
+}
+function syncStateToServer(isRetry){
+  if(_stateEndpointAlive===false||typeof fetch!=='function')return;
+  try{
+    fetch(STATE_ENDPOINT_PATH,{method:'POST',headers:{'Content-Type':'application/json'},body:buildStateSyncPayload()})
+      .then(function(res){
+        if(res&&res.ok){
+          _stateEndpointAlive=true;
+          return res.json().then(function(j){if(j&&typeof j.rev==='number')_stateRev=j.rev;}).catch(function(){});
+        }
+        if(res&&res.status===409){
+          _stateEndpointAlive=true;
+          // Fence A fired: someone wrote on a base this tab does not have.
+          // Refetch, merge (authorship constraint above), re-POST ONCE on
+          // the fresh base; a second 409 names itself and waits for the
+          // next local save instead of looping.
+          if(isRetry){toast('STATE SYNC CONFLICT · RETRIES ON NEXT SAVE','amber');return;}
+          return refetchServerState().then(function(){syncStateToServer(true);});
+        }
+        _stateEndpointAlive=false;
+      })
+      .catch(function(){_stateEndpointAlive=false;});
+  }catch(_){_stateEndpointAlive=false;}
+}
+function refetchServerState(){
+  if(typeof fetch!=='function')return Promise.resolve(null);
+  return fetch(STATE_ENDPOINT_PATH,{cache:'no-store'})
+    .then(function(res){
+      if(res&&res.ok){_stateEndpointAlive=true;return res.json().then(function(f){mergeServerState(f);return f;});}
+      return null;
+    })
+    .catch(function(){_stateEndpointAlive=false;return null;});
+}
+function mergeServerState(file){
+  if(!file||!Array.isArray(file.comms)||!Array.isArray(file.network))return;
+  if(!state)return;
+  _isMergingServerState=true;
+  try{
+    var mergeSlice=function(local,incoming,editingId){
+      var localById={};local.forEach(function(r){localById[r.id]=r;});
+      var incomingIds={};
+      var out=incoming.map(function(f){
+        incomingIds[f.id]=true;
+        // The record open under edit keeps this tab's live version.
+        if(editingId&&f.id===editingId&&localById[f.id])return localById[f.id];
+        var rec=Object.assign({},f);
+        delete rec.section; // computed on export, never stored (import contract)
+        return rec;
+      });
+      // Tab-originated records the file does not know yet ride along.
+      local.forEach(function(r){if(!incomingIds[r.id])out.push(r);});
+      return out;
+    };
+    state.comms=mergeSlice(state.comms,file.comms,editingCommId);
+    state.network=mergeSlice(state.network,file.network,editingContactId);
+    state.comms.forEach(function(c){
+      if(!Array.isArray(c.history))c.history=[];
+      if(!Array.isArray(c.statusHistory))c.statusHistory=[{status:c.status||'draft',timestamp:c.createdAt||new Date().toISOString()}];
+    });
+    if(typeof file.rev==='number')_stateRev=file.rev;
+    saveState(); // the ONE canonical writer persists the merge locally; the
+                 // _isMergingServerState guard keeps it from echoing a POST
+    renderComms();renderNetwork();renderOverview();renderMapPins();
+  }finally{_isMergingServerState=false;}
+}
+function sendHeartbeat(){
+  if(_stateEndpointAlive!==true||typeof fetch!=='function')return;
+  try{fetch(HEARTBEAT_ENDPOINT_PATH,{method:'POST'}).catch(function(){});}catch(_){}
+}
+function initStateSync(){
+  if(typeof fetch!=='function')return;
+  fetch(STATE_ENDPOINT_PATH,{cache:'no-store'})
+    .then(function(res){
+      if(res&&res.ok){_stateEndpointAlive=true;return res.json().then(function(f){mergeServerState(f);});}
+      if(res&&res.status===404){
+        // Server alive, no file yet: this tab's truth bootstraps rev 1.
+        _stateEndpointAlive=true;_stateRev=0;syncStateToServer(false);
+        return;
+      }
+      _stateEndpointAlive=false;
+    })
+    .catch(function(){_stateEndpointAlive=false;})
+    .then(function(){
+      if(_stateEndpointAlive!==true)return; // serverless: localStorage-only, unchanged
+      sendHeartbeat();
+      _heartbeatTimer=setInterval(sendHeartbeat,HEARTBEAT_INTERVAL_MS);
+      document.addEventListener('visibilitychange',function(){
+        if(document.visibilityState!=='visible')return;
+        var now=Date.now();
+        if(now-_lastStateRefetchMs<STATE_REFETCH_MIN_MS)return;
+        _lastStateRefetchMs=now;
+        refetchServerState();
+      });
+    });
 }
 // ============================================================================
 // v0.3.2 EDIT-SESSION HOLD. THE RULING: one auto-export per edit session, never
