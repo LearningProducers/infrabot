@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.0 (file-backed state: /state rev sync, snapshots, heartbeat) 26-08-10  ║
+║  v0.5.1 (reports count emails, not corrections; ghosts cancel) 26-09-02      ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -168,6 +168,12 @@
 ║      fence); page merges at boot/focus, file wins for records the tab did    ║
 ║      not author (founder constraint 2026-08-10); external writer = the       ║
 ║      lpi-ops post-send close. Serverless open: localStorage-only, as ever.   ║
+║  ·  v0.5.1 REPORTS COUNT EMAILS, NOT CORRECTIONS: sentRecord (one send       ║
+║      per card, sentDate first, the first sent entry as the fallback) and     ║
+║      standingArchiveEntries (a later sent entry reverses a ghost or dead)    ║
+║      feed computeMonthStats + downloadMonthReport, so an auto-ghost and      ║
+║      the founder re-flip that undoes it cancel. tests/month_stats_check.js   ║
+║      pins the rule on a synthetic fixture (founder ruling 2026-09-02).       ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -682,7 +688,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.1</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -978,7 +984,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.1 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1025,7 +1031,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.0';
+const APP_VERSION='infrabot-v0.5.1';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2684,18 +2690,58 @@ function renderReportsPanel(){
   return html;
 }
 
-// v3.2: month stat computation. Counts transitions that happened *within* the given month,
-// not lifetime counts. createdAt drives "drafted this month"; statusHistory entries drive
-// "sent / replied / archived this month."
+// v0.5.1 THE REPORTS TAB COUNTS EMAILS, NOT CORRECTIONS (founder ruling
+// 2026-09-02). The went-quiet engine appends ghosted, the founder re-flips the
+// card and appends sent again, and through v0.5.0 both entries scored as a
+// fresh archive and a fresh send in whatever month they landed: August 2026
+// read 32 sent against 19 emails, September read 4 sent against none. The
+// v3.2 rule (every non-draft statusHistory entry is one transition in its
+// month) stays for replied; sent and archived read the two helpers below and
+// never walk statusHistory directly. Comments authored with zero brace pairs.
 //
-// v3.2 BUG FIX (was: "skip i===0 to avoid double-counting"). The old i===0 skip silently
-// hid every pre-v3.0 SENT/REPLIED comm from monthly reports because their seeded
-// statusHistory had exactly one entry at index 0 — the skip dropped it on the floor. The
-// correct rule is: skip entries whose status === 'draft' (since drafted-this-month is
-// already computed from createdAt). Every non-draft entry is a real transition and counts
-// in its month, regardless of position. This also makes "logged-directly-as-sent" comms
-// count as both drafted (via createdAt) and sent (via statusHistory[0]) in the same month,
-// which is the correct semantic — the founder did both actions that month.
+// sentRecord: ONE send per card. Dated by sentDate first (the true send date;
+// the v0.5.0 post-send close writes it), falling back to the card's FIRST
+// sent entry; null when neither resolves to a month, never a guess. Returns
+// the local year-month and the instant behind it, so the .txt report prints
+// the same date the count was bucketed by.
+function sentRecord(c){
+  if(!c)return null;
+  const viaDate=localYearMonth(c.sentDate);
+  if(viaDate)return {ym:viaDate,when:c.sentDate};
+  const h=Array.isArray(c.statusHistory)?c.statusHistory:[];
+  for(let i=0;i<h.length;i++){
+    const e=h[i];
+    if(e&&e.status==='sent'){const ym=localYearMonth(e.timestamp);return ym?{ym:ym,when:e.timestamp}:null;}
+  }
+  return null;
+}
+
+// standingArchiveEntries: the ghosted or dead entries no later sent entry
+// reversed, in history order. Walked from the end because statusHistory is
+// append-only and chronological: a sent entry reverses every archive-class
+// entry before it, so an auto-ghost and its re-flip cancel, and only an
+// archive still standing at the end of history is an archive at all. A card
+// ghosted in one month and closed dead in a later month keeps both entries:
+// neither was undone, and each is an act in its own month.
+function standingArchiveEntries(c){
+  const h=(c&&Array.isArray(c.statusHistory))?c.statusHistory:[];
+  const out=[];
+  let sentAfter=false;
+  for(let i=h.length-1;i>=0;i--){
+    const e=h[i];
+    if(!e)continue;
+    if(e.status==='sent')sentAfter=true;
+    else if((e.status==='ghosted'||e.status==='dead')&&!sentAfter)out.unshift(e);
+  }
+  return out;
+}
+
+// Month stat computation: what happened WITHIN the given month, never lifetime
+// counts. createdAt drives drafted; sentRecord drives sent (once per card);
+// replied entries count in their month (a reply is the prospect's act, and
+// the ghost/re-flip pattern never writes one); standingArchiveEntries drives
+// archived. A card logged directly as sent counts as drafted (createdAt) and
+// sent (its first sent entry) in the same month, the v3.2 semantic, kept.
 function computeMonthStats(year,month){
   // v0.4.4: month assignment is localYearMonth, the SAME shared derivation the
   // Archive render window uses, never a second inline copy of the rule. The
@@ -2706,15 +2752,12 @@ function computeMonthStats(year,month){
   const stats={drafted:0,sent:0,replied:0,archived:0};
   state.comms.forEach(c=>{
     if(inMonth(c.createdAt))stats.drafted++;
+    const sr=sentRecord(c);
+    if(sr&&sr.ym===ymKey)stats.sent++;
     if(Array.isArray(c.statusHistory)){
-      c.statusHistory.forEach(entry=>{
-        if(entry.status==='draft')return;            // drafted accounted for via createdAt
-        if(!inMonth(entry.timestamp))return;
-        if(entry.status==='sent')stats.sent++;
-        else if(entry.status==='replied')stats.replied++;
-        else if(entry.status==='ghosted'||entry.status==='dead')stats.archived++;
-      });
+      c.statusHistory.forEach(entry=>{if(entry.status==='replied'&&inMonth(entry.timestamp))stats.replied++;});
     }
+    standingArchiveEntries(c).forEach(entry=>{if(inMonth(entry.timestamp))stats.archived++;});
   });
   return stats;
 }
@@ -2739,19 +2782,22 @@ function downloadMonthReport(yearMonth){
   // yearMonth arrives as the padded YYYY-MM key renderReportsPanel emitted.
   const inMonth=ts=>localYearMonth(ts)===yearMonth;
 
-  // v3.3: still skip status==='draft' in the transition loop. No draftedThis array
-  // (the section is gone) but the skip is needed to keep sent/replied/archived counts honest.
+  // v0.5.1: the three lists ride the SAME helpers computeMonthStats counts
+  // by (sentRecord, standingArchiveEntries), so the SUMMARY numbers in this
+  // file equal the month card's numbers by construction. No draftedThis
+  // array (the v3.3 section is gone); replied stays entry-level.
   const sentThis=[],repliedThis=[],archivedThis=[];
   state.comms.forEach(c=>{
+    const sr=sentRecord(c);
+    if(sr&&sr.ym===yearMonth)sentThis.push({comm:c,when:sr.when});
     if(Array.isArray(c.statusHistory)){
       c.statusHistory.forEach(entry=>{
-        if(entry.status==='draft')return;
-        if(!inMonth(entry.timestamp))return;
-        if(entry.status==='sent')sentThis.push({comm:c,when:entry.timestamp,auto:!!entry.auto});
-        else if(entry.status==='replied')repliedThis.push({comm:c,when:entry.timestamp,auto:!!entry.auto});
-        else if(entry.status==='ghosted'||entry.status==='dead')archivedThis.push({comm:c,when:entry.timestamp,how:entry.status,auto:!!entry.auto});
+        if(entry.status==='replied'&&inMonth(entry.timestamp))repliedThis.push({comm:c,when:entry.timestamp,auto:!!entry.auto});
       });
     }
+    standingArchiveEntries(c).forEach(entry=>{
+      if(inMonth(entry.timestamp))archivedThis.push({comm:c,when:entry.timestamp,how:entry.status,auto:!!entry.auto});
+    });
   });
 
   const pipelineNow=state.comms.filter(c=>getCommBucket(c)==='pipeline').length;
