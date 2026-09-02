@@ -154,6 +154,19 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('downloadMonthReport reads sentRecord',dl.indexOf('sentRecord(')>=0,true);
   expect('downloadMonthReport reads standingArchiveEntries',dl.indexOf('standingArchiveEntries(')>=0,true);
 
+  // The .txt prints a bare sentDate as the date it was bucketed by (v0.4.2
+  // law: a bare YYYY-MM-DD is a local calendar date; new Date on it is UTC
+  // midnight, one day early in America/Chicago). fmtDate is a const arrow
+  // local to downloadMonthReport, extracted here by the same brace walk.
+  var fd=dl.indexOf('const fmtDate=');
+  if(fd<0){expect('downloadMonthReport defines fmtDate',false,true);}
+  else{
+    var fdSrc=extractFn('function fmtDateWrap()'+dl.slice(dl.indexOf('{',fd)),'fmtDateWrap');
+    ge('function fmtDateWrap(ts)'+fdSrc.slice(fdSrc.indexOf('{')));
+    expect('fmtDate prints a bare sentDate as itself',g.fmtDateWrap('2026-08-11'),'2026-08-11');
+    expect('fmtDate prints an instant as a local date-time',g.fmtDateWrap('2026-08-11T17:00:00.000Z').indexOf('2026-08-11 12:00')===0,true);
+  }
+
   if(failures.length){
     out('month_stats_check: FAIL ('+failures.length+' failure(s))');
     if(isNode)process.exit(1);

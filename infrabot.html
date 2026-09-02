@@ -2702,8 +2702,9 @@ function renderReportsPanel(){
 // sentRecord: ONE send per card. Dated by sentDate first (the true send date;
 // the v0.5.0 post-send close writes it), falling back to the card's FIRST
 // sent entry; null when neither resolves to a month, never a guess. Returns
-// the local year-month and the instant behind it, so the .txt report prints
-// the same date the count was bucketed by.
+// the local year-month and the value behind it (a bare sentDate, or the
+// entry's instant), so the .txt report prints the date the count was
+// bucketed by; fmtDate below prints a bare date as itself.
 function sentRecord(c){
   if(!c)return null;
   const viaDate=localYearMonth(c.sentDate);
@@ -2807,7 +2808,10 @@ function downloadMonthReport(yearMonth){
   // stays a UTC instant, the data anchor; only this rendering converts. A 9:34 PM CDT
   // send is 02:34Z NEXT DAY, and the old UTC slice stamped tomorrow on tonight's send.
   // Same Intl pattern as localTimestamp; comment authored with zero brace pairs.
-  const fmtDate=ts=>{try{const d=new Date(ts);if(isNaN(d.getTime()))return ts;const tz=(state&&state.profile&&state.profile.homeTz)||'America/Chicago';const date=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);const time=new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:false}).format(d);const abbr=new Intl.DateTimeFormat('en-US',{timeZone:tz,timeZoneName:'short'}).formatToParts(d).find(p=>p.type==='timeZoneName')?.value||tz;return date+' '+time+' '+abbr;}catch(e){return ts;}};
+  // v0.5.1 (watchman catch): a bare YYYY-MM-DD is already a local calendar date
+  // under v0.4.2 law and prints as itself. new Date on a bare date is UTC
+  // midnight, which rendered every sentDate-dated send one day early.
+  const fmtDate=ts=>{try{if(/^\d\d\d\d-\d\d-\d\d$/.test(String(ts).trim()))return String(ts).trim();const d=new Date(ts);if(isNaN(d.getTime()))return ts;const tz=(state&&state.profile&&state.profile.homeTz)||'America/Chicago';const date=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);const time=new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:false}).format(d);const abbr=new Intl.DateTimeFormat('en-US',{timeZone:tz,timeZoneName:'short'}).formatToParts(d).find(p=>p.type==='timeZoneName')?.value||tz;return date+' '+time+' '+abbr;}catch(e){return ts;}};
 
   // renderFullCommBlock: full detail for SENT/REPLIED items. v3.3 keeps the body
   // included here because these are the active outreach records — the body is
