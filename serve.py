@@ -8,6 +8,8 @@ Desktop launcher (~/Desktop/open-infrabot.command, founder-hand). Two jobs:
   1. SERVE: static files from this script's own directory (the repo clone),
      exactly the door the app has opened at since the OPERATING ERA:
      http://127.0.0.1:8119/infrabot.html
+     Every response carries Cache-Control: no-store (v0.5.3), so a plain
+     reload shows the newest build; tests/nostore_check.py pins it.
   2. EXPORT: POST /export receives the app's boot auto-export payload (the
      existing names-only buildStateExport JSON, serializer untouched) and
      writes it to EXPORTS_DIR as infrabot_state_YYYY-MM-DD.json. Same-day
@@ -137,6 +139,19 @@ class LoopbackOnlyServer(ThreadingHTTPServer):
 class InfrabotHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(APP_ROOT), **kwargs)
+
+    def end_headers(self):
+        # v0.5.3 NO-STORE (founder STEP 0, 2026-09-06): every response this
+        # launcher sends carries Cache-Control: no-store, so a plain reload
+        # always fetches the newest build and the cache-empty ritual on
+        # every bump (TROUBLESHOOTING.md DEPLOY CHAIN) dies. Measured
+        # 2026-09-06 00:55: the served file read v0.5.2 while the founder's
+        # tab read v0.5.1, because SimpleHTTP sends no Cache-Control at all
+        # and the browser reused its copy. One override, one seam: the
+        # static GET path, the JSON paths and the error paths all finish
+        # through end_headers, so nothing this server sends escapes it.
+        self.send_header("Cache-Control", "no-store")
+        super().end_headers()
 
     def _send_json(self, code, obj):
         body = json.dumps(obj).encode("utf-8")

@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.2 (comm search: type a name, see if we ever touched them) 26-09-05     ║
+║  v0.5.3 (no-store: a plain reload always shows the newest build) 26-09-06    ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -182,6 +182,12 @@
 ║      NO RECORD. Read live from state.comms, no schema change, no new         ║
 ║      dependency (founder ask 2026-09-05). tests/comm_search_check.js pins    ║
 ║      the matcher, the status words and the tab labels on a fixture.          ║
+║  ·  v0.5.3 NO-STORE: serve.py sends Cache-Control: no-store on every         ║
+║      response (one end_headers override, SimpleHTTP kept), so a plain        ║
+║      reload always shows the newest build and the cache-empty ritual on      ║
+║      every bump dies; the app file moves only its four version sites and     ║
+║      this banner. tests/nostore_check.py pins the header on the static,      ║
+║      JSON and 404 paths (founder STEP 0, 2026-09-06).                        ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -711,7 +717,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.2</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.3</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1013,7 +1019,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.2 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.3 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1060,7 +1066,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.2';
+const APP_VERSION='infrabot-v0.5.3';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
