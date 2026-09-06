@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.6 ([CW_APP_LINK] renders as the live Combat Writing URL) 26-09-06      ║
+║  v0.5.7 (EDIT BODY text size persists across close and refresh) 26-09-06     ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -208,6 +208,12 @@
 ║      its own paragraph. The stored record is not rewritten: the token        ║
 ║      survives in the file until the founder saves the card, and the dossier  ║
 ║      side owes the source fix. tests/app_link_check.js pins it.              ║
+║  ·  v0.5.7 THE TEXT SIZE STAYS PICKED: the fullscreen A- / A+ size (MD to    ║
+║      XXL, the EDIT BODY view included) persists in ONE new localStorage key  ║
+║      (earthinfra_fs_size_v01, the same store the body autosave uses) and is  ║
+║      restored at boot, so it survives close and refresh. A stored value      ║
+║      outside the four sizes falls back to LG. tests/fs_size_check.js pins    ║
+║      the key, the write, the restore and the fallback.                       ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -737,7 +743,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.6</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.7</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1039,7 +1045,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.6 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.7 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1086,7 +1092,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.6';
+const APP_VERSION='infrabot-v0.5.7';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -5345,7 +5351,16 @@ let fsActiveCommId=null;
 let fsKind=null; // 'slot' | 'comm' | 'comm-edit' | null
 const FS_SIZES=['md','lg','xl','xxl'];
 const FS_SIZE_LABELS={md:'MD',lg:'LG',xl:'XL',xxl:'XXL'};
-let fsCurrentSize='lg';
+// v0.5.7 THE TEXT SIZE STAYS PICKED. The chosen size used to live only in this
+// variable, so every close and every refresh reset it to LG while the body it
+// sized autosaved fine. One new key in the same localStorage the autosave
+// uses; read once at boot through fsSizeStored, written on every applyFsSize.
+// A stored value outside FS_SIZES falls back to LG rather than styling nothing.
+const FS_SIZE_KEY='earthinfra_fs_size_v01';
+function fsSizeStored(){
+  try{const v=localStorage.getItem(FS_SIZE_KEY);return FS_SIZES.indexOf(v)>=0?v:'lg';}catch(_){return 'lg';}
+}
+let fsCurrentSize=fsSizeStored();
 
 function openFullscreen(slot){
   if(!councilContext){toast('NO CONTEXT','err');return;}
@@ -5586,6 +5601,7 @@ function renderFullscreenBodyCommEdit(){
 
 function applyFsSize(size){
   fsCurrentSize=size;
+  try{localStorage.setItem(FS_SIZE_KEY,size);}catch(_){}
   const body=g('fs-body');
   FS_SIZES.forEach(s=>body.classList.remove('size-'+s));
   body.classList.add('size-'+size);
