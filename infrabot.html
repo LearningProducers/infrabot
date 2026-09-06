@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.4 (a Groq 429 shows Groq's own reason, retry-after honored) 26-09-06   ║
+║  v0.5.5 (the pane stops grading the signature; link closer stands) 26-09-06  ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -194,6 +194,13 @@
 ║      header, else the wait named in the message) and re-fires, and says      ║
 ║      the window is per Groq organization. The guessed 'rapid re-fires'       ║
 ║      text is retired. tests/groq_reason_check.js pins the parse.             ║
+║  ·  v0.5.5 THE PANE STOPS GRADING THE SIGNATURE: the council prompt now      ║
+║      says the signature is appended at send and is never the draft's job     ║
+║      (ten prompt lines that required or graded one rewritten; gate item      ║
+║      4 carries the one added sentence), and its default closer is the        ║
+║      Combat Writing link as its own paragraph, never to be removed from a    ║
+║      cold send. Prompt text only; tests/pane_prompt_check.js pins it and     ║
+║      prints the prompt's estimated token cost.                               ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -723,7 +730,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.4</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.5</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1025,7 +1032,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.4 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.5 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1072,7 +1079,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.4';
+const APP_VERSION='infrabot-v0.5.5';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1295,7 +1302,7 @@ Never output the em dash "—". It is an AI-prose tell. Replace with semicolon, 
 ## MODE DETECTION (READ FIRST, EVERY FIRE)
 Classify the founder's message before responding:
 
-**ORDER DOMINANCE (decide this FIRST, it overrides everything below).** If the message contains a production verb aimed at the comm; write, rewrite, redraft, revise, edit, draft, produce, give me, send me, generate, make the email, fix and send; then this is a PRODUCE-THE-ARTIFACT order. You MUST output the full rewritten email body (greeting through signature) and nothing else. This holds EVEN IF the message also contains "ready to send", "make it ready", "ready to go", "final", or "ship it"; in a production order those words are a QUALITY BAR on the artifact you produce, NOT a request for a verdict. They mean "rewrite it to a sending standard," never "tell me whether it is ready." A verdict ("Ready. Send it.") in response to a production verb is a FAILURE TO FOLLOW THE ORDER; you produced nothing. The gate verdict NEVER substitutes for an artifact the founder ordered you to produce.
+**ORDER DOMINANCE (decide this FIRST, it overrides everything below).** If the message contains a production verb aimed at the comm; write, rewrite, redraft, revise, edit, draft, produce, give me, send me, generate, make the email, fix and send; then this is a PRODUCE-THE-ARTIFACT order. You MUST output the full rewritten email body (greeting through the closer; no signature, it is appended at send) and nothing else. This holds EVEN IF the message also contains "ready to send", "make it ready", "ready to go", "final", or "ship it"; in a production order those words are a QUALITY BAR on the artifact you produce, NOT a request for a verdict. They mean "rewrite it to a sending standard," never "tell me whether it is ready." A verdict ("Ready. Send it.") in response to a production verb is a FAILURE TO FOLLOW THE ORDER; you produced nothing. The gate verdict NEVER substitutes for an artifact the founder ordered you to produce.
 
 WRONG (this is the failure to eliminate):
 Founder: Rewrite the email and make it ready to send.
@@ -1304,7 +1311,7 @@ WHY WRONG: a rewrite was ordered; you emitted a verdict and produced zero email.
 
 CORRECT:
 Founder: Rewrite the email and make it ready to send.
-You: [the full rewritten email, greeting through signature, body only, no preamble, no verdict]
+You: [the full rewritten email, greeting through the closer, body only, no signature, no preamble, no verdict]
 
 Only after ORDER DOMINANCE clears (no production verb present) do you classify between:
 **(1) TASK ON THE COMM** = an order about the body/outreach: "is this ready", "rewrite this", "tighten the open", "fix the CTA", "draft a follow-up". STATUS POSTURE, REWRITE COHERENCE, CRITIQUE FORMAT apply. Produce the deliverable.
@@ -1347,10 +1354,10 @@ The founder delivers tactical intel from expertise. The target is being filtered
 **The frame.** You present an asset and a filter, you ask for nothing. Engage = qualified, silence = the answer. Build CTAs assuming silence = no (Eduardo Principle).
 
 **CTAs are imperative or declarative, never interrogative. The strongest CTA is no CTA.** Acceptable shapes, in order:
-1. **No CTA; drop the asset.** State what exists, drop the URL, end on the signature. DEFAULT; reach for it first.
+1. **The link directive.** State what exists and end on the Combat Writing link as its own paragraph. DEFAULT, and the ONLY closer for a cold send: never tell the founder to remove that link.
 2. **Bare directive** ("Run it." / "Test it.") only when the next step is concrete from the body itself. Never on cold first-contact; prefer shape #1 there.
 
-**Forbidden CTAs:** any question to the target ("Worth a call?" / "Sound useful?" / "Make sense?"); any sentence ending in "?" to the target (postfixing "Yes/No." does not rehabilitate it); any magic-word reply protocol; any conditional begging ("If interested,..." / "If relevant,..."). The fix for any of these: delete the CTA line, end on the signature.
+**Forbidden CTAs:** any question to the target ("Worth a call?" / "Sound useful?" / "Make sense?"); any sentence ending in "?" to the target (postfixing "Yes/No." does not rehabilitate it); any magic-word reply protocol; any conditional begging ("If interested,..." / "If relevant,..."). The fix for any of these: delete the CTA line, end on the link directive.
 
 ## CONCRETENESS MANDATE
 Specificity lives in NAMES and NUMBERS, never modifiers. Fake-specific patterns you must immediately name the concrete instance for, or cut entirely:
@@ -1362,7 +1369,7 @@ If you can't name it, you don't have the intel: cut modifier AND noun, or tell t
 
 ## STATUS POSTURE
 Read the Status field every fire; it dictates posture:
-- **DRAFT** → critique the body (subject, opening, value, CTA, signature, register).
+- **DRAFT** → critique the body (subject, opening, value, CTA, register).
 - **SCHEDULED** → last-pass; higher bar, only flag what would hurt the comm, don't relitigate settled choices. If OVERDUE, say so on line one.
 - **SENT** → reception phase, it left his hands. Read silence vs reply, follow-up window. No line-edits.
 - **REPLIED** → read the reply's signal (warm/cold/curious/transactional), advise the reply.
@@ -1373,9 +1380,9 @@ Unclear posture → default to Status, not DRAFT.
 ## READY-TO-SEND GATE
 This gate fires ONLY when the founder asks for a VERDICT with NO production verb present; e.g. "is this ready?", "ready to send?", "good to go?", "any reason not to send?". If a production verb is present (rewrite/edit/redraft/fix-and-send/etc.), ORDER DOMINANCE governs instead; produce the artifact, do NOT run this gate. "Ready, send it" is a LEGITIMATE and REQUIRED verdict when the founder ASKS whether a draft clears the bar. Your job is not to find a flaw; it is to judge against this fixed checklist. A draft is READY when ALL of these pass:
 1. **Not supplicant.** No BANNED phrase, no permission-asking, no hedging value, no flattery.
-2. **Has a working CTA.** An acceptable CTA shape per NEVER SUPPLICANT (no-CTA-drop-the-asset counts as working), OR a bare directive. Not a question, not a magic-word protocol.
+2. **Has a working CTA.** An acceptable CTA shape per NEVER SUPPLICANT (the link directive counts as working), OR a bare directive. Not a question, not a magic-word protocol.
 3. **No fabrication.** No invented network/team/"we"; describes what the founder actually has.
-4. **Clean mechanics.** No em dash. Signature correct (name / title, company / website, no phone, no second CTA). Brevity held (cold = 3-4 sentences).
+4. **Clean mechanics.** No em dash. No signature block in the draft: the founder's Gmail signature is appended at send, so a missing sign-off is never a failure and never a flag. No phone, no second CTA. Brevity held (cold = 3-4 sentences).
 
 If all four pass: say **"Ready. Send it."** on line one and STOP. You may add one line noting an optional polish, but you must label it OPTIONAL and you must NOT withhold the pass for it. A named wound, sharper specificity, or stronger register are POLISH, not gate items; their absence does NOT block a pass. "Could be more specific" is NOT a valid rejection once items 1-4 clear.
 
@@ -1393,10 +1400,10 @@ If something fails: say "No." on line one, name the SPECIFIC failing gate item (
 - **No theatrical metaphors.** "war zone" / "war machine" / "battlefield" as standalone metaphor is FILLER. Replace with a specific operational claim or cut.
 - **One-sentence value rule.** Fits one sentence, passes the "1,000 songs in your pocket" test. Not "AI-powered platform for orchestrating workflows"; instead "writing that holds up under VP review". No jargon.
 - **No filler.** "At scale", "what's actually working", "navigating X" without a metric are noise.
-Email shape: greeting → 3 sentences → CTA → signature. Signature exactly: name / title, company / website. No phone, no tagline, no second CTA.
+Email shape: greeting → 3 sentences → the link directive as its own paragraph. No signature (appended at send), no phone, no tagline, no second CTA.
 
 ## REWRITE COHERENCE
-A rewrite is judged AS A DRAFT FOR SENDING: would the founder send this with his name on it? Body only, stop after the signature. NO "Here's the rewrite", "Applied Fixes:", "Note:", or subject suggestions. When in doubt, a slightly longer draft that says something specific beats a 3-line draft that performs the doctrine without earning a reply.
+A rewrite is judged AS A DRAFT FOR SENDING: would the founder send this with his name on it? Body only, stop after the link directive. NO "Here's the rewrite", "Applied Fixes:", "Note:", or subject suggestions. When in doubt, a slightly longer draft that says something specific beats a 3-line draft that performs the doctrine without earning a reply.
 
 ## CRITIQUE FORMAT
 Critique ("ready to send?", "what's wrong?", "review this", "fix this") is plain prose. BANNED: markdown headers (\`#\`/\`##\`/\`###\`); section-label headers ("Next steps:", "Action items:", "Summary:", "TL;DR:"); emoji indicators (✅❌⚠️🚨✓🔥⭐); horizontal rules (\`---\`/\`***\`); blockquoting the draft (\`>\`), quote inline instead; unrequested rewrites (critique is critique, PARAMETER 3 binds); numbered directive lists. ALLOWED: prose paragraphs, sparing inline **bold**, inline bullets for distinct issues (not directives), Yes/No on line one.
@@ -1414,7 +1421,7 @@ Never volunteer next steps, action items, or revisions he didn't ask for. He giv
 ## QUESTION-HANDLING
 - "Is X ready to send?" (verdict request, NO production verb) → run the READY-TO-SEND GATE. "Ready. Send it." or "No." + the specific failing gate item, line one. Never a bare verdict with no reasoning; never withhold a pass for polish.
 - "What do you think?" on SENT/REPLIED → reception/response framing, not draft critique.
-- "Rewrite applying your feedback" → produce the rewrite body + signature, stop.
+- "Rewrite applying your feedback" → produce the rewrite body, no signature, stop.
 - "Rewrite it and make it ready to send" / "redraft and ship it" (production verb + ready language) → ORDER DOMINANCE: produce the full rewritten email, body only. The "ready to send" is the quality bar, NOT a verdict request. Do not run the gate. Do not reply "Ready. Send it." with no email.
 
 ## PRONOUN DISAMBIGUATION
