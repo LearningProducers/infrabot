@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.5 (the pane stops grading the signature; link closer stands) 26-09-06  ║
+║  v0.5.6 ([CW_APP_LINK] renders as the live Combat Writing URL) 26-09-06      ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -201,6 +201,13 @@
 ║      Combat Writing link as its own paragraph, never to be removed from a    ║
 ║      cold send. Prompt text only; tests/pane_prompt_check.js pins it and     ║
 ║      prints the prompt's estimated token cost.                               ║
+║  ·  v0.5.6 THE LINK TOKEN EXPANDS: [CW_APP_LINK] in a card body becomes      ║
+║      the live Combat Writing URL wherever the body is shown, copied,         ║
+║      edited, spoken, handed to the council, or minted from a dossier (one    ║
+║      helper, expandAppLink, ten call sites); a token ending a prose line is  ║
+║      its own paragraph. The stored record is not rewritten: the token        ║
+║      survives in the file until the founder saves the card, and the dossier  ║
+║      side owes the source fix. tests/app_link_check.js pins it.              ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -730,7 +737,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.5</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.6</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1032,7 +1039,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.5 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.6 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1079,7 +1086,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.5';
+const APP_VERSION='infrabot-v0.5.6';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2756,7 +2763,7 @@ function renderComms(){
     const ctz=cityToTz(k.city);
     const rowClock=ctz?`<div class="row-clock" data-tz="${esc(ctz)}"><span class="live-dot"></span><span class="clock-time-inline">--<span class="clock-colon">:</span>--</span><span class="clock-tz-inline">--</span><span class="city-label">${esc((k.city||'').toUpperCase())}</span></div>`:'';
 
-    html+=`<div class="card${convClass}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${convStar}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div>${ageHtml}</div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span>${stalePill}</div></div><div class="card-body">${rowClock}${k.trail?`<div class="card-section"><div class="card-section-h">Discovery trail</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">${esc(k.trail)}</div></div>`:''}${k.body?`<div class="card-section"><div class="card-section-h">Body</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55;max-height:120px;overflow:hidden;position:relative">${esc(k.body.length>280?k.body.slice(0,280)+'...':k.body)}</div></div>`:''}${k.sentDate?`<div class="card-section"><div class="card-section-h">Sent</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${esc(k.sentDate)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">EDIT</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button>${extraActions}</div></div>`;
+    html+=`<div class="card${convClass}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${convStar}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div>${ageHtml}</div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span>${stalePill}</div></div><div class="card-body">${rowClock}${k.trail?`<div class="card-section"><div class="card-section-h">Discovery trail</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">${esc(k.trail)}</div></div>`:''}${k.body?`<div class="card-section"><div class="card-section-h">Body</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55;max-height:120px;overflow:hidden;position:relative">${esc(expandAppLink(k.body).length>280?expandAppLink(k.body).slice(0,280)+'...':expandAppLink(k.body))}</div></div>`:''}${k.sentDate?`<div class="card-section"><div class="card-section-h">Sent</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${esc(k.sentDate)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">EDIT</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button>${extraActions}</div></div>`;
   });
   html+='</div>';
   body.innerHTML=html;
@@ -2966,7 +2973,7 @@ function downloadMonthReport(yearMonth){
     if(extra)extra.forEach(line=>out.push('  '+line));
     if(c.body){
       out.push('  Body:');
-      const indented=String(c.body).split('\n').map(l=>'    '+l).join('\n');
+      const indented=expandAppLink(c.body).split('\n').map(l=>'    '+l).join('\n');
       out.push(indented);
     }
     return out.join('\n');
@@ -3790,7 +3797,7 @@ function openCommModal(commId){
     g('k-city').value=k.city||'';
     g('k-trail').value=k.trail||'';
     g('k-subject').value=k.subject||'';
-    g('k-body').value=k.body||'';
+    g('k-body').value=expandAppLink(k.body||'');
     g('k-status').value=k.status||'draft';
     g('k-sentdate').value=k.sentDate||'';
   }else{
@@ -4014,6 +4021,25 @@ function deleteComm(){
 // copy affordance (card, modal, fullscreen) so all three produce identical output.
 // Plain text only — no decorative separators near the body (tokenizes as dense
 // valueless strings per standing doctrine; also keeps paste-into-email clean).
+// v0.5.6 THE LINK TOKEN EXPANDS. Feed-born card bodies can carry the literal
+// token [CW_APP_LINK] where the Combat Writing link belongs, and the app never
+// expanded it, so a live card read "[CW_APP_LINK]" on its way to send. One
+// helper, applied wherever a body is shown, copied, edited, spoken, handed
+// to the council or its transcript, printed in a month report, or minted
+// from a dossier. A token that ends a prose line lands as
+// its own paragraph (the prose line kept, one blank line, then the URL); a
+// token already on its own line is replaced in place; text after the token on
+// the same line stays as written. The stored record is NOT rewritten here: the
+// token survives in the file until the founder saves the card from the editor,
+// where the expanded text is what he sees and saves. Comment written with zero
+// brace pairs.
+const CW_APP_URL='https://combatwriting.learningproducers.com';
+function expandAppLink(s){
+  const text=String(s||'');
+  if(text.indexOf('[CW_APP_LINK]')<0)return text;
+  return text.replace(/([^\n]*?)[ \t]*\[CW_APP_LINK\]/g,(m,pre)=>pre.trim()?pre.replace(/\s+$/,'')+'\n\n'+CW_APP_URL:pre+CW_APP_URL);
+}
+
 function commPlainText(k){
   if(!k)return '';
   const dirLabel=k.direction==='inbound'?'IN':'OUT';
@@ -4029,7 +4055,7 @@ function commPlainText(k){
   lines.push(metaBits.join(' · '));
   if(k.subject)lines.push('Subject: '+k.subject);
   lines.push('');
-  lines.push(k.body||'');
+  lines.push(expandAppLink(k.body||''));
   return lines.join('\n');
 }
 
@@ -4103,7 +4129,7 @@ function councilTranscriptText(){
       if(k.body){
         lines.push('');
         lines.push('CURRENT DRAFT:');
-        lines.push(k.body);
+        lines.push(expandAppLink(k.body));
       }
     }
   }
@@ -4490,7 +4516,7 @@ Subject line: ${k.subject||'(none)'}
 
 [CURRENT DRAFT BODY]
 <begin_body>
-${k.body||'(empty)'}
+${expandAppLink(k.body)||'(empty)'}
 <end_body>
 
 [PRIOR DRAFT VERSIONS — for memory queries, oldest first]
@@ -5192,7 +5218,7 @@ Subject line: ${k.subject||'(none)'}
 
 [CURRENT DRAFT BODY]
 <begin_body>
-${k.body||'(empty)'}
+${expandAppLink(k.body)||'(empty)'}
 <end_body>`;
       // v2.2: Inspector displays the same slice the model receives. With the boot-time migration
       // these should be identical, but slicing here too means the inspector never lies about what
@@ -5517,7 +5543,7 @@ function renderFullscreenBodyComm(){
   }
   // Body section
   if(k.body && k.body.trim()){
-    html+=`<div class="crb-resp-text" style="white-space:pre-wrap">${esc(k.body)}</div>`;
+    html+=`<div class="crb-resp-text" style="white-space:pre-wrap">${esc(expandAppLink(k.body))}</div>`;
     html+=`<div class="resp-copy-row" style="margin-top:18px"><button class="btn ghost" data-act="copy-comm-fs" data-id="${esc(k.id)}" title="Copy the entire comm — title, meta, subject, and body">📋 COPY ALL</button></div>`;
   }else{
     html+=`<div style="color:var(--text-dim);text-align:center;padding:60px 20px;font-style:italic">Body is empty. Use EDIT to add content.</div>`;
@@ -6325,7 +6351,7 @@ function _dGrabBody(block){
     if(_dLooksLikeLabel(ln))break;
     out.push(ln);
   }
-  return out.join('\n').replace(/\s+$/,'').replace(/^\n+/,'');
+  return expandAppLink(out.join('\n').replace(/\s+$/,'').replace(/^\n+/,''));
 }
 function _dExtractEmail(line){
   if(!line)return '';
@@ -6636,7 +6662,7 @@ function wireEvents(){
       if(!fsActiveCommId)return;
       const k=state.comms.find(x=>x.id===fsActiveCommId);
       if(!k||!k.body||!k.body.trim()){toast('BODY EMPTY','err');return;}
-      ttsSpeak(k.body,g('fs-tts'));
+      ttsSpeak(expandAppLink(k.body),g('fs-tts'));
     }else if(fsKind==='comm-edit'){
       const ta=g('fs-edit-textarea');
       const text=ta?ta.value:'';
