@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.8 (comments say what the code does, not who decided it) 26-09-06       ║
+║  v0.5.9 (no private component or live figures on any public surface) 26-09-06║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -89,7 +89,7 @@
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
-║      (after exportAll; infrabot triggers, Hermes airlock writes; by name)   ║
+║      (after exportAll; infrabot triggers, an external step writes; by name) ║
 ║  ·  v0.2.11 FULL-STATE EXPORT: buildStateExport + exportState +             ║
 ║      additiveImportState + importStateFile (after status mirror; by name)   ║
 ║  ·  v0.3.0 AUTO-EXPORT: autoExportState + scheduleAutoExport (boot after    ║
@@ -218,6 +218,10 @@
 ║      behavior, or when, or a private record entry, now says only what the    ║
 ║      code does; the record of those decisions lives outside this repo.       ║
 ║      Comments and this banner only; zero braces moved.                       ║
+║  ·  v0.5.9 PUBLIC SURFACES: the status-mirror copy, comments and export      ║
+║      header lines describe the external write step in plain words, and       ║
+║      the reports comment and its check carry synthetic figures instead of    ║
+║      the live monthly counts. Strings, comments and this banner only.        ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -747,7 +751,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.8</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.9</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1045,11 +1049,11 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <button class="btn ghost" id="btn-status-mirror">STATUS MIRROR</button>
       <button class="btn danger" id="btn-wipe">WIPE ALL DATA</button>
     </div>
-    <p class="tiny dim mono" style="margin-top:10px">IMPORT DRAFTS reads a prospect-research .txt dossier and ADDS draft cards (never replaces). STATUS MIRROR exports a .txt of SENT/SCHEDULED card decisions for Hermes to mirror into the tracker (Hermes writes; infrabot only triggers). Wipe is irreversible. Export first.</p>
+    <p class="tiny dim mono" style="margin-top:10px">IMPORT DRAFTS reads a prospect-research .txt dossier and ADDS draft cards (never replaces). STATUS MIRROR exports a .txt of SENT/SCHEDULED card decisions for an external step to mirror into the tracker (that step writes; this app only records the decision). Wipe is irreversible. Export first.</p>
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.8 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.9 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1096,7 +1100,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.8';
+const APP_VERSION='infrabot-v0.5.9';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2845,8 +2849,9 @@ function renderReportsPanel(){
 // card and appended sent again on every run after a sweep (no hand edit and
 // no modal wrote those entries), and through
 // v0.5.0 both entries scored as a
-// fresh archive and a fresh send in whatever month they landed: August 2026
-// read 32 sent against 19 emails, September read 4 sent against none. The
+// fresh archive and a fresh send in whatever month they landed: one month
+// read far more sends than emails went out, and the next read sends where
+// none went out. The
 // v3.2 rule (every non-draft statusHistory entry is one transition in its
 // month) stays for replied; sent and archived read the two helpers below and
 // never walk statusHistory directly. Comments authored with zero brace pairs.
@@ -6136,35 +6141,34 @@ function flushAutoExportNow(){
 }
 
 // ============================================================================
-// v0.2 — THE STATUS MIRROR (infrabot TRIGGERS, Hermes' airlock WRITES).
+// v0.2 — THE STATUS MIRROR (infrabot TRIGGERS, an external step WRITES).
 // ----------------------------------------------------------------------------
 // infrabot is a backendless static HTML app: it CANNOT call an MCP or write the
 // tracker CSV. So "infrabot triggers the tracker write" is implemented honestly
 // as a MANIFEST EXPORT. When the founder has marked cards SENT/SCHEDULED/etc.,
 // this emits a plain-ASCII manifest listing each non-draft card's decision
-// (email/target, status, sent date). Hermes reads the manifest on the next
-// tunnel session and mirrors each row into cruisnworld_tracker.csv THROUGH its
-// existing cw-tracker-write airlock — the CSV keeps its single trusted writer
-// (non-negotiable #7). infrabot writes INTENT; Hermes does the WRITE. No
+// (email/target, status, sent date). An external step reads the manifest
+// later and mirrors each row into the tracker CSV through its own guarded
+// write path — the CSV keeps its single trusted writer, and this app never
+// touches it. infrabot writes INTENT; the external step does the WRITE. No
 // permission prompt: every row is a decision the founder ALREADY made (tracker
 // invariant I3 — "the bot records decisions, never its own").
 //
 // Manifest format is deterministic + plain-ASCII, parsed the same disciplined
 // way infrabot parses dossiers: a header, then one "=" -ruled block per card
-// with labeled lines. Hermes' reader (built ONLY after the green-light read of
-// tracker_log_scratch_prepare confirms the HOLD-row schema) parses these.
+// with labeled lines. The external step's reader parses these.
 // ============================================================================
 // Statuses worth mirroring to the tracker: anything past 'draft' is a founder
 // decision the master record should reflect.
 var MIRROR_STATUSES=['scheduled','sent','replied','ghosted','dead'];
 // v0.2.1 (Option A): map an infrabot card status -> the tracker's ReplyStatus
-// string. The tracker has no held state; the mirror fires tracker_log_send_prepare
+// string. The tracker has no held state; the mirror fires the log-send prepare step
 // to CREATE a LIVE/CONTACTED row at the moment of send. ReplyStatus is a free
 // string in the schema; these are the canonical values.
 var MIRROR_REPLYSTATUS={scheduled:'SCHEDULED',sent:'SENT',replied:'REPLIED',ghosted:'GHOSTED',dead:'DEAD'};
 // A required log_send field with no value is emitted as this visible marker, never
-// fabricated. The founder fills the gap before tracker_commit (the airlock shows the
-// exact line first). Better a visible hole than a guessed master-record value.
+// fabricated. A person fills the gap before the commit step (the write path shows
+// the exact line first). Better a visible hole than a guessed master-record value.
 var MIRROR_GAP='[MISSING - founder fills before commit]';
 function _mg(v){return (v&&String(v).trim())?String(v).trim():MIRROR_GAP;}
 function buildStatusMirror(){
@@ -6174,9 +6178,9 @@ function buildStatusMirror(){
   lines.push('Generated: '+new Date().toISOString());
   lines.push('App: '+APP_VERSION);
   lines.push('Rows: '+rows.length);
-  lines.push('Verb: tracker_log_send_prepare (Option A: create LIVE/CONTACTED row at send; no held state).');
-  lines.push('Contract: infrabot triggers, Hermes cw-tracker-write airlock writes (prepare -> founder confirms -> commit). Master CSV keeps its single writer; no new attack surface.');
-  lines.push('NOTE: section is SUGGESTED LIVE (campaign city). Hermes/founder MUST confirm LIVE vs GLOBAL (off-campaign) before commit - never auto-guessed (schema rule).');
+  lines.push('Verb: log-send prepare (create the LIVE/CONTACTED row at send; no held state).');
+  lines.push('Contract: infrabot triggers, an external guarded write path writes (prepare -> a person confirms -> commit). Master CSV keeps its single writer; no new attack surface.');
+  lines.push('NOTE: section is SUGGESTED LIVE (campaign city). A person MUST confirm LIVE vs GLOBAL (off-campaign) before commit - never auto-guessed (schema rule).');
   rows.forEach(function(c,i){
     var ts='';
     if(Array.isArray(c.statusHistory)){
@@ -6207,7 +6211,7 @@ function buildStatusMirror(){
     lines.push('============================================================');
     lines.push('MIRROR '+(i+1));
     lines.push('============================================================');
-    // --- tracker_log_send_prepare field set (required unless noted) ---
+    // --- log-send prepare field set (required unless noted) ---
     lines.push('section: LIVE   (SUGGESTED - confirm LIVE vs GLOBAL before commit)');
     lines.push('Person: '+_mg(person));                  // tracker MATCH KEY + required
     lines.push('Company: '+_mg(company));                // required
@@ -6415,7 +6419,7 @@ function parseDossierText(text){
     if(srcUrl)trailParts.push('Source: '+srcUrl);
     var arch=_dField(b,['Archetype']);if(arch)trailParts.push('Archetype: '+arch);
     var fit=_dField(b,['Fit thesis']);if(fit)trailParts.push('Fit thesis: '+fit);
-    // v0.2.1 (Option A): the status mirror fires tracker_log_send_prepare, which
+    // v0.2.1 (Option A): the status mirror fires the log-send prepare step, which
     // REQUIRES Person, Company, ResearchStatus, Quarter. Person/Company we already
     // parse (they were only embedded in the title); ResearchStatus/Quarter we pull
     // from the dossier here so they ride WITH the card to send-time. Non-destructive:
@@ -6455,7 +6459,7 @@ function additiveImportComms(parseResult){
     var rec=Object.assign(
       {id:uid(),createdAt:nowISO,history:[],statusHistory:[{status:card.status,timestamp:nowISO}]},
       {title:card.title,direction:card.direction,channel:card.channel,target:card.target,city:card.city,trail:card.trail,subject:card.subject,body:card.body,status:card.status,sentDate:card.sentDate},
-      // v0.2.1 (Option A): mirror fields for tracker_log_send_prepare. Additive;
+      // v0.2.1 (Option A): mirror fields for the log-send prepare step. Additive;
       // empty when the dossier didn't carry them. Hand-logged cards omit them entirely.
       {person:card.person||'',company:card.company||'',researchStatus:card.researchStatus||'',quarter:card.quarter||'',sourceUrl:card.sourceUrl||''}
     );
@@ -6766,7 +6770,7 @@ function wireEvents(){
   // v4.7.0 (infrabot v0.1): IMPORT DRAFTS — parse a .txt dossier into ADDITIVE cards.
   g('btn-import-drafts').addEventListener('click',()=>g('import-drafts-file').click());
   g('import-drafts-file').addEventListener('change',e=>{if(e.target.files&&e.target.files[0]){importDraftsFile(e.target.files[0]);e.target.value='';}});
-  // v0.2: STATUS MIRROR — export sent/scheduled card decisions for Hermes to mirror.
+  // v0.2: STATUS MIRROR — export sent/scheduled card decisions for an external step to mirror.
   g('btn-status-mirror').addEventListener('click',exportStatusMirror);
   // v0.2.11: FULL-STATE EXPORT / IMPORT - deterministic JSON of comms + contacts.
   g('btn-export-state').addEventListener('click',exportState);
