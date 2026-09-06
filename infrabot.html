@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.3 (no-store: a plain reload always shows the newest build) 26-09-06    ║
+║  v0.5.4 (a Groq 429 shows Groq's own reason, retry-after honored) 26-09-06   ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -188,6 +188,12 @@
 ║      every bump dies; the app file moves only its four version sites and     ║
 ║      this banner. tests/nostore_check.py pins the header on the static,      ║
 ║      JSON and 404 paths (founder STEP 0, 2026-09-06).                        ║
+║  ·  v0.5.4 A GROQ 429 SHOWS GROQ'S OWN REASON: the fire path prints the      ║
+║      429 body's message verbatim (limit type, cap, tokens, the stated        ║
+║      wait; only the org id masked), honors the wait once (retry-after        ║
+║      header, else the wait named in the message) and re-fires, and says      ║
+║      the window is per Groq organization. The guessed 'rapid re-fires'       ║
+║      text is retired. tests/groq_reason_check.js pins the parse.             ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -717,7 +723,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.3</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.4</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1019,7 +1025,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.3 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.4 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1066,7 +1072,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.3';
+const APP_VERSION='infrabot-v0.5.4';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -4573,6 +4579,41 @@ Home: ${f.homeCity||'(not set)'}`;
   return messages;
 }
 
+// v0.5.4 A GROQ 429 SHOWS GROQ'S OWN REASON. Groq's 429 body carries the
+// real cause in its message (the limit type, the cap, the tokens used and
+// requested, and the wait it asks for); the old branch replaced all of that
+// with a guess ("TPM window hit from rapid re-fires. Wait ~60s") that was
+// wrong three times in one night. Two helpers, both pure, both pinned by
+// tests/groq_reason_check.js. Comments authored with zero brace pairs.
+//
+// groqRetryAfterSec: the wait Groq asks for, in seconds. The retry-after
+// header first (Groq sends it, but a browser page cannot read it unless the
+// API exposes it to CORS, and Groq exposes no headers: measured, the header
+// reads null here), then the "try again in 7.5s" clause of the message
+// itself, which the page can always read. Null when neither names a wait.
+function groqRetryAfterSec(resp,txt){
+  const h=parseFloat(resp&&resp.headers&&resp.headers.get?resp.headers.get('retry-after'):'');
+  if(!isNaN(h))return h;
+  const m=/try again in\s+(\d+(?:\.\d+)?)\s*(ms|s|m)\b/i.exec(txt||'');
+  if(!m)return null;
+  const n=parseFloat(m[1]);
+  return m[2]==='ms'?n/1000:m[2]==='m'?n*60:n;
+}
+// groqRateLimitReason: the pane text for a 429. Groq's own message verbatim
+// with ONE substitution, the organization id masked (an account identifier
+// that would otherwise ride the council history into state and exports),
+// then what the page did about the wait, then the fact that Groq counts
+// these limits per organization, so any other caller on the same Groq
+// account shares the window.
+function groqRateLimitReason(txt,waited){
+  let msg='',kind='';
+  try{const j=JSON.parse(txt||'');msg=String((j.error&&j.error.message)||'');kind=String((j.error&&(j.error.type||j.error.code))||'');}catch(e){msg=String(txt||'');}
+  msg=msg.replace(/org_[A-Za-z0-9]+/g,'org_[masked]');
+  const said='Groq 429, in Groq\'s own words: "'+(msg||'(no message in the body)')+'"'+(kind?' [type: '+kind+']':'');
+  const did=waited===null?' No wait was readable (the retry-after header is not exposed to a browser page, and the message named none), so nothing was retried.':' Waited '+waited+'s as Groq asked and re-fired once; still limited.';
+  return said+did+' Groq counts these limits per organization, not per key: any other caller on the same Groq account shares this window. Re-fire after the stated wait.';
+}
+
 async function callGroq(model,messages){
   // v0.2.8 — PER-MODEL DYNAMIC BUDGET. Replaces the old includes('qwen') branch
   // (Qwen got dynamic budgeting, Llama got a static 3000) with a single path that
@@ -4617,13 +4658,34 @@ async function callGroq(model,messages){
     });
     return resp;
   };
-  let resp=await doCall(maxOut);
+  let usedMax=maxOut;
+  let resp=await doCall(usedMax);
   // 413 retry: halve the ALREADY-GUARDED maxOut. The overflow guard above means a
   // 413 here is a rolling-TPM-window hit (rapid re-fires), not a single-request
   // size bust; halving output frees window room without recomputing input. Now
   // applies to every slot, not just the small one.
+  // v0.5.4 bracket: the two lines above are the v0.2.8 guess and the 413
+  // evidence does not support them (a Groq 413 is one request over the
+  // per-request cap, the window error is 429 and is handled below); the
+  // halving itself is left as it stands for a 413-touching ship to judge.
   if(!resp.ok && resp.status===413){
-    resp=await doCall(Math.max(256,Math.floor(maxOut/2)));
+    usedMax=Math.max(256,Math.floor(maxOut/2));
+    resp=await doCall(usedMax);
+  }
+  // v0.5.4: honor Groq's stated wait once. A 429 whose body or header names
+  // a wait of 90s or less pauses that long (a toast says so) and re-fires
+  // the same request once; a longer or unnamed wait falls straight through
+  // to the reason text below. The body is read from a clone so the error
+  // path below can still read the original.
+  let waited=null;
+  if(!resp.ok&&resp.status===429){
+    const sec=groqRetryAfterSec(resp,await resp.clone().text());
+    if(sec!==null&&sec<=90){
+      waited=Math.ceil(sec);
+      toast('GROQ 429 · WAITING '+waited+'S AS GROQ ASKED, THEN ONE RE-FIRE','amber');
+      await new Promise(r=>setTimeout(r,waited*1000+250));
+      resp=await doCall(usedMax);
+    }
   }
   // v0.4.3 preview heal: a 404 means the model id left Groq's catalog (Groq
   // answers 404 model_not_found once an id is gone; a pulled preview has no
@@ -4645,15 +4707,16 @@ async function callGroq(model,messages){
     // NEVER baked into the thrown/displayed message. Every user-facing string is
     // a clean, actionable diagnostic. Scrubbing applies to ALL branches, not just
     // the one symptom (429) that was observed.
+    // v0.5.4 bounds the 429 branch: Groq's own message IS shown there, with the
+    // org id masked (groqRateLimitReason), because the guess it replaced was
+    // wrong; every other branch keeps the scrub as written.
     const txt=await resp.text();
     console.error('[callGroq] HTTP '+resp.status+' raw body (not shown in UI):',txt);
     if(resp.status===413){
       throw new Error('Groq 413 (TPM cap): payload too large even after retry. WIPE MEMORY or shorten the comm body, then re-fire.');
     }
     if(resp.status===429){
-      // Rolling-TPM-window hit from rapid re-fires, NOT single-request overflow.
-      // The actionable instruction is "wait", not "shrink input".
-      throw new Error('Groq rate limit (429): TPM window hit from rapid re-fires. Wait ~60s, then re-fire.');
+      throw new Error(groqRateLimitReason(txt,waited));
     }
     if(resp.status===401||resp.status===403){
       throw new Error('Groq auth error ('+resp.status+'): check the API key in Settings.');
