@@ -3,15 +3,15 @@
 
 THE LANE. The app's boot auto-export lands infrabot_state_YYYY-MM-DD.json in
 the resolved export dir (LPI_EXPORT_DIR when set, else repo-local exports/
-beside this script; the same destination seam serve.py resolves, 2026-07-29).
+beside this script; the same destination seam serve.py resolves).
 This tool reads the NEWEST export by modification time, never writes or
 deletes anything in that dir, and upserts one tracker row per comm card.
 
-OWNERSHIP LAW (the ratified mapping philosophy, generic form). Every column
+OWNERSHIP LAW (the agreed mapping philosophy, generic form). Every column
 except Notes is APP-OWNED and mechanically rewritten on every run, verbatim
 from the export. Notes is HUMAN-OWNED: this tool never writes it, and an
-existing Notes cell survives every run byte-for-byte. The private-ops
-reconcile needs a ratified translation table because its tracker already
+existing Notes cell survives every run byte-for-byte. A private
+reconcile needs an agreed translation table because its tracker already
 speaks a human status vocabulary; this tracker is born app-vocabulary, so
 the philosophy degenerates to verbatim pass-through with zero translation
 and therefore zero conflict class. Narrative stays human-authored; the tool
@@ -43,7 +43,7 @@ written. A missing tracker.csv is the one forgiven absence: it is a tracked
 template whose only content is the header, so it is recreated and the report
 says so.
 
-THE FOUNDER-ENVIRONMENT GUARD. When LPI_EXPORT_DIR is set AND resolves
+THE ENVIRONMENT GUARD. When LPI_EXPORT_DIR is set AND resolves
 outside this repo, the tool REFUSES before reading anything: this tool
 writes the tracked template tracker.csv, so reconciling a private export
 dir would write real rows into a publishable repo. The refusal names the
@@ -83,7 +83,7 @@ def fail(msg):
 
 
 def guard_outside_export_dir(exports_dir, argv):
-    """The founder-environment guard: refuse an env-set export dir outside
+    """The environment guard: refuse an env-set export dir outside
     the repo unless the override flag is explicit. Runs BEFORE any read, so
     a refusal proves nothing was opened and nothing was written."""
     if not os.environ.get("LPI_EXPORT_DIR"):

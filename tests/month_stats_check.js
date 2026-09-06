@@ -1,13 +1,13 @@
 // month_stats_check.js: the REPORTS tab counts emails, not corrections
-// (founder ruling 2026-09-02; infrabot v0.5.1).
+// (infrabot v0.5.1).
 //
 // Runs the REAL computeMonthStats, sentRecord, standingArchiveEntries and
 // localYearMonth extracted from infrabot.html (never a re-implementation)
 // against a SYNTHETIC fixture: invented card names, invented ids, synthetic
-// timestamps. The fixture reproduces the ghost/re-flip PATTERN the founder's
-// book carried on 2026-09-02 (the went-quiet engine auto-ghosts a sent card,
-// the post-send close re-flipped it to sent; corrected 2026-09-02, ITEM 105:
-// no founder act wrote those entries), card for card by shape, name for nothing.
+// timestamps. The fixture reproduces the ghost/re-flip PATTERN the real
+// book carried (the went-quiet engine auto-ghosts a sent card, the external
+// post-send close re-flipped it to sent; no hand edit wrote those entries),
+// card for card by shape, name for nothing.
 // The real state file, exports and dossier never enter this file: the repo
 // is public.
 //
@@ -54,7 +54,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   // ---- THE FIXTURE ------------------------------------------------------
   // One row per card: [currentStatus, createdYM, sentDate|null, history],
   // history entries [status, YM, auto]. Months only; every day and hour is
-  // synthetic (see stamp). Shape census of the 2026-09-02 book, names
+  // synthetic (see stamp). Shape census of the real book, names
   // invented. Local month = America/Chicago, the profile default.
   var A=true;
   var ROWS=[

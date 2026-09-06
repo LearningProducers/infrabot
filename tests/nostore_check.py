@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """nostore_check.py: every response serve.py sends carries
-Cache-Control: no-store (infrabot v0.5.3, founder STEP 0, 2026-09-06).
+Cache-Control: no-store (infrabot v0.5.3).
 
 Starts the REAL serve.py handler (imported, never re-implemented) on an
 ephemeral loopback port with LPI_STATE_DIR and LPI_EXPORT_DIR pointed at a
-throwaway temp directory, so nothing here reads or writes the founder's
+throwaway temp directory, so nothing here reads or writes the real
 state, exports or heartbeat. Fetches the three response shapes the server
 has (the static file, the JSON /state path, a 404) and fails on any of
 them arriving without the header. Stdlib only; the repo is public and the
