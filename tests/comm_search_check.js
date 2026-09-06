@@ -1,12 +1,12 @@
-// comm_search_check.js: the COMM SEARCH box (infrabot v0.5.2, founder ask
-// 2026-09-05: type a name, see if we ever touched them).
+// comm_search_check.js: the COMM SEARCH box (infrabot v0.5.2: type a name,
+// see if we ever touched them).
 //
 // Runs the REAL commSearchMatches, commSearchStatus, commSearchTab and
 // commSearchDate extracted from infrabot.html by a brace walk (never a
 // re-implementation), with the real getCommBucket, sentRecord,
 // localYearMonth, archiveMonth, inArchiveWindow and the STATUS_DISPLAY map
 // beside them, against a SYNTHETIC fixture: invented company names, people,
-// addresses, ids and timestamps. The founder's state file never enters this
+// addresses, ids and timestamps. The real state file never enters this
 // file: the repo is public.
 //
 // What it pins: a query matches on company, contact name, email and title,

@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.7 (EDIT BODY text size persists across close and refresh) 26-09-06     ║
+║  v0.5.8 (comments say what the code does, not who decided it) 26-09-06       ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -111,7 +111,7 @@
 ║  ·  v0.3.5 SILENT SESSIONS: auto-export is BOOT-ONLY. The saveState hook     ║
 ║      and the hideModal/closeFullscreen/blur flushes are REMOVED: a session   ║
 ║      downloads nothing; the next boot exports every committed edit. The      ║
-║      DONE button and saveComm are REMOVED (ruled redundant): x/backdrop      ║
+║      DONE button and saveComm are REMOVED (redundant): x/backdrop            ║
 ║      via closeCommModal are the comm modal's only exits.                     ║
 ║  ·  v0.4.0 EXPORT ENDPOINT: the boot export's DESTINATION moves. It POSTs    ║
 ║      to EXPORT_ENDPOINT_PATH on its own origin (serve.py, loopback-only,     ║
@@ -134,7 +134,7 @@
 ║      statusHistory timestamps STAY UTC instants: derivation moved, data      ║
 ║      anchors untouched. Export filenames were already local; unchanged.      ║
 ║  ·  v0.4.3 COUNCIL SLOT B SWAP: roster B moves to qwen/qwen3.6-27b (Groq     ║
-║      PREVIEW, founder-ruled 26-07-22; gpt-oss-20b RETIRED from roster, not   ║
+║      PREVIEW); gpt-oss-20b RETIRED from roster, not                          ║
 ║      dead). MODEL_BUDGET row rides a conservative 6K TPM wall, reasoning     ║
 ║      effort none (qwen3.6 takes none|default, never low). Boot maps split    ║
 ║      by contract: DEAD_MODEL_MAP heals shut-down ids; RETIRED_MODEL_MAP      ║
@@ -147,7 +147,7 @@
 ║      SAME derivation (computeMonthStats, downloadMonthReport, month list).   ║
 ║      FAIL VISIBLE: null archive month always renders. Statuses, buckets,     ║
 ║      stored history, export chain: untouched. Past months live in REPORTS.   ║
-║  ·  v0.4.5 SWEEP-RULED STRING SURGERY: shipped-string edits only, zero       ║
+║  ·  v0.4.5 STRING SURGERY (sweep-driven): shipped-string edits only, zero    ║
 ║      logic. Founder name genericized (council prompt + comments), one        ║
 ║      campaign name scrubbed, banner doctrine pointer recut, Overview map     ║
 ║      label dropped. Ladder delta zero; em-dash floor carried.                ║
@@ -166,28 +166,28 @@
 ║  ·  v0.5.0 FILE-BACKED NARROW STATE: comms+network live in ONE server        ║
 ║      file (serve.py /state, rev-guarded 409 + dated snapshots + heartbeat    ║
 ║      fence); page merges at boot/focus, file wins for records the tab did    ║
-║      not author (founder constraint 2026-08-10); external writer = the       ║
-║      lpi-ops post-send close. Serverless open: localStorage-only, as ever.   ║
+║      not author (the authorship constraint); external writer = the           ║
+║      external post-send close. Serverless open: localStorage-only, as ever.  ║
 ║  ·  v0.5.1 REPORTS COUNT EMAILS, NOT CORRECTIONS: sentRecord (one send       ║
 ║      per card, sentDate first, the first sent entry as the fallback) and     ║
 ║      standingArchiveEntries (a later sent entry reverses a ghost or dead)    ║
 ║      feed computeMonthStats + downloadMonthReport, so an auto-ghost and      ║
-║      the close's re-flip that undid it cancel (ITEM 105: the re-flip was     ║
-║      tools/postsend_close.py's, never the founder's). month_stats_check.js   ║
-║      pins the rule on a synthetic fixture (founder ruling 2026-09-02).       ║
+║      the external writer's re-flip that undid it cancel (that re-flip was    ║
+║      the post-send close tool's, never a hand edit). month_stats_check.js    ║
+║      pins the rule on a synthetic fixture.                                   ║
 ║  ·  v0.5.2 COMM SEARCH: one box above the DRAFTS/PIPELINE/ARCHIVE tabs;      ║
 ║      type a company, a contact name, or an email and every matching card     ║
 ║      lists with the tab it lives in and its status word (the sent date       ║
 ║      when the record carries one); a tap opens the card; no match reads      ║
 ║      NO RECORD. Read live from state.comms, no schema change, no new         ║
-║      dependency (founder ask 2026-09-05). tests/comm_search_check.js pins    ║
+║      dependency. tests/comm_search_check.js pins                             ║
 ║      the matcher, the status words and the tab labels on a fixture.          ║
 ║  ·  v0.5.3 NO-STORE: serve.py sends Cache-Control: no-store on every         ║
 ║      response (one end_headers override, SimpleHTTP kept), so a plain        ║
 ║      reload always shows the newest build and the cache-empty ritual on      ║
 ║      every bump dies; the app file moves only its four version sites and     ║
 ║      this banner. tests/nostore_check.py pins the header on the static,      ║
-║      JSON and 404 paths (founder STEP 0, 2026-09-06).                        ║
+║      JSON and 404 paths.                                                     ║
 ║  ·  v0.5.4 A GROQ 429 SHOWS GROQ'S OWN REASON: the fire path prints the      ║
 ║      429 body's message verbatim (limit type, cap, tokens, the stated        ║
 ║      wait; only the org id masked), honors the wait once (retry-after        ║
@@ -214,6 +214,10 @@
 ║      restored at boot, so it survives close and refresh. A stored value      ║
 ║      outside the four sizes falls back to LG. tests/fs_size_check.js pins    ║
 ║      the key, the write, the restore and the fallback.                       ║
+║  ·  v0.5.8 PUBLIC COMMENTS: every comment that named who decided a           ║
+║      behavior, or when, or a private record entry, now says only what the    ║
+║      code does; the record of those decisions lives outside this repo.       ║
+║      Comments and this banner only; zero braces moved.                       ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -240,7 +244,7 @@
 ║    a jab/insult/meta msg no longer triggers an unrequested draft.            ║
 ║    COUNCIL POSTURE TOWARD FOUNDER bans inward-supplicant concede-and-        ║
 ║    over-deliver; PRONOUN DISAMBIGUATION tightened. No JS/DOM change.         ║
-║  · Canonical doctrine: INFRABOT_QA_RUNBOOK.md, in the lpi-ops repo           ║
+║  · Canonical doctrine: the QA runbook, kept in the private ops repo          ║
 ║    (state shape, migrations, locked counts).                                 ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
@@ -743,7 +747,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.7</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.8</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -962,7 +966,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="autosave-ind" id="autosave-comm"><span class="as-dot"></span><span class="as-label">SAVED</span></span>
       <button class="btn danger hidden" id="btn-delete-comm">DELETE</button>
       <button class="btn ghost hidden" id="btn-copy-comm">COPY ALL</button>
-      <!-- v0.3.5: the DONE button is REMOVED, ruled redundant. The x and the backdrop
+      <!-- v0.3.5: the DONE button is REMOVED as redundant. The x and the backdrop
            are the close affordances; both commit silently via closeCommModal. -->
     </div>
   </div>
@@ -1045,7 +1049,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.7 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.8 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1092,7 +1096,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.7';
+const APP_VERSION='infrabot-v0.5.8';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1136,7 +1140,7 @@ const MAX_PRIOR_DRAFTS=3;
 // write path (always saveState(), never a new writer). Continuous save replaces
 // "click SAVE to not lose work"; the per-surface SAVE button keeps its DELIBERATE
 // job (validation + triage move + history snapshot at council-fire). See the
-// v4.4.0 DELTA runbook for the four founder decisions (D1b/D2a/D3a/D4-wide).
+// v4.4.0 DELTA notes for the four design decisions (D1b/D2a/D3a/D4-wide).
 //
 // HARD EXCLUDES (never autosaved, credential surfaces): gate-input, groq-key-input,
 // newpass-input, newpass-confirm. Persisting secrets to localStorage is a security
@@ -1463,15 +1467,15 @@ const MODEL_LABELS={'openai/gpt-oss-120b':'GPT-OSS 120B','qwen/qwen3.6-27b':'QWE
 // Dynamic max_tokens budgeting reads this for BOTH slots — the old "big slot has
 // 12K headroom, static output is safe" assumption died when both council models
 // landed on Groq's 8K free-tier ceiling. Future roster swaps = edit a row here,
-// not the request path. Console-verified 2026-07-16: both gpt-oss models are
+// not the request path. Console-verified: both gpt-oss models are
 // 8K TPM / 30 RPM / 1K RPD / 200K TPD on the free tier.
-// v0.4.3: slot B is qwen/qwen3.6-27b (Groq PREVIEW, founder-ruled 2026-07-22).
+// v0.4.3: slot B is qwen/qwen3.6-27b (Groq PREVIEW).
 // Its wall is set at a CONSERVATIVE 6K TPM: the account's console number for
 // this model is login-gated (crew cannot read it) and the docs table's
-// developer-plan 8K was ruled out as a source. Under-reserving only clamps
+// developer-plan 8K is not used as a source. Under-reserving only clamps
 // output headroom; over-reserving recreates the 413 class v0.2.8 killed. If
 // the founder's console reads 8K for it, the row moves to 7700/8000, one edit.
-// reasoning_effort for qwen3.6 takes none|default (model docs, read 26-07-22,
+// reasoning_effort for qwen3.6 takes none|default (per the model docs,
 // never low|medium|high); none is the non-thinking mode, the latency and
 // TPM-headroom analogue of gpt-oss low.
 const MODEL_BUDGET={
@@ -1544,7 +1548,7 @@ function loadState(){
   // has killed it, never while it can still answer.
   const DEAD_MODEL_MAP={'llama-3.3-70b-versatile':'openai/gpt-oss-120b','qwen/qwen3-32b':'openai/gpt-oss-20b'};
   // v0.4.3 RETIRED roster migration (boot): gpt-oss-20b is ALIVE upstream but
-  // off the two-option roster (founder ruling 2026-07-22, slot B family swap),
+  // off the two-option roster (the slot B family swap),
   // so it cannot sit in DEAD_MODEL_MAP without lying about why it moved. A
   // persisted 20b would make the select display a model the state does not
   // hold, so it migrates to the current slot B occupant. Runs AFTER the dead
@@ -1640,7 +1644,7 @@ function saveState(){
   idbSave(payload);
   // v0.5.0: schedule the narrow-slice POST to the launcher's /state file.
   // NOT the removed v0.3.0 export hook returning: that fired browser
-  // DOWNLOADS (noise, SILENT SESSIONS ruling); this is a silent loopback
+  // DOWNLOADS (noise, the silent-sessions rule); this is a silent loopback
   // write, debounced, feature-detected once per boot, and a no-op the
   // moment the endpoint is dead or the write is a merge echo.
   scheduleStateSync();
@@ -1836,7 +1840,7 @@ function runAutosave(surfaceKey){
     return 'wrote';
   }
 
-  // NEW record. v4.4.0-fix (founder-chosen full CW model): comm/contact/insight promote
+  // NEW record. v4.4.0-fix (the full CW model): comm/contact/insight promote
   // to their real store on the FIRST non-empty keystroke. NO required-field gate, NO scratch.
   // The record IS the live state (CW doctrine). A cityless/titleless comm is allowed; the map
   // (resolveCity→null→skipped) and triage (buckets by status) already tolerate it, so no
@@ -2162,7 +2166,7 @@ const CITY_TZ={
   'wellington':'Pacific/Auckland','christchurch':'Pacific/Auckland',
   'fiji':'Pacific/Fiji','suva':'Pacific/Fiji'
 };
-// v0.2.7 STATE-LEVEL CLOCK FALLBACK (WOODSHOP task 5, founder-ruled option c).
+// v0.2.7 STATE-LEVEL CLOCK FALLBACK.
 // SINGLE-ZONE STATES ONLY: this table holds the 35 states that sit ENTIRELY
 // inside one IANA zone. A single-zone state is a fact, not a heuristic, so the
 // never-guess law survives intact. Split-timezone states are deliberately
@@ -2505,7 +2509,7 @@ function setCommsView(v){
 }
 
 // v0.2.10 WENT QUIET ENGINE (was v3.2 AUTO-ARCHIVE) ============================
-// Founder doctrine (v3.2, refined v0.2.10): the app MAY auto-decide status when
+// App doctrine (v3.2, refined v0.2.10): the app MAY auto-decide status when
 // the founder has defined the threshold. A SENT comm with no reply logged, sat
 // untouched for AUTO_ARCHIVE_DAYS (5), goes to GHOSTED (which renders WENT QUIET)
 // and files to ARCHIVE. The clock is the MOST RECENT statusHistory timestamp,
@@ -2550,7 +2554,7 @@ function autoArchiveStaleComms(){
   return moved;
 }
 
-// v0.5.2 COMM SEARCH (founder ask 2026-09-05: a company name in the fire
+// v0.5.2 COMM SEARCH (the ask: a company name in the fire
 // queue, and no way to tell from the app whether it had ever been drafted,
 // sent, replied, or archived without opening the tabs one by one). One box
 // above the triage bar; every keystroke re-reads state.comms, the same live
@@ -2836,11 +2840,10 @@ function renderReportsPanel(){
   return html;
 }
 
-// v0.5.1 THE REPORTS TAB COUNTS EMAILS, NOT CORRECTIONS (founder ruling
-// 2026-09-02). The went-quiet engine appends ghosted, the post-send close
-// (tools/postsend_close.py, lpi-ops) re-flipped the card and appended sent
-// again on every desk-button run after a sweep (ITEM 105, corrected
-// 2026-09-02: no founder act and no modal wrote those entries), and through
+// v0.5.1 THE REPORTS TAB COUNTS EMAILS, NOT CORRECTIONS. The went-quiet
+// engine appends ghosted, the external post-send close tool re-flipped the
+// card and appended sent again on every run after a sweep (no hand edit and
+// no modal wrote those entries), and through
 // v0.5.0 both entries scored as a
 // fresh archive and a fresh send in whatever month they landed: August 2026
 // read 32 sent against 19 emails, September read 4 sent against none. The
@@ -2957,7 +2960,7 @@ function downloadMonthReport(yearMonth){
   // stays a UTC instant, the data anchor; only this rendering converts. A 9:34 PM CDT
   // send is 02:34Z NEXT DAY, and the old UTC slice stamped tomorrow on tonight's send.
   // Same Intl pattern as localTimestamp; comment authored with zero brace pairs.
-  // v0.5.1 (watchman catch): a bare YYYY-MM-DD is already a local calendar date
+  // v0.5.1 (review catch): a bare YYYY-MM-DD is already a local calendar date
   // under v0.4.2 law and prints as itself. new Date on a bare date is UTC
   // midnight, which rendered every sentDate-dated send one day early.
   const fmtDate=ts=>{try{if(/^\d\d\d\d-\d\d-\d\d$/.test(String(ts).trim()))return String(ts).trim();const d=new Date(ts);if(isNaN(d.getTime()))return ts;const tz=(state&&state.profile&&state.profile.homeTz)||'America/Chicago';const date=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);const time=new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:false}).format(d);const abbr=new Intl.DateTimeFormat('en-US',{timeZone:tz,timeZoneName:'short'}).formatToParts(d).find(p=>p.type==='timeZoneName')?.value||tz;return date+' '+time+' '+abbr;}catch(e){return ts;}};
@@ -3772,7 +3775,7 @@ function deleteContact(){
   editingContactId=null;
 }
 
-// v4.6.2: LOG TOUCH button + its click dispatch removed at founder request. This
+// v4.6.2: LOG TOUCH button + its click dispatch removed as requested. This
 // function is now DEFINED-BUT-UNCALLED (same inert convention as snapshotSave /
 // cancelRestore). The touch fields (touches, lastTouchAt) stay on the contact model
 // untouched. Re-add the button + the `touch-contact` dispatch line to revive.
@@ -3879,7 +3882,7 @@ function updateCityHint(){
 }
 
 // ============================================================================
-// v0.3.3: THE PHANTOM-CLOSE CURE. Measured defect, 2026-07-20: saveComm was the
+// v0.3.3: THE PHANTOM-CLOSE CURE. Measured defect: saveComm was the
 // full DONE handler (commit + FILE + FOLLOW + TOAST + CLOSE) and it was wired to the
 // x button and the modal backdrop, the two INCIDENTAL close affordances. So any
 // activation of either, intended or not, ran a complete DONE: hideModal removed the
@@ -3888,7 +3891,7 @@ function updateCityHint(){
 // never wrong; it was being told, truthfully, that the edit session had ended.
 // THE SPLIT: the commit half lives here and is SILENT: it persists and repaints and
 // files the card by status, and it does NOT close, does NOT toast, does NOT clear the
-// editing binding. v0.3.5: saveComm and the DONE button are REMOVED, ruled redundant;
+// editing binding. v0.3.5: saveComm and the DONE button are REMOVED as redundant;
 // closeCommModal is now the sole caller. A close is a close.
 // Returns {destBucket, priorView}: the filing answer, kept so the v0.3.4 no-op
 // guard's early return and the full path stay shape-identical.
@@ -3919,7 +3922,7 @@ function commitCommRecord(){
   if(editingCommId){
     const k=state.comms.find(x=>x.id===editingCommId);
     if(k){
-      // v0.3.4 NO-OP COMMIT GUARD; v0.4.1 BASELINE FIX. RULING carried verbatim:
+      // v0.3.4 NO-OP COMMIT GUARD; v0.4.1 BASELINE FIX. The rule, carried verbatim:
       // updatedAt asserts the DATA changed, never that the modal closed. v0.3.4
       // measured "changed" against the LIVE record, but closeCommModal flushes
       // autosave into that record one call before this compare runs, so the live
@@ -3991,17 +3994,17 @@ function commitCommRecord(){
 
 // v0.3.5: saveComm, the v0.3.3 DONE handler, is REMOVED with its button, dead code
 // removed rather than orphaned. Its DONE-specific half (the landed-where toast and the
-// deliberate-save semantics) is ruled redundant: autosave already persisted every
+// deliberate-save semantics) is redundant: autosave already persisted every
 // keystroke and closeCommModal already files the card, so the button bought nothing.
 
 // v0.3.3: the CLOSE path for the comm modal (x button, backdrop). The card is committed
 // and follows its bucket, so a status change never makes a card look like it vanished.
 // v0.3.5: with the DONE button removed this is the ONLY way a comm edit session ends,
-// and the filing it runs is the whole commit story. v0.4.1 SAVED PILL (founder-ruled):
+// and the filing it runs is the whole commit story. v0.4.1 SAVED PILL:
 // announce a COMMIT, never a close. The commit half stays silent (v0.3.3 law); this
 // close path reads its filing answer and shows one transient pill only when the edit
 // session actually committed. The zero-edit guard's silent return keeps this dark, so
-// a no-op close stays exactly as quiet as v0.3.4 ruled it.
+// a no-op close stays exactly as quiet as v0.3.4 made it.
 function closeCommModal(){
   flushAutosaveNow();
   const res=commitCommRecord();
@@ -4563,7 +4566,7 @@ Home: ${f.homeCity||'(not set)'}`;
   });
   // v2.1: Prior drafts halved from 8→4, so Qwen3 can now carry 3 turns instead of 2 without
   // re-hitting the 6K TPM ceiling. Llama 3.3 70B has 12K TPM, still carries 4.
-  // v3.8.1 Attempt #6: Both slots capped at 2 turns per founder directive. Two reasons:
+  // v3.8.1 Attempt #6: Both slots capped at 2 turns by design. Two reasons:
   //   (1) Qwen3 keeps 413-ing at 3 turns + 4,456-token doctrine + comm body — dropping to
   //       2 buys ~400-700 tokens of TPM headroom.
   //   (2) A rewrite only needs the prior critique turn + the current prompt to do its job.
@@ -4853,7 +4856,7 @@ function clearCouncilHistory(){
   const key=councilHistoryKey();if(!key)return;
   // v4.3.0: CLEAR THREAD now also wipes PRIOR DRAFT VERSIONS for the active comm — the
   // structural fix to the dead-line-leak (Qwen3 quoting an old draft as if it were the
-  // live body, 2026-06-02). Prior versions were injected into the council dossier on every
+  // live body). Prior versions were injected into the council context on every
   // fire (SESSION CONTEXT, not councilHistory), so clearing the thread alone left them in
   // context for the crew to quote. The leak can't recur if the dead lines never reach the
   // dossier — you can't cite what was never sent. This collapses the old CLEAR THREAD and
@@ -5707,7 +5710,7 @@ function exportAll(){
 // stripSecrets copy); this chain never needed the strip, names-only by
 // construction, so the file carries no credential either way. PRIVATE artifact
 // (real names by design); its home is
-// lpi-ops by founder Finder drag, never the publishable infrabot repo.
+// the private ops repo by hand, never this publishable repo.
 // ============================================================================
 const STATE_SCHEMA_VERSION=1;
 // Rebuild any value with object keys in sorted order; ARRAY order is preserved
@@ -5843,12 +5846,12 @@ function importStateFile(file){
 // below runs unchanged, so a clone without the launcher keeps working and
 // the record is never silently dropped. Everything upstream of the
 // destination (boot-only trigger, debounce, hold, content gate, serializer)
-// is byte-untouched by ruling.
+// is byte-untouched on purpose.
 // ============================================================================
 const AUTO_EXPORT_ENABLED=true;
 // v0.4.0 config, named (not inlined) so a future multi-machine sync build
 // extends this constant and serve.py's EXPORTS_DIR instead of hunting
-// literals; sync itself is OUT OF SCOPE by ruling 2026-07-21. Same-origin
+// literals; sync itself is out of scope for this seam. Same-origin
 // relative path by construction: the app never names a host or port.
 const EXPORT_ENDPOINT_PATH='/export';
 // Debounce window: 3s coalesces a burst of edits (or a dossier import that adds
@@ -5857,7 +5860,7 @@ const EXPORT_ENDPOINT_PATH='/export';
 // collapse into a single file when they fall inside the window.
 const AUTO_EXPORT_DEBOUNCE_MS=3000;
 var _autoExportTimer=null;
-// v0.3.1 CONTENT-GATE MEMORY. THE RULING: an auto-export exists only when the truth changed.
+// v0.3.1 CONTENT-GATE MEMORY. THE RULE: an auto-export exists only when the truth changed.
 // The last payload auto-export actually wrote, held in memory and mirrored to localStorage under
 // the earthinfra namespace (new key, never a rename) so a reload does not re-export unchanged
 // truth. Stored as the full payload STRING, not a hash: buildStateExport is already deterministic
@@ -5932,19 +5935,19 @@ function _autoExportDeliver(text){
 }
 
 // ============================================================================
-// v0.5.0 FILE-BACKED NARROW STATE (founder fork rulings 2026-08-10).
+// v0.5.0 FILE-BACKED NARROW STATE.
 // The comms+network slice lives in ONE server-authoritative file
-// (serve.py /state) so an external writer, the lpi-ops post-send close, can
+// (serve.py /state) so an external writer, the post-send close tool, can
 // flip a card to sent and this page trues itself without a founder import
-// motion. NARROW by ruling: never profile, models, councilHistory, or
+// motion. NARROW by design: never profile, models, councilHistory, or
 // state.groqKey (the credential is the reason narrow won the fork).
-// Three fences, all founder-ruled in one build:
+// Three fences, all shipped in one build:
 //   C  the page heartbeats while open; the external writer refuses while
 //      the beat is fresh (its refusal is named, never silent).
 //   A  every write carries the rev it was built on; the server 409s a
 //      stale base and the loser refetches + re-merges before one retry.
 //   B  the server snapshots the prior file before every accepted write.
-// THE AUTHORSHIP CONSTRAINT (founder-stamped 2026-08-10): after a merge,
+// THE AUTHORSHIP CONSTRAINT: after a merge,
 // any record this tab did not originate re-renders FROM THE FILE, and the
 // DOM stops being its author. The one exception is the record open under
 // edit right now (editingCommId / editingContactId): its unsaved keystrokes
@@ -6074,7 +6077,7 @@ function initStateSync(){
     });
 }
 // ============================================================================
-// v0.3.2 EDIT-SESSION HOLD. THE RULING: one auto-export per edit session, never
+// v0.3.2 EDIT-SESSION HOLD. THE RULE: one auto-export per edit session, never
 // mid-typing.
 // ----------------------------------------------------------------------------
 // v0.3.1 killed the noise from unchanged truth and left one source standing: the
@@ -6593,7 +6596,7 @@ function wireEvents(){
   wireAutosave(); // v4.4.0: attach live-autosave input listeners to all watched fields
   restorePromptDraft(); // v4.4.0: recover an unsent council prompt draft from a prior session
   document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',e=>{
-    // v0.3.3: this handler is the caller the 2026-07-20 stack trace named. It used to run
+    // v0.3.3: this handler is the caller the stack trace named. It used to run
     // saveComm() for the comm modal, which made every activation of the × a full phantom
     // DONE. It now runs closeCommModal(): the same filing, silently, with no DONE semantics.
     // The trusted-gesture gate is first so a synthesized click never reaches any close path.

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""infrabot launcher (born v0.4.0, Door E; export destination seam added
-2026-07-29): serves the app AND owns the export write.
+"""infrabot launcher (born v0.4.0; export destination seam added in
+v0.4.6): serves the app AND owns the export write.
 
 Replaces the bare `python3 -m http.server 8119 --bind 127.0.0.1` line in the
-Desktop launcher (~/Desktop/open-infrabot.command, founder-hand). Two jobs:
+Desktop launcher (~/Desktop/open-infrabot.command, installed by hand). Two jobs:
 
   1. SERVE: static files from this script's own directory (the repo clone),
      exactly the door the app has opened at since the OPERATING ERA:
@@ -13,7 +13,7 @@ Desktop launcher (~/Desktop/open-infrabot.command, founder-hand). Two jobs:
   2. EXPORT: POST /export receives the app's boot auto-export payload (the
      existing names-only buildStateExport JSON, serializer untouched) and
      writes it to EXPORTS_DIR as infrabot_state_YYYY-MM-DD.json. Same-day
-     re-boot OVERWRITES the file (founder overwrite ruling 2026-07-21), which
+     re-boot OVERWRITES the file (the same-day overwrite rule), which
      keeps the exports/ handoff compatible with crm_reconcile.py's
      newest-by-mtime glob: one dated file per day, mtime always the latest
      write. The write is atomic (temp file + os.replace), so the reconcile
@@ -27,12 +27,12 @@ Stdlib only, zero dependencies, by law (the app repo ships no build step and
 no requirements file, and this launcher inherits that).
 
 CONFIG (named constants so a future multi-machine sync build extends these
-instead of hunting literals; sync itself is OUT OF SCOPE by ruling
-2026-07-21):
+instead of hunting literals; sync itself is out of scope for this
+seam):
   BIND_HOST / PORT           the one door (127.0.0.1:8119)
   EXPORT_ENDPOINT_PATH       must match the app's EXPORT_ENDPOINT_PATH const
   EXPORTS_DIR                the write target, resolved by the destination
-                             seam (2026-07-29): LPI_EXPORT_DIR when set,
+                             seam: LPI_EXPORT_DIR when set,
                              else repo-local exports/ beside this script
 
 If the app is served any other way (plain http.server, a fresh public-repo
@@ -54,13 +54,13 @@ MAX_PAYLOAD_BYTES = 10 * 1024 * 1024  # a state export is ~KBs; 10 MB is a sanit
 APP_ROOT = pathlib.Path(__file__).resolve().parent
 
 # ---------------------------------------------------------------------------
-# FILE-BACKED NARROW STATE (v0.5.0, founder fork rulings 2026-08-10).
+# FILE-BACKED NARROW STATE (v0.5.0).
 # The comms+network slice (exactly the buildStateExport schema, never
 # profile/models/groqKey) lives in ONE server-authoritative file so an
-# external writer (the lpi-ops post-send close) can flip a card to sent and
+# external writer (the post-send close tool) can flip a card to sent and
 # the page trues itself on next load. PRIVATE ARTIFACT: real prospect names,
 # so STATE_DIR is gitignored and never tracked in this public repo.
-# Three fences ride every write (founder ruling, all three in one build):
+# Three fences ride every write (all three shipped in one build):
 #   C  WRITER FENCING : the page heartbeats STATE_HEARTBEAT_FILE while open;
 #      an external writer refuses while the beat is fresh.
 #   A  REV REFUSAL    : the file carries a monotonic "rev"; a POST whose
@@ -73,7 +73,7 @@ HEARTBEAT_ENDPOINT_PATH = "/heartbeat"
 
 
 def resolve_state_dir():
-    """Same destination seam shape as exports (2026-07-29): LPI_STATE_DIR
+    """Same destination seam shape as exports: LPI_STATE_DIR
     wins when set; unset falls back to a repo-local state/ beside this
     script, gitignored, so a fresh clone works with no private path literal
     in the tracked tree."""
@@ -102,7 +102,7 @@ def read_state_file():
 
 
 def resolve_exports_dir():
-    """The destination seam (2026-07-29): LPI_EXPORT_DIR wins when set (the
+    """The destination seam: LPI_EXPORT_DIR wins when set (the
     launcher sources ~/lpi/infrabot.local.env when present, which is where a
     machine points exports at a private handoff dir outside this tree);
     unset falls back to a repo-local exports/ beside this script, gitignored,
@@ -141,12 +141,11 @@ class InfrabotHandler(SimpleHTTPRequestHandler):
         super().__init__(*args, directory=str(APP_ROOT), **kwargs)
 
     def end_headers(self):
-        # v0.5.3 NO-STORE (founder STEP 0, 2026-09-06): every response this
-        # launcher sends carries Cache-Control: no-store, so a plain reload
-        # always fetches the newest build and the cache-empty ritual on
-        # every bump (TROUBLESHOOTING.md DEPLOY CHAIN) dies. Measured
-        # 2026-09-06 00:55: the served file read v0.5.2 while the founder's
-        # tab read v0.5.1, because SimpleHTTP sends no Cache-Control at all
+        # v0.5.3 NO-STORE: every response this launcher sends carries
+        # Cache-Control: no-store, so a plain reload always fetches the
+        # newest build and the cache-empty ritual on every bump dies.
+        # Measured: the served file read v0.5.2 while the browser's tab
+        # read v0.5.1, because SimpleHTTP sends no Cache-Control at all
         # and the browser reused its copy. One override, one seam: the
         # static GET path, the JSON paths and the error paths all finish
         # through end_headers, so nothing this server sends escapes it.
