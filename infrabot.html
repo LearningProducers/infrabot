@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.1 (reports count emails, not corrections; ghosts cancel) 26-09-02      ║
+║  v0.5.2 (comm search: type a name, see if we ever touched them) 26-09-05     ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -172,8 +172,16 @@
 ║      per card, sentDate first, the first sent entry as the fallback) and     ║
 ║      standingArchiveEntries (a later sent entry reverses a ghost or dead)    ║
 ║      feed computeMonthStats + downloadMonthReport, so an auto-ghost and      ║
-║      the founder re-flip that undoes it cancel. tests/month_stats_check.js   ║
+║      the close's re-flip that undid it cancel (ITEM 105: the re-flip was     ║
+║      tools/postsend_close.py's, never the founder's). month_stats_check.js   ║
 ║      pins the rule on a synthetic fixture (founder ruling 2026-09-02).       ║
+║  ·  v0.5.2 COMM SEARCH: one box above the DRAFTS/PIPELINE/ARCHIVE tabs;      ║
+║      type a company, a contact name, or an email and every matching card     ║
+║      lists with the tab it lives in and its status word (the sent date       ║
+║      when the record carries one); a tap opens the card; no match reads      ║
+║      NO RECORD. Read live from state.comms, no schema change, no new         ║
+║      dependency (founder ask 2026-09-05). tests/comm_search_check.js pins    ║
+║      the matcher, the status words and the tab labels on a fixture.          ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -406,6 +414,21 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .card-age{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.1em;margin-top:4px}
 .card-age.stale{color:var(--amber)}
 .card-h-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+
+/* COMM SEARCH (v0.5.2): one box above the triage bar; type a name, see if we ever touched them */
+.comm-search{position:relative;margin-bottom:14px}
+.comm-search input[type=text]{padding-left:42px;font-family:var(--mono);font-size:13px;letter-spacing:.05em}
+.comm-search .comm-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-dim);pointer-events:none;display:flex}
+.comm-search input[type=text]:focus+.comm-search-icon,.comm-search:focus-within .comm-search-icon{color:var(--cyan)}
+.comm-search-results{border:1px solid var(--line);background:var(--panel);margin-bottom:18px}
+.comm-search-row{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 14px;background:transparent;color:var(--text);border:0;border-bottom:1px solid var(--line);cursor:pointer;font-family:var(--mono)}
+.comm-search-row:last-child{border-bottom:0}
+.comm-search-row:hover{background:var(--panel-2)}
+.comm-search-row .csr-name{font-size:13px;color:var(--text-bright);font-weight:600;letter-spacing:.05em;line-height:1.3}
+.comm-search-row .csr-sub{font-size:10px;color:var(--text-dim);letter-spacing:.1em;margin-top:3px;word-break:break-word}
+.comm-search-row .csr-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.comm-search-row .csr-tab{font-size:9px;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase}
+.comm-search-empty{padding:14px;font-family:var(--mono);font-size:12px;color:var(--text-dim);letter-spacing:.05em;line-height:1.6}
 
 /* REPORTS PANEL (v3.0) */
 .reports-intro{font-family:var(--mono);font-size:12px;color:var(--text-dim);letter-spacing:.05em;line-height:1.7;margin-bottom:18px;padding:14px 16px;border:1px dashed var(--line-2);background:var(--panel-2)}
@@ -688,7 +711,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.1</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.2</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -828,6 +851,12 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
           <button class="btn" id="btn-add-comm">+ LOG COMMUNICATION</button>
         </div>
       </div>
+      <!-- v0.5.2 COMM SEARCH: static HTML, never re-rendered by renderComms, so a keystroke never loses the box -->
+      <div class="comm-search">
+        <input type="text" id="comm-search" placeholder="Type a company, a contact, or an email: have we ever touched them?" autocomplete="off" spellcheck="false" aria-label="Search every communication card">
+        <span class="comm-search-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="21" y2="21"></line></svg></span>
+      </div>
+      <div id="comm-search-results" class="comm-search-results" hidden></div>
       <div id="comms-body"></div>
     </section>
 
@@ -984,7 +1013,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.1 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.2 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1031,7 +1060,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.1';
+const APP_VERSION='infrabot-v0.5.2';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2489,7 +2518,92 @@ function autoArchiveStaleComms(){
   return moved;
 }
 
+// v0.5.2 COMM SEARCH (founder ask 2026-09-05: a company name in the fire
+// queue, and no way to tell from the app whether it had ever been drafted,
+// sent, replied, or archived without opening the tabs one by one). One box
+// above the triage bar; every keystroke re-reads state.comms, the same live
+// local truth REPORTS reads, and lists every card whose company, contact
+// name, email (target), or title carries every word typed. Each row: the
+// card's title, the tab it lives in, and the plainest true status word the
+// state supports. No state schema change, no new dependency, no persistence
+// of the query. Comments authored with zero brace pairs.
+//
+// commSearchDate: a bare YYYY-MM-DD prints as itself (the v0.4.2 bare-date
+// law); an instant prints as its local calendar date in the home timezone.
+// Empty on anything else, never a guess.
+function commSearchDate(when){
+  if(!when)return '';
+  const s=String(when).trim();
+  if(/^\d\d\d\d-\d\d-\d\d$/.test(s))return s;
+  try{
+    const d=new Date(s);
+    if(isNaN(d.getTime()))return '';
+    const tz=(state&&state.profile&&state.profile.homeTz)||'America/Chicago';
+    return new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);
+  }catch(e){return '';}
+}
+// commSearchMatches: pure. Every whitespace-separated word of the query must
+// appear (case-insensitive substring) somewhere across company, person,
+// target and title; empty query matches nothing. Most recently touched first.
+function commSearchMatches(query,comms){
+  const q=String(query||'').toLowerCase().trim();
+  if(!q)return [];
+  const tokens=q.split(/\s+/);
+  const hits=(comms||[]).filter(k=>{
+    const hay=[k.company,k.person,k.target,k.title].map(v=>String(v||'').toLowerCase()).join(' | ');
+    return tokens.every(t=>hay.indexOf(t)>=0);
+  });
+  return hits.sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''));
+}
+// commSearchStatus: the status word the founder already reads on the card
+// (statusDisplay: DRAFT, SCHEDULED, SENT, REPLIED, WENT QUIET, CLOSED), plus
+// the send date only where the record carries one: sentRecord, the v0.5.1
+// one-send-per-card rule (sentDate first, the first sent entry as fallback).
+// A sent card with neither says so in words rather than showing a date the
+// state does not hold. SCHEDULED shows its planned date, never as a send.
+function commSearchStatus(c){
+  const s=(c.status||'').toLowerCase();
+  const word=statusDisplay(s);
+  if(s==='draft')return word;
+  if(s==='scheduled')return c.sentDate?word+' FOR '+c.sentDate:word;
+  const sr=sentRecord(c);
+  const sentOn=sr?commSearchDate(sr.when):'';
+  if(s==='sent')return sentOn?word+' '+sentOn:word+', DATE NOT ON RECORD';
+  return sentOn?word+' (SENT '+sentOn+')':word;
+}
+// commSearchTab: where the card renders today. The archive bucket splits by
+// the v0.4.4 month window: this month's archive is the ARCHIVE tab, an
+// earlier month's lives under REPORTS, named with its month so the founder
+// knows which tab to open.
+function commSearchTab(c){
+  const b=getCommBucket(c);
+  if(b==='drafts')return 'DRAFTS';
+  if(b==='pipeline')return 'PIPELINE';
+  if(inArchiveWindow(c))return 'ARCHIVE';
+  return 'REPORTS ('+archiveMonth(c)+')';
+}
+// renderCommSearch: the results box under the input. Hidden on an empty
+// query; NO RECORD in plain words on zero matches; otherwise one row per
+// card, the row a button carrying the card id, and a tap opens the card
+// through openCommModal (the same path as the EDIT button). Re-run on every
+// input event and at the top of every renderComms, so a card edited from a
+// result re-lists with its new status the moment the modal saves.
+function renderCommSearch(){
+  const input=g('comm-search'),box=g('comm-search-results');
+  if(!input||!box)return;
+  const q=input.value.trim();
+  if(!q){box.hidden=true;box.innerHTML='';return;}
+  const hits=commSearchMatches(q,state.comms||[]);
+  box.hidden=false;
+  if(hits.length===0){box.innerHTML=`<div class="comm-search-empty">NO RECORD. Nothing logged matches "${esc(q)}": never drafted, never sent, never archived under that name.</div>`;return;}
+  box.innerHTML=hits.map(k=>{
+    const sub=[k.person,k.company,k.target,k.city?String(k.city).toUpperCase():''].filter(Boolean).map(v=>esc(v)).join(' &middot; ');
+    return `<button type="button" class="comm-search-row" data-id="${esc(k.id)}"><div style="min-width:0;flex:1"><div class="csr-name">${esc(k.title||'(untitled)')}</div><div class="csr-sub">${sub}</div></div><div class="csr-right"><span class="csr-tab">${esc(commSearchTab(k))}</span><span class="card-status ${esc((k.status||'').toLowerCase())}">${esc(commSearchStatus(k))}</span></div></button>`;
+  }).join('');
+}
+
 function renderComms(){
+  renderCommSearch();
   const body=g('comms-body');
   const view=state.commsView||'drafts';
 
@@ -2691,8 +2805,11 @@ function renderReportsPanel(){
 }
 
 // v0.5.1 THE REPORTS TAB COUNTS EMAILS, NOT CORRECTIONS (founder ruling
-// 2026-09-02). The went-quiet engine appends ghosted, the founder re-flips the
-// card and appends sent again, and through v0.5.0 both entries scored as a
+// 2026-09-02). The went-quiet engine appends ghosted, the post-send close
+// (tools/postsend_close.py, lpi-ops) re-flipped the card and appended sent
+// again on every desk-button run after a sweep (ITEM 105, corrected
+// 2026-09-02: no founder act and no modal wrote those entries), and through
+// v0.5.0 both entries scored as a
 // fresh archive and a fresh send in whatever month they landed: August 2026
 // read 32 sent against 19 emails, September read 4 sent against none. The
 // v3.2 rule (every non-draft statusHistory entry is one transition in its
@@ -6314,6 +6431,13 @@ function wireEvents(){
   // v4.0.1 — expand body to fullscreen edit
   g('btn-expand-body').addEventListener('click',openCommBodyEdit);
   g('k-city').addEventListener('input',updateCityHint);
+  // v0.5.2 COMM SEARCH: the box and its results live outside comms-body (static
+  // HTML), so they get their own wiring; a result row carries the card id.
+  g('comm-search').addEventListener('input',renderCommSearch);
+  g('comm-search-results').addEventListener('click',e=>{
+    const row=e.target.closest('[data-id]');if(!row)return;
+    openCommModal(row.dataset.id);
+  });
   g('comms-body').addEventListener('click',e=>{
     // v3.0: triage bar buttons. Captured first because they're outside any card.
     const triageBtn=e.target.closest('[data-view]');

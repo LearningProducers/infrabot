@@ -6,7 +6,8 @@
 // against a SYNTHETIC fixture: invented card names, invented ids, synthetic
 // timestamps. The fixture reproduces the ghost/re-flip PATTERN the founder's
 // book carried on 2026-09-02 (the went-quiet engine auto-ghosts a sent card,
-// the founder re-flips it to sent), card for card by shape, name for nothing.
+// the post-send close re-flipped it to sent; corrected 2026-09-02, ITEM 105:
+// no founder act wrote those entries), card for card by shape, name for nothing.
 // The real state file, exports and dossier never enter this file: the repo
 // is public.
 //
