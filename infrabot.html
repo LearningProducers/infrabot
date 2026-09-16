@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.10 (IRL EVENTS: rooms as records and cards on the NETWORK tab) 26-09-16║
+║  v0.5.11 (ARTIFACT LEDGER: artifacts as records on the VAULT tab) 26-09-16   ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -227,6 +227,11 @@
 ║      required at save and import; export carries the key (schemaVersion      ║
 ║      2); import is additive, status never moves backwards, hand fields       ║
 ║      never overwritten; one Overview counter. No sweep, no auto-flip.        ║
+║  ·  v0.5.11 ARTIFACT LEDGER: state.artifacts, a fourth record; a card and a  ║
+║      VAULT sub-view grouped by status; title and whyItEarned required at     ║
+║      save and import; the outcome scale shared with events; export carries   ║
+║      the key (schemaVersion 3); additive import, status never backwards,     ║
+║      hand fields kept; one Overview scoreboard. No sweep, no auto-flip.      ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -454,6 +459,15 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .card-status.skipped{color:var(--gray);border-color:var(--line-2);text-decoration:line-through}
 .card-status.ev-free{color:var(--cyan);border-color:var(--cyan-dim)}
 .card-status.ev-paid{color:var(--text);border-color:var(--line-2)}
+/* ARTIFACT LEDGER: status and type pills plus the Overview scoreboard, the same palette */
+.card-status.planned{color:var(--amber);border-color:var(--amber-dim);background:rgba(251,191,36,.05)}
+.card-status.delivered{color:var(--green);border-color:#065f46;background:rgba(16,185,129,.05)}
+.card-status.ar-type{color:var(--cyan);border-color:var(--cyan-dim);margin-left:8px;vertical-align:middle}
+.scoreboard{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.scoreboard th,.scoreboard td{border:1px solid var(--line);padding:10px 8px;text-align:center;color:var(--text)}
+.scoreboard th{color:var(--text-dim);font-size:9px;letter-spacing:.22em;font-weight:500}
+.scoreboard td.num{font-size:20px;color:var(--cyan);font-weight:700;letter-spacing:.05em}
+.scoreboard td.unbuilt{color:var(--text-dim);font-size:9px}
 
 /* TRIAGE BAR (v3.0) — DRAFTS / PIPELINE / ARCHIVE / REPORTS filter row */
 .triage-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding:0 0 14px;border-bottom:1px solid var(--line)}
@@ -763,7 +777,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.10</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.11</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -802,6 +816,11 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <div class="section">
         <div class="section-h"><span>// TODAY</span></div>
         <div class="stats-grid" id="stats-grid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-h"><span>// OPENED THIS MONTH</span></div>
+        <div id="scoreboard"></div>
       </div>
 
       <div class="section" id="profile-section">
@@ -921,6 +940,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <div class="section-h-row" style="margin-top:18px">
         <div class="section-h-title">// INSIGHTS</div>
         <button class="btn" id="btn-add-insight">+ NEW INSIGHT</button>
+        <button class="btn hidden" id="btn-add-artifact">+ NEW ARTIFACT</button>
       </div>
       <div id="vault-body"></div>
     </section>
@@ -980,6 +1000,35 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <button class="btn danger hidden" id="btn-delete-event">DELETE</button>
       <button class="btn muted" data-close="modal-event">CANCEL</button>
       <button class="btn" id="btn-save-event">SAVE EVENT</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-artifact">
+  <div class="modal">
+    <div class="modal-h"><span class="mh-title" id="modal-artifact-title">// NEW ARTIFACT</span><button class="modal-close" data-close="modal-artifact">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Title *</label><input type="text" id="ar-title" placeholder="What went into the world"></div>
+      <div class="field-row">
+        <div class="field"><label>Type</label><select id="ar-type"><option value="piece">PIECE</option><option value="short">SHORT</option><option value="newsletter">NEWSLETTER</option><option value="build">BUILD</option></select></div>
+        <div class="field"><label>For whom</label><input type="text" id="ar-forwhom" placeholder="A company for a build, an audience for a piece"></div>
+      </div>
+      <div class="field"><label>Link (published, or the delivered repo; empty while planned)</label><input type="text" id="ar-url" placeholder="https://..."></div>
+      <div class="field-row">
+        <div class="field"><label>Status</label><select id="ar-status"><option value="planned">PLANNED</option><option value="delivered">DELIVERED</option></select></div>
+        <div class="field"><label>Delivered (set on the delivered transition)</label><input type="date" id="ar-delivered"></div>
+      </div>
+      <div class="field"><label>Why it earned its place *</label><textarea id="ar-why" placeholder="The reason this artifact earned the hours. No reason, no card." style="min-height:80px"></textarea><div id="ar-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
+      <div class="field-row">
+        <div class="field"><label>Outcome</label><select id="ar-outcome"><option value="none">NONE</option><option value="conversation">CONVERSATION</option><option value="meeting">MEETING</option><option value="deposit">DEPOSIT</option></select></div>
+        <div class="field"><label>Opened (a comm card)</label><select id="ar-opened"></select></div>
+      </div>
+      <div class="field"><label>Notes</label><textarea id="ar-notes" placeholder="What it opened, and what it did not." style="min-height:80px"></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn danger hidden" id="btn-delete-artifact">DELETE</button>
+      <button class="btn muted" data-close="modal-artifact">CANCEL</button>
+      <button class="btn" id="btn-save-artifact">SAVE ARTIFACT</button>
     </div>
   </div>
 </div>
@@ -1100,7 +1149,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.10 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.11 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1147,7 +1196,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.10';
+const APP_VERSION='infrabot-v0.5.11';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1575,6 +1624,7 @@ function freshState(){
     posts:[],
     comms:[],
     events:[],
+    artifacts:[],
     insights:[],
     customCities:{},
     groqKey:'',
@@ -2389,6 +2439,7 @@ function renderOverview(){
   const repliedComms=state.comms.filter(k=>k.status==='replied').length;
   const totalInsights=Array.isArray(state.insights)?state.insights.length:0;
   const rooms=eventMonthCounts(localYearMonth(new Date().toISOString()));
+  renderScoreboard();
   g('stats-grid').innerHTML=`<div class="stat-cell"><div class="stat-num">${state.network.length}</div><div class="stat-label">CONTACTS</div></div><div class="stat-cell"><div class="stat-num">${totalComms}</div><div class="stat-label">COMMS LOGGED</div></div><div class="stat-cell amber"><div class="stat-num">${sentComms}</div><div class="stat-label">SENT</div></div><div class="stat-cell green"><div class="stat-num">${repliedComms}</div><div class="stat-label">REPLIED</div></div><div class="stat-cell"><div class="stat-num">${totalInsights}</div><div class="stat-label">INSIGHTS</div></div><div class="stat-cell"><div class="stat-num">${rooms.attended}/${rooms.selected}</div><div class="stat-label">ROOMS THIS MONTH · ATTENDED / SELECTED</div></div>`;
 
   const p=state.profile;
@@ -2702,6 +2753,244 @@ function importEvents(incoming){
     if(!String(local.whyThisRoom||'').trim()&&inc.whyThisRoom){local.whyThisRoom=inc.whyThisRoom;moved=true;}
     if(!String(local.notes||'').trim()&&String(inc.notes||'').trim()){local.notes=inc.notes;moved=true;}
     if((!Array.isArray(local.met)||!local.met.length)&&inc.met.length){local.met=inc.met.slice();moved=true;}
+    if((!local.outcome||local.outcome==='none')&&inc.outcome!=='none'){local.outcome=inc.outcome;moved=true;}
+    if(moved)res.updated++;else res.skipped++;
+  });
+  return res;
+}
+
+// ARTIFACT LEDGER ==============================================================
+// Everything the founder puts into the world: a published piece, a short video,
+// a newsletter issue, a small build delivered to one company. state.artifacts
+// is the record, in the events record's shape, and it carries the same outcome
+// scale rooms carry (OUTCOME_SCALE aliases the one constant, never a second
+// copy), so output with no outcome shows NONE in plain sight. Nothing moves an
+// artifact but a hand: no sweep, no clock. Two gates, at save and at import: a
+// title and whyItEarned. Comments in this block authored with zero brace pairs.
+const ARTIFACT_TYPES=['piece','short','newsletter','build'];
+const ARTIFACT_STATUSES=['planned','delivered'];
+const OUTCOME_SCALE=EVENT_OUTCOMES;
+let vaultView='insights';
+let editingArtifactId=null;
+let artifactsTypeFilter='';
+function artifactsList(){
+  if(!state)return [];
+  if(!Array.isArray(state.artifacts))state.artifacts=[];
+  return state.artifacts;
+}
+// A home-zone calendar date for an instant, the en-CA Intl pattern the clocks use.
+function homeDate(d){
+  try{return new Intl.DateTimeFormat('en-CA',{timeZone:homeTzNow(),year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}
+  catch(_){return d.toISOString().slice(0,10);}
+}
+// Every field present with its type; a well-formed record passes through
+// byte-identical, which keeps export then import byte-stable.
+function normalizeArtifact(a){
+  if(!a||typeof a!=='object')return a;
+  ['title','url','forWhom','whyItEarned','delivered','openedCardId','notes'].forEach(k=>{if(typeof a[k]!=='string')a[k]=a[k]==null?'':String(a[k]);});
+  const ty=String(a.type||'').toLowerCase();
+  a.type=ARTIFACT_TYPES.includes(ty)?ty:'piece';
+  const st=String(a.status||'').toLowerCase();
+  a.status=ARTIFACT_STATUSES.includes(st)?st:'planned';
+  const oc=String(a.outcome||'').toLowerCase();
+  a.outcome=OUTCOME_SCALE.includes(oc)?oc:'none';
+  if(!a.created)a.created=new Date().toISOString();
+  if(!Array.isArray(a.statusHistory)||!a.statusHistory.length)a.statusHistory=[{status:a.status,timestamp:a.created}];
+  return a;
+}
+function artifactStatusRank(s){
+  const i=ARTIFACT_STATUSES.indexOf(String(s||'').toLowerCase());
+  return i<0?0:i;
+}
+// The ONE transition path: appends to statusHistory, never rewrites it; the
+// delivered date is stamped on the delivered transition when none is set.
+function setArtifactStatus(a,status,when){
+  const st=String(status||'').toLowerCase();
+  if(!ARTIFACT_STATUSES.includes(st))return false;
+  if(!Array.isArray(a.statusHistory))a.statusHistory=[];
+  const last=a.statusHistory.length?a.statusHistory[a.statusHistory.length-1].status:null;
+  if(a.status===st&&last===st)return false;
+  const ts=when||new Date().toISOString();
+  a.statusHistory.push({status:st,timestamp:ts});
+  a.status=st;a.updated=ts;
+  if(st==='delivered'&&!a.delivered)a.delivered=homeDate(new Date(ts));
+  return true;
+}
+// Import identity: the link when present, else the title plus the type.
+function artifactKey(a){
+  const u=String(a.url||'').trim().toLowerCase().replace(/\/+$/,'');
+  return u?u:'title:'+String(a.title||'').trim().toLowerCase()+'|'+String(a.type||'').toLowerCase();
+}
+// The month an artifact counts in: its delivered date, else its last delivered
+// entry; a planned artifact counts nowhere, whatever date it carries.
+function artifactMonth(a){
+  if(a.status!=='delivered')return null;
+  if(a.delivered)return localYearMonth(a.delivered);
+  const h=Array.isArray(a.statusHistory)?a.statusHistory:[];
+  for(let i=h.length-1;i>=0;i--){if(h[i]&&h[i].status==='delivered')return localYearMonth(h[i].timestamp);}
+  return null;
+}
+// The month a room counts in: its last attended entry.
+function eventOutcomeMonth(e){
+  const h=Array.isArray(e.statusHistory)?e.statusHistory:[];
+  for(let i=h.length-1;i>=0;i--){if(h[i]&&h[i].status==='attended')return localYearMonth(h[i].timestamp);}
+  return null;
+}
+// THE SCOREBOARD: three lanes by three outcomes for one home-zone month, each
+// record once. Sends: a card with a replied entry in the month is one
+// conversation; the comm record has no meeting or deposit field, so those two
+// cells render UNBUILT, never zero. Rooms and artifacts read their outcome.
+function scoreboardCounts(ym){
+  const lane=()=>({conversation:0,meeting:0,deposit:0});
+  const out={sends:lane(),rooms:lane(),artifacts:lane()};
+  (state.comms||[]).forEach(c=>{
+    const h=Array.isArray(c.statusHistory)?c.statusHistory:[];
+    if(h.some(x=>x&&x.status==='replied'&&localYearMonth(x.timestamp)===ym))out.sends.conversation++;
+  });
+  eventsList().forEach(e=>{if(out.rooms[e.outcome]!==undefined&&eventOutcomeMonth(e)===ym)out.rooms[e.outcome]++;});
+  artifactsList().forEach(a=>{if(out.artifacts[a.outcome]!==undefined&&artifactMonth(a)===ym)out.artifacts[a.outcome]++;});
+  return out;
+}
+function renderScoreboard(){
+  const el=g('scoreboard');if(!el)return;
+  const ym=localYearMonth(new Date().toISOString())||'';
+  const s=scoreboardCounts(ym);
+  const num=n=>`<td class="num">${n}</td>`;
+  const unbuilt='<td class="unbuilt">UNBUILT</td>';
+  el.innerHTML=`<table class="scoreboard"><tr><th>${esc(ym)}</th><th>CONVERSATION</th><th>MEETING</th><th>DEPOSIT</th></tr><tr><th>SENDS</th>${num(s.sends.conversation)}${unbuilt}${unbuilt}</tr><tr><th>ROOMS</th>${num(s.rooms.conversation)}${num(s.rooms.meeting)}${num(s.rooms.deposit)}</tr><tr><th>ARTIFACTS</th>${num(s.artifacts.conversation)}${num(s.artifacts.meeting)}${num(s.artifacts.deposit)}</tr></table>`;
+}
+function vaultViewBar(){
+  const n=Array.isArray(state.insights)?state.insights.length:0,m=artifactsList().length;
+  return `<div class="triage-bar"><button class="triage-btn ${vaultView==='insights'?'active':''}" data-view="insights">INSIGHTS<span class="triage-count">· ${n}</span></button><button class="triage-btn ${vaultView==='artifacts'?'active':''}" data-view="artifacts">ARTIFACTS<span class="triage-count">· ${m}</span></button></div>`;
+}
+function setVaultView(v){
+  if(v!=='insights'&&v!=='artifacts')return;
+  vaultView=v;
+  renderVault();
+}
+function renderArtifactsView(){
+  const list=artifactsList().map(normalizeArtifact);
+  if(!list.length)return `<div class="empty-state"><div class="es-h">NO ARTIFACTS YET</div><button class="btn" data-open="artifact">+ NEW ARTIFACT</button></div>`;
+  let html=`<div class="field" style="max-width:280px"><label>Type</label><select id="ar-type-filter"><option value="">ALL TYPES</option>${ARTIFACT_TYPES.map(t=>`<option value="${t}"${t===artifactsTypeFilter?' selected':''}>${t.toUpperCase()}</option>`).join('')}</select></div>`;
+  const shown=artifactsTypeFilter?list.filter(a=>a.type===artifactsTypeFilter):list;
+  if(!shown.length)return html+`<div class="empty-state"><div class="es-h">NO ARTIFACTS OF THAT TYPE</div></div>`;
+  const newest=(a,b)=>(b.updated||b.created||'').localeCompare(a.updated||a.created||'');
+  const planned=shown.filter(a=>a.status==='planned').sort(newest);
+  const delivered=shown.filter(a=>a.status==='delivered').sort((a,b)=>(b.delivered||'').localeCompare(a.delivered||'')||newest(a,b));
+  [['planned',planned],['delivered',delivered]].forEach(pair=>{
+    if(!pair[1].length)return;
+    html+=`<div class="card-section-h" style="margin:16px 0 8px;font-size:10px">${pair[0].toUpperCase()} · ${pair[1].length}</div><div class="card-grid">${pair[1].map(renderArtifactCard).join('')}</div>`;
+  });
+  return html;
+}
+// Sibling of the events card: title with a TYPE pill; for whom; the delivered
+// date or PLANNED; the link; the reason in the opener slot; the outcome as an
+// inline select (a hand, on the card); the comm card it opened as a link.
+function renderArtifactCard(a){
+  const link=a.url?`<div class="card-section"><div class="card-section-h">${a.status==='delivered'?'Delivered at':'Link'}</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all"><a href="${esc(a.url.startsWith('http')?a.url:'https://'+a.url)}" target="_blank" rel="noopener" style="color:var(--cyan-dim);text-decoration:none">${esc(a.url.replace(/^https?:\/\//,''))}</a></div></div>`:'';
+  const opened=state.comms.find(c=>c.id===a.openedCardId);
+  const openedHtml=a.openedCardId?(opened?`<button class="btn ghost sm" data-act="open-comm" data-id="${esc(opened.id)}" style="margin-top:6px">OPENED: ${esc(opened.title||'(untitled)')}</button>`:'<div class="tiny dim mono" style="margin-top:6px">OPENED: card not found</div>'):'';
+  const outcomeSel=`<select data-act="artifact-outcome" data-id="${esc(a.id)}" style="width:auto;display:inline-block">${OUTCOME_SCALE.map(o=>`<option value="${o}"${o===a.outcome?' selected':''}>${o.toUpperCase()}</option>`).join('')}</select>`;
+  const notes=a.notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(a.notes)}</div></div>`:'';
+  const quick=a.status==='planned'?`<button class="btn muted sm" data-act="deliver-artifact" data-id="${esc(a.id)}">DELIVERED</button>`:'';
+  return `<div class="card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(a.title||'(untitled)')}<span class="card-status ar-type">${esc(a.type.toUpperCase())}</span></div><div class="card-sub">${a.forWhom?esc(a.forWhom):'no audience named'}</div><div class="card-age">${a.status==='delivered'?'DELIVERED '+esc(a.delivered||'(no date)'):'PLANNED'}</div></div><div class="card-h-right"><span class="card-status ${esc(a.status)}">${esc(a.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Why it earned its place</div><div class="card-section-body">${esc(a.whyItEarned)}</div></div>${link}<div class="card-section"><div class="card-section-h">Outcome</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${outcomeSel}${openedHtml}</div></div>${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-artifact" data-id="${esc(a.id)}">EDIT</button>${quick}</div></div>`;
+}
+// The artifact modal is an explicit-save surface (the events modal's shape):
+// not an autosave surface, so a cancel discards and the gate can refuse.
+function openArtifactModal(artifactId){
+  editingArtifactId=artifactId||null;
+  const isEdit=!!artifactId;
+  const a=isEdit?artifactsList().find(x=>x.id===artifactId):null;
+  if(isEdit&&!a){editingArtifactId=null;return;}
+  g('modal-artifact-title').textContent=isEdit?'// EDIT ARTIFACT':'// NEW ARTIFACT';
+  g('btn-delete-artifact').classList.toggle('hidden',!isEdit);
+  const v=a?normalizeArtifact(a):{title:'',type:'piece',url:'',forWhom:'',status:'planned',delivered:'',whyItEarned:'',outcome:'none',openedCardId:'',notes:''};
+  g('ar-title').value=v.title;g('ar-type').value=v.type;g('ar-forwhom').value=v.forWhom;g('ar-url').value=v.url;
+  g('ar-status').value=v.status;g('ar-delivered').value=v.delivered;g('ar-why').value=v.whyItEarned;g('ar-outcome').value=v.outcome;g('ar-notes').value=v.notes;
+  const cards=state.comms.slice().sort((x,y)=>(y.createdAt||'').localeCompare(x.createdAt||''));
+  g('ar-opened').innerHTML='<option value="">NOTHING YET</option>'+cards.map(c=>`<option value="${esc(c.id)}"${c.id===v.openedCardId?' selected':''}>${esc(c.title||'(untitled)')}${c.company?' · '+esc(c.company):''}</option>`).join('');
+  g('ar-gate').textContent='';
+  showModal('modal-artifact');
+  setTimeout(()=>g('ar-title').focus(),100);
+}
+// THE GATE. An empty title or an empty whyItEarned is refused with the reason
+// written under the field; nothing is saved. Returns true only on a write.
+function saveArtifact(){
+  const title=g('ar-title').value.trim();
+  const why=g('ar-why').value.trim();
+  const gate=g('ar-gate');
+  if(!title){gate.textContent='TITLE REQUIRED. The ledger has nothing to show without one.';g('ar-title').focus();return false;}
+  if(!why){gate.textContent='NO REASON, NO CARD. Say why this artifact earned its place before it can be saved.';g('ar-why').focus();return false;}
+  gate.textContent='';
+  const status=g('ar-status').value;
+  const now=new Date().toISOString();
+  let delivered=g('ar-delivered').value.trim();
+  if(status==='delivered'&&!delivered)delivered=homeDate(new Date());
+  if(status!=='delivered')delivered='';
+  const data={title:title,type:g('ar-type').value,url:g('ar-url').value.trim(),forWhom:g('ar-forwhom').value.trim(),delivered:delivered,whyItEarned:why,outcome:g('ar-outcome').value,openedCardId:g('ar-opened').value,notes:g('ar-notes').value.trim()};
+  const wasEdit=!!editingArtifactId;
+  if(wasEdit){
+    const a=artifactsList().find(x=>x.id===editingArtifactId);
+    if(a){Object.assign(a,data,{updated:now});setArtifactStatus(a,status,now);}
+  }else{
+    artifactsList().push(normalizeArtifact(Object.assign({id:uid(),created:now,updated:now,status:status,statusHistory:[{status:status,timestamp:now}]},data)));
+  }
+  saveState();hideModal('modal-artifact');renderVault();renderOverview();
+  toast(wasEdit?'ARTIFACT UPDATED':'ARTIFACT LOGGED','green');
+  editingArtifactId=null;
+  return true;
+}
+function deleteArtifact(){
+  if(!editingArtifactId)return;
+  const a=artifactsList().find(x=>x.id===editingArtifactId);if(!a)return;
+  if(!confirm('Delete "'+(a.title||'(untitled)')+'"? Cannot be undone.'))return;
+  state.artifacts=artifactsList().filter(x=>x.id!==editingArtifactId);
+  saveState();hideModal('modal-artifact');renderVault();renderOverview();
+  toast('ARTIFACT DELETED','amber');
+  editingArtifactId=null;
+}
+// Card hands: one status move, or one outcome pick, in one tap.
+function quickArtifactStatus(id,status){
+  const a=artifactsList().find(x=>x.id===id);if(!a)return;
+  if(!setArtifactStatus(a,status))return;
+  saveState();renderVault();renderOverview();
+  toast((a.title||'(untitled)').toUpperCase()+' · '+status.toUpperCase(),'green');
+}
+function setArtifactOutcome(id,outcome){
+  const a=artifactsList().find(x=>x.id===id);if(!a)return;
+  const oc=String(outcome||'').toLowerCase();
+  if(!OUTCOME_SCALE.includes(oc)||a.outcome===oc)return;
+  a.outcome=oc;a.updated=new Date().toISOString();
+  saveState();renderVault();renderOverview();
+  toast((a.title||'(untitled)').toUpperCase()+' · OUTCOME '+oc.toUpperCase(),'green');
+}
+// The additive import leg for artifacts (called by additiveImportState).
+// Dedupe on artifactKey. A match moves status only up the ladder, never back,
+// and fills whyItEarned, outcome, openedCardId and notes only where the local
+// record has none: a hand-written field is never overwritten. An incoming
+// record with no title or no whyItEarned is refused and counted, never stored.
+function importArtifacts(incoming){
+  var res={added:0,updated:0,skipped:0,refused:0};
+  if(!Array.isArray(incoming)||!incoming.length)return res;
+  var list=artifactsList();
+  var byKey={};
+  list.forEach(function(a){byKey[artifactKey(a)]=a;});
+  incoming.forEach(function(raw){
+    if(!raw||typeof raw!=='object'){res.refused++;return;}
+    var inc=normalizeArtifact(Object.assign({},raw));
+    if(!String(inc.title||'').trim()){res.refused++;return;}
+    if(!String(inc.whyItEarned||'').trim()){res.refused++;return;}
+    var k=artifactKey(inc);
+    var local=byKey[k];
+    if(!local){
+      if(!inc.id||list.some(function(a){return a.id===inc.id;}))inc.id=uid();
+      list.push(inc);byKey[k]=inc;res.added++;return;
+    }
+    var moved=false;
+    if(artifactStatusRank(inc.status)>artifactStatusRank(local.status))moved=setArtifactStatus(local,inc.status)||moved;
+    if(!String(local.whyItEarned||'').trim()&&inc.whyItEarned){local.whyItEarned=inc.whyItEarned;moved=true;}
+    if(!String(local.notes||'').trim()&&String(inc.notes||'').trim()){local.notes=inc.notes;moved=true;}
+    if(!String(local.openedCardId||'').trim()&&inc.openedCardId){local.openedCardId=inc.openedCardId;moved=true;}
     if((!local.outcome||local.outcome==='none')&&inc.outcome!=='none'){local.outcome=inc.outcome;moved=true;}
     if(moved)res.updated++;else res.skipped++;
   });
@@ -4508,8 +4797,12 @@ function downloadCouncilTranscript(){
 function renderVault(){
   const body=g('vault-body');
   if(!body)return;
+  g('btn-add-insight').classList.toggle('hidden',vaultView==='artifacts');
+  g('btn-add-artifact').classList.toggle('hidden',vaultView!=='artifacts');
+  const viewBar=vaultViewBar();
+  if(vaultView==='artifacts'){body.innerHTML=viewBar+renderArtifactsView();return;}
   if(!Array.isArray(state.insights)||state.insights.length===0){
-    body.innerHTML=`<div class="vault-empty">
+    body.innerHTML=viewBar+`<div class="vault-empty">
       <div class="ve-h">No insights yet.</div>
       <div class="ve-body">Insights are sharp distillations from the field — patterns, doctrines, traps to avoid. Each one is a one-line truth backed by the texture of why it matters. Build the vault slowly, deliberately, one earned insight at a time.</div>
       <div class="ve-example">First might be: "Value proposition &gt; product description."</div>
@@ -4519,7 +4812,7 @@ function renderVault(){
   }
   // Sort newest first
   const sorted=[...state.insights].sort((a,b)=>new Date(b.updatedAt||b.createdAt)-new Date(a.updatedAt||a.createdAt));
-  let html='';
+  let html=viewBar;
   sorted.forEach(ins=>{
     const tags=Array.isArray(ins.tags)?ins.tags:[];
     const tagsHtml=tags.length?`<div class="insight-tags">${tags.map(t=>`<span class="insight-tag">${esc(t)}</span>`).join('')}</div>`:'';
@@ -6032,7 +6325,7 @@ function exportAll(){
 // (real names by design); its home is
 // the private ops repo by hand, never this publishable repo.
 // ============================================================================
-const STATE_SCHEMA_VERSION=2;
+const STATE_SCHEMA_VERSION=3;
 // Rebuild any value with object keys in sorted order; ARRAY order is preserved
 // (statusHistory / history are append-only chronological and must not be reordered).
 // This is what makes "stable key order" hold no matter how a record's keys were
@@ -6055,7 +6348,8 @@ function buildStateExport(){
   });
   var network=state.network.slice().sort(byId);
   var events=eventsList().slice().sort(byId);
-  var payload={schemaVersion:STATE_SCHEMA_VERSION,comms:comms,network:network,events:events};
+  var artifacts=artifactsList().slice().sort(byId);
+  var payload={schemaVersion:STATE_SCHEMA_VERSION,comms:comms,network:network,events:events,artifacts:artifacts};
   return JSON.stringify(_canonicalJson(payload),null,2);
 }
 function exportState(){
@@ -6118,10 +6412,11 @@ function additiveImportState(payload){
     addedN++;
   });
   var ev=importEvents(Array.isArray(payload.events)?payload.events:[]);
-  if(addedC>0||addedN>0||ev.added>0||ev.updated>0){saveState();renderComms();renderNetwork();renderOverview();renderMapPins();}
+  var ar=importArtifacts(Array.isArray(payload.artifacts)?payload.artifacts:[]);
+  if(addedC>0||addedN>0||ev.added>0||ev.updated>0||ar.added>0||ar.updated>0){saveState();renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();}
   var wentQuiet=autoArchiveStaleComms();
   if(wentQuiet.length>0){renderComms();renderOverview();renderMapPins();}
-  return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,addedEvents:ev.added,updatedEvents:ev.updated,skippedEvents:ev.skipped,refusedEvents:ev.refused,wentQuiet:wentQuiet};
+  return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,addedEvents:ev.added,updatedEvents:ev.updated,skippedEvents:ev.skipped,refusedEvents:ev.refused,addedArtifacts:ar.added,updatedArtifacts:ar.updated,skippedArtifacts:ar.skipped,refusedArtifacts:ar.refused,wentQuiet:wentQuiet};
 }
 function importStateFile(file){
   var reader=new FileReader();
@@ -6135,8 +6430,10 @@ function importStateFile(file){
     if(r.addedEvents||r.updatedEvents)msg+=' · '+r.addedEvents+' EVENT'+(r.addedEvents===1?'':'S')+(r.updatedEvents?' + '+r.updatedEvents+' UPDATED':'');
     if(r.skippedComms||r.skippedContacts||r.skippedEvents)msg+=' · '+(r.skippedComms+r.skippedContacts+r.skippedEvents)+' ALREADY PRESENT';
     if(r.refusedEvents)msg+=' · '+r.refusedEvents+' EVENT'+(r.refusedEvents===1?'':'S')+' REFUSED: NO REASON GIVEN';
+    if(r.addedArtifacts||r.updatedArtifacts)msg+=' · '+r.addedArtifacts+' ARTIFACT'+(r.addedArtifacts===1?'':'S')+(r.updatedArtifacts?' + '+r.updatedArtifacts+' UPDATED':'');
+    if(r.refusedArtifacts)msg+=' · '+r.refusedArtifacts+' ARTIFACT'+(r.refusedArtifacts===1?'':'S')+' REFUSED: NO TITLE OR NO REASON';
     if(r.wentQuiet&&r.wentQuiet.length)msg+=' · WENT QUIET: '+r.wentQuiet.join(', ');
-    toast(msg,(r.addedComms+r.addedContacts+r.addedEvents+r.updatedEvents)>0&&!r.refusedEvents?'green':'amber');
+    toast(msg,(r.addedComms+r.addedContacts+r.addedEvents+r.updatedEvents+r.addedArtifacts+r.updatedArtifacts)>0&&!r.refusedEvents&&!r.refusedArtifacts?'green':'amber');
   };
   reader.readAsText(file);
 }
@@ -6362,6 +6659,8 @@ function mergeServerState(file){
     state.network=mergeSlice(state.network,file.network,editingContactId);
     state.events=mergeSlice(eventsList(),Array.isArray(file.events)?file.events:[],editingEventId);
     state.events.forEach(function(e){normalizeEvent(e);});
+    state.artifacts=mergeSlice(artifactsList(),Array.isArray(file.artifacts)?file.artifacts:[],editingArtifactId);
+    state.artifacts.forEach(function(a){normalizeArtifact(a);});
     state.comms.forEach(function(c){
       if(!Array.isArray(c.history))c.history=[];
       if(!Array.isArray(c.statusHistory))c.statusHistory=[{status:c.status||'draft',timestamp:c.createdAt||new Date().toISOString()}];
@@ -6369,7 +6668,7 @@ function mergeServerState(file){
     if(typeof file.rev==='number')_stateRev=file.rev;
     saveState(); // the ONE canonical writer persists the merge locally; the
                  // _isMergingServerState guard keeps it from echoing a POST
-    renderComms();renderNetwork();renderOverview();renderMapPins();
+    renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();
   }finally{_isMergingServerState=false;}
 }
 function sendHeartbeat(){
@@ -6914,10 +7213,23 @@ function wireEvents(){
   });
   // Vault: card delegation + add button + save/delete
   g('vault-body').addEventListener('click',e=>{
+    const viewBtn=e.target.closest('[data-view]');
+    if(viewBtn){setVaultView(viewBtn.dataset.view);return;}
     const btn=e.target.closest('[data-act]');if(!btn)return;
     const act=btn.dataset.act;const id=btn.dataset.id;
     if(act==='edit-insight')openInsightModal(id);
+    if(act==='edit-artifact')openArtifactModal(id);
+    if(act==='deliver-artifact')quickArtifactStatus(id,'delivered');
+    if(act==='open-comm')openCommModal(id);
   });
+  g('vault-body').addEventListener('change',e=>{
+    const t=e.target;if(!t)return;
+    if(t.id==='ar-type-filter'){artifactsTypeFilter=t.value;renderVault();return;}
+    if(t.dataset&&t.dataset.act==='artifact-outcome')setArtifactOutcome(t.dataset.id,t.value);
+  });
+  g('btn-add-artifact').addEventListener('click',()=>openArtifactModal());
+  g('btn-save-artifact').addEventListener('click',saveArtifact);
+  g('btn-delete-artifact').addEventListener('click',deleteArtifact);
   g('btn-add-insight').addEventListener('click',()=>openInsightModal());
   g('btn-delete-insight').addEventListener('click',deleteInsight);
   // Empty-state buttons
@@ -6927,6 +7239,7 @@ function wireEvents(){
     if(which==='profile')openProfileModal();
     if(which==='contact')openContactModal();
     if(which==='event')openEventModal();
+    if(which==='artifact')openArtifactModal();
     if(which==='comm')openCommModal();
     if(which==='insight')openInsightModal();
   });
