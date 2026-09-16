@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.9 (no private component or live figures on any public surface) 26-09-06║
+║  v0.5.10 (IRL EVENTS: rooms as records and cards on the NETWORK tab) 26-09-16║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -222,6 +222,11 @@
 ║      header lines describe the external write step in plain words, and       ║
 ║      the reports comment and its check carry synthetic figures instead of    ║
 ║      the live monthly counts. Strings, comments and this banner only.        ║
+║  ·  v0.5.10 IRL EVENTS: state.events, a third record beside comms and        ║
+║      network; a card and a NETWORK sub-view grouped by status; whyThisRoom   ║
+║      required at save and import; export carries the key (schemaVersion      ║
+║      2); import is additive, status never moves backwards, hand fields       ║
+║      never overwritten; one Overview counter. No sweep, no auto-flip.        ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -442,6 +447,13 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .card-status.replied{color:var(--green);border-color:#065f46;background:rgba(16,185,129,.05)}
 .card-status.ghosted{color:var(--gray);border-color:var(--line-2);text-decoration:line-through}
 .card-status.dead{color:var(--text-dim);border-color:var(--line-2);text-decoration:line-through}
+/* IRL EVENTS: status and cost pills, the same palette as the comm statuses */
+.card-status.candidate{color:var(--amber);border-color:var(--amber-dim);background:rgba(251,191,36,.05)}
+.card-status.selected{color:var(--violet);border-color:var(--violet-dim);background:rgba(167,139,250,.06)}
+.card-status.attended{color:var(--green);border-color:#065f46;background:rgba(16,185,129,.05)}
+.card-status.skipped{color:var(--gray);border-color:var(--line-2);text-decoration:line-through}
+.card-status.ev-free{color:var(--cyan);border-color:var(--cyan-dim)}
+.card-status.ev-paid{color:var(--text);border-color:var(--line-2)}
 
 /* TRIAGE BAR (v3.0) — DRAFTS / PIPELINE / ARCHIVE / REPORTS filter row */
 .triage-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding:0 0 14px;border-bottom:1px solid var(--line)}
@@ -751,7 +763,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.9</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.10</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -802,6 +814,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <div class="section-h-row">
         <div class="section-h-title">// NETWORK</div>
         <button class="btn" id="btn-add-contact">+ ADD CONTACT</button>
+        <button class="btn hidden" id="btn-add-event">+ ADD EVENT</button>
       </div>
       <div id="network-body"></div>
     </section>
@@ -937,6 +950,40 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 </div>
 
+<div class="modal-bg" id="modal-event">
+  <div class="modal">
+    <div class="modal-h"><span class="mh-title" id="modal-event-title">// NEW EVENT</span><button class="modal-close" data-close="modal-event">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Title *</label><input type="text" id="ev-title" placeholder="Makers meetup"></div>
+      <div class="field-row">
+        <div class="field"><label>Organizer</label><input type="text" id="ev-organizer" placeholder="Who runs the room"></div>
+        <div class="field"><label>Venue</label><input type="text" id="ev-venue" placeholder="Where in the city"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>City</label><input type="text" id="ev-city" placeholder="City" autocomplete="off"></div>
+        <div class="field"><label>Event timezone</label><select id="ev-tz"></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Start (event local time)</label><input type="datetime-local" id="ev-start"></div>
+        <div class="field"><label>Cost</label><input type="text" id="ev-cost" placeholder="free, or a number"></div>
+      </div>
+      <div class="field"><label>Verify link</label><input type="text" id="ev-url" placeholder="https://..."></div>
+      <div class="field"><label>Status</label><select id="ev-status"><option value="candidate">CANDIDATE</option><option value="selected">SELECTED</option><option value="attended">ATTENDED</option><option value="skipped">SKIPPED</option></select></div>
+      <div class="field"><label>Why this room *</label><textarea id="ev-why" placeholder="The reason this room is worth the trip. No reason, no card." style="min-height:80px"></textarea><div id="ev-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
+      <div id="ev-after">
+        <div class="field"><label>Met (tick Network contacts)</label><div id="ev-met" class="tiny mono"></div></div>
+        <div class="field"><label>Outcome</label><select id="ev-outcome"><option value="none">NONE</option><option value="conversation">CONVERSATION</option><option value="meeting">MEETING</option><option value="deposit">DEPOSIT</option></select></div>
+      </div>
+      <div class="field"><label>Notes</label><textarea id="ev-notes" placeholder="What the room opened." style="min-height:80px"></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn danger hidden" id="btn-delete-event">DELETE</button>
+      <button class="btn muted" data-close="modal-event">CANCEL</button>
+      <button class="btn" id="btn-save-event">SAVE EVENT</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-bg" id="modal-comm">
   <div class="modal">
     <div class="modal-h"><span class="mh-title" id="modal-comm-title">// LOG COMMUNICATION</span><button class="modal-close" data-close="modal-comm">×</button></div>
@@ -1053,7 +1100,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.9 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.10 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1100,7 +1147,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.9';
+const APP_VERSION='infrabot-v0.5.10';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1527,6 +1574,7 @@ function freshState(){
     network:[],
     posts:[],
     comms:[],
+    events:[],
     insights:[],
     customCities:{},
     groqKey:'',
@@ -2267,7 +2315,7 @@ function launchApp(){
 }
 
 function populateTimezoneSelects(){
-  ['c-tz','prof-tz','clock-tz'].forEach(id=>{
+  ['c-tz','prof-tz','clock-tz','ev-tz'].forEach(id=>{
     const sel=g(id);if(!sel)return;sel.innerHTML='';
     TIMEZONES.forEach(tz=>{const o=document.createElement('option');o.value=tz;o.textContent=tz;sel.appendChild(o);});
   });
@@ -2340,7 +2388,8 @@ function renderOverview(){
   const sentComms=state.comms.filter(k=>k.status==='sent'||k.status==='replied').length;
   const repliedComms=state.comms.filter(k=>k.status==='replied').length;
   const totalInsights=Array.isArray(state.insights)?state.insights.length:0;
-  g('stats-grid').innerHTML=`<div class="stat-cell"><div class="stat-num">${state.network.length}</div><div class="stat-label">CONTACTS</div></div><div class="stat-cell"><div class="stat-num">${totalComms}</div><div class="stat-label">COMMS LOGGED</div></div><div class="stat-cell amber"><div class="stat-num">${sentComms}</div><div class="stat-label">SENT</div></div><div class="stat-cell green"><div class="stat-num">${repliedComms}</div><div class="stat-label">REPLIED</div></div><div class="stat-cell"><div class="stat-num">${totalInsights}</div><div class="stat-label">INSIGHTS</div></div>`;
+  const rooms=eventMonthCounts(localYearMonth(new Date().toISOString()));
+  g('stats-grid').innerHTML=`<div class="stat-cell"><div class="stat-num">${state.network.length}</div><div class="stat-label">CONTACTS</div></div><div class="stat-cell"><div class="stat-num">${totalComms}</div><div class="stat-label">COMMS LOGGED</div></div><div class="stat-cell amber"><div class="stat-num">${sentComms}</div><div class="stat-label">SENT</div></div><div class="stat-cell green"><div class="stat-num">${repliedComms}</div><div class="stat-label">REPLIED</div></div><div class="stat-cell"><div class="stat-num">${totalInsights}</div><div class="stat-label">INSIGHTS</div></div><div class="stat-cell"><div class="stat-num">${rooms.attended}/${rooms.selected}</div><div class="stat-label">ROOMS THIS MONTH · ATTENDED / SELECTED</div></div>`;
 
   const p=state.profile;
   const has=p.name||p.company;
@@ -2353,12 +2402,16 @@ function renderOverview(){
 
 function renderNetwork(){
   const body=g('network-body');
+  g('btn-add-contact').classList.toggle('hidden',networkView==='events');
+  g('btn-add-event').classList.toggle('hidden',networkView!=='events');
+  const viewBar=networkViewBar();
+  if(networkView==='events'){body.innerHTML=viewBar+renderEventsView();return;}
   if(state.network.length===0){
-    body.innerHTML=`<div class="empty-state"><div class="es-h">NO CONTACTS YET</div><div class="es-sub">Network is for people you have had a live conversation with, phone, video, or in person, and share real interest or intent.<br>Add someone you have actually talked to, not a cold prospect.</div><button class="btn" data-open="contact">+ ADD FIRST CONTACT</button></div>`;
+    body.innerHTML=viewBar+`<div class="empty-state"><div class="es-h">NO CONTACTS YET</div><div class="es-sub">Network is for people you have had a live conversation with, phone, video, or in person, and share real interest or intent.<br>Add someone you have actually talked to, not a cold prospect.</div><button class="btn" data-open="contact">+ ADD FIRST CONTACT</button></div>`;
     return;
   }
   const sorted=state.network.slice().sort((a,b)=>(b.addedAt||'').localeCompare(a.addedAt||''));
-  let html='<div class="card-grid">';
+  let html=viewBar+'<div class="card-grid">';
   sorted.forEach(c=>{
     // v0.2.6: the card clock's zone comes from the logged City via CITY_TZ,
     // not from c.tz. The modal's tz select defaults to home, so it showed home
@@ -2391,6 +2444,268 @@ function renderNetwork(){
   html+='</div>';
   body.innerHTML=html;
   updateContactClocks(new Date());
+}
+
+// IRL EVENTS ==================================================================
+// Rooms the founder is weighing, has picked, attended, or skipped. state.events
+// is the record. Each row carries the statusHistory shape the comm cards use,
+// and nothing moves a row but a hand: no sweep, no clock, no date flip. The one
+// gate is whyThisRoom, at the save and at the import alike: no reason, no card.
+// Times: start is the wall time in the event's own zone; wallTimeToDate turns it
+// into an instant through the same Intl pattern the clocks use, and the card
+// renders home time from profile.homeTz with the local time beside it only when
+// the two zones differ. Comments in this block authored with zero brace pairs.
+const EVENT_STATUSES=['candidate','selected','attended','skipped'];
+const EVENT_OUTCOMES=['none','conversation','meeting','deposit'];
+let networkView='contacts';
+let editingEventId=null;
+let eventsCityFilter='';
+function eventsList(){
+  if(!state)return [];
+  if(!Array.isArray(state.events))state.events=[];
+  return state.events;
+}
+function homeTzNow(){return (state&&state.profile&&state.profile.homeTz)||'America/Chicago';}
+// Cost is 'free' or a number. Empty and the word free read as free; a number
+// with a leading currency sign or thousands separators parses; any other text
+// stays as typed and renders as PAID with that text.
+function normalizeCost(v){
+  if(v==null)return 'free';
+  if(typeof v==='number')return isFinite(v)?v:'free';
+  const s=String(v).trim();
+  if(!s||/^free$/i.test(s))return 'free';
+  const digits=s.replace(/^[^\d.-]+/,'').replace(/,/g,'');
+  const n=digits===''?NaN:Number(digits);
+  return isFinite(n)?n:s;
+}
+// Every field present with its type; a well-formed record passes through
+// byte-identical, which is what keeps export then import byte-stable.
+function normalizeEvent(e){
+  if(!e||typeof e!=='object')return e;
+  ['title','organizer','venue','city','tz','start','url','whyThisRoom','notes'].forEach(k=>{if(typeof e[k]!=='string')e[k]=e[k]==null?'':String(e[k]);});
+  const st=String(e.status||'').toLowerCase();
+  e.status=EVENT_STATUSES.includes(st)?st:'candidate';
+  const oc=String(e.outcome||'').toLowerCase();
+  e.outcome=EVENT_OUTCOMES.includes(oc)?oc:'none';
+  if(!Array.isArray(e.met))e.met=[];
+  e.cost=normalizeCost(e.cost);
+  if(!e.createdAt)e.createdAt=new Date().toISOString();
+  if(!Array.isArray(e.statusHistory)||!e.statusHistory.length)e.statusHistory=[{status:e.status,timestamp:e.createdAt}];
+  return e;
+}
+// The ladder: candidate, selected, then a terminal state. attended and skipped
+// share the top rank, so an import can never trade one terminal state for the
+// other; only a hand does that.
+function eventStatusRank(s){
+  const i=EVENT_STATUSES.indexOf(String(s||'').toLowerCase());
+  return i<0?0:Math.min(i,2);
+}
+// The ONE transition path. Appends to statusHistory, never rewrites it; a
+// no-change call appends nothing and returns false.
+function setEventStatus(e,status,when){
+  const st=String(status||'').toLowerCase();
+  if(!EVENT_STATUSES.includes(st))return false;
+  if(!Array.isArray(e.statusHistory))e.statusHistory=[];
+  const last=e.statusHistory.length?e.statusHistory[e.statusHistory.length-1].status:null;
+  if(e.status===st&&last===st)return false;
+  const ts=when||new Date().toISOString();
+  e.statusHistory.push({status:st,timestamp:ts});
+  e.status=st;e.updatedAt=ts;
+  return true;
+}
+// Import identity: the verify link plus the start day; a record with no link
+// falls back to its title plus the start day.
+function eventKey(e){
+  const u=String(e.url||'').trim().toLowerCase().replace(/\/+$/,'');
+  const day=String(e.start||'').trim().slice(0,10);
+  return (u?u:'title:'+String(e.title||'').trim().toLowerCase())+'|'+day;
+}
+// Wall time in a zone to an instant: read the guess back through Intl in that
+// zone and correct by the difference, twice, which settles a DST edge. No
+// offset table, no second zone implementation.
+function wallTimeToDate(wall,tz){
+  const m=/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(String(wall||'').trim());
+  if(!m)return null;
+  const want=Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5]);
+  if(isNaN(want))return null;
+  try{
+    const fmt=new Intl.DateTimeFormat('en-US',{timeZone:tz||homeTzNow(),hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    const seen=d=>{const p={};fmt.formatToParts(d).forEach(x=>{p[x.type]=x.value;});return Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute,+p.second);};
+    let guess=want;
+    for(let i=0;i<2;i++)guess=guess-(seen(new Date(guess))-want);
+    return new Date(guess);
+  }catch(_){return null;}
+}
+function eventPassed(e){const d=wallTimeToDate(e.start,e.tz);return !!d&&d.getTime()<Date.now();}
+function fmtCost(v){
+  if(v==='free'||v===''||v==null)return 'FREE';
+  return 'PAID '+String(v).toUpperCase();
+}
+// Date and time in the home zone; the event's local time beside it only when
+// the zones differ. Same en-CA date, fmtClockHM and fmtTzShort the clocks use.
+function fmtEventWhen(e){
+  const d=wallTimeToDate(e.start,e.tz);
+  if(!d)return e.start?esc(e.start):'NO DATE YET';
+  const home=homeTzNow();
+  const day=tz=>{try{return new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}catch(_){return '';}};
+  let out=day(home)+' '+fmtClockHM(d,home)+' '+esc(fmtTzShort(d,home));
+  if(e.tz&&e.tz!==home)out+=' · '+day(e.tz)+' '+fmtClockHM(d,e.tz)+' '+esc(fmtTzShort(d,e.tz))+' LOCAL';
+  return out;
+}
+// The Overview counter: an event counts as SELECTED or ATTENDED in a month if
+// any statusHistory entry of that status lands in the month, once per event.
+function eventMonthCounts(ym){
+  const out={selected:0,attended:0};
+  eventsList().forEach(e=>{
+    const h=Array.isArray(e.statusHistory)?e.statusHistory:[];
+    let sel=false,att=false;
+    h.forEach(x=>{if(!x||localYearMonth(x.timestamp)!==ym)return;if(x.status==='selected')sel=true;if(x.status==='attended')att=true;});
+    if(sel)out.selected++;
+    if(att)out.attended++;
+  });
+  return out;
+}
+function networkViewBar(){
+  const n=state.network.length,m=eventsList().length;
+  return `<div class="triage-bar"><button class="triage-btn ${networkView==='contacts'?'active':''}" data-view="contacts">CONTACTS<span class="triage-count">· ${n}</span></button><button class="triage-btn ${networkView==='events'?'active':''}" data-view="events">EVENTS<span class="triage-count">· ${m}</span></button></div>`;
+}
+function setNetworkView(v){
+  if(v!=='contacts'&&v!=='events')return;
+  networkView=v;
+  renderNetwork();
+}
+function renderEventsView(){
+  const list=eventsList().map(normalizeEvent);
+  if(!list.length)return `<div class="empty-state"><div class="es-h">NO EVENTS YET</div><button class="btn" data-open="event">+ ADD EVENT</button></div>`;
+  const cities=Array.from(new Set(list.map(e=>e.city.trim()).filter(Boolean))).sort((a,b)=>a.localeCompare(b));
+  if(eventsCityFilter&&!cities.some(c=>c.toLowerCase()===eventsCityFilter))eventsCityFilter='';
+  let html=`<div class="field" style="max-width:280px"><label>City</label><select id="ev-city-filter"><option value="">ALL CITIES</option>${cities.map(c=>`<option value="${esc(c.toLowerCase())}"${c.toLowerCase()===eventsCityFilter?' selected':''}>${esc(c.toUpperCase())}</option>`).join('')}</select></div>`;
+  const shown=eventsCityFilter?list.filter(e=>e.city.trim().toLowerCase()===eventsCityFilter):list;
+  if(!shown.length)return html+`<div class="empty-state"><div class="es-h">NO EVENTS IN THAT CITY</div></div>`;
+  const byStart=(a,b)=>{const ad=wallTimeToDate(a.start,a.tz),bd=wallTimeToDate(b.start,b.tz);if(ad&&bd)return ad-bd;if(ad)return -1;if(bd)return 1;return (a.title||'').localeCompare(b.title||'');};
+  EVENT_STATUSES.forEach(st=>{
+    const group=shown.filter(e=>e.status===st).sort(byStart);
+    if(!group.length)return;
+    html+=`<div class="card-section-h" style="margin:16px 0 8px;font-size:10px">${st.toUpperCase()} · ${group.length}</div><div class="card-grid">${group.map(renderEventCard).join('')}</div>`;
+  });
+  return html;
+}
+// Sibling of the comm card: title; organizer, venue, city; when; two pills;
+// the reason where a comm shows its opener; the link; what the room produced,
+// quiet until the start has passed; notes.
+function renderEventCard(e){
+  const passed=eventPassed(e);
+  const metNames=e.met.map(id=>{const c=state.network.find(x=>x.id===id);return c?c.name:null;}).filter(Boolean);
+  const line2=[e.organizer,e.venue,e.city?e.city.toUpperCase():''].filter(Boolean).map(s=>esc(s)).join(' · ');
+  const link=e.url?`<div class="card-section"><div class="card-section-h">Verify</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all"><a href="${esc(e.url.startsWith('http')?e.url:'https://'+e.url)}" target="_blank" rel="noopener" style="color:var(--cyan-dim);text-decoration:none">${esc(e.url.replace(/^https?:\/\//,''))}</a></div></div>`:'';
+  const after=`<div class="card-section" style="${passed?'':'opacity:.5'}"><div class="card-section-h">After the room</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">MET: ${metNames.length?esc(metNames.join(', ')):'nobody logged'} · OUTCOME: ${esc(e.outcome.toUpperCase())}</div></div>`;
+  const notes=e.notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(e.notes)}</div></div>`:'';
+  let quick='';
+  if(e.status==='candidate')quick=`<button class="btn muted sm" data-act="select-event" data-id="${esc(e.id)}">SELECT</button><button class="btn muted sm" data-act="skip-event" data-id="${esc(e.id)}">SKIP</button>`;
+  else if(e.status==='selected')quick=`<button class="btn muted sm" data-act="attend-event" data-id="${esc(e.id)}">ATTENDED</button><button class="btn muted sm" data-act="skip-event" data-id="${esc(e.id)}">SKIP</button>`;
+  return `<div class="card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(e.title||'(untitled)')}</div><div class="card-sub">${line2}</div><div class="card-age">${fmtEventWhen(e)}</div></div><div class="card-h-right"><span class="card-status ${e.cost==='free'?'ev-free':'ev-paid'}">${esc(fmtCost(e.cost))}</span><span class="card-status ${esc(e.status)}">${esc(e.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Why this room</div><div class="card-section-body">${esc(e.whyThisRoom)}</div></div>${link}${after}${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-event" data-id="${esc(e.id)}">EDIT</button>${quick}</div></div>`;
+}
+// The event zone select carries the TIMEZONES list; a zone the city resolves
+// to that the list lacks is appended so the pick is never silently wrong.
+function eventTzOptions(sel,want){
+  if(!sel||!want)return;
+  if(!Array.from(sel.options).some(o=>o.value===want)){const o=document.createElement('option');o.value=want;o.textContent=want;sel.appendChild(o);}
+  sel.value=want;
+}
+// The event modal is an explicit-save surface (the clock modal's shape): it is
+// not an autosave surface, so a cancel discards and the gate below can refuse.
+function openEventModal(eventId){
+  editingEventId=eventId||null;
+  const isEdit=!!eventId;
+  const e=isEdit?eventsList().find(x=>x.id===eventId):null;
+  if(isEdit&&!e){editingEventId=null;return;}
+  g('modal-event-title').textContent=isEdit?'// EDIT EVENT':'// NEW EVENT';
+  g('btn-delete-event').classList.toggle('hidden',!isEdit);
+  const v=e?normalizeEvent(e):{title:'',organizer:'',venue:'',city:'',tz:'',start:'',url:'',cost:'free',status:'candidate',whyThisRoom:'',met:[],outcome:'none',notes:''};
+  g('ev-title').value=v.title;g('ev-organizer').value=v.organizer;g('ev-venue').value=v.venue;g('ev-city').value=v.city;
+  g('ev-start').value=String(v.start||'').slice(0,16);
+  g('ev-cost').value=v.cost==='free'?'free':String(v.cost);
+  g('ev-url').value=v.url;g('ev-status').value=v.status;g('ev-why').value=v.whyThisRoom;g('ev-outcome').value=v.outcome;g('ev-notes').value=v.notes;
+  eventTzOptions(g('ev-tz'),v.tz||cityToTz(v.city)||homeTzNow());
+  const people=state.network.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  g('ev-met').innerHTML=people.length?people.map(c=>`<label style="display:flex;align-items:center;gap:8px;margin:4px 0;cursor:pointer;text-transform:none;letter-spacing:0;font-size:12px;color:var(--text)"><input type="checkbox" value="${esc(c.id)}"${v.met.includes(c.id)?' checked':''}>${esc(c.name||'(no name)')}${c.company?' · '+esc(c.company):''}</label>`).join(''):'<span class="dim">No Network contacts yet. Add the people you met as contacts, then tick them here.</span>';
+  g('ev-after').style.opacity=(v.start&&eventPassed(v))?'1':'.55';
+  g('ev-gate').textContent='';
+  showModal('modal-event');
+  setTimeout(()=>g('ev-title').focus(),100);
+}
+// THE GATE. An empty whyThisRoom is refused with the reason written under the
+// field; nothing is saved and nothing is dropped silently. Returns true only
+// when a record was written.
+function saveEvent(){
+  const title=g('ev-title').value.trim();
+  const why=g('ev-why').value.trim();
+  const gate=g('ev-gate');
+  if(!why){gate.textContent='NO REASON, NO CARD. Say why this room is worth the trip before it can be saved.';g('ev-why').focus();return false;}
+  if(!title){gate.textContent='TITLE REQUIRED. The card has nothing to show without one.';g('ev-title').focus();return false;}
+  gate.textContent='';
+  const met=Array.from(g('ev-met').querySelectorAll('input[type=checkbox]:checked')).map(i=>i.value);
+  const data={title:title,organizer:g('ev-organizer').value.trim(),venue:g('ev-venue').value.trim(),city:g('ev-city').value.trim(),tz:g('ev-tz').value,start:g('ev-start').value.trim(),url:g('ev-url').value.trim(),cost:normalizeCost(g('ev-cost').value),whyThisRoom:why,met:met,outcome:g('ev-outcome').value,notes:g('ev-notes').value.trim()};
+  const status=g('ev-status').value;
+  const now=new Date().toISOString();
+  const wasEdit=!!editingEventId;
+  if(wasEdit){
+    const e=eventsList().find(x=>x.id===editingEventId);
+    if(e){Object.assign(e,data,{updatedAt:now});setEventStatus(e,status,now);}
+  }else{
+    eventsList().push(normalizeEvent(Object.assign({id:uid(),createdAt:now,updatedAt:now,status:status,statusHistory:[{status:status,timestamp:now}]},data)));
+  }
+  saveState();hideModal('modal-event');renderNetwork();renderOverview();
+  toast(wasEdit?'EVENT UPDATED':'EVENT ADDED','green');
+  editingEventId=null;
+  return true;
+}
+function deleteEvent(){
+  if(!editingEventId)return;
+  const e=eventsList().find(x=>x.id===editingEventId);if(!e)return;
+  if(!confirm('Delete "'+(e.title||'(untitled)')+'"? Cannot be undone.'))return;
+  state.events=eventsList().filter(x=>x.id!==editingEventId);
+  saveState();hideModal('modal-event');renderNetwork();renderOverview();
+  toast('EVENT DELETED','amber');
+  editingEventId=null;
+}
+// Card quick actions: a hand moving one status in one tap.
+function quickEventStatus(id,status){
+  const e=eventsList().find(x=>x.id===id);if(!e)return;
+  if(!setEventStatus(e,status))return;
+  saveState();renderNetwork();renderOverview();
+  toast((e.title||'(untitled)').toUpperCase()+' · '+status.toUpperCase(),'green');
+}
+// The additive import leg for events (called by additiveImportState). Dedupe
+// on eventKey. A match moves status only up the ladder, never back, and fills
+// whyThisRoom, notes, met, outcome only where the local record has none: a
+// hand-written field is never overwritten. An incoming record with no
+// whyThisRoom is refused and counted, never stored.
+function importEvents(incoming){
+  var res={added:0,updated:0,skipped:0,refused:0};
+  if(!Array.isArray(incoming)||!incoming.length)return res;
+  var list=eventsList();
+  var byKey={};
+  list.forEach(function(e){byKey[eventKey(e)]=e;});
+  incoming.forEach(function(raw){
+    if(!raw||typeof raw!=='object'){res.refused++;return;}
+    var inc=normalizeEvent(Object.assign({},raw));
+    if(!String(inc.whyThisRoom||'').trim()){res.refused++;return;}
+    var k=eventKey(inc);
+    var local=byKey[k];
+    if(!local){
+      if(!inc.id||list.some(function(e){return e.id===inc.id;}))inc.id=uid();
+      list.push(inc);byKey[k]=inc;res.added++;return;
+    }
+    var moved=false;
+    if(eventStatusRank(inc.status)>eventStatusRank(local.status))moved=setEventStatus(local,inc.status)||moved;
+    if(!String(local.whyThisRoom||'').trim()&&inc.whyThisRoom){local.whyThisRoom=inc.whyThisRoom;moved=true;}
+    if(!String(local.notes||'').trim()&&String(inc.notes||'').trim()){local.notes=inc.notes;moved=true;}
+    if((!Array.isArray(local.met)||!local.met.length)&&inc.met.length){local.met=inc.met.slice();moved=true;}
+    if((!local.outcome||local.outcome==='none')&&inc.outcome!=='none'){local.outcome=inc.outcome;moved=true;}
+    if(moved)res.updated++;else res.skipped++;
+  });
+  return res;
 }
 
 // v3.0 TRIAGE SYSTEM ============================================================
@@ -5717,7 +6032,7 @@ function exportAll(){
 // (real names by design); its home is
 // the private ops repo by hand, never this publishable repo.
 // ============================================================================
-const STATE_SCHEMA_VERSION=1;
+const STATE_SCHEMA_VERSION=2;
 // Rebuild any value with object keys in sorted order; ARRAY order is preserved
 // (statusHistory / history are append-only chronological and must not be reordered).
 // This is what makes "stable key order" hold no matter how a record's keys were
@@ -5739,7 +6054,8 @@ function buildStateExport(){
     return Object.assign({},c,{section:getCommBucket(c)});
   });
   var network=state.network.slice().sort(byId);
-  var payload={schemaVersion:STATE_SCHEMA_VERSION,comms:comms,network:network};
+  var events=eventsList().slice().sort(byId);
+  var payload={schemaVersion:STATE_SCHEMA_VERSION,comms:comms,network:network,events:events};
   return JSON.stringify(_canonicalJson(payload),null,2);
 }
 function exportState(){
@@ -5801,10 +6117,11 @@ function additiveImportState(payload){
     state.network.push(rec);
     addedN++;
   });
-  if(addedC>0||addedN>0){saveState();renderComms();renderNetwork();renderOverview();renderMapPins();}
+  var ev=importEvents(Array.isArray(payload.events)?payload.events:[]);
+  if(addedC>0||addedN>0||ev.added>0||ev.updated>0){saveState();renderComms();renderNetwork();renderOverview();renderMapPins();}
   var wentQuiet=autoArchiveStaleComms();
   if(wentQuiet.length>0){renderComms();renderOverview();renderMapPins();}
-  return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,wentQuiet:wentQuiet};
+  return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,addedEvents:ev.added,updatedEvents:ev.updated,skippedEvents:ev.skipped,refusedEvents:ev.refused,wentQuiet:wentQuiet};
 }
 function importStateFile(file){
   var reader=new FileReader();
@@ -5815,9 +6132,11 @@ function importStateFile(file){
     if(!payload||typeof payload!=='object'||!Array.isArray(payload.comms)){toast('NOT AN INFRABOT STATE EXPORT','err');return;}
     var r=additiveImportState(payload);
     var msg='STATE MERGED · '+r.addedComms+' COMM'+(r.addedComms===1?'':'S')+' + '+r.addedContacts+' CONTACT'+(r.addedContacts===1?'':'S');
-    if(r.skippedComms||r.skippedContacts)msg+=' · '+(r.skippedComms+r.skippedContacts)+' ALREADY PRESENT';
+    if(r.addedEvents||r.updatedEvents)msg+=' · '+r.addedEvents+' EVENT'+(r.addedEvents===1?'':'S')+(r.updatedEvents?' + '+r.updatedEvents+' UPDATED':'');
+    if(r.skippedComms||r.skippedContacts||r.skippedEvents)msg+=' · '+(r.skippedComms+r.skippedContacts+r.skippedEvents)+' ALREADY PRESENT';
+    if(r.refusedEvents)msg+=' · '+r.refusedEvents+' EVENT'+(r.refusedEvents===1?'':'S')+' REFUSED: NO REASON GIVEN';
     if(r.wentQuiet&&r.wentQuiet.length)msg+=' · WENT QUIET: '+r.wentQuiet.join(', ');
-    toast(msg,(r.addedComms+r.addedContacts)>0?'green':'amber');
+    toast(msg,(r.addedComms+r.addedContacts+r.addedEvents+r.updatedEvents)>0&&!r.refusedEvents?'green':'amber');
   };
   reader.readAsText(file);
 }
@@ -6041,6 +6360,8 @@ function mergeServerState(file){
     };
     state.comms=mergeSlice(state.comms,file.comms,editingCommId);
     state.network=mergeSlice(state.network,file.network,editingContactId);
+    state.events=mergeSlice(eventsList(),Array.isArray(file.events)?file.events:[],editingEventId);
+    state.events.forEach(function(e){normalizeEvent(e);});
     state.comms.forEach(function(c){
       if(!Array.isArray(c.history))c.history=[];
       if(!Array.isArray(c.statusHistory))c.statusHistory=[{status:c.status||'draft',timestamp:c.createdAt||new Date().toISOString()}];
@@ -6543,11 +6864,24 @@ function wireEvents(){
   g('btn-add-contact').addEventListener('click',()=>openContactModal());
   g('btn-delete-contact').addEventListener('click',deleteContact);
   g('network-body').addEventListener('click',e=>{
+    const viewBtn=e.target.closest('[data-view]');
+    if(viewBtn){setNetworkView(viewBtn.dataset.view);return;}
     const btn=e.target.closest('[data-act]');if(!btn)return;
     const act=btn.dataset.act;const id=btn.dataset.id;
     if(act==='edit-contact')openContactModal(id);
     if(act==='council-contact')openCouncil('contact',id);
+    if(act==='edit-event')openEventModal(id);
+    if(act==='select-event')quickEventStatus(id,'selected');
+    if(act==='attend-event')quickEventStatus(id,'attended');
+    if(act==='skip-event')quickEventStatus(id,'skipped');
   });
+  g('network-body').addEventListener('change',e=>{
+    if(e.target&&e.target.id==='ev-city-filter'){eventsCityFilter=e.target.value;renderNetwork();}
+  });
+  g('btn-add-event').addEventListener('click',()=>openEventModal());
+  g('btn-save-event').addEventListener('click',saveEvent);
+  g('btn-delete-event').addEventListener('click',deleteEvent);
+  g('ev-city').addEventListener('input',()=>{const z=cityToTz(g('ev-city').value);if(z)eventTzOptions(g('ev-tz'),z);});
   g('btn-add-comm').addEventListener('click',()=>openCommModal());
   // v0.3.5: the DONE wiring is gone with its button, and saveComm no longer exists. The
   // comm modal's exits are the x (data-close) and the backdrop, both via closeCommModal.
@@ -6592,6 +6926,7 @@ function wireEvents(){
     const which=btn.dataset.open;
     if(which==='profile')openProfileModal();
     if(which==='contact')openContactModal();
+    if(which==='event')openEventModal();
     if(which==='comm')openCommModal();
     if(which==='insight')openInsightModal();
   });
