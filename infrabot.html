@@ -6431,7 +6431,7 @@ function importStateFile(file){
     if(r.skippedComms||r.skippedContacts||r.skippedEvents)msg+=' · '+(r.skippedComms+r.skippedContacts+r.skippedEvents)+' ALREADY PRESENT';
     if(r.refusedEvents)msg+=' · '+r.refusedEvents+' EVENT'+(r.refusedEvents===1?'':'S')+' REFUSED: NO REASON GIVEN';
     if(r.addedArtifacts||r.updatedArtifacts)msg+=' · '+r.addedArtifacts+' ARTIFACT'+(r.addedArtifacts===1?'':'S')+(r.updatedArtifacts?' + '+r.updatedArtifacts+' UPDATED':'');
-    if(r.refusedArtifacts)msg+=' · '+r.refusedArtifacts+' ARTIFACT'+(r.refusedArtifacts===1?'':'S')+' REFUSED: NO REASON GIVEN';
+    if(r.refusedArtifacts)msg+=' · '+r.refusedArtifacts+' ARTIFACT'+(r.refusedArtifacts===1?'':'S')+' REFUSED: NO TITLE OR NO REASON';
     if(r.wentQuiet&&r.wentQuiet.length)msg+=' · WENT QUIET: '+r.wentQuiet.join(', ');
     toast(msg,(r.addedComms+r.addedContacts+r.addedEvents+r.updatedEvents+r.addedArtifacts+r.updatedArtifacts)>0&&!r.refusedEvents&&!r.refusedArtifacts?'green':'amber');
   };
