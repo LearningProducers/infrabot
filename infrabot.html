@@ -2822,8 +2822,9 @@ function artifactKey(a){
   return u?u:'title:'+String(a.title||'').trim().toLowerCase()+'|'+String(a.type||'').toLowerCase();
 }
 // The month an artifact counts in: its delivered date, else its last delivered
-// entry; a planned artifact counts nowhere.
+// entry; a planned artifact counts nowhere, whatever date it carries.
 function artifactMonth(a){
+  if(a.status!=='delivered')return null;
   if(a.delivered)return localYearMonth(a.delivered);
   const h=Array.isArray(a.statusHistory)?a.statusHistory:[];
   for(let i=h.length-1;i>=0;i--){if(h[i]&&h[i].status==='delivered')return localYearMonth(h[i].timestamp);}
@@ -2925,6 +2926,7 @@ function saveArtifact(){
   const now=new Date().toISOString();
   let delivered=g('ar-delivered').value.trim();
   if(status==='delivered'&&!delivered)delivered=homeDate(new Date());
+  if(status!=='delivered')delivered='';
   const data={title:title,type:g('ar-type').value,url:g('ar-url').value.trim(),forWhom:g('ar-forwhom').value.trim(),delivered:delivered,whyItEarned:why,outcome:g('ar-outcome').value,openedCardId:g('ar-opened').value,notes:g('ar-notes').value.trim()};
   const wasEdit=!!editingArtifactId;
   if(wasEdit){
@@ -2966,7 +2968,7 @@ function setArtifactOutcome(id,outcome){
 // Dedupe on artifactKey. A match moves status only up the ladder, never back,
 // and fills whyItEarned, outcome, openedCardId and notes only where the local
 // record has none: a hand-written field is never overwritten. An incoming
-// record with no whyItEarned is refused and counted, never stored.
+// record with no title or no whyItEarned is refused and counted, never stored.
 function importArtifacts(incoming){
   var res={added:0,updated:0,skipped:0,refused:0};
   if(!Array.isArray(incoming)||!incoming.length)return res;
@@ -2976,6 +2978,7 @@ function importArtifacts(incoming){
   incoming.forEach(function(raw){
     if(!raw||typeof raw!=='object'){res.refused++;return;}
     var inc=normalizeArtifact(Object.assign({},raw));
+    if(!String(inc.title||'').trim()){res.refused++;return;}
     if(!String(inc.whyItEarned||'').trim()){res.refused++;return;}
     var k=artifactKey(inc);
     var local=byKey[k];
