@@ -17,6 +17,8 @@ python3 serve.py
 
 Open http://127.0.0.1:8119/infrabot.html, or just double-click `open-infrabot.command`. No dependencies beyond Python 3. Everything runs on your machine and stays there; the only network calls are the Groq API calls you configure.
 
+The launcher starts the server detached, so no terminal window has to stay open; double-click `stop-infrabot.command` to stop it (or run `python3 serve.py --stop`). The server's log and PID live under `state/`. A second start while it runs only opens the browser. With the server down the app keeps working from browser storage, and when the server returns each record syncs by whichever copy is newer, so edits made in the meantime are kept.
+
 State exports land in a repo-local `exports/` folder by default. To send them somewhere else, set `LPI_EXPORT_DIR` in a local env file that the launcher sources. Note: if `LPI_EXPORT_DIR` points outside this repo, `reconcile.command` refuses to run by default. This keeps private data out of the tracked tracker.csv. The refusal message names the override flag if you truly want it.
 
 ## Onboard your agent

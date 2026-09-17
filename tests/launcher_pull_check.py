@@ -16,11 +16,13 @@ so the real state, exports and heartbeat are never touched. Three starts:
   3. a remote that cannot be reached: no pull, one plain line, the OLDER
      line served; never a force.
 
-The launcher binds 127.0.0.1:8119, so this check needs that port free: with
-a server already running it reports SKIPPED and exits 1, because a check
-that measured nothing is not a pass. The fixture's version strings are
-invented. Stdlib only; needs git and zsh, present on the Mac the launcher
-runs on.
+Since infrabot v0.7.0 the launcher starts the server DETACHED and exits, so
+each case stops the server through the real stop path (serve.py --stop, what
+stop-infrabot.command runs) rather than by ending the launcher, and the
+check binds a FREE port through the INFRABOT_PORT seam, so a live server on
+8119 is never touched and never blocks the check. The fixture's version
+strings are invented. Stdlib only; needs git and zsh, present on the Mac
+the launcher runs on.
 
 Run from the repo root:   python3 tests/launcher_pull_check.py
 Optional first argument: a path to a different repo root to measure.
@@ -38,7 +40,15 @@ import urllib.request
 
 ROOT = pathlib.Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else pathlib.Path(__file__).resolve().parent.parent
 LAUNCHER = ROOT / "open-infrabot.command"
-PORT = 8119
+
+
+def free_port():
+    with socket.socket() as s:
+        s.bind(("127.0.0.1", 0))
+        return s.getsockname()[1]
+
+
+PORT = free_port()
 FAILURES = []
 
 
@@ -102,6 +112,8 @@ def start_launcher(clone, tmp):
     env = dict(os.environ)
     env["PATH"] = str(shim) + os.pathsep + env.get("PATH", "")
     env["INFRABOT_DIR"] = str(clone)
+    env["INFRABOT_PORT"] = str(PORT)
+    env["HOME"] = str(tmp)  # no machine env file is sourced from here
     env["LPI_STATE_DIR"] = str(tmp / "state")
     env["LPI_EXPORT_DIR"] = str(tmp / "exports")
     env.pop("LPI_EXPORT_DIR_OVERRIDE", None)
@@ -111,14 +123,19 @@ def start_launcher(clone, tmp):
     return proc, log
 
 
-def stop(proc, log):
-    proc.terminate()
+def stop(proc, log, clone, tmp):
+    # The launcher exits on its own once the server is up (v0.7.0); the
+    # server is ended through the real stop path with the same seams.
     try:
-        proc.wait(timeout=5)
+        proc.wait(timeout=15)
     except subprocess.TimeoutExpired:
         proc.kill()
         proc.wait()
     log.close()
+    env = dict(os.environ)
+    env["INFRABOT_PORT"] = str(PORT)
+    env["LPI_STATE_DIR"] = str(tmp / "state")
+    subprocess.run(["python3", str(clone / "serve.py"), "--stop"], env=env, capture_output=True, check=False)
     wait_port(False)
 
 
@@ -128,7 +145,7 @@ def run_case(tmp, clone, name, expect_line, expect_version):
         up = wait_port(True)
         body = fetch() if up else ""
     finally:
-        stop(proc, log)
+        stop(proc, log, clone, tmp)
     out = (tmp / "launcher.log").read_text()
     first = out.strip().splitlines()[0] if out.strip() else ""
     check("%s: server came up" % name, up, out[-200:])
@@ -138,9 +155,6 @@ def run_case(tmp, clone, name, expect_line, expect_version):
 
 
 def main():
-    if port_busy():
-        print("SKIPPED: 127.0.0.1:%d is in use (a server is running); stop it to run this check. exit 1" % PORT)
-        return 1
     if not LAUNCHER.is_file():
         print("FAIL: launcher not found at %s" % LAUNCHER)
         return 1

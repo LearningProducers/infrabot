@@ -1,7 +1,15 @@
 #!/bin/zsh
-if lsof -ti tcp:8119 >/dev/null 2>&1; then
-  echo "infrabot server already running - opening the app (it serves the file it started on; restart it to serve a newer build)"
-  open "http://127.0.0.1:8119/infrabot.html"
+# START. Double-click: the server starts detached (no window to keep open),
+# the app opens in the browser, this window is done and can be closed. A
+# server already on the port serves the file it started on; this start
+# only opens the browser. To serve a newer build: stop-infrabot.command,
+# then this. The server's log: state/serve.log beside the state file; its
+# PID: state/serve.pid. INFRABOT_PORT is the harness seam (unset: 8119).
+PORT="${INFRABOT_PORT:-8119}"
+URL="http://127.0.0.1:$PORT/infrabot.html"
+if lsof -ti tcp:$PORT >/dev/null 2>&1; then
+  echo "infrabot server already running - opening the app (it serves the file it started on; stop-infrabot.command, then this, to serve a newer build)"
+  open "$URL"
   exit 0
 fi
 # Serve the latest main. Fast-forward only: a dirty tree, a diverged branch,
@@ -28,5 +36,8 @@ fi
 # and is never committed; it is where LPI_EXPORT_DIR points exports at a
 # private handoff dir. Absent file = repo-local exports/ default in serve.py.
 [ -f "$HOME/lpi/infrabot.local.env" ] && source "$HOME/lpi/infrabot.local.env"
-( sleep 1 && open "http://127.0.0.1:8119/infrabot.html" ) &
-exec python3 "$APP_DIR/serve.py"
+# Detached: serve.py forks the server into its own session, logs to the state
+# dir, records the PID, and returns once the door answers (exit 1 with the
+# log's tail when it does not). This window owes the server nothing after.
+python3 "$APP_DIR/serve.py" --detach || { echo "infrabot: the server did not start (see the lines above)"; exit 1; }
+open "$URL"
