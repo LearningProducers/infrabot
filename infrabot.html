@@ -6284,7 +6284,7 @@ function renderFullscreenBodyComm(){
     html+=`<div class="crb-resp-text" style="white-space:pre-wrap">${esc(expandAppLink(k.body))}</div>`;
     html+=`<div class="resp-copy-row" style="margin-top:18px"><button class="btn ghost" data-act="copy-comm-fs" data-id="${esc(k.id)}" title="Copy the entire comm — title, meta, subject, and body">📋 COPY ALL</button></div>`;
   }else{
-    html+=`<div style="color:var(--text-dim);text-align:center;padding:60px 20px;font-style:italic">Body is empty. Use EDIT to add content.</div>`;
+    html+=`<div style="color:var(--text-dim);text-align:center;padding:60px 20px;font-style:italic">Body is empty. Use OPEN to add content.</div>`;
   }
   g('fs-body').innerHTML=html;
 }
