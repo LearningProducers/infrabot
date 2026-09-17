@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.11 (ARTIFACT LEDGER: artifacts as records on the VAULT tab) 26-09-16   ║
+║  v0.5.12 (WIDE EDIT + LIVE LINKS: forms read at laptop width) 26-09-17       ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -232,6 +232,13 @@
 ║      save and import; the outcome scale shared with events; export carries   ║
 ║      the key (schemaVersion 3); additive import, status never backwards,     ║
 ║      hand fields kept; one Overview scoreboard. No sweep, no auto-flip.      ║
+║  ·  v0.5.12 WIDE EDIT + LIVE LINKS: the event, comm and artifact forms       ║
+║      open full width at laptop width, sized by the fullscreen text-size      ║
+║      choice (one stored key, LG when none chosen); short fields in rows      ║
+║      of two or three, long fields full width; the phone layout is            ║
+║      untouched. Every url on a card or under a link field renders            ║
+║      through one helper: new tab, noopener noreferrer, the address as        ║
+║      the text; an empty or malformed value stays plain text.                 ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -710,6 +717,45 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .fs-overlay-body.size-lg{font-size:18px}
 .fs-overlay-body.size-xl{font-size:22px}
 .fs-overlay-body.size-xxl{font-size:28px}
+/* WIDE EDIT (v0.5.12): the event, comm and artifact forms open full width at
+   laptop width, sized by the fullscreen text-size choice (one stored key).
+   Every layout rule sits behind min-width 601px, so the phone layout keeps
+   the stacked column it has today. One brace pair per rule. */
+.url-link{color:var(--cyan-dim);text-decoration:none}
+.url-link:hover{text-decoration:underline}
+.field-link{font-family:var(--mono);font-size:11px;margin-top:6px;word-break:break-all}
+.edit-text-size{display:none}
+#ev-met label{font-size:12px}
+@media(min-width:601px){
+  .modal-bg.wide-bg{padding:0;align-items:stretch}
+  .modal.modal-wide{max-width:none;width:100%;min-height:100vh;border:none;box-shadow:none;display:flex;flex-direction:column;--edit-fs:18px}
+  .modal-wide.size-md{--edit-fs:15px}
+  .modal-wide.size-lg{--edit-fs:18px}
+  .modal-wide.size-xl{--edit-fs:22px}
+  .modal-wide.size-xxl{--edit-fs:28px}
+  .modal-wide .modal-h{padding:18px 48px;gap:14px;flex-wrap:wrap}
+  .modal-wide .modal-h .mh-title{font-size:calc(var(--edit-fs) * .72)}
+  .modal-wide .edit-text-size{display:flex;gap:4px;align-items:center;border:1px solid var(--line-2);padding:2px;border-radius:2px;margin-left:auto}
+  .modal-wide .edit-text-size button{background:transparent;border:none;color:var(--text-dim);font-family:var(--mono);font-size:12px;width:28px;height:28px;cursor:pointer;padding:0}
+  .modal-wide .edit-text-size button:hover{color:var(--cyan)}
+  .modal-wide .edit-text-size .edit-size-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.12em;padding:0 6px;min-width:38px;text-align:center}
+  .modal-wide .modal-body{flex:1;padding:24px 48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px;align-content:start}
+  .modal-wide .field-row{display:contents}
+  .modal-wide .field.wide-span{grid-column:1/-1}
+  .modal-wide #ev-after{grid-column:1/-1;display:grid;grid-template-columns:2fr 1fr;gap:0 24px}
+  .modal-wide label{font-size:calc(var(--edit-fs) * .62)}
+  .modal-wide input[type=text],.modal-wide input[type=date],.modal-wide input[type=datetime-local],.modal-wide select,.modal-wide textarea{font-size:var(--edit-fs)}
+  .modal-wide textarea{line-height:1.6;min-height:calc(var(--edit-fs) * 6)}
+  .modal-wide .tiny{font-size:calc(var(--edit-fs) * .72)}
+  .modal-wide .field-link{font-size:calc(var(--edit-fs) * .8)}
+  .modal-wide #ev-met label{font-size:var(--edit-fs)}
+  .modal-wide .modal-foot{padding:14px 48px}
+  .modal-wide .btn{font-size:calc(var(--edit-fs) * .7)}
+}
+@media(min-width:601px) and (max-width:1000px){
+  .modal-wide .modal-body{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .modal-wide .modal-h,.modal-wide .modal-body,.modal-wide .modal-foot{padding-left:24px;padding-right:24px}
+}
 @media(max-width:600px){
   .fs-overlay-body{padding:20px 18px 30px}
   .fs-overlay-h{padding:14px 16px}
@@ -777,7 +823,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.11</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.12</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -970,9 +1016,9 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 </div>
 
-<div class="modal-bg" id="modal-event">
-  <div class="modal">
-    <div class="modal-h"><span class="mh-title" id="modal-event-title">// NEW EVENT</span><button class="modal-close" data-close="modal-event">×</button></div>
+<div class="modal-bg wide-bg" id="modal-event">
+  <div class="modal modal-wide">
+    <div class="modal-h"><span class="mh-title" id="modal-event-title">// NEW EVENT</span><div class="edit-text-size"><button type="button" data-edit-size="-1" title="Decrease text size">A−</button><span class="edit-size-label">LG</span><button type="button" data-edit-size="1" title="Increase text size">A+</button></div><button class="modal-close" data-close="modal-event">×</button></div>
     <div class="modal-body">
       <div class="field"><label>Title *</label><input type="text" id="ev-title" placeholder="Makers meetup"></div>
       <div class="field-row">
@@ -987,14 +1033,14 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
         <div class="field"><label>Start (event local time)</label><input type="datetime-local" id="ev-start"></div>
         <div class="field"><label>Cost</label><input type="text" id="ev-cost" placeholder="free, or a number"></div>
       </div>
-      <div class="field"><label>Verify link</label><input type="text" id="ev-url" placeholder="https://..."></div>
+      <div class="field"><label>Verify link</label><input type="text" id="ev-url" placeholder="https://..."><div class="field-link" id="ev-url-link"></div></div>
       <div class="field"><label>Status</label><select id="ev-status"><option value="candidate">CANDIDATE</option><option value="selected">SELECTED</option><option value="attended">ATTENDED</option><option value="skipped">SKIPPED</option></select></div>
-      <div class="field"><label>Why this room *</label><textarea id="ev-why" placeholder="The reason this room is worth the trip. No reason, no card." style="min-height:80px"></textarea><div id="ev-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
+      <div class="field wide-span"><label>Why this room *</label><textarea id="ev-why" placeholder="The reason this room is worth the trip. No reason, no card." style="min-height:80px"></textarea><div id="ev-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
       <div id="ev-after">
         <div class="field"><label>Met (tick Network contacts)</label><div id="ev-met" class="tiny mono"></div></div>
         <div class="field"><label>Outcome</label><select id="ev-outcome"><option value="none">NONE</option><option value="conversation">CONVERSATION</option><option value="meeting">MEETING</option><option value="deposit">DEPOSIT</option></select></div>
       </div>
-      <div class="field"><label>Notes</label><textarea id="ev-notes" placeholder="What the room opened." style="min-height:80px"></textarea></div>
+      <div class="field wide-span"><label>Notes</label><textarea id="ev-notes" placeholder="What the room opened." style="min-height:80px"></textarea></div>
     </div>
     <div class="modal-foot">
       <button class="btn danger hidden" id="btn-delete-event">DELETE</button>
@@ -1004,26 +1050,26 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 </div>
 
-<div class="modal-bg" id="modal-artifact">
-  <div class="modal">
-    <div class="modal-h"><span class="mh-title" id="modal-artifact-title">// NEW ARTIFACT</span><button class="modal-close" data-close="modal-artifact">×</button></div>
+<div class="modal-bg wide-bg" id="modal-artifact">
+  <div class="modal modal-wide">
+    <div class="modal-h"><span class="mh-title" id="modal-artifact-title">// NEW ARTIFACT</span><div class="edit-text-size"><button type="button" data-edit-size="-1" title="Decrease text size">A−</button><span class="edit-size-label">LG</span><button type="button" data-edit-size="1" title="Increase text size">A+</button></div><button class="modal-close" data-close="modal-artifact">×</button></div>
     <div class="modal-body">
       <div class="field"><label>Title *</label><input type="text" id="ar-title" placeholder="What went into the world"></div>
       <div class="field-row">
         <div class="field"><label>Type</label><select id="ar-type"><option value="piece">PIECE</option><option value="short">SHORT</option><option value="newsletter">NEWSLETTER</option><option value="build">BUILD</option></select></div>
         <div class="field"><label>For whom</label><input type="text" id="ar-forwhom" placeholder="A company for a build, an audience for a piece"></div>
       </div>
-      <div class="field"><label>Link (published, or the delivered repo; empty while planned)</label><input type="text" id="ar-url" placeholder="https://..."></div>
+      <div class="field"><label>Link (published, or the delivered repo; empty while planned)</label><input type="text" id="ar-url" placeholder="https://..."><div class="field-link" id="ar-url-link"></div></div>
       <div class="field-row">
         <div class="field"><label>Status</label><select id="ar-status"><option value="planned">PLANNED</option><option value="delivered">DELIVERED</option></select></div>
         <div class="field"><label>Delivered (set on the delivered transition)</label><input type="date" id="ar-delivered"></div>
       </div>
-      <div class="field"><label>Why it earned its place *</label><textarea id="ar-why" placeholder="The reason this artifact earned the hours. No reason, no card." style="min-height:80px"></textarea><div id="ar-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
+      <div class="field wide-span"><label>Why it earned its place *</label><textarea id="ar-why" placeholder="The reason this artifact earned the hours. No reason, no card." style="min-height:80px"></textarea><div id="ar-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
       <div class="field-row">
         <div class="field"><label>Outcome</label><select id="ar-outcome"><option value="none">NONE</option><option value="conversation">CONVERSATION</option><option value="meeting">MEETING</option><option value="deposit">DEPOSIT</option></select></div>
         <div class="field"><label>Opened (a comm card)</label><select id="ar-opened"></select></div>
       </div>
-      <div class="field"><label>Notes</label><textarea id="ar-notes" placeholder="What it opened, and what it did not." style="min-height:80px"></textarea></div>
+      <div class="field wide-span"><label>Notes</label><textarea id="ar-notes" placeholder="What it opened, and what it did not." style="min-height:80px"></textarea></div>
     </div>
     <div class="modal-foot">
       <button class="btn danger hidden" id="btn-delete-artifact">DELETE</button>
@@ -1033,9 +1079,9 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 </div>
 
-<div class="modal-bg" id="modal-comm">
-  <div class="modal">
-    <div class="modal-h"><span class="mh-title" id="modal-comm-title">// LOG COMMUNICATION</span><button class="modal-close" data-close="modal-comm">×</button></div>
+<div class="modal-bg wide-bg" id="modal-comm">
+  <div class="modal modal-wide">
+    <div class="modal-h"><span class="mh-title" id="modal-comm-title">// LOG COMMUNICATION</span><div class="edit-text-size"><button type="button" data-edit-size="-1" title="Decrease text size">A−</button><span class="edit-size-label">LG</span><button type="button" data-edit-size="1" title="Increase text size">A+</button></div><button class="modal-close" data-close="modal-comm">×</button></div>
     <div class="modal-body">
       <div class="field"><label>Title *</label><input type="text" id="k-title" placeholder="Intro to potential pilot"></div>
       <div class="field-row">
@@ -1050,7 +1096,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <div class="field"><label>City *</label><input type="text" id="k-city" placeholder="Austin" autocomplete="off"><div id="k-city-hint" class="tiny dim mono" style="margin-top:6px"></div></div>
       <div class="field"><label>Discovery trail (optional)</label><input type="text" id="k-trail" placeholder="podcast → social → website"></div>
       <div class="field"><label>Subject (email)</label><input type="text" id="k-subject" placeholder="Subject line — for EMAIL comms"></div>
-      <div class="field">
+      <div class="field wide-span">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px">
           <label style="margin-bottom:0">Draft / log body</label>
           <button type="button" class="btn ghost sm" id="btn-expand-body" title="Edit body in fullscreen — bigger writing surface, TTS proofread, live two-way sync" style="margin:0">⛶ EXPAND</button>
@@ -1149,7 +1195,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.11 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.12 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1196,7 +1242,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.11';
+const APP_VERSION='infrabot-v0.5.12';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1596,6 +1642,29 @@ const PREVIEW_FALLBACK_MAP={'qwen/qwen3.6-27b':'openai/gpt-oss-120b'};
 
 const g=id=>document.getElementById(id);
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// v0.5.12 ONE LINK HELPER. Every url the app shows goes through linkHtml. A
+// value that parses as an http or https address (a bare host gets https, a
+// host must carry a dot) renders as one anchor: new tab, rel noopener
+// noreferrer, the visible text the stored value itself so it can be read.
+// Anything else (empty, whitespace inside, another scheme, no host) renders
+// as escaped plain text, never as a link. Comment written with zero braces.
+function linkHref(url){
+  const u=String(url||'').trim();
+  if(!u||/\s/.test(u))return null;
+  const withScheme=/^[a-z][a-z0-9+.-]*:/i.test(u)?u:'https://'+u;
+  try{
+    const p=new URL(withScheme);
+    if(p.protocol!=='http:'&&p.protocol!=='https:')return null;
+    if(p.hostname.indexOf('.')<0)return null;
+    return p.href;
+  }catch(_){return null;}
+}
+function linkHtml(url){
+  const u=String(url||'').trim();
+  if(!u)return '';
+  const href=linkHref(u);
+  return href?'<a class="url-link" href="'+esc(href)+'" target="_blank" rel="noopener noreferrer">'+esc(u)+'</a>':esc(u);
+}
 const uid=()=>'id_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
 
 function toast(msg,kind){const t=g('toast');t.textContent=msg;t.className=kind?kind:'';requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>t.classList.remove('show'),2400);}
@@ -2490,7 +2559,7 @@ function renderNetwork(){
     const isConnected=cem!=='' && (state.comms||[]).some(k=>((k.target||'').trim().toLowerCase())===cem);
     const connClass=isConnected?' card-converted':'';
     const connStar=isConnected?'<span class="conv-star" title="Linked to logged outreach">★</span> ':'';
-    html+=`<div class="card${connClass}"><div class="card-h"><div><div class="card-name">${connStar}${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · <a href="'+esc(c.website.startsWith('http')?c.website:'https://'+c.website)+'" target="_blank" rel="noopener">'+esc(c.website.replace(/^https?:\/\//,''))+'</a>':''}</div></div></div><div class="card-body">${rowClock}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">EDIT</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button></div></div>`;
+    html+=`<div class="card${connClass}"><div class="card-h"><div><div class="card-name">${connStar}${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}</div></div></div><div class="card-body">${rowClock}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">EDIT</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button></div></div>`;
   });
   html+='</div>';
   body.innerHTML=html;
@@ -2648,7 +2717,7 @@ function renderEventCard(e){
   const passed=eventPassed(e);
   const metNames=e.met.map(id=>{const c=state.network.find(x=>x.id===id);return c?c.name:null;}).filter(Boolean);
   const line2=[e.organizer,e.venue,e.city?e.city.toUpperCase():''].filter(Boolean).map(s=>esc(s)).join(' · ');
-  const link=e.url?`<div class="card-section"><div class="card-section-h">Verify</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all"><a href="${esc(e.url.startsWith('http')?e.url:'https://'+e.url)}" target="_blank" rel="noopener" style="color:var(--cyan-dim);text-decoration:none">${esc(e.url.replace(/^https?:\/\//,''))}</a></div></div>`:'';
+  const link=e.url?`<div class="card-section"><div class="card-section-h">Verify</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all">${linkHtml(e.url)}</div></div>`:'';
   const after=`<div class="card-section" style="${passed?'':'opacity:.5'}"><div class="card-section-h">After the room</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">MET: ${metNames.length?esc(metNames.join(', ')):'nobody logged'} · OUTCOME: ${esc(e.outcome.toUpperCase())}</div></div>`;
   const notes=e.notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(e.notes)}</div></div>`:'';
   let quick='';
@@ -2679,9 +2748,10 @@ function openEventModal(eventId){
   g('ev-url').value=v.url;g('ev-status').value=v.status;g('ev-why').value=v.whyThisRoom;g('ev-outcome').value=v.outcome;g('ev-notes').value=v.notes;
   eventTzOptions(g('ev-tz'),v.tz||cityToTz(v.city)||homeTzNow());
   const people=state.network.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||''));
-  g('ev-met').innerHTML=people.length?people.map(c=>`<label style="display:flex;align-items:center;gap:8px;margin:4px 0;cursor:pointer;text-transform:none;letter-spacing:0;font-size:12px;color:var(--text)"><input type="checkbox" value="${esc(c.id)}"${v.met.includes(c.id)?' checked':''}>${esc(c.name||'(no name)')}${c.company?' · '+esc(c.company):''}</label>`).join(''):'<span class="dim">No Network contacts yet. Add the people you met as contacts, then tick them here.</span>';
+  g('ev-met').innerHTML=people.length?people.map(c=>`<label style="display:flex;align-items:center;gap:8px;margin:4px 0;cursor:pointer;text-transform:none;letter-spacing:0;color:var(--text)"><input type="checkbox" value="${esc(c.id)}"${v.met.includes(c.id)?' checked':''}>${esc(c.name||'(no name)')}${c.company?' · '+esc(c.company):''}</label>`).join(''):'<span class="dim">No Network contacts yet. Add the people you met as contacts, then tick them here.</span>';
   g('ev-after').style.opacity=(v.start&&eventPassed(v))?'1':'.55';
   g('ev-gate').textContent='';
+  refreshFieldLink('ev-url');applyEditSize(fsCurrentSize);
   showModal('modal-event');
   setTimeout(()=>g('ev-title').focus(),100);
 }
@@ -2887,7 +2957,7 @@ function renderArtifactsView(){
 // date or PLANNED; the link; the reason in the opener slot; the outcome as an
 // inline select (a hand, on the card); the comm card it opened as a link.
 function renderArtifactCard(a){
-  const link=a.url?`<div class="card-section"><div class="card-section-h">${a.status==='delivered'?'Delivered at':'Link'}</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all"><a href="${esc(a.url.startsWith('http')?a.url:'https://'+a.url)}" target="_blank" rel="noopener" style="color:var(--cyan-dim);text-decoration:none">${esc(a.url.replace(/^https?:\/\//,''))}</a></div></div>`:'';
+  const link=a.url?`<div class="card-section"><div class="card-section-h">${a.status==='delivered'?'Delivered at':'Link'}</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all">${linkHtml(a.url)}</div></div>`:'';
   const opened=state.comms.find(c=>c.id===a.openedCardId);
   const openedHtml=a.openedCardId?(opened?`<button class="btn ghost sm" data-act="open-comm" data-id="${esc(opened.id)}" style="margin-top:6px">OPENED: ${esc(opened.title||'(untitled)')}</button>`:'<div class="tiny dim mono" style="margin-top:6px">OPENED: card not found</div>'):'';
   const outcomeSel=`<select data-act="artifact-outcome" data-id="${esc(a.id)}" style="width:auto;display:inline-block">${OUTCOME_SCALE.map(o=>`<option value="${o}"${o===a.outcome?' selected':''}>${o.toUpperCase()}</option>`).join('')}</select>`;
@@ -2910,6 +2980,7 @@ function openArtifactModal(artifactId){
   const cards=state.comms.slice().sort((x,y)=>(y.createdAt||'').localeCompare(x.createdAt||''));
   g('ar-opened').innerHTML='<option value="">NOTHING YET</option>'+cards.map(c=>`<option value="${esc(c.id)}"${c.id===v.openedCardId?' selected':''}>${esc(c.title||'(untitled)')}${c.company?' · '+esc(c.company):''}</option>`).join('');
   g('ar-gate').textContent='';
+  refreshFieldLink('ar-url');applyEditSize(fsCurrentSize);
   showModal('modal-artifact');
   setTimeout(()=>g('ar-title').focus(),100);
 }
@@ -4429,6 +4500,7 @@ function openCommModal(commId){
   resetAutosaveIndicator('comm');
   _isRestoringFields=false;
   updateCityHint();
+  applyEditSize(fsCurrentSize);
   showModal('modal-comm');
   setTimeout(()=>g('k-title').focus(),100);
 }
@@ -6230,6 +6302,32 @@ function fsSizeStep(direction){
   applyFsSize(FS_SIZES[next]);
 }
 
+// v0.5.12 THE WIDE EDIT SIZE. The three wide forms read the same stored size
+// the fullscreen view reads (fsCurrentSize, FS_SIZE_KEY), so one choice on
+// either surface is the choice on both, and LG stands when nothing was
+// chosen. Applied on every form open and on every stepper tap.
+const EDIT_WIDE_MODALS=['modal-event','modal-comm','modal-artifact'];
+function applyEditSize(size){
+  fsCurrentSize=size;
+  try{localStorage.setItem(FS_SIZE_KEY,size);}catch(_){}
+  EDIT_WIDE_MODALS.forEach(id=>{
+    const m=g(id).querySelector('.modal-wide');if(!m)return;
+    FS_SIZES.forEach(s=>m.classList.remove('size-'+s));
+    m.classList.add('size-'+size);
+    const lab=m.querySelector('.edit-size-label');if(lab)lab.textContent=FS_SIZE_LABELS[size];
+  });
+}
+function editSizeStep(direction){
+  const idx=FS_SIZES.indexOf(fsCurrentSize);
+  applyEditSize(FS_SIZES[Math.max(0,Math.min(FS_SIZES.length-1,idx+direction))]);
+}
+// The link line under a url field mirrors the field through linkHtml, so the
+// address opens from the form itself and a malformed one reads as text.
+function refreshFieldLink(inputId){
+  const el=g(inputId+'-link');if(!el)return;
+  el.innerHTML=linkHtml(g(inputId).value);
+}
+
 // ====== END TTS + FULLSCREEN ======
 
 function openDrawer(){
@@ -7181,6 +7279,10 @@ function wireEvents(){
   g('btn-save-event').addEventListener('click',saveEvent);
   g('btn-delete-event').addEventListener('click',deleteEvent);
   g('ev-city').addEventListener('input',()=>{const z=cityToTz(g('ev-city').value);if(z)eventTzOptions(g('ev-tz'),z);});
+  // v0.5.12 wide edit: the size steppers in the three form headers, and the
+  // link line under each url field.
+  document.querySelectorAll('[data-edit-size]').forEach(b=>b.addEventListener('click',()=>editSizeStep(parseInt(b.dataset.editSize,10))));
+  ['ev-url','ar-url'].forEach(id=>g(id).addEventListener('input',()=>refreshFieldLink(id)));
   g('btn-add-comm').addEventListener('click',()=>openCommModal());
   // v0.3.5: the DONE wiring is gone with its button, and saveComm no longer exists. The
   // comm modal's exits are the x (data-close) and the backdrop, both via closeCommModal.
