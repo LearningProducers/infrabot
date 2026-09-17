@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.12 (WIDE EDIT + LIVE LINKS: forms read at laptop width) 26-09-17       ║
+║  v0.5.13 (THREE UP, OPEN, THE TRAIL FOLDS: a page to scan) 26-09-17          ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -239,6 +239,12 @@
 ║      untouched. Every url on a card or under a link field renders            ║
 ║      through one helper: new tab, noopener noreferrer, the address as        ║
 ║      the text; an empty or malformed value stays plain text.                 ║
+║  ·  v0.5.13 THREE UP, OPEN, THE TRAIL FOLDS: the card grid is three          ║
+║      across at laptop width, two at tablet, one on the phone; the card       ║
+║      button that opens a record reads OPEN on every card type (the same      ║
+║      handler, nothing else moved); a comm card's discovery trail shows       ║
+║      its first sentence and a MORE control that reveals the rest in          ║
+║      place and folds it again, per card, per render, nothing stored.         ║
 ║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
@@ -425,7 +431,13 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 @media(max-width:600px){.clock-time{font-size:22px}.clocks-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
 
 /* CARDS */
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+/* v0.5.13 THREE UP: three cards across at laptop width (the auto-fill rule
+   above it used to reach four on a wide window), two across between 601 and
+   1000px; the phone block below keeps its one column. */
+@media(min-width:601px) and (max-width:1000px){
+  .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 .card{border:1px solid var(--line);background:var(--panel);position:relative;transition:border-color .2s}
 .card:hover{border-color:var(--cyan-dim)}
 /* v4.6.0-2B: converted comm (person is in Network, matched by email). Gold glow,
@@ -449,6 +461,10 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .card-section-body{font-size:13px;color:var(--text);line-height:1.5}
 .card-actions{padding:10px 16px;border-top:1px solid var(--line);display:flex;gap:6px;flex-wrap:wrap;background:var(--panel-2)}
 .card-actions .btn{padding:6px 10px;font-size:9px;letter-spacing:.15em}
+/* v0.5.13 THE TRAIL FOLDS: the disclosure control and the folded remainder. */
+.trail-toggle{background:transparent;border:1px solid var(--line-2);color:var(--cyan-dim);font-family:var(--mono);font-size:9px;letter-spacing:.15em;padding:2px 6px;margin-left:6px;cursor:pointer;vertical-align:middle}
+.trail-toggle:hover{color:var(--cyan);border-color:var(--cyan-dim)}
+.trail-rest{white-space:pre-wrap;margin-top:6px}
 .card-status{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;padding:2px 7px;border:1px solid;text-transform:uppercase;white-space:nowrap}
 .card-status.active{color:var(--cyan);border-color:var(--cyan-dim)}
 .card-status.archived{color:var(--text-dim);border-color:var(--line-2)}
@@ -823,7 +839,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.12</span>
+      <span class="version-pill" title="INFRABOT build">v0.5.13</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1195,7 +1211,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.12 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.5.13 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1242,7 +1258,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.12';
+const APP_VERSION='infrabot-v0.5.13';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2559,7 +2575,7 @@ function renderNetwork(){
     const isConnected=cem!=='' && (state.comms||[]).some(k=>((k.target||'').trim().toLowerCase())===cem);
     const connClass=isConnected?' card-converted':'';
     const connStar=isConnected?'<span class="conv-star" title="Linked to logged outreach">★</span> ':'';
-    html+=`<div class="card${connClass}"><div class="card-h"><div><div class="card-name">${connStar}${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}</div></div></div><div class="card-body">${rowClock}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">EDIT</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button></div></div>`;
+    html+=`<div class="card${connClass}"><div class="card-h"><div><div class="card-name">${connStar}${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}</div></div></div><div class="card-body">${rowClock}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button></div></div>`;
   });
   html+='</div>';
   body.innerHTML=html;
@@ -2723,7 +2739,7 @@ function renderEventCard(e){
   let quick='';
   if(e.status==='candidate')quick=`<button class="btn muted sm" data-act="select-event" data-id="${esc(e.id)}">SELECT</button><button class="btn muted sm" data-act="skip-event" data-id="${esc(e.id)}">SKIP</button>`;
   else if(e.status==='selected')quick=`<button class="btn muted sm" data-act="attend-event" data-id="${esc(e.id)}">ATTENDED</button><button class="btn muted sm" data-act="skip-event" data-id="${esc(e.id)}">SKIP</button>`;
-  return `<div class="card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(e.title||'(untitled)')}</div><div class="card-sub">${line2}</div><div class="card-age">${fmtEventWhen(e)}</div></div><div class="card-h-right"><span class="card-status ${e.cost==='free'?'ev-free':'ev-paid'}">${esc(fmtCost(e.cost))}</span><span class="card-status ${esc(e.status)}">${esc(e.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Why this room</div><div class="card-section-body">${esc(e.whyThisRoom)}</div></div>${link}${after}${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-event" data-id="${esc(e.id)}">EDIT</button>${quick}</div></div>`;
+  return `<div class="card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(e.title||'(untitled)')}</div><div class="card-sub">${line2}</div><div class="card-age">${fmtEventWhen(e)}</div></div><div class="card-h-right"><span class="card-status ${e.cost==='free'?'ev-free':'ev-paid'}">${esc(fmtCost(e.cost))}</span><span class="card-status ${esc(e.status)}">${esc(e.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Why this room</div><div class="card-section-body">${esc(e.whyThisRoom)}</div></div>${link}${after}${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-event" data-id="${esc(e.id)}">OPEN</button>${quick}</div></div>`;
 }
 // The event zone select carries the TIMEZONES list; a zone the city resolves
 // to that the list lacks is appended so the pick is never silently wrong.
@@ -2963,7 +2979,7 @@ function renderArtifactCard(a){
   const outcomeSel=`<select data-act="artifact-outcome" data-id="${esc(a.id)}" style="width:auto;display:inline-block">${OUTCOME_SCALE.map(o=>`<option value="${o}"${o===a.outcome?' selected':''}>${o.toUpperCase()}</option>`).join('')}</select>`;
   const notes=a.notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(a.notes)}</div></div>`:'';
   const quick=a.status==='planned'?`<button class="btn muted sm" data-act="deliver-artifact" data-id="${esc(a.id)}">DELIVERED</button>`:'';
-  return `<div class="card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(a.title||'(untitled)')}<span class="card-status ar-type">${esc(a.type.toUpperCase())}</span></div><div class="card-sub">${a.forWhom?esc(a.forWhom):'no audience named'}</div><div class="card-age">${a.status==='delivered'?'DELIVERED '+esc(a.delivered||'(no date)'):'PLANNED'}</div></div><div class="card-h-right"><span class="card-status ${esc(a.status)}">${esc(a.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Why it earned its place</div><div class="card-section-body">${esc(a.whyItEarned)}</div></div>${link}<div class="card-section"><div class="card-section-h">Outcome</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${outcomeSel}${openedHtml}</div></div>${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-artifact" data-id="${esc(a.id)}">EDIT</button>${quick}</div></div>`;
+  return `<div class="card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(a.title||'(untitled)')}<span class="card-status ar-type">${esc(a.type.toUpperCase())}</span></div><div class="card-sub">${a.forWhom?esc(a.forWhom):'no audience named'}</div><div class="card-age">${a.status==='delivered'?'DELIVERED '+esc(a.delivered||'(no date)'):'PLANNED'}</div></div><div class="card-h-right"><span class="card-status ${esc(a.status)}">${esc(a.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Why it earned its place</div><div class="card-section-body">${esc(a.whyItEarned)}</div></div>${link}<div class="card-section"><div class="card-section-h">Outcome</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${outcomeSel}${openedHtml}</div></div>${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-artifact" data-id="${esc(a.id)}">OPEN</button>${quick}</div></div>`;
 }
 // The artifact modal is an explicit-save surface (the events modal's shape):
 // not an autosave surface, so a cancel discards and the gate can refuse.
@@ -3317,6 +3333,25 @@ function renderCommSearch(){
   }).join('');
 }
 
+// v0.5.13 THE TRAIL FOLDS. A comm card's discovery trail shows its first
+// sentence (the text up to the first sentence end or the first line break)
+// and a MORE control; the rest sits in the card hidden until pressed and
+// folds again on the next press. Per card, per render, nothing stored: the
+// record is untouched and every re-render starts folded. A trail that is one
+// sentence renders as it always did, with no control. Comment written with
+// zero brace pairs.
+function trailHtml(trail){
+  const t=String(trail||'').trim();
+  if(!t)return '';
+  const nl=t.indexOf('\n');
+  const m=/[.!?](?=\s)/.exec(t);
+  let cut=t.length;
+  if(nl>=0)cut=Math.min(cut,nl);
+  if(m)cut=Math.min(cut,m.index+1);
+  const head=t.slice(0,cut).trim(),rest=t.slice(cut).trim();
+  if(!rest)return esc(head);
+  return esc(head)+'<button type="button" class="trail-toggle" data-act="trail-toggle" aria-expanded="false">MORE</button><div class="trail-rest hidden">'+esc(rest)+'</div>';
+}
 function renderComms(){
   renderCommSearch();
   const body=g('comms-body');
@@ -3452,7 +3487,7 @@ function renderComms(){
     const ctz=cityToTz(k.city);
     const rowClock=ctz?`<div class="row-clock" data-tz="${esc(ctz)}"><span class="live-dot"></span><span class="clock-time-inline">--<span class="clock-colon">:</span>--</span><span class="clock-tz-inline">--</span><span class="city-label">${esc((k.city||'').toUpperCase())}</span></div>`:'';
 
-    html+=`<div class="card${convClass}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${convStar}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div>${ageHtml}</div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span>${stalePill}</div></div><div class="card-body">${rowClock}${k.trail?`<div class="card-section"><div class="card-section-h">Discovery trail</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">${esc(k.trail)}</div></div>`:''}${k.body?`<div class="card-section"><div class="card-section-h">Body</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55;max-height:120px;overflow:hidden;position:relative">${esc(expandAppLink(k.body).length>280?expandAppLink(k.body).slice(0,280)+'...':expandAppLink(k.body))}</div></div>`:''}${k.sentDate?`<div class="card-section"><div class="card-section-h">Sent</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${esc(k.sentDate)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">EDIT</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button>${extraActions}</div></div>`;
+    html+=`<div class="card${convClass}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${convStar}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div>${ageHtml}</div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span>${stalePill}</div></div><div class="card-body">${rowClock}${k.trail?`<div class="card-section"><div class="card-section-h">Discovery trail</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">${trailHtml(k.trail)}</div></div>`:''}${k.body?`<div class="card-section"><div class="card-section-h">Body</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55;max-height:120px;overflow:hidden;position:relative">${esc(expandAppLink(k.body).length>280?expandAppLink(k.body).slice(0,280)+'...':expandAppLink(k.body))}</div></div>`:''}${k.sentDate?`<div class="card-section"><div class="card-section-h">Sent</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${esc(k.sentDate)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">OPEN</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button>${extraActions}</div></div>`;
   });
   html+='</div>';
   body.innerHTML=html;
@@ -4895,7 +4930,7 @@ function renderVault(){
       ${ins.note?`<div class="insight-note">${esc(ins.note)}</div>`:''}
       ${tagsHtml}
       <div class="insight-actions">
-        <button class="btn ghost" data-act="edit-insight" data-id="${ins.id}">EDIT</button>
+        <button class="btn ghost" data-act="edit-insight" data-id="${ins.id}">OPEN</button>
       </div>
     </div>`;
   });
@@ -7307,6 +7342,9 @@ function wireEvents(){
     if(monthBtn&&monthBtn.dataset.act==='download-month'){downloadMonthReport(monthBtn.dataset.month);return;}
     const btn=e.target.closest('[data-act]');if(!btn)return;
     const act=btn.dataset.act;const id=btn.dataset.id;
+    // v0.5.13: the trail's disclosure control toggles its own card's folded
+    // remainder and touches nothing else (no state, no save, no re-render).
+    if(act==='trail-toggle'){const rest=btn.nextElementSibling;const open=!!rest&&!rest.classList.toggle('hidden');btn.textContent=open?'LESS':'MORE';btn.setAttribute('aria-expanded',open?'true':'false');return;}
     if(act==='edit-comm')openCommModal(id);
     if(act==='council-comm')openCouncil('comm',id);
     if(act==='copy-comm')copyCommBody(id);
