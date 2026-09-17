@@ -2,90 +2,90 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.5.13 (THREE UP, OPEN, THE TRAIL FOLDS: a page to scan) 26-09-17          ║
+║  v0.6.0 (RANGES COMPUTED, TRAIL KEPT, LAUNCHER PULLS) 26-09-17               ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
 ║  so I can jump to the right region instead of grep-and-pray.                 ║
-║  Hand-maintained until Phase 1 (modular source folder + build.py             ║
-║  auto-regen, CW pattern). Update this map on every ship.                     ║
+║  Ranges computed from the file by tests/file_map_check.js (--write           ║
+║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  564  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  293  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   112–  137  CSS variables, fonts, reset, body                            ║
-║  L   159–  219  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   220–  252  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   253–  270  CLOCKS — live clock grid                                     ║
-║  L   271–  300  CARDS — contact card, comm card, status pills                ║
-║  L   301–  312  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   313–  322  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   323–  328  EMPTY state placeholder                                      ║
-║  L   329–  339  MODAL — bg, box, header, footer                              ║
-║  L   340–  351  DRAWER — settings drawer + backdrop                          ║
-║  L   352–  357  COUNCIL stream items (legacy reused)                         ║
-║  L   358–  364  TOAST notification                                           ║
-║  L   365–  413  STATS grid + profile block                                   ║
-║  L   414–  436  CREW BLOCK — Groq key row, council slots                     ║
-║  L   437–  458  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   459–  464  Per-response copy button (v1.2)                              ║
-║  L   465–  484  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   485–  491  Foundation context source blocks (v1.4)                      ║
-║  L   492–  535  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   536–  562  INSIGHT VAULT                                                ║
+║  L   295–  321  :root, CSS variables, fonts, reset, body                     ║
+║  L   322–  379  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   380–  422  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   423–  440  CLOCKS — live clock grid                                     ║
+║  L   441–  502  CARDS — contact card, comm card, status pills                ║
+║  L   503–  529  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   530–  539  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   540–  545  EMPTY: state placeholder                                     ║
+║  L   546–  569  MODAL — bg, box, header, footer                              ║
+║  L   570–  581  DRAWER — settings drawer + backdrop                          ║
+║  L   582–  587  COUNCIL: stream items (legacy reused)                        ║
+║  L   588–  594  TOAST: notification                                          ║
+║  L   595–  643  STATS: grid + profile block                                  ║
+║  L   644–  666  CREW BLOCK — Groq key row, council slots                     ║
+║  L   667–  688  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   689–  694  Per-response copy button (v1.2)                              ║
+║  L   695–  714  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   715–  721  v1.4: Foundation context source blocks                       ║
+║  L   722–  804  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   805–  831  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   581–  600  APP shell — header, brand, top clock, settings               ║
-║  L   601–  607  TAB NAV — OVERVIEW/NETWORK/COMMS/VAULT                       ║
-║  L   608–  641  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   642–  649  TAB-NETWORK — contacts list                                  ║
-║  L   650–  730  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L   731–  743  TAB-VAULT — insights                                         ║
-║  L   745–  767  MODAL-CONTACT — add/edit contact                             ║
-║  L   768–  794  MODAL-COMM — add/edit communication                          ║
-║  L   795–  817  MODAL-PROFILE — edit your profile                            ║
-║  L   818–  831  MODAL-CLOCK — add world clock                                ║
-║  L   832–  847  MODAL-INSIGHT — add/edit insight                             ║
-║  L   848–  881  DRAWER — profile, data, version footer                       ║
-║  L   882–  901  FS-OVERLAY — fullscreen response viewer                      ║
-║  L   902–  912  MODAL-MEM — memory inspector                                 ║
-║  L   913–  924  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L   925–  926  Toast container                                              ║
+║  L   836–  854  APP: shell — header, brand, top clock, settings              ║
+║  L   855–  862  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   863–  901  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L   902–  910  TAB-NETWORK — contacts list                                  ║
+║  L   911– 1004  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1005– 1019  TAB-VAULT — insights                                         ║
+║  L  1020– 1105  MODAL-CONTACT — add/edit contact                             ║
+║  L  1106– 1144  MODAL-COMM — add/edit communication                          ║
+║  L  1145– 1166  MODAL-PROFILE — edit your profile                            ║
+║  L  1167– 1181  MODAL-CLOCK — add world clock                                ║
+║  L  1182– 1197  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1198– 1225  DRAWER — profile, data, version footer                       ║
+║  L  1226– 1245  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1246– 1257  MODAL-MEM — memory inspector                                 ║
+║  L  1258– 1264  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1265– 1266  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L   929–  962  Constants: APP_VERSION, *_KEY, MAX_PRIOR_DRAFTS, TZ          ║
-║  L   963– 1118  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1098– 1115  Helpers (g/esc/uid/toast), state globals                     ║
-║  L  1116– 1216  freshState, loadState (migrations), saveState                ║
-║  L  1217– 1233  Clock formatters (HMS, TzShort, DateShort)                   ║
-║  L  1234– 1309  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  1310– 1352  Timezone selects + live clock loop                           ║
-║  L  1353– 1424  Tab switch, renderAll, renderOverview, network               ║
-║  L  1425– 1464  Comm bucket + age helpers, setCommsView                      ║
-║  L  1465– 1488  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  1489– 1580  renderComms — full status/triage rendering                   ║
-║  L  1581– 1608  archiveComm + reviveComm                                     ║
-║  L  1609– 1682  renderReportsPanel + computeMonthStats                       ║
-║  L  1683– 1805  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  1806– 2079  Map data — MAP_W/H, projection, polys, coords                ║
-║  L  2080– 2130  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  2131– 2348  *** v3.3 map render — buildMap, pin builders ***             ║
-║  L  2349– 2447  Modal helpers, contact CRUD, logTouch, openComm              ║
-║  L  2448– 2500  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  2501– 2602  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1269– 1478  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1479– 1666  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1667– 1704  g, esc, uid, toast helpers + state globals                   ║
+║  L  1705– 2199  freshState, loadState (migrations), saveState                ║
+║  L  2200– 2425  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2426– 2459  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2460– 2505  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2506– 3108  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3109– 3233  getCommBucket + age helpers, setCommsView                    ║
+║  L  3234– 3362  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  3363– 3507  renderComms — full status/triage rendering                   ║
+║  L  3508– 3535  archiveComm + reviveComm                                     ║
+║  L  3536– 3652  renderReportsPanel + computeMonthStats                       ║
+║  L  3653– 3810  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  3811– 4084  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4085– 4135  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4136– 4412  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4413– 4554  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  4555– 4622  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  4623– 4909  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  2603– 2688  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  2689– 2722  Profile + clock save/remove                                  ║
-║  L  2723– 2871  Council open/close, refreshUI, renderStream                  ║
-║  L  2872– 3010  buildCouncilContext (system+profile+body+intel)              ║
-║  L  3011– 3104  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  3105– 3495  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  3496– 3569  FULLSCREEN OVERLAY — open/close/render/size                  ║
-║  L  3570– 3592  Drawer toggle, crew status, initCrewBlock                    ║
-║  L  3593– 3618  saveGroqKey, clearGroqKey                                    ║
-║  L  3619– 3661  exportAll, importJson, wipeAll                               ║
+║  L  4910– 5024  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5025– 5055  saveProfile + clock save/remove                              ║
+║  L  5056– 5207  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5208– 5386  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5387– 5631  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  5632– 6047  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6048– 6386  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6387– 6398  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6399– 6442  saveGroqKey, clearGroqKey                                    ║
+║  L  6443– 7294  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -245,11 +245,19 @@
 ║      handler, nothing else moved); a comm card's discovery trail shows       ║
 ║      its first sentence and a MORE control that reveals the rest in          ║
 ║      place and folds it again, per card, per render, nothing stored.         ║
-║  L  3662– 3849  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.6.0 RANGES COMPUTED, TRAIL KEPT, LAUNCHER PULLS: the L ranges above   ║
+║      are computed by tests/file_map_check.js from anchors named in each      ║
+║      row (a CSS comment, an element id or class, a function or const, a      ║
+║      JS banner) and rewritten by its --write; the check fails on a stale     ║
+║      range or a missing anchor. The comm form's discovery trail is a         ║
+║      textarea, so a multi-line trail survives open-and-close. The            ║
+║      launcher fast-forwards the checkout to origin main on start and         ║
+║      says so in one line when it cannot; never a force.                      ║
+║  L  7295– 7594  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
-║  · Hand-maintained until Phase 1 (modular source + build.py auto-regen)      ║
-║  · Update this map on every ship — line numbers drift fast.                  ║
+║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
+║  · Labels are hand-kept — their leading name must anchor in the file.        ║
 ║  · Always run pre-deploy parser check on the script body before push.        ║
 ║    Anchored search: \n<script>\n and \n</script>\n (not bare tokens).        ║
 ║  · 4 version-string sites must all match on every ship:                      ║
@@ -839,7 +847,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.5.13</span>
+      <span class="version-pill" title="INFRABOT build">v0.6.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1110,7 +1118,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       </div>
       <div class="field"><label>Target (who / where it lands)</label><input type="text" id="k-target" placeholder="name@example.com · person · etc."></div>
       <div class="field"><label>City *</label><input type="text" id="k-city" placeholder="Austin" autocomplete="off"><div id="k-city-hint" class="tiny dim mono" style="margin-top:6px"></div></div>
-      <div class="field"><label>Discovery trail (optional)</label><input type="text" id="k-trail" placeholder="podcast → social → website"></div>
+      <div class="field"><label>Discovery trail (optional)</label><textarea id="k-trail" rows="3" placeholder="podcast → social → website" style="min-height:64px"></textarea></div>
       <div class="field"><label>Subject (email)</label><input type="text" id="k-subject" placeholder="Subject line — for EMAIL comms"></div>
       <div class="field wide-span">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px">
@@ -1211,7 +1219,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.5.13 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.6.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1258,7 +1266,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.5.13';
+const APP_VERSION='infrabot-v0.6.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
