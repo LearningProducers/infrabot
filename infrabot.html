@@ -1689,7 +1689,7 @@ function modelBudget(id){return VENDOR_BUDGET[modelVendor(id)]||VENDOR_BUDGET._d
 // matching the family (Groq's created stamp orders them); else the newest
 // eligible id from a different vendor than the OTHER slot's model; else null.
 // Two slots never resolve to the same id, so losing a family never doubles
-// the other slot's model: the slot goes silent and says so. A founder pick
+// the other slot's model: the slot goes silent and says so. A hand pick
 // in a dropdown stands while the catalog still lists it. The raw catalog body
 // is never logged or shown; an unreadable catalog keeps the persisted ids.
 const CATALOG_URL='https://api.groq.com/openai/v1/models';
