@@ -7,3 +7,6 @@ WOODSHOP.md
 CLAUDE.md
 SHIP_REPORT_*.md
 state/
+# Playwright MCP capture directory (console logs, page snapshots, scratch
+# state written into whatever repo a browser session ran from). Never shipped.
+.playwright-mcp/
