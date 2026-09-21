@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.7.0 (DETACHED SERVE, NEWER RECORD WINS) 26-09-17                         ║
+║  v0.8.0 (COUNCIL SLOTS FROM THE LIVE CATALOG) 26-09-21                       ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  301  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  313  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   303–  329  :root, CSS variables, fonts, reset, body                     ║
-║  L   330–  387  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   388–  430  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   431–  448  CLOCKS — live clock grid                                     ║
-║  L   449–  510  CARDS — contact card, comm card, status pills                ║
-║  L   511–  537  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   538–  547  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   548–  553  EMPTY: state placeholder                                     ║
-║  L   554–  577  MODAL — bg, box, header, footer                              ║
-║  L   578–  589  DRAWER — settings drawer + backdrop                          ║
-║  L   590–  595  COUNCIL: stream items (legacy reused)                        ║
-║  L   596–  602  TOAST: notification                                          ║
-║  L   603–  651  STATS: grid + profile block                                  ║
-║  L   652–  674  CREW BLOCK — Groq key row, council slots                     ║
-║  L   675–  696  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   697–  702  Per-response copy button (v1.2)                              ║
-║  L   703–  722  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   723–  729  v1.4: Foundation context source blocks                       ║
-║  L   730–  812  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   813–  839  INSIGHT VAULT                                                ║
+║  L   315–  341  :root, CSS variables, fonts, reset, body                     ║
+║  L   342–  399  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   400–  442  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   443–  460  CLOCKS — live clock grid                                     ║
+║  L   461–  522  CARDS — contact card, comm card, status pills                ║
+║  L   523–  549  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   550–  559  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   560–  565  EMPTY: state placeholder                                     ║
+║  L   566–  589  MODAL — bg, box, header, footer                              ║
+║  L   590–  601  DRAWER — settings drawer + backdrop                          ║
+║  L   602–  607  COUNCIL: stream items (legacy reused)                        ║
+║  L   608–  614  TOAST: notification                                          ║
+║  L   615–  663  STATS: grid + profile block                                  ║
+║  L   664–  686  CREW BLOCK — Groq key row, council slots                     ║
+║  L   687–  708  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   709–  714  Per-response copy button (v1.2)                              ║
+║  L   715–  734  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   735–  741  v1.4: Foundation context source blocks                       ║
+║  L   742–  824  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   825–  851  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   844–  862  APP: shell — header, brand, top clock, settings              ║
-║  L   863–  870  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   871–  909  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   910–  918  TAB-NETWORK — contacts list                                  ║
-║  L   919– 1012  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1013– 1027  TAB-VAULT — insights                                         ║
-║  L  1028– 1113  MODAL-CONTACT — add/edit contact                             ║
-║  L  1114– 1152  MODAL-COMM — add/edit communication                          ║
-║  L  1153– 1174  MODAL-PROFILE — edit your profile                            ║
-║  L  1175– 1189  MODAL-CLOCK — add world clock                                ║
-║  L  1190– 1205  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1206– 1233  DRAWER — profile, data, version footer                       ║
-║  L  1234– 1253  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1254– 1265  MODAL-MEM — memory inspector                                 ║
-║  L  1266– 1272  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1273– 1274  TOAST: container                                             ║
+║  L   856–  874  APP: shell — header, brand, top clock, settings              ║
+║  L   875–  882  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   883–  921  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L   922–  930  TAB-NETWORK — contacts list                                  ║
+║  L   931– 1024  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1025– 1039  TAB-VAULT — insights                                         ║
+║  L  1040– 1125  MODAL-CONTACT — add/edit contact                             ║
+║  L  1126– 1164  MODAL-COMM — add/edit communication                          ║
+║  L  1165– 1186  MODAL-PROFILE — edit your profile                            ║
+║  L  1187– 1201  MODAL-CLOCK — add world clock                                ║
+║  L  1202– 1217  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1218– 1245  DRAWER — profile, data, version footer                       ║
+║  L  1246– 1265  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1266– 1277  MODAL-MEM — memory inspector                                 ║
+║  L  1278– 1284  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1285– 1286  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1277– 1486  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1487– 1674  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1675– 1712  g, esc, uid, toast helpers + state globals                   ║
-║  L  1713– 2207  freshState, loadState (migrations), saveState                ║
-║  L  2208– 2433  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2434– 2467  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2468– 2513  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2514– 3116  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3117– 3241  getCommBucket + age helpers, setCommsView                    ║
-║  L  3242– 3370  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3371– 3515  renderComms — full status/triage rendering                   ║
-║  L  3516– 3543  archiveComm + reviveComm                                     ║
-║  L  3544– 3660  renderReportsPanel + computeMonthStats                       ║
-║  L  3661– 3818  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  3819– 4092  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4093– 4143  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4144– 4420  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4421– 4562  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  4563– 4630  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  4631– 4917  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1289– 1498  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1499– 1776  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1777– 1814  g, esc, uid, toast helpers + state globals                   ║
+║  L  1815– 2293  freshState, loadState (migrations), saveState                ║
+║  L  2294– 2519  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2520– 2553  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2554– 2599  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2600– 3202  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3203– 3327  getCommBucket + age helpers, setCommsView                    ║
+║  L  3328– 3456  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  3457– 3601  renderComms — full status/triage rendering                   ║
+║  L  3602– 3629  archiveComm + reviveComm                                     ║
+║  L  3630– 3746  renderReportsPanel + computeMonthStats                       ║
+║  L  3747– 3904  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  3905– 4178  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4179– 4229  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4230– 4506  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4507– 4648  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  4649– 4716  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  4717– 5003  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  4918– 5032  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5033– 5063  saveProfile + clock save/remove                              ║
-║  L  5064– 5215  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5216– 5394  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5395– 5639  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  5640– 6055  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6056– 6394  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6395– 6406  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6407– 6450  saveGroqKey, clearGroqKey                                    ║
-║  L  6451– 7340  exportAll, importJson, wipeAll                               ║
+║  L  5004– 5118  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5119– 5149  saveProfile + clock save/remove                              ║
+║  L  5150– 5303  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5304– 5482  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5483– 5727  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  5728– 6145  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6146– 6484  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6485– 6496  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6497– 6541  saveGroqKey, clearGroqKey                                    ║
+║  L  6542– 7431  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -261,7 +261,19 @@
 ║      entry), a tie to the file, and schedules the sync a kept local copy     ║
 ║      owes: three browser edits made with the server down survive its         ║
 ║      return byte-identical (the v0.6.0 file-wins merge dropped them).        ║
-║  L  7341– 7640  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.8.0 COUNCIL SLOTS FROM THE LIVE CATALOG: no model id is pinned in     ║
+║      code. With a key present the page reads Groq's model list at boot,      ║
+║      after a key save and on a 404, keeps the eligible chat models, and      ║
+║      resolves each slot from a FAMILY (vendor, id pattern, a preferred id    ║
+║      for slot A): preferred if live, else the family's newest, else the      ║
+║      newest from another vendor than the other slot, else NO SECOND VOICE.   ║
+║      Two slots never share an id. Labels derive from the id (modelLabel);    ║
+║      budgets key on the vendor (VENDOR_BUDGET; the qwen wall is the 8,000    ║
+║      the rate-limit header reports). Dropdowns list the catalog. Deleted:    ║
+║      MODEL_LABELS, MODEL_BUDGET, PREVIEW_FALLBACK_MAP, DEAD_MODEL_MAP,       ║
+║      RETIRED_MODEL_MAP. The memory inspector's wall line no longer names an  ║
+║      undefined symbol. New check: tests/catalog_resolve_check.js.            ║
+║  L  7432– 7736  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -855,7 +867,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.7.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.8.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -931,12 +943,12 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
           <div class="crew-slot on" id="slot-a">
             <button class="crew-toggle on" id="toggle-a" data-slot="a" aria-label="Toggle Council A"></button>
             <span class="crew-slot-letter">A</span>
-            <select id="model-a"><option value="openai/gpt-oss-120b">GPT-OSS 120B</option><option value="qwen/qwen3.6-27b">QWEN3.6 27B</option></select>
+            <select id="model-a"><option value="openai/gpt-oss-120b">GPT-OSS 120B</option><option value="qwen/qwen3.8-27b">QWEN3.8 27B</option></select>
           </div>
           <div class="crew-slot on" id="slot-b">
             <button class="crew-toggle on" id="toggle-b" data-slot="b" aria-label="Toggle Council B"></button>
             <span class="crew-slot-letter">B</span>
-            <select id="model-b"><option value="openai/gpt-oss-120b">GPT-OSS 120B</option><option value="qwen/qwen3.6-27b" selected>QWEN3.6 27B</option></select>
+            <select id="model-b"><option value="openai/gpt-oss-120b">GPT-OSS 120B</option><option value="qwen/qwen3.8-27b" selected>QWEN3.8 27B</option></select>
           </div>
         </div>
 
@@ -949,7 +961,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
           <div class="council-resp-box" id="resp-box-a">
             <div class="crb-h">
               <span><span class="crb-slot">A</span> · <span id="resp-label-a">GPT-OSS 120B</span></span>
-              <span class="crb-mem clickable" id="resp-mem-a" data-slot="a" title="Click to inspect the FULL context window for GPT-OSS 120B. The chip below counts conversation turns only (cap 4 on Groq free tier, auto-evicts oldest at cap). The model also sees Foundation (system + profile + current body + intel) AND Prior Draft Versions (up to 3 body snapshots) on every fire — those are not in the chip count but are visible in the inspector.">MEM 0/4</span>
+              <span class="crb-mem clickable" id="resp-mem-a" data-slot="a" title="Click to inspect the FULL context window for this slot's model. The chip below counts conversation turns only (cap 4 on Groq free tier, auto-evicts oldest at cap). The model also sees Foundation (system + profile + current body + intel) AND Prior Draft Versions (up to 3 body snapshots) on every fire — those are not in the chip count but are visible in the inspector.">MEM 0/4</span>
               <span class="crb-status" id="resp-status-a">idle</span>
               <span class="crb-tools">
                 <button class="crb-tool-btn" data-tool="tts" data-slot="a" title="Read latest response aloud (toggle)" aria-label="Read aloud">🔊</button>
@@ -960,8 +972,8 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
           </div>
           <div class="council-resp-box" id="resp-box-b">
             <div class="crb-h">
-              <span><span class="crb-slot">B</span> · <span id="resp-label-b">QWEN3.6 27B</span></span>
-              <span class="crb-mem clickable" id="resp-mem-b" data-slot="b" title="Click to inspect the FULL context window for QWEN3.6 27B. The chip below counts conversation turns only (cap 3 on Groq free tier, auto-evicts oldest at cap). Each council model budgets against its own MODEL_BUDGET row. The model also sees Foundation (system + profile + current body + intel) AND Prior Draft Versions (up to 3 body snapshots) on every fire — those are not in the chip count but are visible in the inspector.">MEM 0/3</span>
+              <span><span class="crb-slot">B</span> · <span id="resp-label-b">QWEN3.8 27B</span></span>
+              <span class="crb-mem clickable" id="resp-mem-b" data-slot="b" title="Click to inspect the FULL context window for this slot's model. The chip below counts conversation turns only (cap 3 on Groq free tier, auto-evicts oldest at cap). Each council model budgets against its vendor's VENDOR_BUDGET row. The model also sees Foundation (system + profile + current body + intel) AND Prior Draft Versions (up to 3 body snapshots) on every fire — those are not in the chip count but are visible in the inspector.">MEM 0/3</span>
               <span class="crb-status" id="resp-status-b">idle</span>
               <span class="crb-tools">
                 <button class="crb-tool-btn" data-tool="tts" data-slot="b" title="Read latest response aloud (toggle)" aria-label="Read aloud">🔊</button>
@@ -985,7 +997,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
           <textarea id="council-prompt" placeholder="Type your prompt for the crew..."></textarea>
           <div class="btn-row">
             <button class="btn" id="btn-fire-main-a">→ FIRE A · <span id="fire-main-a-label">GPT-OSS 120B</span></button>
-            <button class="btn" id="btn-fire-main-b">→ FIRE B · <span id="fire-main-b-label">QWEN3.6 27B</span></button>
+            <button class="btn" id="btn-fire-main-b">→ FIRE B · <span id="fire-main-b-label">QWEN3.8 27B</span></button>
             <button class="btn muted" id="btn-council-clear" title="Wipes this comm's conversation turns in both slots AND its prior draft versions. Keeps the current body, founder profile, and system prompt (Foundation) — the crew still sees the live draft every fire. Prior versions are removed so the crew cannot quote a dead line as if it were the current draft. Use this for a clean slate on the comm.">CLEAR THREAD</button>
             <button class="btn ghost" id="btn-council-transcript" title="Download the full council session for this context as a clean plain-text .txt — every prompt and every model's response, in fire order. Upload-ready / paste-ready for a Combat Writing session.">DOWNLOAD TRANSCRIPT</button>
           </div>
@@ -1227,7 +1239,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.7.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.8.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1274,7 +1286,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.7.0';
+const APP_VERSION='infrabot-v0.8.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1631,46 +1643,136 @@ If asked about a prior turn you can't see in history, say so. Don't fabricate co
 You are part of a two-voice council. The other voice may disagree. Stand on evidence.`;
 
 function buildSystemPrompt(slot,modelKey){
-  const selfName=MODEL_LABELS[modelKey]||modelKey;
+  const selfName=modelLabel(modelKey);
   const slotLabel='COUNCIL '+slot.toUpperCase();
   return `You are ${selfName}. This is your name in this session. You are ${slotLabel}.\n\n`+COUNCIL_SYSTEM_BASE;
 }
 
-const MODEL_LABELS={'openai/gpt-oss-120b':'GPT-OSS 120B','qwen/qwen3.6-27b':'QWEN3.6 27B'};
+// v0.8.0 - MODEL LABELS DERIVED FROM THE ID. The hand-kept label map is
+// gone: a label is a function of the id (vendor prefix dropped, uppercased,
+// the trailing -<digits>b rendered as a space plus the size), so the label
+// always names the model that is actually running. A slot with no model
+// resolved reads NO SECOND VOICE.
+const NO_VOICE_LABEL='NO SECOND VOICE';
+function modelLabel(id){
+  if(!id)return NO_VOICE_LABEL;
+  const bare=String(id).split('/').pop();
+  return bare.replace(/-(\d+)b$/i,' $1B').toUpperCase();
+}
+function modelVendor(id){return String(id||'').split('/')[0].toLowerCase();}
 
-// v0.2.8 — PER-MODEL BUDGET CONFIG. Replaces the old includes('qwen') substring
-// branch in callGroq with one row per council model: the free-tier TPM ceiling
-// (with a ~300-token estimator-drift buffer baked into tpmCeiling), the hard TPM
-// wall, the output floor/ceiling clamp, and the reasoning_effort to send.
-// Dynamic max_tokens budgeting reads this for BOTH slots — the old "big slot has
-// 12K headroom, static output is safe" assumption died when both council models
-// landed on Groq's 8K free-tier ceiling. Future roster swaps = edit a row here,
-// not the request path. Console-verified: both gpt-oss models are
-// 8K TPM / 30 RPM / 1K RPD / 200K TPD on the free tier.
-// v0.4.3: slot B is qwen/qwen3.6-27b (Groq PREVIEW).
-// Its wall is set at a CONSERVATIVE 6K TPM: the account's console number for
-// this model is login-gated (crew cannot read it) and the docs table's
-// developer-plan 8K is not used as a source. Under-reserving only clamps
-// output headroom; over-reserving recreates the 413 class v0.2.8 killed. If
-// the founder's console reads 8K for it, the row moves to 7700/8000, one edit.
-// reasoning_effort for qwen3.6 takes none|default (per the model docs,
-// never low|medium|high); none is the non-thinking mode, the latency and
-// TPM-headroom analogue of gpt-oss low.
-const MODEL_BUDGET={
-  'openai/gpt-oss-120b':{tpmCeiling:7700,hardCap:8000,floor:350,ceiling:2800,reasoningEffort:'low'},
-  'qwen/qwen3.6-27b'   :{tpmCeiling:5700,hardCap:6000,floor:350,ceiling:2800,reasoningEffort:'none'},
-  _default             :{tpmCeiling:5700,hardCap:6000,floor:350,ceiling:2800,reasoningEffort:null}
+// v0.8.0 - BUDGETS BY VENDOR, not by model id, so a newer model in the same
+// family inherits the family's row instead of dropping to the default.
+// Groq counts input + the max_tokens reservation against the per-minute
+// token ceiling, so tpmCeiling carries a ~300-token estimator buffer under
+// the hardCap wall (the v0.2.8 two-constraint budget, unchanged). The qwen
+// row's 8,000 wall is measured from the rate-limit header Groq returns on
+// every completion, not read from a docs table; the earlier conservative
+// 6,000 row is superseded by that measurement. reasoning_effort per vendor:
+// gpt-oss takes low|medium|high and rides low; the qwen family takes
+// none|low|medium|high|default and rides none (instruct mode, no reasoning
+// tokens on the budget). An unknown vendor gets the conservative default.
+const VENDOR_BUDGET={
+  openai  :{tpmCeiling:7700,hardCap:8000,floor:350,ceiling:2800,reasoningEffort:'low'},
+  qwen    :{tpmCeiling:7700,hardCap:8000,floor:350,ceiling:2800,reasoningEffort:'none'},
+  _default:{tpmCeiling:5700,hardCap:6000,floor:350,ceiling:2800,reasoningEffort:null}
 };
+function modelBudget(id){return VENDOR_BUDGET[modelVendor(id)]||VENDOR_BUDGET._default;}
 
-// v0.4.3 PREVIEW FALLBACK (runtime-only, consulted at the callGroq error
-// site): qwen3.6-27b ships as Groq PREVIEW, accepted eyes-open with this heal
-// as the safety case. If Groq answers 404 for a mapped id (the id left the
-// catalog: decommissioned, or a preview pulled without a schedule), callGroq
-// remaps every slot running it to the successor, persists, and retries once.
-// Deliberately NOT an entry in DEAD_MODEL_MAP: the boot map fires
-// unconditionally at loadState, so a LIVE preview id there would remap slot B
-// back to gpt-oss-120b on every load and silently undo the roster swap.
-const PREVIEW_FALLBACK_MAP={'qwen/qwen3.6-27b':'openai/gpt-oss-120b'};
+// v0.8.0 - THE LIVE CATALOG. No model id is pinned in code any more: when a
+// key is present the page reads Groq's model list at boot, after a key is
+// saved, and again when a fire answers 404, and resolves each slot from it.
+// ELIGIBLE records: active, a context window of at least 32K, at least 4K of
+// output, and not a speech, guard, agent or embedding model. Each slot names
+// a FAMILY as data: a vendor, an id pattern, and for slot A a preferred id.
+// Resolution per slot: the preferred id if live; else the newest eligible id
+// matching the family (Groq's created stamp orders them); else the newest
+// eligible id from a different vendor than the OTHER slot's model; else null.
+// Two slots never resolve to the same id, so losing a family never doubles
+// the other slot's model: the slot goes silent and says so. A hand pick
+// in a dropdown stands while the catalog still lists it. The raw catalog body
+// is never logged or shown; an unreadable catalog keeps the persisted ids.
+const CATALOG_URL='https://api.groq.com/openai/v1/models';
+const CATALOG_EXCLUDE=/whisper|orpheus|tts|guard|compound|safeguard|embed/i;
+const CATALOG_MIN_CONTEXT=32768;
+const CATALOG_MIN_OUTPUT=4096;
+const SLOT_FAMILIES={
+  a:{vendor:'openai',preferred:'openai/gpt-oss-120b',match:/^openai\/gpt-oss-\d+b$/},
+  b:{vendor:'qwen',preferred:null,match:/^qwen\//}
+};
+let catalogEligible=null; // the eligible records from this session's last catalog read
+function catalogFilter(records){
+  return (records||[]).filter(m=>m&&m.id&&m.active!==false
+    &&!CATALOG_EXCLUDE.test(m.id)
+    &&(m.context_window||0)>=CATALOG_MIN_CONTEXT
+    &&(m.max_completion_tokens||0)>=CATALOG_MIN_OUTPUT)
+    .sort((x,y)=>(y.created||0)-(x.created||0));
+}
+function resolveSlots(eligible){
+  const ids=eligible.map(m=>m.id);
+  const out={a:null,b:null};
+  const byFamily=slot=>{
+    const f=SLOT_FAMILIES[slot];
+    if(f.preferred&&ids.includes(f.preferred))return f.preferred;
+    return ids.find(id=>f.match.test(id))||null;
+  };
+  out.a=byFamily('a');out.b=byFamily('b');
+  ['a','b'].forEach(slot=>{
+    if(out[slot])return;
+    const other=out[slot==='a'?'b':'a'];
+    out[slot]=ids.find(id=>id!==other&&(!other||modelVendor(id)!==modelVendor(other)))||null;
+  });
+  if(out.a&&out.a===out.b)out.b=null;
+  return out;
+}
+async function readCatalog(){
+  if(!state.groqKey)return null;
+  const resp=await fetch(CATALOG_URL,{headers:{'Authorization':'Bearer '+state.groqKey}});
+  if(!resp.ok)throw new Error('catalog HTTP '+resp.status);
+  const data=await resp.json();
+  return catalogFilter(data&&data.data);
+}
+// One fresh read applied: every slot re-resolved, moves persisted and named.
+// `retired` is the id a fire just found gone, so the toast names the loss.
+async function refreshCatalog(retired){
+  let eligible=null;
+  try{eligible=await readCatalog();}
+  catch(e){toast('GROQ CATALOG UNREADABLE · KEEPING '+modelLabel(state.models.a)+' / '+modelLabel(state.models.b),'amber');return null;}
+  if(!eligible)return null;
+  catalogEligible=eligible;
+  const ids=eligible.map(m=>m.id);
+  const resolved=resolveSlots(eligible);
+  let moved=false;
+  ['a','b'].forEach(slot=>{
+    const cur=state.models[slot];
+    const other=state.models[slot==='a'?'b':'a'];
+    if(cur&&ids.includes(cur)&&cur!==other)return; // a live pick stands
+    const next=resolved[slot]===other?null:resolved[slot];
+    if(next===cur)return;
+    moved=true;
+    state.models[slot]=next;
+    const head=(retired&&retired===cur)?'GROQ RETIRED '+modelLabel(cur)+' · ':'';
+    toast(head+'SLOT '+slot.toUpperCase()+' NOW '+modelLabel(next)+(retired?'':' (WAS '+modelLabel(cur)+')'),'amber');
+  });
+  if(moved)saveState();
+  populateModelSelects();
+  refreshCouncilUI();
+  return resolved;
+}
+// The dropdowns list every eligible id from the last read; before the first
+// read they carry the persisted id alone. A null slot shows NO SECOND VOICE.
+function populateModelSelects(){
+  const ids=catalogEligible?catalogEligible.map(m=>m.id):[];
+  ['a','b'].forEach(slot=>{
+    const sel=g('model-'+slot);if(!sel)return;
+    const cur=state.models[slot];
+    const list=ids.slice();
+    if(cur&&!list.includes(cur))list.unshift(cur);
+    if(!cur)list.unshift('');
+    sel.innerHTML=list.map(id=>'<option value="'+esc(id)+'">'+esc(id?modelLabel(id):NO_VOICE_LABEL)+'</option>').join('');
+    sel.value=cur||'';
+  });
+}
 
 const g=id=>document.getElementById(id);
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1729,7 +1831,7 @@ function freshState(){
     insights:[],
     customCities:{},
     groqKey:'',
-    models:{a:'openai/gpt-oss-120b',b:'qwen/qwen3.6-27b'},
+    models:{a:'openai/gpt-oss-120b',b:'qwen/qwen3.8-27b'},
     crew:{a:true,b:true},
     councilHistory:{},
     commsView:'drafts'
@@ -1743,26 +1845,10 @@ function loadState(){
   if(!s)s=freshState();
   // v0.1.1 migration: drop legacy slot C, ensure crew block exists
   if(s.models&&s.models.c)delete s.models.c;
-  if(!s.models||!s.models.a)s.models={a:'openai/gpt-oss-120b',b:'qwen/qwen3.6-27b'};
-  // v0.2.8 DEAD MODEL heal (boot): ids Groq shut down or scheduled dead
-  // (qwen3-32b died 2026-07-17; llama-3.3-70b-versatile dies 2026-08-16) map
-  // to live successors so a persisted roster never fires a dead id at the
-  // founder. Boot-only, dead-only contract: an id enters this map when Groq
-  // has killed it, never while it can still answer.
-  const DEAD_MODEL_MAP={'llama-3.3-70b-versatile':'openai/gpt-oss-120b','qwen/qwen3-32b':'openai/gpt-oss-20b'};
-  // v0.4.3 RETIRED roster migration (boot): gpt-oss-20b is ALIVE upstream but
-  // off the two-option roster (the slot B family swap),
-  // so it cannot sit in DEAD_MODEL_MAP without lying about why it moved. A
-  // persisted 20b would make the select display a model the state does not
-  // hold, so it migrates to the current slot B occupant. Runs AFTER the dead
-  // map so a healed qwen3-32b state chains 20b to qwen3.6-27b in one boot.
-  const RETIRED_MODEL_MAP={'openai/gpt-oss-20b':'qwen/qwen3.6-27b'};
-  if(s.models){
-    ['a','b'].forEach(k=>{
-      if(DEAD_MODEL_MAP[s.models[k]])s.models[k]=DEAD_MODEL_MAP[s.models[k]];
-      if(RETIRED_MODEL_MAP[s.models[k]])s.models[k]=RETIRED_MODEL_MAP[s.models[k]];
-    });
-  }
+  // v0.8.0: the ids here are first-load placeholders only. The live catalog
+  // re-resolves every slot once a key is present (refreshCatalog), which is
+  // what the removed boot heal maps used to approximate by hand.
+  if(!s.models||!s.models.a)s.models={a:'openai/gpt-oss-120b',b:'qwen/qwen3.8-27b'};
   if(!s.crew)s.crew={a:true,b:true};
   if(typeof s.crew.a!=='boolean')s.crew.a=true;
   if(typeof s.crew.b!=='boolean')s.crew.b=true;
@@ -4886,7 +4972,7 @@ function councilTranscriptText(){
     (ex.responses||[]).forEach(resp=>{
       if(resp.thinking)return; // skip placeholder
       const upperSlot=(resp.slot||'').toUpperCase();
-      const rawLabel=resp.modelLabel||MODEL_LABELS[resp.model]||resp.model||'COUNCIL '+upperSlot;
+      const rawLabel=resp.modelLabel||(resp.model?modelLabel(resp.model):'COUNCIL '+upperSlot);
       lines.push('');
       lines.push(rawLabel+(resp.error?' (ERROR):':':'));
       lines.push(resp.text||'');
@@ -5102,16 +5188,18 @@ function refreshCouncilUI(){
   }
   // Refresh model labels (in case selectors changed)
   if(state){
-    g('resp-label-a').textContent=MODEL_LABELS[state.models.a]||state.models.a;
-    g('resp-label-b').textContent=MODEL_LABELS[state.models.b]||state.models.b;
-    g('resp-box-a').classList.toggle('disabled',!state.crew.a);
-    g('resp-box-b').classList.toggle('disabled',!state.crew.b);
+    // v0.8.0: labels derive from the running id; a slot with no model is
+    // disabled exactly like a slot switched off.
+    g('resp-label-a').textContent=modelLabel(state.models.a);
+    g('resp-label-b').textContent=modelLabel(state.models.b);
+    g('resp-box-a').classList.toggle('disabled',!state.crew.a||!state.models.a);
+    g('resp-box-b').classList.toggle('disabled',!state.crew.b||!state.models.b);
     // Sync main-page fire button labels
     const flA=g('fire-main-a-label'),flB=g('fire-main-b-label'),fbA=g('btn-fire-main-a'),fbB=g('btn-fire-main-b');
-    if(flA)flA.textContent=MODEL_LABELS[state.models.a]||state.models.a;
-    if(flB)flB.textContent=MODEL_LABELS[state.models.b]||state.models.b;
-    if(fbA)fbA.disabled=!state.crew.a;
-    if(fbB)fbB.disabled=!state.crew.b;
+    if(flA)flA.textContent=modelLabel(state.models.a);
+    if(flB)flB.textContent=modelLabel(state.models.b);
+    if(fbA)fbA.disabled=!state.crew.a||!state.models.a;
+    if(fbB)fbB.disabled=!state.crew.b||!state.models.b;
   }
   renderCouncilStream();
 }
@@ -5352,7 +5440,7 @@ Home: ${f.homeCity||'(not set)'}`;
   }
   messages.push({role:'assistant',content:primingTurn});
   // v0.2.8: /no_think dropped with Qwen3. Council reasoning is governed by the
-  // per-model reasoning_effort set in callGroq (MODEL_BUDGET), not an in-prompt token.
+  // per-vendor reasoning_effort set in callGroq (VENDOR_BUDGET), not an in-prompt token.
   messages.push({role:'user',content:prompt});
   return messages;
 }
@@ -5395,14 +5483,14 @@ function groqRateLimitReason(txt,waited){
 async function callGroq(model,messages){
   // v0.2.8 — PER-MODEL DYNAMIC BUDGET. Replaces the old includes('qwen') branch
   // (Qwen got dynamic budgeting, Llama got a static 3000) with a single path that
-  // reads MODEL_BUDGET[model] and budgets EVERY slot dynamically. The old split
+  // reads the vendor budget row and budgets EVERY slot dynamically. The old split
   // assumed the big slot always had 12K headroom; both council models now sit at
   // Groq's 8K free-tier ceiling, so both need the same treatment. Retained the CW
   // v34.8 two-constraint architecture: Groq counts input + max_tokens reservation
   // against TPM (not actual output), so a growing input (doctrine + up to 3 prior
   // drafts + live-state + 2 turns) walks a static reservation into a 413. We size
   // the reservation to the live input on every fire and hard-guard the TPM wall.
-  const cfg=MODEL_BUDGET[model]||MODEL_BUDGET._default;
+  const cfg=modelBudget(model);
   // Conservative 4-chars-per-token estimator. CW measured ~1.4% drift in
   // production against Groq's reported counts — inside the ~300-token buffer
   // already baked into cfg.tpmCeiling.
@@ -5424,8 +5512,8 @@ async function callGroq(model,messages){
   }
   const doCall=async(maxTokens)=>{
     const payload={model,messages,max_tokens:maxTokens,temperature:0.3};
-    // reasoning_effort: per-model knob from MODEL_BUDGET, heir to Qwen3's
-    // /no_think. gpt-oss takes low|medium|high; qwen3.6 takes none|default and
+    // reasoning_effort: per-vendor knob from VENDOR_BUDGET, heir to Qwen3's
+    // /no_think. gpt-oss takes low|medium|high; the qwen family takes none and
     // rides none (non-thinking, keeps latency and reasoning-token burn off the
     // TPM budget). Bump a row's value if a COUNCIL smoke test reads too dull.
     if(cfg.reasoningEffort)payload.reasoning_effort=cfg.reasoningEffort;
@@ -5465,17 +5553,16 @@ async function callGroq(model,messages){
       resp=await doCall(usedMax);
     }
   }
-  // v0.4.3 preview heal: a 404 means the model id left Groq's catalog (Groq
-  // answers 404 model_not_found once an id is gone; a pulled preview has no
-  // schedule to boot-map against). Heal every slot running it, persist,
-  // announce, retry once on the successor. Single-depth by construction: no
-  // successor is itself a PREVIEW_FALLBACK_MAP key.
-  if(!resp.ok&&resp.status===404&&PREVIEW_FALLBACK_MAP[model]){
-    const successor=PREVIEW_FALLBACK_MAP[model];
-    ['a','b'].forEach(k=>{if(state.models&&state.models[k]===model)state.models[k]=successor;});
-    saveState();
-    toast('GROQ RETIRED '+(MODEL_LABELS[model]||model)+' · SLOT HEALED TO '+(MODEL_LABELS[successor]||successor),'amber');
-    return callGroq(successor,messages);
+  // v0.8.0: a 404 means the id left Groq's catalog. Re-read the catalog,
+  // re-resolve every slot (refreshCatalog persists and announces the move),
+  // and retry once on whatever now holds the slot that was running this
+  // model. No successor resolved, or the same id came back: fail named.
+  if(!resp.ok&&resp.status===404){
+    const slots=['a','b'].filter(k=>state.models[k]===model);
+    await refreshCatalog(model);
+    const successor=slots.map(k=>state.models[k]).find(Boolean);
+    if(successor&&successor!==model)return callGroq(successor,messages);
+    throw new Error('Groq retired '+modelLabel(model)+' and the live catalog offers no replacement for that slot. Pick another model in the crew block, or fire the other slot.');
   }
   if(!resp.ok){
     // v4.0.8 — ERROR-PATH SCRUB. The raw Groq error body is JSON that includes
@@ -5516,8 +5603,9 @@ async function fireSlot(slot){
   const prompt=promptEl.value.trim();
   if(!prompt){toast('TYPE A PROMPT','err');promptEl.focus();return;}
   const modelKey=state.models[slot];
-  const modelLabel=MODEL_LABELS[modelKey]||modelKey;
   const slotUpper=slot.toUpperCase();
+  if(!modelKey){toast('SLOT '+slotUpper+' HAS NO MODEL · '+NO_VOICE_LABEL,'err');return;}
+  const label=modelLabel(modelKey);
   snapshotCommBodyOnFire(); // v4.4.0 D2a: capture a genuine prior version if the body changed since last fire
   const key=councilHistoryKey();
   if(!state.councilHistory)state.councilHistory={};
@@ -5525,7 +5613,7 @@ async function fireSlot(slot){
   const exchange={
     timestamp:localTimestamp(),
     prompt,
-    responses:[{slot:slotUpper,modelLabel,model:modelKey,text:'Convening...',thinking:true,error:false}]
+    responses:[{slot:slotUpper,modelLabel:label,model:modelKey,text:'Convening...',thinking:true,error:false}]
   };
   state.councilHistory[key].push(exchange);
   // v0.4: Do NOT clear prompt after fire. User can re-fire to other slot, edit, or clear manually.
@@ -5872,7 +5960,7 @@ function copyResponseAtIndex(slot,exIdx,btnEl){
   const resp=ex.responses.find(r=>r.slot===upperSlot);
   if(!resp||resp.thinking||resp.error){toast('NOTHING TO COPY','err');return;}
   // Resolve a clean model label like "LLAMA 3.3 70B" or "QWEN3 32B"
-  const rawLabel=resp.modelLabel||MODEL_LABELS[resp.model]||resp.model||'COUNCIL '+upperSlot;
+  const rawLabel=resp.modelLabel||(resp.model?modelLabel(resp.model):'COUNCIL '+upperSlot);
   // v1.3: Simplified output. Just model attribution + response. The YOU/timestamp/prompt
   // prefix in v1.2 was noise when pasting council excerpts elsewhere — the founder just
   // wants the model's words with a label so the source travels with the quote.
@@ -5901,15 +5989,17 @@ function ttsForSlot(slot,btn){
 function openMemInspector(slot){
   const upperSlot=slot.toUpperCase();
   const modelKey=(state&&state.models)?state.models[slot]:'';
-  const modelLabel=MODEL_LABELS[modelKey]||modelKey||'(no model)';
+  const label=modelKey?modelLabel(modelKey):'(no model)';
   const cap=2; // v3.8.1 Attempt #6: both slots capped at 2 turns
-  const tpm=isQwen?'6K TPM':'12K TPM';
-  g('mem-title').textContent=`// MEMORY · ${upperSlot} · ${modelLabel}`;
+  // v0.8.0: the wall reads from the vendor budget row (the prior line named
+  // an undefined isQwen and threw before the inspector could open).
+  const tpm=Math.round(modelBudget(modelKey).hardCap/1000)+'K TPM';
+  g('mem-title').textContent=`// MEMORY · ${upperSlot} · ${label}`;
   const body=g('mem-body');
 
   // Top explainer — the architecture of this slot's full per-fire context window
   let html=`<div class="mem-explainer">
-    <div class="mem-row"><span class="mem-k">Model</span><span class="mem-v">${esc(modelLabel)}</span></div>
+    <div class="mem-row"><span class="mem-k">Model</span><span class="mem-v">${esc(label)}</span></div>
     <div class="mem-row"><span class="mem-k">Turn cap</span><span class="mem-v">${cap} of this slot's own prior conversation exchanges (${tpm} on Groq free tier). Auto-evicts oldest when cap is exceeded.</span></div>
     <div class="mem-row"><span class="mem-k">Slot isolation</span><span class="mem-v">This slot only sees ITS OWN prior turns. The other slot's exchanges are NOT in this context window.</span></div>
     <div class="mem-row"><span class="mem-k">Three sources</span><span class="mem-v">On every fire, the model sees: (1) FOUNDATION — system prompt + founder profile + current SESSION CONTEXT (body + intel). (2) PRIOR DRAFT VERSIONS — body snapshots from prior comm edits, capped at ${MAX_PRIOR_DRAFTS} per comm. (3) CONVERSATION TURNS — slot-isolated chat history, capped at ${cap}. The MEM N/X chip on the response box only counts source (3).</span></div>
@@ -6039,7 +6129,7 @@ ${c.notes||'(none recorded)'}
 
   if(evicted>0){
     html+=`<div class="mem-section-h">// EVICTED · ${evicted} OLDER TURN${evicted===1?'':'S'} (NOT SENT TO MODEL)</div>`;
-    html+=`<div class="mem-evicted-note">These turns happened in this context but are no longer being sent to ${modelLabel} on each fire. They still appear in the response box scrollback because the UI keeps the full thread — but the model itself has forgotten them. This is the auto-eviction working as designed. (Note: if your prompt or body referenced one of these turns, the model may still infer some context from PRIOR DRAFT VERSIONS or the current body — those are sent regardless.)</div>`;
+    html+=`<div class="mem-evicted-note">These turns happened in this context but are no longer being sent to ${label} on each fire. They still appear in the response box scrollback because the UI keeps the full thread — but the model itself has forgotten them. This is the auto-eviction working as designed. (Note: if your prompt or body referenced one of these turns, the model may still infer some context from PRIOR DRAFT VERSIONS or the current body — those are sent regardless.)</div>`;
     const evictedTurns=slotHistory.slice(0,evicted);
     evictedTurns.forEach((ex,i)=>{
       html+=`<div class="mem-turn evicted">
@@ -6114,7 +6204,7 @@ function openFullscreen(slot){
   const modelEl=g('fs-model-label');
   slotEl.textContent=upperSlot;
   slotEl.style.color='';            // clear any comm-mode override
-  modelEl.textContent=MODEL_LABELS[state.models[slot]]||state.models[slot];
+  modelEl.textContent=modelLabel(state.models[slot]);
   modelEl.style.color='';
   // Render slot's full thread
   renderFullscreenBody();
@@ -6393,15 +6483,15 @@ function refreshCrewStatus(){
 }
 
 function initCrewBlock(){
-  // Sync model selectors and toggles with state
-  const mA=g('model-a'),mB=g('model-b');
-  if(mA)mA.value=state.models.a;
-  if(mB)mB.value=state.models.b;
+  // Sync model selectors and toggles with state; v0.8.0: the selectors are
+  // filled from the persisted ids now and from the live catalog once it reads.
+  populateModelSelects();
   const tA=g('toggle-a'),tB=g('toggle-b'),sA=g('slot-a'),sB=g('slot-b');
   if(tA){tA.classList.toggle('on',!!state.crew.a);if(sA)sA.classList.toggle('on',!!state.crew.a);if(sA)sA.classList.toggle('off',!state.crew.a);}
   if(tB){tB.classList.toggle('on',!!state.crew.b);if(sB)sB.classList.toggle('on',!!state.crew.b);if(sB)sB.classList.toggle('off',!state.crew.b);}
   refreshCrewStatus();
   refreshCouncilUI();
+  if(state.groqKey)refreshCatalog(null);
 }
 
 async function saveGroqKey(){
@@ -6412,11 +6502,12 @@ async function saveGroqKey(){
   try{
     const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
       method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},
-      body:JSON.stringify({model:'openai/gpt-oss-120b',messages:[{role:'user',content:'ping'}],max_tokens:5})
+      body:JSON.stringify({model:state.models.a||SLOT_FAMILIES.a.preferred,messages:[{role:'user',content:'ping'}],max_tokens:5})
     });
     if(r.status===200){
       state.groqKey=k;saveState();inp.value='';
       refreshCrewStatus();toast('KEY VALIDATED','');
+      refreshCatalog(null);
     }else{
       status.className='crew-status err';status.textContent='Invalid key (HTTP '+r.status+')';
     }
@@ -7554,7 +7645,12 @@ function wireEvents(){
   g('drawer-backdrop').addEventListener('click',closeDrawer);
   g('btn-save-groq').addEventListener('click',saveGroqKey);
   g('btn-clear-groq').addEventListener('click',clearGroqKey);
-  ['model-a','model-b'].forEach(id=>g(id).addEventListener('change',e=>{const slot=id.split('-')[1];state.models[slot]=e.target.value;saveState();refreshCouncilUI();}));
+  ['model-a','model-b'].forEach(id=>g(id).addEventListener('change',e=>{
+    // v0.8.0: a pick is refused when it would put both slots on one model.
+    const slot=id.split('-')[1],pick=e.target.value||null;
+    if(pick&&pick===state.models[slot==='a'?'b':'a']){toast('BOTH SLOTS ON ONE MODEL · PICK REFUSED','err');e.target.value=state.models[slot]||'';return;}
+    state.models[slot]=pick;saveState();refreshCouncilUI();
+  }));
   ['toggle-a','toggle-b'].forEach(id=>g(id).addEventListener('click',e=>{
     const slot=e.currentTarget.dataset.slot;
     state.crew[slot]=!state.crew[slot];
