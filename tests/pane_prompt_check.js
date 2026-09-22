@@ -1,5 +1,7 @@
 // pane_prompt_check.js: the council pane stops grading the signature and
-// keeps the link closer (infrabot v0.5.5).
+// keeps the link closer (infrabot v0.5.5); since v0.10.1 it also pins THE
+// READINESS ANSWER (no verdict, the single weakest line, the gauntlet judges)
+// and the closer written as settled law.
 //
 // Reads the REAL COUNCIL_SYSTEM_BASE out of infrabot.html (the template
 // literal between its backticks; never a copy) and pins what the prompt
@@ -59,7 +61,20 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('the forbidden-CTA fix ends on the link directive',has('delete the CTA line, end on the link directive'),true);
   expect('the retired "drop the URL" wording is gone',has('drop the URL'),false);
   expect('the retired "drop the asset" shape name is gone from the gate',has('no-CTA-drop-the-asset'),false);
-  expect('no signature block is the flaw named in gate item 4',has('4. **Clean mechanics.** No em dash. No signature block in the draft'),true);
+  expect('no signature block is never the weakest line (the readiness answer)',has('No signature block in the draft: the founder\'s Gmail signature is appended at send'),true);
+  // v0.10.1 THE READINESS ANSWER: no verdict, the single weakest line, the gauntlet judges;
+  // the closer is settled law and is never re-ruled.
+  expect('the ready-to-send gate is gone',has('READY-TO-SEND GATE'),false);
+  expect('no line asks for the "Ready. Send it." verdict',has('say **"Ready. Send it."**'),false);
+  expect('the readiness answer section exists',has('## THE READINESS ANSWER'),true);
+  expect('a readiness question is never answered with a verdict',has('A readiness question is NEVER answered with a verdict'),true);
+  expect('the answer is the single weakest line',has('quote the SINGLE weakest line of the draft'),true);
+  expect('the closing line names the gauntlet as the judge',count(/The gauntlet judges readiness\./g)>=2,true);
+  expect('the closer is settled law, never re-decided',has('SETTLED LAW, never re-decided'),true);
+  expect('a directive line plus the link is the closer, not solicitation',has('It is not solicitation, not an ask, not a floating link'),true);
+  expect('the seat never re-rules the closer',has('You never propose removing, softening, or re-ruling the closer'),true);
+  expect('same body, same answer',has('**Same body, same answer.**'),true);
+  expect('question handling routes readiness to the answer, never a verdict',has('THE READINESS ANSWER: the single weakest line quoted, one sentence why, then "The gauntlet judges readiness." Never a verdict.'),true);
 
   if(failures.length){
     out('pane_prompt_check: FAIL ('+failures.length+' failure(s))');
