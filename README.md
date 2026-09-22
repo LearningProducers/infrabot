@@ -1,13 +1,52 @@
-infrabot is a single-file HTML console for founders prospecting like-minded professionals, built so your AI agents do the researching and you do the sending.
+# infrabot
 
-## Quick start
+infrabot is a single-file HTML console for outreach, built so your AI agent
+does the researching and drafting and you do the sending. It runs on your
+machine: one HTML file, one small Python server, no build step, no
+dependencies beyond Python 3 and a browser. This README describes v0.10.0.
 
-1. Get the files  
-   Green **Code** button → **Download ZIP**  
-   (or use the `git clone` below)
+## What it does
 
-2. Unzip → double-click `open-infrabot.command`  
-   *or* run these commands:
+The app has four tabs.
+
+- **OVERVIEW.** A world map with your cities pinned, live clocks, today's
+  counters, and your profile (used in the messages you share).
+- **NETWORK.** Your contacts, and the in-person events you are considering;
+  each event carries a status you move by hand.
+- **COMMUNICATIONS.** Draft cards, one per message. A card carries the
+  person, the company, the address, the discovery trail (how they showed
+  up), a one-line hook (why they would care and what you are handing them),
+  the subject and the body. The hook is written by your agent or typed in
+  the card's form; the page never generates it. Cards move DRAFT to
+  SCHEDULED to SENT (and REPLIED); a sent card with no reply after five days
+  is marked WENT QUIET automatically; CLOSED is your call. A filter row
+  switches between drafts, the pipeline, the archive and monthly reports,
+  and EXPORT STATE / IMPORT STATE buttons sit under the same tab.
+- **VAULT.** Insights you want to keep, and an artifact ledger of the things
+  you made.
+
+There is no send button. You copy a message into your own email client and
+send it yourself, then flip the card's status.
+
+**The crew.** Optional. Save a Groq API key in the COMMUNICATIONS tab and two
+model slots come alive. Click COUNCIL on a card and the slots read the draft
+and revise it; each slot keeps a short memory of its last exchanges. With a
+key present the page reads Groq's model catalog at load, after a key save, and
+whenever a model id stops answering, then fills each slot from a model family
+(an OpenAI open-weight model for slot A, a Qwen model for slot B): slot A's
+preferred id if it is live, else the newest live model in the family, else the
+newest from a vendor other than the other slot's, else the slot reads NO
+SECOND VOICE. No model id is pinned in the code, so a retired model never
+strands a slot. The labels say what is actually running. The prompt the crew
+judges by lives inside `infrabot.html`; edit it to impose your own definition
+of send-worthy. The key stays in your browser's storage and is never exported.
+
+**Data.** The settings drawer has EXPORT JSON (the whole state), IMPORT JSON
+(a full replace), IMPORT DRAFTS (adds draft cards from a text file of
+prospect blocks, never replaces), STATUS MIRROR (a text summary of your
+SENT and SCHEDULED decisions), and WIPE ALL DATA.
+
+## How to run it
 
 ```bash
 git clone https://github.com/LearningProducers/infrabot.git
@@ -15,47 +54,108 @@ cd infrabot
 python3 serve.py
 ```
 
-Open http://127.0.0.1:8119/infrabot.html, or just double-click `open-infrabot.command`. No dependencies beyond Python 3. Everything runs on your machine and stays there; the only network calls are the Groq API calls you configure.
+Then open http://127.0.0.1:8119/infrabot.html. `python3 serve.py --detach`
+starts the server in the background (no terminal window has to stay open)
+and `python3 serve.py --stop` ends it; the log and PID sit under `state/`.
 
-The launcher starts the server detached, so no terminal window has to stay open; double-click `stop-infrabot.command` to stop it (or run `python3 serve.py --stop`). The server's log and PID live under `state/`. A second start while it runs only opens the browser. With the server down the app keeps working from browser storage, and when the server returns each record syncs by whichever copy is newer, so edits made in the meantime are kept.
+The two double-click launchers, `open-infrabot.command` (start detached,
+open the browser, exit) and `stop-infrabot.command`, expect the clone at
+`~/lpi/infrabot`; they read the `INFRABOT_DIR` environment variable when it
+is set, and otherwise serve that path. From a clone anywhere else, use the
+`serve.py` commands above. A second launcher start while the server runs
+only opens the browser; a second `--detach` says it is already serving and
+starts nothing.
 
-State exports land in a repo-local `exports/` folder by default. To send them somewhere else, set `LPI_EXPORT_DIR` in a local env file that the launcher sources. Note: if `LPI_EXPORT_DIR` points outside this repo, `reconcile.command` refuses to run by default. This keeps private data out of the tracked tracker.csv. The refusal message names the override flag if you truly want it.
+The server keeps your state in `state/infrabot_state.json` and the browser
+keeps its own copy. With the server down the app keeps working from browser
+storage; when the server returns, each record syncs by whichever copy is
+newer, and a record the server file no longer carries is dropped from the
+tab unless the tab created it in the meantime or has it open for editing.
+
+Network calls, all of them: Groq's API, only when you use the crew; and
+GitHub, only when the launcher fast-forwards a clean `main` checkout to the
+newest build before serving (it says so in one line when it cannot, and
+never forces). Everything else is loopback on your machine.
+
+On open, when the state changed since the last export, the app writes a
+state export through the server into a repo-local `exports/` folder (with
+the server down it falls back to a browser download). To send exports
+somewhere else, set `LPI_EXPORT_DIR` in the env file the launcher sources,
+`~/lpi/infrabot.local.env`; `reconcile.command` refuses an export dir
+outside the repo by default and names the override flag.
 
 ## Onboard your agent
-Paste this into your coding agent (Claude Code or similar) from
-the repo root:
 
-> You are my agent for infrabot, a single-file local-first
-> outreach console in this repo. Read the header banner of
-> infrabot.html first; it is the file map and the law of the
-> codebase. The loop: you research prospects and write them into
-> my browser dashboard as cards via the import format described
-> in the banner; I review and send every message by hand; nothing
-> auto-sends, ever. reconcile.py turns my exports into
-> tracker.csv, the master CRM. If a WOODSHOP.md exists in this
-> clone, treat it as my queue: when I ask for improvements, work
-> from it. Confirm you have read the banner, then ask me for my
-> first prospecting criteria.
+Paste this into your coding agent from the repo root:
+
+> You are my agent for infrabot, a single-file local-first outreach console
+> in this repo. Read the header banner of infrabot.html first; it is the
+> file map and the law of the codebase. The loop: you research prospects and
+> write them into my browser dashboard as cards; I review and send every
+> message by hand; nothing auto-sends, ever. reconcile.py turns my exports
+> into tracker.csv, the master record. If a WOODSHOP.md exists in this
+> clone, treat it as my queue: when I ask for improvements, work from it.
+> Confirm you have read the banner, then ask me for my first prospecting
+> criteria.
+
+**The block format your agent writes.** IMPORT DRAFTS reads a plain text
+file. Each prospect is a block that opens with a `PROSPECT <n>` header line
+(the text after the separator becomes the card's city), then labeled lines,
+then the body under a `Body:` label:
+
+```
+PROSPECT 1 - <city>
+Company: <company>
+Target: <person>
+Email: <address>
+Source URL: <where you found them>
+Website: <their site>
+Subject: <subject line>
+Hook: <one line: why they would care, what you are handing them>
+Body: <the message, as many lines as it takes>
+```
+
+A block with no body, or with neither an address nor a URL, is skipped and
+counted, never carded. A `dossier.txt` placed beside the page is read the
+same way at load; it is gitignored.
+
+## The loop
+
+1. **Your agent researches and drafts.** It writes the blocks; you import
+   them, or it drops them in `dossier.txt`. The cards are filled before you
+   open the app.
+2. **You open the app and judge.** Fire the crew on a draft if you want a
+   second opinion, and revise until it is send-worthy.
+3. **You send by hand**, from your own email client, and flip the status.
+4. **One double-click closes the books.** Reload (the app exports its
+   changed state, key stripped), then double-click `reconcile.command`:
+   `tracker.csv` updates to match, statuses and dates, nothing stale. The
+   Notes column is yours; the tool never writes it.
 
 ## The workshop pattern
-Keep a WOODSHOP.md in your clone. It is gitignored, so it never
-leaves your machine. Queue what you want the app to do next, and
-point your agent at it when you ask for improvements. The public
-repo shows shipped results; the workshop stays yours. You will
-notice WOODSHOP.md already listed in this repo's .gitignore: the
-slot is reserved for you.
 
-## How the loop runs
+Keep a `WOODSHOP.md` in your clone. It is gitignored, so it never leaves your
+machine. Queue what you want the app to do next and point your agent at it.
 
-1. **Your agent researches and drafts.** A coding-agent session (Claude Code, in LPI's case) prospects, writes the outreach drafts, and feeds them into the app. The communication boxes are filled before you ever open it.
-2. **You open the app and judge.** Double-click `open-infrabot.command`. The council fires on each draft, and you revise until it's send-worthy.
-3. **You send by hand.** From your own email client. The app never auto-sends; there is no send button to press. That's a design decision, not a missing feature.
-4. **One double-click closes the books.** Flip the card's status, reload, and the app exports its full state as JSON. Double-click `reconcile.command` and `tracker.csv` updates to match: statuses, dates, nothing stale. The Notes column is yours; the tool never writes it.
+## Tests
 
-## Three things to know
+Every check in `tests/` runs standalone from the repo root against the real
+`infrabot.html` and the real launcher scripts, with invented fixtures:
+`node tests/<name>.js` or `python3 tests/<name>.py`.
 
-**The build is governed.** Every version of this app ships against a QA runbook: gates, harnesses, and a change ledger. The runbook is private; the discipline is in the code.
+## What changed since v0.7.0 (the build this README last described)
 
-**Models get retired without your permission.** The AI council runs on Groq's free tier, and free-tier models get deprecated whenever Groq decides. When a council seat dies, check your active models in the Groq console and swap it, or tell your agent to swap it.
+- **v0.8.0.** Crew slots resolve from Groq's live catalog; no model id is
+  pinned in the code; labels derive from the running id.
+- **v0.9.0.** The hook line: a card carries one line saying why the person
+  would care and what you are handing them, written by your agent or typed
+  in the form, never generated in the browser.
+- **v0.10.0.** The drop rule: a record the server file no longer carries is
+  dropped from the tab unless the tab created it since its last sync, so a
+  restored state file holds.
 
-**The heuristics are yours to overwrite.** The council judges drafts by LPI's outreach heuristics, encoded in the council prompt inside `infrabot.html`. That prompt is your tunable surface: edit it, or have your agent edit it, to impose your own definition of send-worthy.
+## Licenses
+
+This repository is MIT licensed (see `LICENSE`). Groq's API and the models
+served through it belong to their providers under their own terms; nothing
+here claims otherwise.
