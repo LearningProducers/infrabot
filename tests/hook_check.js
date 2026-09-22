@@ -81,18 +81,18 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var BLOCKS=[
     'PROSPECT 1 · Fixture City',
     'Company: Fixture Freight',
-    'Target: Pat Fixture (Founder)',
-    'Email: pat@fixture-freight.invalid',
+    'Target: Alex Fixture (Founder)',
+    'Email: alex@fixture-freight.invalid',
     'Source URL: https://fixture-freight.invalid/contact',
     'Website: https://fixture-freight.invalid/',
     'Archetype: Founder-led fixture forwarder',
     'Fit thesis: A synthetic firm for the harness.',
-    'Hook: JOB POSTING. Paying for a docs seat; hand them one page tested first.',
+    'Hook: JOB POSTING. Paying for a technical writer; hand them one page tested first.',
     'ResearchStatus: DRAFT',
     'Quarter: Q3-2026',
     'Subject: A fixture door',
     'Body:',
-    'Pat, a fixture body. Run one through it: [CW_APP_LINK]',
+    'Alex, a fixture body. Run one through it: [CW_APP_LINK]',
     '',
     'PROSPECT 2 · Fixture City',
     'Company: No Hook Co',
@@ -132,9 +132,9 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var cards=res.cards||[];
   check('P0 three fixture blocks parse to three cards', cards.length===3&&res.scratched.length===0, cards.length+' cards, '+JSON.stringify(res.scratched));
   var c1=cards[0]||{},c2=cards[1]||{},c3=cards[2]||{};
-  check('P1 the Hook: line lands on the card as hook', c1.hook==='JOB POSTING. Paying for a docs seat; hand them one page tested first.', c1.hook);
+  check('P1 the Hook: line lands on the card as hook', c1.hook==='JOB POSTING. Paying for a technical writer; hand them one page tested first.', c1.hook);
   check('P1 the hook never rides inside the trail', (c1.trail||'').indexOf('Hook')===-1&&(c1.trail||'').indexOf('JOB POSTING')===-1, c1.trail);
-  check('P1 the body is intact beside a hook', /^Pat, a fixture body\. Run one through it:\n\nhttps:\/\//.test(c1.body||''), c1.body);
+  check('P1 the body is intact beside a hook', /^Alex, a fixture body\. Run one through it:\n\nhttps:\/\//.test(c1.body||''), c1.body);
   check('P2 a block with no Hook: line mints an empty hook, the key present', ('hook' in c2)&&c2.hook==='', JSON.stringify(c2.hook));
   check('P3 a Hook: line after the body still parses', c3.hook==='OPERATOR. A hook typed under the body; the grab stops here.', c3.hook);
   check('P3 the body grab stops at the Hook: label', c3.body==='Robin, a third fixture body.\nSecond line of the body.', JSON.stringify(c3.body));
@@ -148,7 +148,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var r=additiveImportComms(res);
   check('I0 import adds the two new cards and skips the present one', r.added===2&&r.skipped===1, JSON.stringify(r));
   var minted=g.state.comms.filter(function(c){return c.id!=='id_fix_present';});
-  var m1=minted.filter(function(c){return c.target==='pat@fixture-freight.invalid';})[0]||{};
+  var m1=minted.filter(function(c){return c.target==='alex@fixture-freight.invalid';})[0]||{};
   var m2=minted.filter(function(c){return c.target==='sam@no-hook.invalid';})[0]||{};
   check('I1 the minted record carries hook in the app\'s shape', m1.hook===c1.hook&&('hook' in m2)&&m2.hook===''&&/^id_/.test(m1.id||''), JSON.stringify([m1.hook,m2.hook]));
   var kept=g.state.comms.filter(function(c){return c.id==='id_fix_present';})[0];
@@ -180,7 +180,9 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('S5 commitCommRecord commits hook and counts it as content', cc.indexOf("hook:g('k-hook').value.trim(),")!==-1&&cc.indexOf('||data.hook||')!==-1, '');
   var om=extractFn(html,'openCommModal');
   check('S8 openCommModal fills and clears k-hook', om.indexOf("g('k-hook').value=k.hook||'';")!==-1&&om.indexOf("'k-trail','k-hook','k-subject'")!==-1, '');
-  check('S4 COPY ALL prints the Hook line beside the trail', /out\.push\('  Trail:     '\+c\.trail\);\s*if\(c\.hook\)out\.push\('  Hook:      '\+c\.hook\);/.test(html), '');
+  var cpt=extractFn(html,'commPlainText');
+  check('S4 COPY ALL (commPlainText) prints the Hook line under the subject, before the body', /if\(k\.subject\)lines\.push\('Subject: '\+k\.subject\);\s*if\(k\.hook\)lines\.push\('Hook: '\+k\.hook\);\s*lines\.push\(''\);/.test(cpt), cpt.slice(-260));
+  check('S4 the monthly report block carries no Hook line (a pre-send field, the report untouched)', extractFn(html,'downloadMonthReport').indexOf('.hook')===-1, '');
   check('S9 the fullscreen meta row carries HOOK after TRAIL', /TRAIL: \$\{esc\(k\.trail\)\}<\/span>`\);\s*if\(k\.hook\)metaRows\.push\(`<span[^`]*HOOK: \$\{esc\(k\.hook\)\}/.test(html), '');
   check('S10 no code path generates a hook (no model call names the field)', !/hook[^\n]{0,80}(callGroq|fireSlot|fetch\()/.test(html)&&!/(callGroq|fireSlot)[^\n]{0,80}\.hook/.test(html), '');
 

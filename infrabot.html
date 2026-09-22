@@ -67,13 +67,13 @@
 ║  L  3476– 3620  renderComms — full status/triage rendering                   ║
 ║  L  3621– 3648  archiveComm + reviveComm                                     ║
 ║  L  3649– 3765  renderReportsPanel + computeMonthStats                       ║
-║  L  3766– 3924  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  3925– 4198  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4199– 4249  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4250– 4526  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4527– 4669  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  4670– 4737  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  4738– 5025  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  3766– 3923  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  3924– 4197  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4198– 4248  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4249– 4525  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4526– 4668  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  4669– 4736  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  4737– 5025  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
 ║  L  5026– 5140  *** INSIGHT VAULT *** — render/open/save/delete              ║
@@ -1146,7 +1146,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <div class="field"><label>Target (who / where it lands)</label><input type="text" id="k-target" placeholder="name@example.com · person · etc."></div>
       <div class="field"><label>City *</label><input type="text" id="k-city" placeholder="Austin" autocomplete="off"><div id="k-city-hint" class="tiny dim mono" style="margin-top:6px"></div></div>
       <div class="field"><label>Discovery trail (optional)</label><textarea id="k-trail" rows="3" placeholder="podcast → social → website" style="min-height:64px"></textarea></div>
-      <div class="field"><label>Hook (why they care, what you are handing them)</label><textarea id="k-hook" rows="2" placeholder="Job posting: they pay for a docs seat; hand them one page tested first" style="min-height:48px"></textarea></div>
+      <div class="field"><label>Hook (why they care, what you are handing them)</label><textarea id="k-hook" rows="2" placeholder="Job posting: they pay for a technical writer; hand them one page tested first" style="min-height:48px"></textarea></div>
       <div class="field"><label>Subject (email)</label><input type="text" id="k-subject" placeholder="Subject line — for EMAIL comms"></div>
       <div class="field wide-span">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px">
@@ -3814,7 +3814,6 @@ function downloadMonthReport(yearMonth){
     out.push('  City:      '+(c.city||'-'));
     if(c.sentDate)out.push('  Sent date: '+c.sentDate);
     if(c.trail)out.push('  Trail:     '+c.trail);
-    if(c.hook)out.push('  Hook:      '+c.hook);
     out.push('  Status:    '+(c.status||'').toUpperCase());
     if(extra)extra.forEach(line=>out.push('  '+line));
     if(c.body){
@@ -4903,6 +4902,7 @@ function commPlainText(k){
   lines.push(k.title||'(untitled)');
   lines.push(metaBits.join(' · '));
   if(k.subject)lines.push('Subject: '+k.subject);
+  if(k.hook)lines.push('Hook: '+k.hook);
   lines.push('');
   lines.push(expandAppLink(k.body||''));
   return lines.join('\n');
