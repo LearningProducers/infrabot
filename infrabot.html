@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.8.0 (COUNCIL SLOTS FROM THE LIVE CATALOG) 26-09-21                       ║
+║  v0.9.0 (THE HOOK LINE) 26-09-21                                             ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  313  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  320  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   315–  341  :root, CSS variables, fonts, reset, body                     ║
-║  L   342–  399  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   400–  442  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   443–  460  CLOCKS — live clock grid                                     ║
-║  L   461–  522  CARDS — contact card, comm card, status pills                ║
-║  L   523–  549  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   550–  559  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   560–  565  EMPTY: state placeholder                                     ║
-║  L   566–  589  MODAL — bg, box, header, footer                              ║
-║  L   590–  601  DRAWER — settings drawer + backdrop                          ║
-║  L   602–  607  COUNCIL: stream items (legacy reused)                        ║
-║  L   608–  614  TOAST: notification                                          ║
-║  L   615–  663  STATS: grid + profile block                                  ║
-║  L   664–  686  CREW BLOCK — Groq key row, council slots                     ║
-║  L   687–  708  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   709–  714  Per-response copy button (v1.2)                              ║
-║  L   715–  734  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   735–  741  v1.4: Foundation context source blocks                       ║
-║  L   742–  824  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   825–  851  INSIGHT VAULT                                                ║
+║  L   322–  348  :root, CSS variables, fonts, reset, body                     ║
+║  L   349–  406  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   407–  449  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   450–  467  CLOCKS — live clock grid                                     ║
+║  L   468–  529  CARDS — contact card, comm card, status pills                ║
+║  L   530–  556  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   557–  566  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   567–  572  EMPTY: state placeholder                                     ║
+║  L   573–  596  MODAL — bg, box, header, footer                              ║
+║  L   597–  608  DRAWER — settings drawer + backdrop                          ║
+║  L   609–  614  COUNCIL: stream items (legacy reused)                        ║
+║  L   615–  621  TOAST: notification                                          ║
+║  L   622–  670  STATS: grid + profile block                                  ║
+║  L   671–  693  CREW BLOCK — Groq key row, council slots                     ║
+║  L   694–  715  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   716–  721  Per-response copy button (v1.2)                              ║
+║  L   722–  741  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   742–  748  v1.4: Foundation context source blocks                       ║
+║  L   749–  831  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   832–  858  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   856–  874  APP: shell — header, brand, top clock, settings              ║
-║  L   875–  882  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   883–  921  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   922–  930  TAB-NETWORK — contacts list                                  ║
-║  L   931– 1024  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1025– 1039  TAB-VAULT — insights                                         ║
-║  L  1040– 1125  MODAL-CONTACT — add/edit contact                             ║
-║  L  1126– 1164  MODAL-COMM — add/edit communication                          ║
-║  L  1165– 1186  MODAL-PROFILE — edit your profile                            ║
-║  L  1187– 1201  MODAL-CLOCK — add world clock                                ║
-║  L  1202– 1217  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1218– 1245  DRAWER — profile, data, version footer                       ║
-║  L  1246– 1265  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1266– 1277  MODAL-MEM — memory inspector                                 ║
-║  L  1278– 1284  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1285– 1286  TOAST: container                                             ║
+║  L   863–  881  APP: shell — header, brand, top clock, settings              ║
+║  L   882–  889  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   890–  928  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L   929–  937  TAB-NETWORK — contacts list                                  ║
+║  L   938– 1031  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1032– 1046  TAB-VAULT — insights                                         ║
+║  L  1047– 1132  MODAL-CONTACT — add/edit contact                             ║
+║  L  1133– 1172  MODAL-COMM — add/edit communication                          ║
+║  L  1173– 1194  MODAL-PROFILE — edit your profile                            ║
+║  L  1195– 1209  MODAL-CLOCK — add world clock                                ║
+║  L  1210– 1225  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1226– 1253  DRAWER — profile, data, version footer                       ║
+║  L  1254– 1273  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1274– 1285  MODAL-MEM — memory inspector                                 ║
+║  L  1286– 1292  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1293– 1294  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1289– 1498  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1499– 1776  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1777– 1814  g, esc, uid, toast helpers + state globals                   ║
-║  L  1815– 2293  freshState, loadState (migrations), saveState                ║
-║  L  2294– 2519  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2520– 2553  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2554– 2599  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2600– 3202  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3203– 3327  getCommBucket + age helpers, setCommsView                    ║
-║  L  3328– 3456  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3457– 3601  renderComms — full status/triage rendering                   ║
-║  L  3602– 3629  archiveComm + reviveComm                                     ║
-║  L  3630– 3746  renderReportsPanel + computeMonthStats                       ║
-║  L  3747– 3904  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  3905– 4178  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4179– 4229  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4230– 4506  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4507– 4648  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  4649– 4716  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  4717– 5003  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1297– 1506  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1507– 1784  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1785– 1822  g, esc, uid, toast helpers + state globals                   ║
+║  L  1823– 2303  freshState, loadState (migrations), saveState                ║
+║  L  2304– 2529  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2530– 2563  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2564– 2609  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2610– 3212  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3213– 3337  getCommBucket + age helpers, setCommsView                    ║
+║  L  3338– 3475  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  3476– 3620  renderComms — full status/triage rendering                   ║
+║  L  3621– 3648  archiveComm + reviveComm                                     ║
+║  L  3649– 3765  renderReportsPanel + computeMonthStats                       ║
+║  L  3766– 3924  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  3925– 4198  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4199– 4249  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4250– 4526  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4527– 4669  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  4670– 4737  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  4738– 5025  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5004– 5118  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5119– 5149  saveProfile + clock save/remove                              ║
-║  L  5150– 5303  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5304– 5482  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5483– 5727  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  5728– 6145  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6146– 6484  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6485– 6496  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6497– 6541  saveGroqKey, clearGroqKey                                    ║
-║  L  6542– 7431  exportAll, importJson, wipeAll                               ║
+║  L  5026– 5140  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5141– 5171  saveProfile + clock save/remove                              ║
+║  L  5172– 5325  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5326– 5504  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5505– 5749  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  5750– 6167  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6168– 6507  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6508– 6519  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6520– 6564  saveGroqKey, clearGroqKey                                    ║
+║  L  6565– 7456  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -273,7 +273,14 @@
 ║      MODEL_LABELS, MODEL_BUDGET, PREVIEW_FALLBACK_MAP, DEAD_MODEL_MAP,       ║
 ║      RETIRED_MODEL_MAP. The memory inspector's wall line no longer names an  ║
 ║      undefined symbol. New check: tests/catalog_resolve_check.js.            ║
-║  L  7432– 7736  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.9.0 THE HOOK LINE: a comm record carries hook, one line shown under   ║
+║      the discovery trail on the card saying why this person would care and   ║
+║      what the founder is handing them. It reaches the card from a dossier    ║
+║      block's Hook: line (a known label, so a body grab stops at it) or from  ║
+║      the form's Hook field; nothing in this page generates it. Shown on the  ║
+║      card, in COPY ALL and in the fullscreen meta row; a record with no      ║
+║      hook renders no section. Pinned by tests/hook_check.js.                 ║
+║  L  7457– 7761  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -867,7 +874,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.8.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.9.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1139,6 +1146,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <div class="field"><label>Target (who / where it lands)</label><input type="text" id="k-target" placeholder="name@example.com · person · etc."></div>
       <div class="field"><label>City *</label><input type="text" id="k-city" placeholder="Austin" autocomplete="off"><div id="k-city-hint" class="tiny dim mono" style="margin-top:6px"></div></div>
       <div class="field"><label>Discovery trail (optional)</label><textarea id="k-trail" rows="3" placeholder="podcast → social → website" style="min-height:64px"></textarea></div>
+      <div class="field"><label>Hook (why they care, what you are handing them)</label><textarea id="k-hook" rows="2" placeholder="Job posting: they pay for a docs seat; hand them one page tested first" style="min-height:48px"></textarea></div>
       <div class="field"><label>Subject (email)</label><input type="text" id="k-subject" placeholder="Subject line — for EMAIL comms"></div>
       <div class="field wide-span">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px">
@@ -1239,7 +1247,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.8.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.9.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1286,7 +1294,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.8.0';
+const APP_VERSION='infrabot-v0.9.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1363,7 +1371,7 @@ let _lastFiredBody=null;          // D2a: the comm body the previous council fir
 const AUTOSAVE_SURFACES={
   comm:{
     kind:'comm',
-    fields:['k-title','k-person','k-company','k-direction','k-channel','k-target','k-city','k-trail','k-subject','k-body','k-status','k-sentdate'],
+    fields:['k-title','k-person','k-company','k-direction','k-channel','k-target','k-city','k-trail','k-hook','k-subject','k-body','k-status','k-sentdate'],
     required:['k-title','k-city'],
     store:()=>state.comms,
     editId:()=>editingCommId
@@ -2167,6 +2175,7 @@ function autosaveApplyFields(surfaceKey,cfg,rec,vals){
     rec.target=(vals['k-target']||'').trim();
     rec.city=(vals['k-city']||'').trim();
     rec.trail=(vals['k-trail']||'').trim();
+    rec.hook=(vals['k-hook']||'').trim();
     rec.subject=(vals['k-subject']||'').trim();
     rec.body=vals['k-body']; // body keeps raw whitespace, council reads this live
     rec.status=vals['k-status'];
@@ -2195,6 +2204,7 @@ function autosavePromote(surfaceKey,cfg,vals){
       statusHistory:[{status:vals['k-status'],timestamp:nowISO}],
       title:(vals['k-title']||'').trim(),direction:vals['k-direction'],channel:vals['k-channel'],
       target:(vals['k-target']||'').trim(),city:(vals['k-city']||'').trim(),trail:(vals['k-trail']||'').trim(),
+      hook:(vals['k-hook']||'').trim(),
       subject:(vals['k-subject']||'').trim(),body:vals['k-body'],status:vals['k-status'],
       sentDate:vals['k-sentdate']||'',
       person:(vals['k-person']||'').trim(),company:(vals['k-company']||'').trim(),
@@ -3454,6 +3464,15 @@ function trailHtml(trail){
   if(!rest)return esc(head);
   return esc(head)+'<button type="button" class="trail-toggle" data-act="trail-toggle" aria-expanded="false">MORE</button><div class="trail-rest hidden">'+esc(rest)+'</div>';
 }
+// v0.9.0 THE HOOK LINE. One line under the trail: why this person would care
+// and what the founder is handing them. Read from the record, never generated
+// here; a record with no hook renders no section. Comment written with zero
+// brace pairs.
+function hookHtml(hook){
+  const h=String(hook||'').trim();
+  if(!h)return '';
+  return '<div class="card-section"><div class="card-section-h">Hook</div><div class="card-section-body" style="font-size:12px;line-height:1.5">'+esc(h)+'</div></div>';
+}
 function renderComms(){
   renderCommSearch();
   const body=g('comms-body');
@@ -3589,7 +3608,7 @@ function renderComms(){
     const ctz=cityToTz(k.city);
     const rowClock=ctz?`<div class="row-clock" data-tz="${esc(ctz)}"><span class="live-dot"></span><span class="clock-time-inline">--<span class="clock-colon">:</span>--</span><span class="clock-tz-inline">--</span><span class="city-label">${esc((k.city||'').toUpperCase())}</span></div>`:'';
 
-    html+=`<div class="card${convClass}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${convStar}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div>${ageHtml}</div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span>${stalePill}</div></div><div class="card-body">${rowClock}${k.trail?`<div class="card-section"><div class="card-section-h">Discovery trail</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">${trailHtml(k.trail)}</div></div>`:''}${k.body?`<div class="card-section"><div class="card-section-h">Body</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55;max-height:120px;overflow:hidden;position:relative">${esc(expandAppLink(k.body).length>280?expandAppLink(k.body).slice(0,280)+'...':expandAppLink(k.body))}</div></div>`:''}${k.sentDate?`<div class="card-section"><div class="card-section-h">Sent</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${esc(k.sentDate)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">OPEN</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button>${extraActions}</div></div>`;
+    html+=`<div class="card${convClass}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${convStar}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div>${ageHtml}</div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span>${stalePill}</div></div><div class="card-body">${rowClock}${k.trail?`<div class="card-section"><div class="card-section-h">Discovery trail</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">${trailHtml(k.trail)}</div></div>`:''}${hookHtml(k.hook)}${k.body?`<div class="card-section"><div class="card-section-h">Body</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55;max-height:120px;overflow:hidden;position:relative">${esc(expandAppLink(k.body).length>280?expandAppLink(k.body).slice(0,280)+'...':expandAppLink(k.body))}</div></div>`:''}${k.sentDate?`<div class="card-section"><div class="card-section-h">Sent</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${esc(k.sentDate)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">OPEN</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button>${extraActions}</div></div>`;
   });
   html+='</div>';
   body.innerHTML=html;
@@ -3795,6 +3814,7 @@ function downloadMonthReport(yearMonth){
     out.push('  City:      '+(c.city||'-'));
     if(c.sentDate)out.push('  Sent date: '+c.sentDate);
     if(c.trail)out.push('  Trail:     '+c.trail);
+    if(c.hook)out.push('  Hook:      '+c.hook);
     out.push('  Status:    '+(c.status||'').toUpperCase());
     if(extra)extra.forEach(line=>out.push('  '+line));
     if(c.body){
@@ -4622,12 +4642,13 @@ function openCommModal(commId){
     g('k-target').value=k.target||'';
     g('k-city').value=k.city||'';
     g('k-trail').value=k.trail||'';
+    g('k-hook').value=k.hook||'';
     g('k-subject').value=k.subject||'';
     g('k-body').value=expandAppLink(k.body||'');
     g('k-status').value=k.status||'draft';
     g('k-sentdate').value=k.sentDate||'';
   }else{
-    ['k-title','k-person','k-company','k-target','k-city','k-trail','k-subject','k-body','k-sentdate'].forEach(id=>g(id).value='');
+    ['k-title','k-person','k-company','k-target','k-city','k-trail','k-hook','k-subject','k-body','k-sentdate'].forEach(id=>g(id).value='');
     g('k-direction').value='outbound';
     g('k-channel').value='email';
     g('k-status').value='draft';
@@ -4729,6 +4750,7 @@ function commitCommRecord(){
     target:g('k-target').value.trim(),
     city,
     trail:g('k-trail').value.trim(),
+    hook:g('k-hook').value.trim(),
     subject:g('k-subject').value.trim(),
     body:g('k-body').value,
     status:g('k-status').value,
@@ -4783,7 +4805,7 @@ function commitCommRecord(){
   }else{
     // v4.4.0-fix3: only create on close if there's content (autosave normally already promoted
     // on first keystroke; this else only fires if the founder opened+typed-nothing+closed).
-    const anyContent=data.title||data.city||data.target||data.trail||data.subject||data.body;
+    const anyContent=data.title||data.city||data.target||data.trail||data.hook||data.subject||data.body;
     if(anyContent){
       // v3.0: seed statusHistory with the creation status so first-time logs aren't invisible to reports
       const nowISO=new Date().toISOString();
@@ -6377,6 +6399,7 @@ function renderFullscreenBodyComm(){
   metaRows.push(`<span style="color:${statusColor};letter-spacing:.15em">${esc((k.status||'').toUpperCase())}</span>`);
   if(k.sentDate)metaRows.push(`<span style="color:var(--text-dim)">${k.status==='scheduled'?'SEND':'SENT'} ${esc(k.sentDate)}</span>`);
   if(k.trail)metaRows.push(`<span style="color:var(--text-dim)">TRAIL: ${esc(k.trail)}</span>`);
+  if(k.hook)metaRows.push(`<span style="color:var(--text-dim)">HOOK: ${esc(k.hook)}</span>`);
 
   let html='';
   // Meta block
@@ -7225,7 +7248,7 @@ function importJson(file){
 // replicates the canonical comm record shape from its create path verbatim.
 // Never REPLACES state like importJson/snapshotLoad — it PUSHES.
 // ============================================================================
-var DOSSIER_KNOWN_LABELS=['company','target','email','e-mail','e mail','source url','source','url','archetype','a/b/c/d','abcd','fit thesis','subject','draft body','body','website','channel'];
+var DOSSIER_KNOWN_LABELS=['company','target','email','e-mail','e mail','source url','source','url','archetype','a/b/c/d','abcd','fit thesis','hook','subject','draft body','body','website','channel'];
 var DOSSIER_EMAIL_RE=/[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}/;
 function _dEscapeRe(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 function _dSplitBlocks(text){
@@ -7317,6 +7340,8 @@ function parseDossierText(text){
     if(srcUrl)trailParts.push('Source: '+srcUrl);
     var arch=_dField(b,['Archetype']);if(arch)trailParts.push('Archetype: '+arch);
     var fit=_dField(b,['Fit thesis']);if(fit)trailParts.push('Fit thesis: '+fit);
+    // The Hook: line rides to the card as its own field, never into the trail.
+    var hook=_dField(b,['Hook']);
     // v0.2.1 (Option A): the status mirror fires the log-send prepare step, which
     // REQUIRES Person, Company, ResearchStatus, Quarter. Person/Company we already
     // parse (they were only embedded in the title); ResearchStatus/Quarter we pull
@@ -7326,7 +7351,7 @@ function parseDossierText(text){
     // additive to the canonical comm shape; hand-logged cards just won't have them.
     var researchStatus=_dField(b,['ResearchStatus','Research Status','Research']);
     var quarter=_dField(b,['Quarter','Sweep','Q']);
-    cards.push({_key:key,title:titleSynth,direction:'outbound',channel:'email',target:email,city:city,trail:trailParts.join('\n'),subject:subject,body:body,status:'draft',sentDate:'',
+    cards.push({_key:key,title:titleSynth,direction:'outbound',channel:'email',target:email,city:city,trail:trailParts.join('\n'),hook:hook,subject:subject,body:body,status:'draft',sentDate:'',
       person:name,company:company,researchStatus:researchStatus,quarter:quarter,sourceUrl:srcUrl});
   });
   return {cards:cards,scratched:scratched};
@@ -7356,7 +7381,7 @@ function additiveImportComms(parseResult){
     var nowISO=new Date().toISOString();
     var rec=Object.assign(
       {id:uid(),createdAt:nowISO,history:[],statusHistory:[{status:card.status,timestamp:nowISO}]},
-      {title:card.title,direction:card.direction,channel:card.channel,target:card.target,city:card.city,trail:card.trail,subject:card.subject,body:card.body,status:card.status,sentDate:card.sentDate},
+      {title:card.title,direction:card.direction,channel:card.channel,target:card.target,city:card.city,trail:card.trail,hook:card.hook||'',subject:card.subject,body:card.body,status:card.status,sentDate:card.sentDate},
       // v0.2.1 (Option A): mirror fields for the log-send prepare step. Additive;
       // empty when the dossier didn't carry them. Hand-logged cards omit them entirely.
       {person:card.person||'',company:card.company||'',researchStatus:card.researchStatus||'',quarter:card.quarter||'',sourceUrl:card.sourceUrl||''}
