@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.9.0 (THE HOOK LINE) 26-09-21                                             ║
+║  v0.10.0 (THE DROP RULE) 26-09-21                                            ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  320  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  328  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   322–  348  :root, CSS variables, fonts, reset, body                     ║
-║  L   349–  406  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   407–  449  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   450–  467  CLOCKS — live clock grid                                     ║
-║  L   468–  529  CARDS — contact card, comm card, status pills                ║
-║  L   530–  556  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   557–  566  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   567–  572  EMPTY: state placeholder                                     ║
-║  L   573–  596  MODAL — bg, box, header, footer                              ║
-║  L   597–  608  DRAWER — settings drawer + backdrop                          ║
-║  L   609–  614  COUNCIL: stream items (legacy reused)                        ║
-║  L   615–  621  TOAST: notification                                          ║
-║  L   622–  670  STATS: grid + profile block                                  ║
-║  L   671–  693  CREW BLOCK — Groq key row, council slots                     ║
-║  L   694–  715  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   716–  721  Per-response copy button (v1.2)                              ║
-║  L   722–  741  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   742–  748  v1.4: Foundation context source blocks                       ║
-║  L   749–  831  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   832–  858  INSIGHT VAULT                                                ║
+║  L   330–  356  :root, CSS variables, fonts, reset, body                     ║
+║  L   357–  414  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   415–  457  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   458–  475  CLOCKS — live clock grid                                     ║
+║  L   476–  537  CARDS — contact card, comm card, status pills                ║
+║  L   538–  564  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   565–  574  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   575–  580  EMPTY: state placeholder                                     ║
+║  L   581–  604  MODAL — bg, box, header, footer                              ║
+║  L   605–  616  DRAWER — settings drawer + backdrop                          ║
+║  L   617–  622  COUNCIL: stream items (legacy reused)                        ║
+║  L   623–  629  TOAST: notification                                          ║
+║  L   630–  678  STATS: grid + profile block                                  ║
+║  L   679–  701  CREW BLOCK — Groq key row, council slots                     ║
+║  L   702–  723  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   724–  729  Per-response copy button (v1.2)                              ║
+║  L   730–  749  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   750–  756  v1.4: Foundation context source blocks                       ║
+║  L   757–  839  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   840–  866  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   863–  881  APP: shell — header, brand, top clock, settings              ║
-║  L   882–  889  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   890–  928  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   929–  937  TAB-NETWORK — contacts list                                  ║
-║  L   938– 1031  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1032– 1046  TAB-VAULT — insights                                         ║
-║  L  1047– 1132  MODAL-CONTACT — add/edit contact                             ║
-║  L  1133– 1172  MODAL-COMM — add/edit communication                          ║
-║  L  1173– 1194  MODAL-PROFILE — edit your profile                            ║
-║  L  1195– 1209  MODAL-CLOCK — add world clock                                ║
-║  L  1210– 1225  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1226– 1253  DRAWER — profile, data, version footer                       ║
-║  L  1254– 1273  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1274– 1285  MODAL-MEM — memory inspector                                 ║
-║  L  1286– 1292  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1293– 1294  TOAST: container                                             ║
+║  L   871–  889  APP: shell — header, brand, top clock, settings              ║
+║  L   890–  897  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   898–  936  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L   937–  945  TAB-NETWORK — contacts list                                  ║
+║  L   946– 1039  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1040– 1054  TAB-VAULT — insights                                         ║
+║  L  1055– 1140  MODAL-CONTACT — add/edit contact                             ║
+║  L  1141– 1180  MODAL-COMM — add/edit communication                          ║
+║  L  1181– 1202  MODAL-PROFILE — edit your profile                            ║
+║  L  1203– 1217  MODAL-CLOCK — add world clock                                ║
+║  L  1218– 1233  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1234– 1261  DRAWER — profile, data, version footer                       ║
+║  L  1262– 1281  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1282– 1293  MODAL-MEM — memory inspector                                 ║
+║  L  1294– 1300  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1301– 1302  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1297– 1506  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1507– 1784  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1785– 1822  g, esc, uid, toast helpers + state globals                   ║
-║  L  1823– 2303  freshState, loadState (migrations), saveState                ║
-║  L  2304– 2529  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2530– 2563  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2564– 2609  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2610– 3212  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3213– 3337  getCommBucket + age helpers, setCommsView                    ║
-║  L  3338– 3475  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3476– 3620  renderComms — full status/triage rendering                   ║
-║  L  3621– 3648  archiveComm + reviveComm                                     ║
-║  L  3649– 3765  renderReportsPanel + computeMonthStats                       ║
-║  L  3766– 3923  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  3924– 4197  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4198– 4248  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4249– 4525  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4526– 4668  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  4669– 4736  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  4737– 5025  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1305– 1515  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1516– 1793  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1794– 1831  g, esc, uid, toast helpers + state globals                   ║
+║  L  1832– 2312  freshState, loadState (migrations), saveState                ║
+║  L  2313– 2538  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2539– 2572  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2573– 2618  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2619– 3221  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3222– 3346  getCommBucket + age helpers, setCommsView                    ║
+║  L  3347– 3484  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  3485– 3629  renderComms — full status/triage rendering                   ║
+║  L  3630– 3657  archiveComm + reviveComm                                     ║
+║  L  3658– 3774  renderReportsPanel + computeMonthStats                       ║
+║  L  3775– 3932  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  3933– 4206  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4207– 4257  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4258– 4534  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4535– 4677  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  4678– 4745  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  4746– 5034  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5026– 5140  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5141– 5171  saveProfile + clock save/remove                              ║
-║  L  5172– 5325  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5326– 5504  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5505– 5749  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  5750– 6167  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6168– 6507  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6508– 6519  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6520– 6564  saveGroqKey, clearGroqKey                                    ║
-║  L  6565– 7456  exportAll, importJson, wipeAll                               ║
+║  L  5035– 5149  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5150– 5180  saveProfile + clock save/remove                              ║
+║  L  5181– 5334  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5335– 5513  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5514– 5758  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  5759– 6176  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6177– 6516  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6517– 6528  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6529– 6573  saveGroqKey, clearGroqKey                                    ║
+║  L  6574– 7503  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -280,7 +280,15 @@
 ║      the form's Hook field; nothing in this page generates it. Shown on the  ║
 ║      card, in COPY ALL and in the fullscreen meta row; a record with no      ║
 ║      hook renders no section. Pinned by tests/hook_check.js.                 ║
-║  L  7457– 7761  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.10.0 THE DROP RULE: a record the server file no longer carries is     ║
+║      dropped from the tab when its id is on the sync ledger (the ids the     ║
+║      file carried the last time this tab and the file agreed, rewritten      ║
+║      after every merge and every accepted POST); a record this tab created   ║
+║      since its last sync is not on the ledger and rides along as before.     ║
+║      A tab from before this version seeds the ledger from everything it      ║
+║      holds. The boot export re-arms after the first merge. tests/            ║
+║      drop_rule_check.js.                                                     ║
+║  L  7504– 7808  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -874,7 +882,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.9.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.10.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1247,7 +1255,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.9.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.10.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1294,7 +1302,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.9.0';
+const APP_VERSION='infrabot-v0.10.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1319,6 +1327,7 @@ const DOSSIER_FETCH_PATH='./dossier.txt';
 const STATE_KEY='earthinfra_state_v01';
 const BACKUP_KEY='earthinfra_state_backup_v01';
 const LOCK_KEY='earthinfra_lock_v01';
+const SYNCED_IDS_KEY='earthinfra_synced_ids_v01'; // v0.10.0: the sync ledger, ids only
 const PASS_KEY='earthinfra_pass_v01'; // RETIRED v0.2.5 (password gate removed): no code reads or writes this key anymore. The string stays as a data anchor per the rule above; never rename, reuse, or delete it.
 
 // v2.2: SINGLE SOURCE OF TRUTH for the prior-draft cap. Applied at THREE sites:
@@ -6852,6 +6861,28 @@ const STATE_SYNC_DEBOUNCE_MS=3000;   // same coalescing window as auto-export
 const HEARTBEAT_INTERVAL_MS=30000;   // writer-side freshness wall is 90s (3 beats)
 const STATE_REFETCH_MIN_MS=10000;    // visibility refetch throttle
 var _stateRev=0;               // the rev this tab last built on / received
+// v0.10.0 THE DROP RULE. The sync ledger: the ids the file carried the last
+// time this tab and the file agreed, rewritten from the file's ids after
+// every merge and from this tab's ids after every accepted POST. On a merge
+// a local record the file no longer carries is DROPPED when its id is on
+// the ledger (the file had it and let it go) and rides along when it is
+// not (this tab created it since its last sync). A tab from before this
+// version has no ledger and is taken as synced: the ledger seeds from every
+// id it holds at boot. Comment written with zero brace pairs.
+var _syncedIds=null;
+function allStateIds(){
+  var ids={};
+  [state.comms,state.network,eventsList(),artifactsList()].forEach(function(list){(list||[]).forEach(function(r){if(r&&r.id)ids[r.id]=true;});});
+  return ids;
+}
+function loadSyncedIds(){
+  try{var raw=localStorage.getItem(SYNCED_IDS_KEY);if(raw)return JSON.parse(raw).reduce(function(ids,id){ids[id]=true;return ids;},{});}catch(_){}
+  return null;
+}
+function saveSyncedIds(ids){
+  _syncedIds=ids;
+  try{localStorage.setItem(SYNCED_IDS_KEY,JSON.stringify(Object.keys(ids)));}catch(_){}
+}
 var _stateEndpointAlive=null;  // null=unprobed; false=dead this boot; true=live
 var _stateSyncTimer=null;
 var _isMergingServerState=false; // suppresses the POST echo while a merge persists locally
@@ -6880,7 +6911,7 @@ function syncStateToServer(isRetry){
       .then(function(res){
         if(res&&res.ok){
           _stateEndpointAlive=true;
-          return res.json().then(function(j){if(j&&typeof j.rev==='number')_stateRev=j.rev;}).catch(function(){});
+          return res.json().then(function(j){if(j&&typeof j.rev==='number'){_stateRev=j.rev;saveSyncedIds(allStateIds());}}).catch(function(){});
         }
         if(res&&res.status===409){
           _stateEndpointAlive=true;
@@ -6916,7 +6947,7 @@ function recordTouch(r){
   if(Array.isArray(r.statusHistory))r.statusHistory.forEach(function(h){var t=h&&h.timestamp?Date.parse(h.timestamp):NaN;if(t>best)best=t;});
   return best;
 }
-function mergeRecordSlice(local,incoming,editingId){
+function mergeRecordSlice(local,incoming,editingId,synced){
   // v0.7.0 THE NEWER RECORD WINS, per record, never the whole file.
   // Returns an object: records, the merged slice in the file's order with
   // tab-only records appended; localWon, true when any record
@@ -6940,9 +6971,17 @@ function mergeRecordSlice(local,incoming,editingId){
     delete rec.section; // computed on export, never stored (import contract)
     return rec;
   });
-  // Tab-originated records the file does not know yet ride along.
-  local.forEach(function(r){if(!incomingIds[r.id]){localWon=true;out.push(r);}});
-  return {records:out,localWon:localWon};
+  // v0.10.0 THE DROP RULE: a record the file does not carry is dropped when
+  // its id is on the sync ledger (the file had it and let it go), unless it
+  // is the one open under edit; a record this tab created since its last
+  // sync is not on the ledger and rides along, the sync owed as before.
+  var dropped=[];
+  local.forEach(function(r){
+    if(incomingIds[r.id])return;
+    if(synced&&synced[r.id]&&!(editingId&&r.id===editingId)){dropped.push(r.id);return;}
+    localWon=true;out.push(r);
+  });
+  return {records:out,localWon:localWon,dropped:dropped};
 }
 function mergeServerState(file){
   if(!file||!Array.isArray(file.comms)||!Array.isArray(file.network))return;
@@ -6950,22 +6989,27 @@ function mergeServerState(file){
   _isMergingServerState=true;
   var owed=false;
   try{
-    var take=function(res){if(res.localWon)owed=true;return res.records;};
-    state.comms=take(mergeRecordSlice(state.comms,file.comms,editingCommId));
-    state.network=take(mergeRecordSlice(state.network,file.network,editingContactId));
-    state.events=take(mergeRecordSlice(eventsList(),Array.isArray(file.events)?file.events:[],editingEventId));
+    var dropped=[];
+    var take=function(res){if(res.localWon)owed=true;dropped=dropped.concat(res.dropped||[]);return res.records;};
+    state.comms=take(mergeRecordSlice(state.comms,file.comms,editingCommId,_syncedIds));
+    state.network=take(mergeRecordSlice(state.network,file.network,editingContactId,_syncedIds));
+    state.events=take(mergeRecordSlice(eventsList(),Array.isArray(file.events)?file.events:[],editingEventId,_syncedIds));
     state.events.forEach(function(e){normalizeEvent(e);});
-    state.artifacts=take(mergeRecordSlice(artifactsList(),Array.isArray(file.artifacts)?file.artifacts:[],editingArtifactId));
+    state.artifacts=take(mergeRecordSlice(artifactsList(),Array.isArray(file.artifacts)?file.artifacts:[],editingArtifactId,_syncedIds));
     state.artifacts.forEach(function(a){normalizeArtifact(a);});
     state.comms.forEach(function(c){
       if(!Array.isArray(c.history))c.history=[];
       if(!Array.isArray(c.statusHistory))c.statusHistory=[{status:c.status||'draft',timestamp:c.createdAt||new Date().toISOString()}];
     });
     if(typeof file.rev==='number')_stateRev=file.rev;
+    // v0.10.0: the ledger is the file's ids as of this merge.
+    var fileIds={};[file.comms,file.network,Array.isArray(file.events)?file.events:[],Array.isArray(file.artifacts)?file.artifacts:[]].forEach(function(list){list.forEach(function(r){if(r&&r.id)fileIds[r.id]=true;});});
+    saveSyncedIds(fileIds);
     saveState(); // the ONE canonical writer persists the merge locally; the
                  // _isMergingServerState guard keeps it from echoing a POST
     renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();
   }finally{_isMergingServerState=false;}
+  if(dropped.length)toast(dropped.length+' RECORD'+(dropped.length===1?'':'S')+' DROPPED · THE FILE NO LONGER CARRIES THEM','amber');
   // v0.7.0: a merge that kept this tab's newer copies, or carried records
   // the file never saw, leaves the file behind; the sync it owes is
   // scheduled here, outside the merge guard, on the rev the file just
@@ -6978,9 +7022,12 @@ function sendHeartbeat(){
 }
 function initStateSync(){
   if(typeof fetch!=='function')return;
+  // v0.10.0: the ledger loads before the first merge; a tab with none (from
+  // before this version) is taken as synced and seeds from what it holds.
+  if(_syncedIds===null){_syncedIds=loadSyncedIds();if(_syncedIds===null)saveSyncedIds(allStateIds());}
   fetch(STATE_ENDPOINT_PATH,{cache:'no-store'})
     .then(function(res){
-      if(res&&res.ok){_stateEndpointAlive=true;return res.json().then(function(f){mergeServerState(f);});}
+      if(res&&res.ok){_stateEndpointAlive=true;return res.json().then(function(f){mergeServerState(f);scheduleAutoExport();});} // v0.10.0: the boot export re-arms after the first merge, so the file carries post-merge truth
       if(res&&res.status===404){
         // Server alive, no file yet: this tab's truth bootstraps rev 1.
         _stateEndpointAlive=true;_stateRev=0;syncStateToServer(false);
@@ -7449,7 +7496,7 @@ function fetchDossierOnLoad(){
 function wipeAll(){
   if(!confirm('WIPE ALL DATA?'))return;
   if(!confirm('Final confirmation. Wipe everything?'))return;
-  localStorage.removeItem(STATE_KEY);localStorage.removeItem(BACKUP_KEY);localStorage.removeItem(LOCK_KEY);
+  localStorage.removeItem(STATE_KEY);localStorage.removeItem(BACKUP_KEY);localStorage.removeItem(LOCK_KEY);localStorage.removeItem(SYNCED_IDS_KEY);_syncedIds=null;
   state=freshState();saveState();closeDrawer();renderAll();
   toast('DATA WIPED','amber');
 }
