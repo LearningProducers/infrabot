@@ -56,7 +56,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var ge=eval;
   ge(extractConstLine(html,'STATUS_DISPLAY'));
   ge(extractConstLine(html,'statusDisplay'));
-  ['localYearMonth','getCommBucket','archiveMonth','inArchiveWindow','sentRecord',
+  ['localYearMonth','getCommBucket','archiveMonth','inMonthWindow','inArchiveWindow','sentRecord',
    'commSearchDate','commSearchMatches','commSearchStatus','commSearchTab'].forEach(function(n){ge(extractFn(html,n));});
 
   // ---- THE FIXTURE ------------------------------------------------------
