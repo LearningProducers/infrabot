@@ -3,7 +3,10 @@
 // never selectable); a person from a MET box is an acquaintance, every
 // existing person a contact on migration; one tier act appends one
 // transition; the ACQUAINTANCES pill runs through the shared month window;
-// the gold mark is the CONTACT mark.
+// the gold mark is the CONTACT mark. v0.13.1 THE TIER WORDS: the
+// acquaintance card carries no tier label; the tier move on a card reads
+// CONTACT or ACQUAINTANCE, the tier it moves the person to; UPGRADE and
+// DOWNGRADE stand on no rendered surface.
 //
 // Runs the REAL PERSON_TIERS, RENDERED_TIERS, personTier, normalizePerson,
 // setPersonTier, acquaintanceMonth, latestMetRoom, metInMonth,
@@ -161,8 +164,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var card=extractFn(html,'renderPersonCard');
   check('S1 the gold star and border render on every contact card',card.indexOf('<div class="card card-converted"><div class="card-h"><div><div class="card-name"><span class="conv-star" title="Contact">★</span>')>0);
   check('S2 no acquaintance card renders either',(function(){var acq=card.slice(card.indexOf("if(tier==='acquaintance')"),card.indexOf('// v0.2.6'));return acq.indexOf('card-converted')<0&&acq.indexOf('conv-star')<0;})());
-  check('S3 an acquaintance card shows name, channel, MET AT, notes with OPEN and UPGRADE and no COUNCIL',(function(){var acq=card.slice(card.indexOf("if(tier==='acquaintance')"),card.indexOf('// v0.2.6'));return acq.indexOf('data-act="upgrade-person"')>0&&acq.indexOf('data-act="edit-contact"')>0&&acq.indexOf('council-contact')<0&&acq.indexOf('${metAt}')>0&&acq.indexOf('Notes')>0&&acq.indexOf('esc(c.channel)')>0&&acq.indexOf('c.company')<0;})());
-  check('S4 a contact card carries COUNCIL and DOWNGRADE',card.indexOf('data-act="council-contact"')>0&&card.indexOf('data-act="downgrade-person"')>0);
+  check('S3 an acquaintance card shows name, channel, MET AT, notes with OPEN and CONTACT and no COUNCIL',(function(){var acq=card.slice(card.indexOf("if(tier==='acquaintance')"),card.indexOf('// v0.2.6'));return acq.indexOf('data-act="upgrade-person"')>0&&acq.indexOf('data-act="edit-contact"')>0&&acq.indexOf('council-contact')<0&&acq.indexOf('${metAt}')>0&&acq.indexOf('Notes')>0&&acq.indexOf('esc(c.channel)')>0&&acq.indexOf('c.company')<0;})());
+  check('S4 a contact card carries COUNCIL and ACQUAINTANCE',card.indexOf('data-act="council-contact"')>0&&card.indexOf('data-act="downgrade-person"')>0);
   check('S5 the email-keyed condition is gone from the contact card and stays on the comm card',card.indexOf('isConnected')<0&&extractFn(html,'renderComms').indexOf('isConverted')>0);
   check('S6 the form follows the tier: hidden fields keep their values',extractFn(html,'applyTierLayout').indexOf("['c-f-company','c-f-website','c-f-email','c-f-cityrow','c-f-tier'].forEach(id=>g(id).classList.toggle('hidden',acq));")>0&&extractFn(html,'autosaveApplyFields').indexOf("rec.company=(vals['c-company']||'').trim();")>0);
   check('S7 the tier select is not an autosave field',html.indexOf("fields:['c-name','c-company','c-website','c-email','c-channel','c-city','c-tz','c-notes'],")>0);
@@ -172,6 +175,10 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('S10 the scoreboard and the rooms counters are untouched',extractFn(html,'scoreboardCounts').indexOf('tier')<0&&extractFn(html,'eventMonthCounts').indexOf('tier')<0&&extractFn(html,'roomsInMonth').indexOf('tier')<0);
   check('S11 the ACQUAINTANCES view runs through the shared window and names the earlier ones',extractFn(html,'renderAcquaintancesView').indexOf('inMonthWindow(acquaintanceMonth(c))')>0&&extractFn(html,'renderAcquaintancesView').indexOf("MET EARLIER · IN THEIR MONTH'S REPORT")>0);
   check('S12 the contacts view renders contacts only',extractFn(html,'renderNetwork').indexOf("const contacts=state.network.filter(c=>personTier(c)==='contact');")>0);
+  // --- W: the tier words (v0.13.1) ----------------------------------------
+  check('W1 the acquaintance card carries no tier label',(function(){var acq=card.slice(card.indexOf("if(tier==='acquaintance')"),card.indexOf('// v0.2.6'));return acq.indexOf('card-status')<0&&acq.indexOf('card-h-right')<0&&acq.indexOf('>ACQUAINTANCE<')<0;})());
+  check('W2 the tier move on a card reads the tier it moves to: CONTACT on an acquaintance card, ACQUAINTANCE on a contact card',card.indexOf('data-act="upgrade-person" data-id="${esc(c.id)}">CONTACT</button>')>0&&card.indexOf('data-act="downgrade-person" data-id="${esc(c.id)}">ACQUAINTANCE</button>')>0);
+  check('W3 UPGRADE and DOWNGRADE render nowhere: no button, the toasts name the tier, the select note names the button',html.indexOf('>UPGRADE<')<0&&html.indexOf('>DOWNGRADE<')<0&&extractFn(html,'changePersonTier').indexOf("' · '+tier.toUpperCase(),'green'")>0&&html.indexOf("toast((c.name||'(no name)').toUpperCase()+' · '+pick.toUpperCase(),'green');")>0&&extractFn(html,'applyTierLayout').indexOf("'A new person is a contact; ACQUAINTANCE on the card moves them once saved.'")>0&&!/upgrade|downgrade/i.test(extractFn(html,'applyTierLayout')));
 
   out(checks+' checks, '+failures+' failure(s)');
   if(failures){if(isNode)process.exit(1);throw new Error('tier_check: '+failures+' failure(s)');}

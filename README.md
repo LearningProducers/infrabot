@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.13.0.
+dependencies beyond Python 3 and a browser. This README describes v0.13.1.
 
 ## What it does
 
@@ -17,11 +17,12 @@ The app has four tabs.
   the foot of CANDIDATES, and a city filter narrows every events pill.
   Every person carries a tier. A CONTACT is someone you have had a live
   conversation with: the full card (company, website, email, CHANNEL,
-  city, intel), the gold mark, a COUNCIL button and a DOWNGRADE button. An
-  ACQUAINTANCE is someone you met in a room: a name, a CHANNEL, the rooms
-  you met them at and notes, with an UPGRADE button; the people you type
-  into an event's MET box (one name per line or comma separated; saving
-  links each name to the person of that name or creates one) start as
+  city, intel), the gold mark, a COUNCIL button and an ACQUAINTANCE
+  button that moves them to that tier. An ACQUAINTANCE is someone you
+  met in a room: a name, a CHANNEL, the rooms you met them at and notes,
+  with a CONTACT button that moves them up; the people you type into an
+  event's MET box (one name per line or comma separated; saving links
+  each name to the person of that name or creates one) start as
   acquaintances, and every tier change is recorded with its time. ATTENDED
   shows the rooms whose date falls in the current month and ACQUAINTANCES
   the people met this month; earlier ones leave their pill untouched and
@@ -175,9 +176,12 @@ Every check in `tests/` runs standalone from the repo root against the real
   ATTENDED shows this month's rooms and earlier rooms print in their
   month's report under ROOMS.
 - **v0.13.0.** The tier: every person is an ACQUAINTANCE or a CONTACT
-  (the gold mark is the contact mark), UPGRADE and DOWNGRADE on the cards,
-  a TIER select on the contact form, the ACQUAINTANCES pill through the
-  same month window, people met printing in the month report under MET.
+  (the gold mark is the contact mark), a tier move on each card, a TIER
+  select on the contact form, the ACQUAINTANCES pill through the same
+  month window, people met printing in the month report under MET.
+- **v0.13.1.** The tier words: an acquaintance card carries no tier
+  label; the tier move on a card reads CONTACT or ACQUAINTANCE, the tier
+  it moves the person to; the TIER select's note follows.
 
 ## Licenses
 

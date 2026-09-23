@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.13.0 (THE TIER) 26-09-23                                                 ║
+║  v0.13.1 (THE TIER WORDS) 26-09-23                                           ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  367  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  373  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   369–  395  :root, CSS variables, fonts, reset, body                     ║
-║  L   396–  453  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   454–  496  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   497–  514  CLOCKS — live clock grid                                     ║
-║  L   515–  577  CARDS — contact card, comm card, status pills                ║
-║  L   578–  604  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   605–  614  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   615–  620  EMPTY: state placeholder                                     ║
-║  L   621–  644  MODAL — bg, box, header, footer                              ║
-║  L   645–  656  DRAWER — settings drawer + backdrop                          ║
-║  L   657–  662  COUNCIL: stream items (legacy reused)                        ║
-║  L   663–  669  TOAST: notification                                          ║
-║  L   670–  718  STATS: grid + profile block                                  ║
-║  L   719–  741  CREW BLOCK — Groq key row, council slots                     ║
-║  L   742–  763  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   764–  769  Per-response copy button (v1.2)                              ║
-║  L   770–  789  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   790–  796  v1.4: Foundation context source blocks                       ║
-║  L   797–  877  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   878–  904  INSIGHT VAULT                                                ║
+║  L   375–  401  :root, CSS variables, fonts, reset, body                     ║
+║  L   402–  459  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   460–  502  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   503–  520  CLOCKS — live clock grid                                     ║
+║  L   521–  583  CARDS — contact card, comm card, status pills                ║
+║  L   584–  610  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   611–  620  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   621–  626  EMPTY: state placeholder                                     ║
+║  L   627–  650  MODAL — bg, box, header, footer                              ║
+║  L   651–  662  DRAWER — settings drawer + backdrop                          ║
+║  L   663–  668  COUNCIL: stream items (legacy reused)                        ║
+║  L   669–  675  TOAST: notification                                          ║
+║  L   676–  724  STATS: grid + profile block                                  ║
+║  L   725–  747  CREW BLOCK — Groq key row, council slots                     ║
+║  L   748–  769  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   770–  775  Per-response copy button (v1.2)                              ║
+║  L   776–  795  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   796–  802  v1.4: Foundation context source blocks                       ║
+║  L   803–  883  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   884–  910  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   909–  927  APP: shell — header, brand, top clock, settings              ║
-║  L   928–  935  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   936–  974  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   975–  983  TAB-NETWORK — contacts list                                  ║
-║  L   984– 1077  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1078– 1092  TAB-VAULT — insights                                         ║
-║  L  1093– 1181  MODAL-CONTACT — add/edit contact                             ║
-║  L  1182– 1221  MODAL-COMM — add/edit communication                          ║
-║  L  1222– 1243  MODAL-PROFILE — edit your profile                            ║
-║  L  1244– 1258  MODAL-CLOCK — add world clock                                ║
-║  L  1259– 1274  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1275– 1302  DRAWER — profile, data, version footer                       ║
-║  L  1303– 1322  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1323– 1334  MODAL-MEM — memory inspector                                 ║
-║  L  1335– 1341  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1342– 1343  TOAST: container                                             ║
+║  L   915–  933  APP: shell — header, brand, top clock, settings              ║
+║  L   934–  941  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   942–  980  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L   981–  989  TAB-NETWORK — contacts list                                  ║
+║  L   990– 1083  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1084– 1098  TAB-VAULT — insights                                         ║
+║  L  1099– 1187  MODAL-CONTACT — add/edit contact                             ║
+║  L  1188– 1227  MODAL-COMM — add/edit communication                          ║
+║  L  1228– 1249  MODAL-PROFILE — edit your profile                            ║
+║  L  1250– 1264  MODAL-CLOCK — add world clock                                ║
+║  L  1265– 1280  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1281– 1308  DRAWER — profile, data, version footer                       ║
+║  L  1309– 1328  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1329– 1340  MODAL-MEM — memory inspector                                 ║
+║  L  1341– 1347  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1348– 1349  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1346– 1556  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1557– 1828  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1829– 1866  g, esc, uid, toast helpers + state globals                   ║
-║  L  1867– 2352  freshState, loadState (migrations), saveState                ║
-║  L  2353– 2578  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2579– 2612  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2613– 2658  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2659– 3517  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3518– 3638  getCommBucket + age helpers, setCommsView                    ║
-║  L  3639– 3776  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3777– 3921  renderComms — full status/triage rendering                   ║
-║  L  3922– 3949  archiveComm + reviveComm                                     ║
-║  L  3950– 4072  renderReportsPanel + computeMonthStats                       ║
-║  L  4073– 4264  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4265– 4538  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4539– 4589  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4590– 4866  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4867– 5016  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5017– 5084  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5085– 5373  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1352– 1562  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1563– 1834  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1835– 1872  g, esc, uid, toast helpers + state globals                   ║
+║  L  1873– 2358  freshState, loadState (migrations), saveState                ║
+║  L  2359– 2584  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2585– 2618  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2619– 2664  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2665– 3524  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3525– 3645  getCommBucket + age helpers, setCommsView                    ║
+║  L  3646– 3783  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  3784– 3928  renderComms — full status/triage rendering                   ║
+║  L  3929– 3956  archiveComm + reviveComm                                     ║
+║  L  3957– 4079  renderReportsPanel + computeMonthStats                       ║
+║  L  4080– 4271  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4272– 4545  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4546– 4596  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4597– 4873  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4874– 5023  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5024– 5091  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5092– 5380  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5374– 5488  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5489– 5519  saveProfile + clock save/remove                              ║
-║  L  5520– 5673  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5674– 5852  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5853– 6097  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6098– 6515  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6516– 6855  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6856– 6867  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6868– 6912  saveGroqKey, clearGroqKey                                    ║
-║  L  6913– 7853  exportAll, importJson, wipeAll                               ║
+║  L  5381– 5495  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5496– 5526  saveProfile + clock save/remove                              ║
+║  L  5527– 5680  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5681– 5859  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5860– 6104  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6105– 6522  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6523– 6862  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6863– 6874  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6875– 6919  saveGroqKey, clearGroqKey                                    ║
+║  L  6920– 7860  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -327,7 +327,13 @@
 ║      latest met-at room's date or the downgrade date; earlier ones print     ║
 ║      in the month report under MET. schemaVersion stays 3. tests/            ║
 ║      tier_check.js.                                                          ║
-║  L  7854– 8172  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.13.1 THE TIER WORDS: the acquaintance card carries no tier label;     ║
+║      the tier move on a card reads CONTACT (an acquaintance card) or         ║
+║      ACQUAINTANCE (a contact card), the tier it moves the person to, the     ║
+║      same act behind both; the TIER select's note follows. The               ║
+║      transition record and the tier field keep their names. Nothing          ║
+║      else moved. tests/tier_check.js.                                        ║
+║  L  7861– 8179  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -920,7 +926,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.13.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.13.1</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1296,7 +1302,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.13.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.13.1 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1343,7 +1349,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.13.0';
+const APP_VERSION='infrabot-v0.13.1';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2729,14 +2735,15 @@ function personIntel(c,sep){
 // the gold border render on every CONTACT card and on no ACQUAINTANCE card
 // (they used to mean an email-keyed link to a logged comm; the comm card's
 // own mark keeps that meaning, 3a). A contact card: OPEN, COUNCIL,
-// DOWNGRADE. An acquaintance card: name, channel, MET AT, notes; OPEN,
-// UPGRADE; no council. Comments authored with zero brace pairs.
+// ACQUAINTANCE (the move down). An acquaintance card: name, channel, MET
+// AT, notes, no tier label; OPEN, CONTACT (the move up); no council
+// (v0.13.1 THE TIER WORDS). Comments authored with zero brace pairs.
 function renderPersonCard(c){
   const tier=personTier(c);
   const metAt=metAtHtml(c);
   if(tier==='acquaintance'){
     const notes=personIntel(c,' · ');
-    return `<div class="card"><div class="card-h"><div><div class="card-name">${esc(c.name)}</div><div class="card-sub">${c.channel?esc(c.channel):'no channel logged'}</div></div><div class="card-h-right"><span class="card-status candidate">ACQUAINTANCE</span></div></div><div class="card-body">${metAt}${notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(notes)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="upgrade-person" data-id="${esc(c.id)}">UPGRADE</button></div></div>`;
+    return `<div class="card"><div class="card-h"><div><div class="card-name">${esc(c.name)}</div><div class="card-sub">${c.channel?esc(c.channel):'no channel logged'}</div></div></div><div class="card-body">${metAt}${notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(notes)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="upgrade-person" data-id="${esc(c.id)}">CONTACT</button></div></div>`;
   }
   // v0.2.6: the card clock's zone comes from the logged City via CITY_TZ,
   // not from c.tz. Known city: live HH:MM clock. Unknown city: NO clock, no
@@ -2746,7 +2753,7 @@ function renderPersonCard(c){
     ?`<div class="row-clock" data-tz="${esc(ctz)}"><span class="live-dot"></span><span class="clock-time-inline">--<span class="clock-colon">:</span>--</span><span class="clock-tz-inline">--</span><span class="city-label">${esc((c.city||'').toUpperCase())}</span></div>`
     :(c.city?`<div class="row-clock"><span class="city-label">${esc(c.city.toUpperCase())}</span></div>`:'');
   const intel=personIntel(c,' · ');
-  return `<div class="card card-converted"><div class="card-h"><div><div class="card-name"><span class="conv-star" title="Contact">★</span> ${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}${c.channel?' · '+esc(c.channel):''}</div></div></div><div class="card-body">${rowClock}${metAt}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button><button class="btn muted sm" data-act="downgrade-person" data-id="${esc(c.id)}">DOWNGRADE</button></div></div>`;
+  return `<div class="card card-converted"><div class="card-h"><div><div class="card-name"><span class="conv-star" title="Contact">★</span> ${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}${c.channel?' · '+esc(c.channel):''}</div></div></div><div class="card-body">${rowClock}${metAt}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button><button class="btn muted sm" data-act="downgrade-person" data-id="${esc(c.id)}">ACQUAINTANCE</button></div></div>`;
 }
 // THE ACQUAINTANCES PILL: the acquaintances whose month is the current
 // home-zone month through the shared window; the rest are named by count
@@ -2792,8 +2799,8 @@ function setPersonTier(c,tier,when){
   return true;
 }
 // The one tier act behind the card buttons and the form's select: the
-// transition, the save, the render, the toast. An upgrade then opens the
-// full form with whatever the record already holds.
+// transition, the save, the render, the toast. A move to contact then
+// opens the full form with whatever the record already holds.
 function changePersonTier(id,tier){
   const c=state.network.find(x=>x.id===id);if(!c)return;
   if(!setPersonTier(c,tier))return;
@@ -2829,7 +2836,7 @@ function applyTierLayout(tier,c){
   g('c-notes-label').textContent=acq?'Notes':'Intel';
   const rooms=c&&Array.isArray(c.metAt)?c.metAt.filter(m=>m&&m.title):[];
   g('c-metat').textContent=rooms.length?rooms.map(m=>m.title).join(' · '):'Nowhere logged yet.';
-  g('c-tier-note').textContent=c?'':'A new person is a contact; downgrade from the card once saved.';
+  g('c-tier-note').textContent=c?'':'A new person is a contact; ACQUAINTANCE on the card moves them once saved.';
 }
 
 // IRL EVENTS ==================================================================
