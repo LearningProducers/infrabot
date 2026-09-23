@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.12.0.
+dependencies beyond Python 3 and a browser. This README describes v0.13.0.
 
 ## What it does
 
@@ -11,16 +11,21 @@ The app has four tabs.
 
 - **OVERVIEW.** A world map with your cities pinned, live clocks, today's
   counters, and your profile (used in the messages you share).
-- **NETWORK.** Your contacts and the in-person events you are considering,
-  behind four pills: CONTACTS, CANDIDATES, SELECTED and ATTENDED, each with
-  its count; SKIPPED rooms sit folded at the foot of CANDIDATES, and a city
-  filter narrows every events pill. A contact carries a CHANNEL field
-  (phone, handle, how to reach them) and the rooms you met them at. An
-  event carries a status you move by hand and a MET box: type the names of
-  the people you met, one per line or comma separated, and saving links
-  each name to the contact of that name or creates one. ATTENDED shows the
-  rooms whose date falls in the current month; earlier rooms leave the pill
-  untouched and appear under ROOMS in that month's report.
+- **NETWORK.** The people you know and the in-person events you are
+  considering, behind five pills: CONTACTS, ACQUAINTANCES, CANDIDATES,
+  SELECTED and ATTENDED, each with its count; SKIPPED rooms sit folded at
+  the foot of CANDIDATES, and a city filter narrows every events pill.
+  Every person carries a tier. A CONTACT is someone you have had a live
+  conversation with: the full card (company, website, email, CHANNEL,
+  city, intel), the gold mark, a COUNCIL button and a DOWNGRADE button. An
+  ACQUAINTANCE is someone you met in a room: a name, a CHANNEL, the rooms
+  you met them at and notes, with an UPGRADE button; the people you type
+  into an event's MET box (one name per line or comma separated; saving
+  links each name to the person of that name or creates one) start as
+  acquaintances, and every tier change is recorded with its time. ATTENDED
+  shows the rooms whose date falls in the current month and ACQUAINTANCES
+  the people met this month; earlier ones leave their pill untouched and
+  appear under ROOMS and MET in that month's report.
 - **COMMUNICATIONS.** Draft cards, one per message. A card carries the
   person, the company, the address, the discovery trail (how they showed
   up), a one-line hook (why they would care and what you are handing them),
@@ -169,6 +174,10 @@ Every check in `tests/` runs standalone from the repo root against the real
   on the NETWORK bar, SKIPPED folded, the city filter on every events pill;
   ATTENDED shows this month's rooms and earlier rooms print in their
   month's report under ROOMS.
+- **v0.13.0.** The tier: every person is an ACQUAINTANCE or a CONTACT
+  (the gold mark is the contact mark), UPGRADE and DOWNGRADE on the cards,
+  a TIER select on the contact form, the ACQUAINTANCES pill through the
+  same month window, people met printing in the month report under MET.
 
 ## Licenses
 

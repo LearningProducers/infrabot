@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.12.0 (THE ROOM PILLS) 26-09-22                                           ║
+║  v0.13.0 (THE TIER) 26-09-23                                                 ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  354  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  367  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   356–  382  :root, CSS variables, fonts, reset, body                     ║
-║  L   383–  440  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   441–  483  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   484–  501  CLOCKS — live clock grid                                     ║
-║  L   502–  563  CARDS — contact card, comm card, status pills                ║
-║  L   564–  590  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   591–  600  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   601–  606  EMPTY: state placeholder                                     ║
-║  L   607–  630  MODAL — bg, box, header, footer                              ║
-║  L   631–  642  DRAWER — settings drawer + backdrop                          ║
-║  L   643–  648  COUNCIL: stream items (legacy reused)                        ║
-║  L   649–  655  TOAST: notification                                          ║
-║  L   656–  704  STATS: grid + profile block                                  ║
-║  L   705–  727  CREW BLOCK — Groq key row, council slots                     ║
-║  L   728–  749  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   750–  755  Per-response copy button (v1.2)                              ║
-║  L   756–  775  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   776–  782  v1.4: Foundation context source blocks                       ║
-║  L   783–  863  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   864–  890  INSIGHT VAULT                                                ║
+║  L   369–  395  :root, CSS variables, fonts, reset, body                     ║
+║  L   396–  453  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   454–  496  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   497–  514  CLOCKS — live clock grid                                     ║
+║  L   515–  577  CARDS — contact card, comm card, status pills                ║
+║  L   578–  604  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   605–  614  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   615–  620  EMPTY: state placeholder                                     ║
+║  L   621–  644  MODAL — bg, box, header, footer                              ║
+║  L   645–  656  DRAWER — settings drawer + backdrop                          ║
+║  L   657–  662  COUNCIL: stream items (legacy reused)                        ║
+║  L   663–  669  TOAST: notification                                          ║
+║  L   670–  718  STATS: grid + profile block                                  ║
+║  L   719–  741  CREW BLOCK — Groq key row, council slots                     ║
+║  L   742–  763  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   764–  769  Per-response copy button (v1.2)                              ║
+║  L   770–  789  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   790–  796  v1.4: Foundation context source blocks                       ║
+║  L   797–  877  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   878–  904  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   895–  913  APP: shell — header, brand, top clock, settings              ║
-║  L   914–  921  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   922–  960  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   961–  969  TAB-NETWORK — contacts list                                  ║
-║  L   970– 1063  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1064– 1078  TAB-VAULT — insights                                         ║
-║  L  1079– 1165  MODAL-CONTACT — add/edit contact                             ║
-║  L  1166– 1205  MODAL-COMM — add/edit communication                          ║
-║  L  1206– 1227  MODAL-PROFILE — edit your profile                            ║
-║  L  1228– 1242  MODAL-CLOCK — add world clock                                ║
-║  L  1243– 1258  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1259– 1286  DRAWER — profile, data, version footer                       ║
-║  L  1287– 1306  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1307– 1318  MODAL-MEM — memory inspector                                 ║
-║  L  1319– 1325  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1326– 1327  TOAST: container                                             ║
+║  L   909–  927  APP: shell — header, brand, top clock, settings              ║
+║  L   928–  935  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   936–  974  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L   975–  983  TAB-NETWORK — contacts list                                  ║
+║  L   984– 1077  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1078– 1092  TAB-VAULT — insights                                         ║
+║  L  1093– 1181  MODAL-CONTACT — add/edit contact                             ║
+║  L  1182– 1221  MODAL-COMM — add/edit communication                          ║
+║  L  1222– 1243  MODAL-PROFILE — edit your profile                            ║
+║  L  1244– 1258  MODAL-CLOCK — add world clock                                ║
+║  L  1259– 1274  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1275– 1302  DRAWER — profile, data, version footer                       ║
+║  L  1303– 1322  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1323– 1334  MODAL-MEM — memory inspector                                 ║
+║  L  1335– 1341  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1342– 1343  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1330– 1540  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1541– 1812  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1813– 1850  g, esc, uid, toast helpers + state globals                   ║
-║  L  1851– 2332  freshState, loadState (migrations), saveState                ║
-║  L  2333– 2558  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2559– 2592  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2593– 2638  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2639– 3405  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3406– 3526  getCommBucket + age helpers, setCommsView                    ║
-║  L  3527– 3664  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3665– 3809  renderComms — full status/triage rendering                   ║
-║  L  3810– 3837  archiveComm + reviveComm                                     ║
-║  L  3838– 3957  renderReportsPanel + computeMonthStats                       ║
-║  L  3958– 4134  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4135– 4408  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4409– 4459  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4460– 4736  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4737– 4881  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  4882– 4949  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  4950– 5238  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1346– 1556  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1557– 1828  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1829– 1866  g, esc, uid, toast helpers + state globals                   ║
+║  L  1867– 2352  freshState, loadState (migrations), saveState                ║
+║  L  2353– 2578  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2579– 2612  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2613– 2658  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2659– 3517  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3518– 3638  getCommBucket + age helpers, setCommsView                    ║
+║  L  3639– 3776  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  3777– 3921  renderComms — full status/triage rendering                   ║
+║  L  3922– 3949  archiveComm + reviveComm                                     ║
+║  L  3950– 4072  renderReportsPanel + computeMonthStats                       ║
+║  L  4073– 4264  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4265– 4538  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4539– 4589  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4590– 4866  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4867– 5016  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5017– 5084  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5085– 5373  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5239– 5353  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5354– 5384  saveProfile + clock save/remove                              ║
-║  L  5385– 5538  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5539– 5717  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5718– 5962  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  5963– 6380  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6381– 6720  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6721– 6732  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6733– 6777  saveGroqKey, clearGroqKey                                    ║
-║  L  6778– 7716  exportAll, importJson, wipeAll                               ║
+║  L  5374– 5488  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5489– 5519  saveProfile + clock save/remove                              ║
+║  L  5520– 5673  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5674– 5852  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5853– 6097  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6098– 6515  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6516– 6855  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6856– 6867  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6868– 6912  saveGroqKey, clearGroqKey                                    ║
+║  L  6913– 7853  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -314,7 +314,20 @@
 ║      report under ROOMS (title, organizer, city, date, met count, outcome).  ║
 ║      The scoreboard's rooms lane and the ROOMS THIS MONTH cell still count   ║
 ║      every attended room by its transition month. tests/room_pills_check.js. ║
-║  L  7717– 8022  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.13.0 THE TIER: every person carries tier, ACQUAINTANCE or CONTACT     ║
+║      (CUSTOMER reserved in the enum, never rendered, never selectable);      ║
+║      a person from a MET box is an acquaintance, every existing person a     ║
+║      contact on migration, seeded from addedAt. The gold star and border     ║
+║      are the CONTACT mark (they used to be the email-keyed comm link; the    ║
+║      comm card keeps its own). One tier act, setPersonTier, appends one      ║
+║      transition; an acquaintance card and form show name, CHANNEL, MET AT,   ║
+║      NOTES, with OPEN and UPGRADE; a contact card gains DOWNGRADE and its    ║
+║      form a TIER select; a downgrade hides and deletes nothing. The bar      ║
+║      gains ACQUAINTANCES, through the shared month window keyed on the       ║
+║      latest met-at room's date or the downgrade date; earlier ones print     ║
+║      in the month report under MET. schemaVersion stays 3. tests/            ║
+║      tier_check.js.                                                          ║
+║  L  7854– 8172  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -510,7 +523,8 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .card{border:1px solid var(--line);background:var(--panel);position:relative;transition:border-color .2s}
 .card:hover{border-color:var(--cyan-dim)}
 /* v4.6.0-2B: converted comm (person is in Network, matched by email). Gold glow,
-   deliberately distinct from the cyan/green status palette. Subtle, not neon. */
+   deliberately distinct from the cyan/green status palette. Subtle, not neon.
+   v0.13.0: the same rules mark a CONTACT card on the NETWORK tab, by tier. */
 .card-converted{border-color:#c9a227;box-shadow:0 0 0 1px rgba(212,175,55,.35),0 0 14px rgba(212,175,55,.18)}
 .card-converted:hover{border-color:#d4af37}
 .conv-star{color:#d4af37;font-size:13px;line-height:1;text-shadow:0 0 6px rgba(212,175,55,.5)}
@@ -906,7 +920,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.12.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.13.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1082,16 +1096,18 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
     <div class="modal-body">
       <div class="field-row">
         <div class="field"><label>Name *</label><input type="text" id="c-name" placeholder="Jane Doe"></div>
-        <div class="field"><label>Company</label><input type="text" id="c-company" placeholder="Acme Corp"></div>
+        <div class="field" id="c-f-company"><label>Company</label><input type="text" id="c-company" placeholder="Acme Corp"></div>
       </div>
-      <div class="field"><label>Website</label><input type="text" id="c-website" placeholder="janedoe.com"></div>
-      <div class="field"><label>Email</label><input type="email" id="c-email" placeholder="jane@janedoe.com"></div>
+      <div class="field" id="c-f-website"><label>Website</label><input type="text" id="c-website" placeholder="janedoe.com"></div>
+      <div class="field" id="c-f-email"><label>Email</label><input type="email" id="c-email" placeholder="jane@janedoe.com"></div>
       <div class="field"><label>Channel</label><input type="text" id="c-channel" placeholder="Phone, handle, or how to reach them" autocomplete="off"></div>
-      <div class="field-row">
+      <div class="field" id="c-f-tier"><label>Tier</label><select id="c-tier"><option value="contact">CONTACT</option><option value="acquaintance">ACQUAINTANCE</option></select><div id="c-tier-note" class="tiny dim mono" style="margin-top:6px"></div></div>
+      <div class="field"><label>Met at</label><div id="c-metat" class="tiny mono dim">Nowhere logged yet.</div></div>
+      <div class="field-row" id="c-f-cityrow">
         <div class="field"><label>City *</label><input type="text" id="c-city" placeholder="Chicago"></div>
         <div class="field"><label>Timezone</label><select id="c-tz"></select></div>
       </div>
-      <div class="field"><label>Intel</label><textarea id="c-notes" placeholder="What they offer · what they need · how you met · why they matter." style="min-height:110px"></textarea></div>
+      <div class="field"><label id="c-notes-label">Intel</label><textarea id="c-notes" placeholder="What they offer · what they need · how you met · why they matter." style="min-height:110px"></textarea></div>
     </div>
     <div class="modal-foot">
       <span class="autosave-ind" id="autosave-contact"><span class="as-dot"></span><span class="as-label">SAVED</span></span>
@@ -1280,7 +1296,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.12.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.13.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1327,7 +1343,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.12.0';
+const APP_VERSION='infrabot-v0.13.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1905,6 +1921,10 @@ function loadState(){
   }
   // v1.0 migration: ensure insights array exists
   if(!Array.isArray(s.insights))s.insights=[];
+  // v0.13.0 migration: every person carries a tier; one with none is a
+  // CONTACT since the day they were added (normalizePerson seeds tierHistory
+  // from addedAt, a stamp the record already carries, never the clock).
+  if(Array.isArray(s.network))s.network.forEach(c=>{normalizePerson(c);});
   // v3.0/v3.2 migration: ensure every comm has a statusHistory array for monthly report generation.
   // Without this, SENT/REPLIED/ARCHIVED-this-month transitions can't be bucketed by month.
   //
@@ -2243,7 +2263,7 @@ function autosavePromote(surfaceKey,cfg,vals){
     const rec={id:uid(),addedAt:nowISO,lastTouchAt:null,touches:[],
       name:(vals['c-name']||'').trim(),company:(vals['c-company']||'').trim(),
       website:(vals['c-website']||'').trim(),email:(vals['c-email']||'').trim(),channel:(vals['c-channel']||'').trim(),city:(vals['c-city']||'').trim(),
-      tz:vals['c-tz'],notes:(vals['c-notes']||'').trim(),updatedAt:nowISO};
+      tz:vals['c-tz'],notes:(vals['c-notes']||'').trim(),tier:'contact',tierHistory:[{tier:'contact',timestamp:nowISO}],updatedAt:nowISO};
     state.network.push(rec);editingContactId=rec.id;return rec;
   }else if(surfaceKey==='insight'){
     const tagsRaw=(vals['i-tags']||'').trim();
@@ -2680,48 +2700,136 @@ function renderOverview(){
 function renderNetwork(){
   const body=g('network-body');
   g('btn-add-contact').classList.toggle('hidden',networkView!=='contacts');
-  g('btn-add-event').classList.toggle('hidden',networkView==='contacts');
+  g('btn-add-event').classList.toggle('hidden',networkView==='contacts'||networkView==='acquaintances');
   const viewBar=networkViewBar();
-  if(networkView!=='contacts'){body.innerHTML=viewBar+renderEventsView();return;}
-  if(state.network.length===0){
+  if(networkView!=='contacts'&&networkView!=='acquaintances'){body.innerHTML=viewBar+renderEventsView();return;}
+  if(networkView==='acquaintances'){body.innerHTML=viewBar+renderAcquaintancesView();return;}
+  const contacts=state.network.filter(c=>personTier(c)==='contact');
+  if(contacts.length===0){
     body.innerHTML=viewBar+`<div class="empty-state"><div class="es-h">NO CONTACTS YET</div><div class="es-sub">Network is for people you have had a live conversation with, phone, video, or in person, and share real interest or intent.<br>Add someone you have actually talked to, not a cold prospect.</div><button class="btn" data-open="contact">+ ADD FIRST CONTACT</button></div>`;
     return;
   }
-  const sorted=state.network.slice().sort((a,b)=>(b.addedAt||'').localeCompare(a.addedAt||''));
-  let html=viewBar+'<div class="card-grid">';
-  sorted.forEach(c=>{
-    // v0.2.6: the card clock's zone comes from the logged City via CITY_TZ,
-    // not from c.tz. The modal's tz select defaults to home, so it showed home
-    // time for an East Coast prospect (the origin bug). Known city: live HH:MM
-    // clock. Unknown city: NO clock, no guessed zone; the city text still shows.
-    // c.tz stays in the data and the modal, untouched.
-    const ctz=cityToTz(c.city);
-    const rowClock=ctz
-      ?`<div class="row-clock" data-tz="${esc(ctz)}"><span class="live-dot"></span><span class="clock-time-inline">--<span class="clock-colon">:</span>--</span><span class="clock-tz-inline">--</span><span class="city-label">${esc((c.city||'').toUpperCase())}</span></div>`
-      :(c.city?`<div class="row-clock"><span class="city-label">${esc(c.city.toUpperCase())}</span></div>`:'');
-    // Migrate-display: combine legacy fields if intel is empty
-    let intel=c.notes||'';
-    if(!intel){
-      const parts=[];
-      if(c.offering)parts.push('Offering: '+c.offering);
-      if(c.needing)parts.push('Needs: '+c.needing);
-      if(c.met)parts.push('Met: '+c.met);
-      intel=parts.join(' · ');
-    }
-    // v4.6.0-2C: a contact is "connected" when its email matches any comm's target
-    // (case-insensitive, trimmed, non-empty). Mirror of the comm-card glow in
-    // renderComms (2B): both tabs use the same email key, so the gold means the
-    // same thing everywhere. A contact glows on both once their email is filled.
-    const cem=(c.email||'').trim().toLowerCase();
-    const isConnected=cem!=='' && (state.comms||[]).some(k=>((k.target||'').trim().toLowerCase())===cem);
-    const connClass=isConnected?' card-converted':'';
-    const connStar=isConnected?'<span class="conv-star" title="Linked to logged outreach">★</span> ':'';
-    const metAt=metAtHtml(c);
-    html+=`<div class="card${connClass}"><div class="card-h"><div><div class="card-name">${connStar}${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}${c.channel?' · '+esc(c.channel):''}</div></div></div><div class="card-body">${rowClock}${metAt}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button></div></div>`;
-  });
-  html+='</div>';
-  body.innerHTML=html;
+  const sorted=contacts.slice().sort((a,b)=>(b.addedAt||'').localeCompare(a.addedAt||''));
+  body.innerHTML=viewBar+'<div class="card-grid">'+sorted.map(renderPersonCard).join('')+'</div>';
   updateContactClocks(new Date());
+}
+// The intel a card shows: the notes, or the legacy split fields joined.
+function personIntel(c,sep){
+  let intel=c.notes||'';
+  if(!intel){
+    const parts=[];
+    if(c.offering)parts.push('Offering: '+c.offering);
+    if(c.needing)parts.push('Needs: '+c.needing);
+    if(c.met)parts.push('Met: '+c.met);
+    intel=parts.join(sep);
+  }
+  return intel;
+}
+// One card per person, shaped by tier. THE CONTACT MARK: the gold star and
+// the gold border render on every CONTACT card and on no ACQUAINTANCE card
+// (they used to mean an email-keyed link to a logged comm; the comm card's
+// own mark keeps that meaning, 3a). A contact card: OPEN, COUNCIL,
+// DOWNGRADE. An acquaintance card: name, channel, MET AT, notes; OPEN,
+// UPGRADE; no council. Comments authored with zero brace pairs.
+function renderPersonCard(c){
+  const tier=personTier(c);
+  const metAt=metAtHtml(c);
+  if(tier==='acquaintance'){
+    const notes=personIntel(c,' · ');
+    return `<div class="card"><div class="card-h"><div><div class="card-name">${esc(c.name)}</div><div class="card-sub">${c.channel?esc(c.channel):'no channel logged'}</div></div><div class="card-h-right"><span class="card-status candidate">ACQUAINTANCE</span></div></div><div class="card-body">${metAt}${notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(notes)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="upgrade-person" data-id="${esc(c.id)}">UPGRADE</button></div></div>`;
+  }
+  // v0.2.6: the card clock's zone comes from the logged City via CITY_TZ,
+  // not from c.tz. Known city: live HH:MM clock. Unknown city: NO clock, no
+  // guessed zone; the city text still shows. c.tz stays in the data.
+  const ctz=cityToTz(c.city);
+  const rowClock=ctz
+    ?`<div class="row-clock" data-tz="${esc(ctz)}"><span class="live-dot"></span><span class="clock-time-inline">--<span class="clock-colon">:</span>--</span><span class="clock-tz-inline">--</span><span class="city-label">${esc((c.city||'').toUpperCase())}</span></div>`
+    :(c.city?`<div class="row-clock"><span class="city-label">${esc(c.city.toUpperCase())}</span></div>`:'');
+  const intel=personIntel(c,' · ');
+  return `<div class="card card-converted"><div class="card-h"><div><div class="card-name"><span class="conv-star" title="Contact">★</span> ${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}${c.channel?' · '+esc(c.channel):''}</div></div></div><div class="card-body">${rowClock}${metAt}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button><button class="btn muted sm" data-act="downgrade-person" data-id="${esc(c.id)}">DOWNGRADE</button></div></div>`;
+}
+// THE ACQUAINTANCES PILL: the acquaintances whose month is the current
+// home-zone month through the shared window; the rest are named by count
+// and live in their month's report. No status moves, nothing is written.
+function renderAcquaintancesView(){
+  const all=state.network.filter(c=>personTier(c)==='acquaintance');
+  if(!all.length)return `<div class="empty-state"><div class="es-h">NO ACQUAINTANCES YET</div><div class="es-sub">Type the people you met into a room's MET box and they land here.</div></div>`;
+  const shown=all.filter(c=>inMonthWindow(acquaintanceMonth(c))).sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  const earlier=all.length-shown.length;
+  let html=shown.length?'<div class="card-grid">'+shown.map(renderPersonCard).join('')+'</div>':`<div class="empty-state"><div class="es-h">NOBODY MET THIS MONTH</div><div class="es-sub">People you met this month show here. Earlier months live in that month's report.</div></div>`;
+  if(earlier)html+=`<div class="tiny dim mono" style="margin-top:14px">${earlier} MET EARLIER · IN THEIR MONTH'S REPORT (COMMUNICATIONS, REPORTS)</div>`;
+  return html;
+}
+// PEOPLE TIERS =================================================================
+// Every person carries a tier: ACQUAINTANCE (met in a room, a name and a
+// channel) or CONTACT (a live conversation, the full template). CUSTOMER is
+// reserved in the enum and is never rendered or selectable until a later
+// ruling; a record carrying it renders as a contact. One transition path,
+// setPersonTier, appends to tierHistory and never rewrites it.
+const PERSON_TIERS=['acquaintance','contact','customer'];
+const RENDERED_TIERS=['acquaintance','contact'];
+function personTier(c){
+  const t=String((c&&c.tier)||'').toLowerCase();
+  return t==='acquaintance'?'acquaintance':'contact';
+}
+// A person with no tier is a CONTACT since the day they were added: the
+// seed rides addedAt, a stamp the record already carries, never the clock.
+function normalizePerson(c){
+  if(!c||typeof c!=='object')return c;
+  const t=String(c.tier||'').toLowerCase();
+  c.tier=PERSON_TIERS.includes(t)?t:'contact';
+  if(!Array.isArray(c.tierHistory)||!c.tierHistory.length)c.tierHistory=[{tier:c.tier,timestamp:c.addedAt||new Date().toISOString()}];
+  return c;
+}
+function setPersonTier(c,tier,when){
+  const t=String(tier||'').toLowerCase();
+  if(!RENDERED_TIERS.includes(t))return false;
+  normalizePerson(c);
+  if(c.tier===t)return false;
+  const ts=when||new Date().toISOString();
+  c.tierHistory.push({tier:t,timestamp:ts});
+  c.tier=t;c.updatedAt=ts;
+  return true;
+}
+// The one tier act behind the card buttons and the form's select: the
+// transition, the save, the render, the toast. An upgrade then opens the
+// full form with whatever the record already holds.
+function changePersonTier(id,tier){
+  const c=state.network.find(x=>x.id===id);if(!c)return;
+  if(!setPersonTier(c,tier))return;
+  saveState();renderNetwork();renderOverview();
+  toast((c.name||'(no name)').toUpperCase()+' · '+tier.toUpperCase(),'green');
+  if(tier==='contact')openContactModal(c.id);
+}
+// The month an acquaintance belongs to: the latest room they were met at,
+// by that room's date; with no dated room, the last downgrade's month;
+// neither, null, which the window renders (fail visible).
+function acquaintanceMonth(c){
+  const rooms=(Array.isArray(c.metAt)?c.metAt:[]).map(m=>eventsList().find(e=>e.id===m.eventId)).filter(e=>e&&wallTimeToDate(e.start,e.tz)).sort(byEventStart);
+  if(rooms.length)return eventStartMonth(rooms[rooms.length-1]);
+  const h=Array.isArray(c.tierHistory)?c.tierHistory:[];
+  for(let i=h.length-1;i>=0;i--){if(h[i]&&h[i].tier==='acquaintance')return localYearMonth(h[i].timestamp);}
+  return null;
+}
+// The latest dated room a person was met at, for the report's MET line.
+function latestMetRoom(c){
+  const rooms=(Array.isArray(c.metAt)?c.metAt:[]).map(m=>eventsList().find(e=>e.id===m.eventId)).filter(e=>e&&wallTimeToDate(e.start,e.tz)).sort(byEventStart);
+  return rooms.length?rooms[rooms.length-1]:null;
+}
+// The acquaintances of one month, sorted by name: the report's MET section.
+function metInMonth(ym){
+  return state.network.filter(c=>personTier(c)==='acquaintance'&&acquaintanceMonth(c)===ym).sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+}
+// The form follows the tier: an acquaintance sees name, CHANNEL, MET AT
+// (read-only) and NOTES; a contact sees the full template and the TIER
+// select. Hiding is display only; every field keeps its value.
+function applyTierLayout(tier,c){
+  const acq=tier==='acquaintance';
+  ['c-f-company','c-f-website','c-f-email','c-f-cityrow','c-f-tier'].forEach(id=>g(id).classList.toggle('hidden',acq));
+  g('c-notes-label').textContent=acq?'Notes':'Intel';
+  const rooms=c&&Array.isArray(c.metAt)?c.metAt.filter(m=>m&&m.title):[];
+  g('c-metat').textContent=rooms.length?rooms.map(m=>m.title).join(' · '):'Nowhere logged yet.';
+  g('c-tier-note').textContent=c?'':'A new person is a contact; downgrade from the card once saved.';
 }
 
 // IRL EVENTS ==================================================================
@@ -2737,7 +2845,7 @@ const EVENT_STATUSES=['candidate','selected','attended','skipped'];
 const EVENT_OUTCOMES=['none','conversation','meeting','deposit'];
 // THE NETWORK VIEWS. One pill per view; 'events' is the pre-v0.12.0 name and
 // resolves to candidates.
-const NETWORK_VIEWS=['contacts','candidates','selected','attended'];
+const NETWORK_VIEWS=['contacts','acquaintances','candidates','selected','attended'];
 let networkView='contacts';
 let editingEventId=null;
 let openedEventStatus='candidate';
@@ -2843,7 +2951,7 @@ function linkMetNames(names,e,when){
   names.forEach(name=>{
     let c=findContactByName(name);
     if(!c){
-      c={id:uid(),addedAt:now,lastTouchAt:null,touches:[],name:name,company:'',website:'',email:'',channel:'',city:(e&&e.city)||'',tz:(e&&e.tz)||homeTzNow(),notes:'',metAt:[],updatedAt:now};
+      c={id:uid(),addedAt:now,lastTouchAt:null,touches:[],name:name,company:'',website:'',email:'',channel:'',city:(e&&e.city)||'',tz:(e&&e.tz)||homeTzNow(),notes:'',metAt:[],tier:'acquaintance',tierHistory:[{tier:'acquaintance',timestamp:now}],updatedAt:now};
       state.network.push(c);
     }
     if(ids.indexOf(c.id)<0)ids.push(c.id);
@@ -2988,7 +3096,11 @@ function eventsShown(){
 // archive-pill rule), so a pill and its grid can never disagree. SKIPPED has
 // no pill; its count sits on the fold at the foot of CANDIDATES.
 function networkViewBar(){
-  const counts={contacts:state.network.length,candidates:0,selected:0,attended:0};
+  const counts={contacts:0,acquaintances:0,candidates:0,selected:0,attended:0};
+  state.network.forEach(c=>{
+    if(personTier(c)==='contact')counts.contacts++;
+    else if(inMonthWindow(acquaintanceMonth(c)))counts.acquaintances++;
+  });
   eventsShown().forEach(e=>{
     if(e.status==='candidate')counts.candidates++;
     else if(e.status==='selected')counts.selected++;
@@ -3847,8 +3959,10 @@ function renderReportsPanel(){
   });
   // v0.12.0: a month with an attended room (by event date) is a report month too.
   eventsList().forEach(e=>{if(e.status==='attended'){const ym=eventStartMonth(e);if(ym)monthSet.add(ym);}});
+  // v0.13.0: a month somebody was met in is a report month too.
+  state.network.forEach(c=>{if(personTier(c)==='acquaintance'){const ym=acquaintanceMonth(c);if(ym)monthSet.add(ym);}});
 
-  const intro=`<div class="reports-intro">Monthly outreach reports. Each entry rolls up everything that happened that month — <strong>drafted, sent, replied, archived, rooms attended</strong> — into a clean text file you can paste into your CRM spreadsheet or read as a record. Reports are computed live from your local state; nothing is precomputed.</div>`;
+  const intro=`<div class="reports-intro">Monthly outreach reports. Each entry rolls up everything that happened that month — <strong>drafted, sent, replied, archived, rooms attended, people met</strong> — into a clean text file you can paste into your CRM spreadsheet or read as a record. Reports are computed live from your local state; nothing is precomputed.</div>`;
 
   if(monthSet.size===0){
     return intro+`<div class="empty-state"><div class="es-h">NO ACTIVITY YET</div><div class="es-sub">Log your first communication and a monthly report will appear here.</div><button class="btn" data-open="comm">+ LOG COMMUNICATION</button></div>`;
@@ -3861,8 +3975,9 @@ function renderReportsPanel(){
     const [y,m]=ym.split('-');
     const stats=computeMonthStats(parseInt(y),parseInt(m));
     const rooms=roomsInMonth(ym).length;
+    const met=metInMonth(ym).length;
     const label=monthNames[parseInt(m)-1]+' '+y;
-    html+=`<div class="month-card"><div><div class="month-card-h">${esc(label)}</div><div class="month-card-stats"><span class="stat-n">${stats.drafted}</span> drafted<span class="stat-sep">·</span><span class="stat-n">${stats.sent}</span> sent<span class="stat-sep">·</span><span class="stat-n">${stats.replied}</span> replied<span class="stat-sep">·</span><span class="stat-n">${stats.archived}</span> archived<span class="stat-sep">·</span><span class="stat-n">${rooms}</span> rooms</div></div><div class="month-card-actions"><button class="btn ghost sm" data-act="download-month" data-month="${esc(ym)}">↓ DOWNLOAD .TXT</button></div></div>`;
+    html+=`<div class="month-card"><div><div class="month-card-h">${esc(label)}</div><div class="month-card-stats"><span class="stat-n">${stats.drafted}</span> drafted<span class="stat-sep">·</span><span class="stat-n">${stats.sent}</span> sent<span class="stat-sep">·</span><span class="stat-n">${stats.replied}</span> replied<span class="stat-sep">·</span><span class="stat-n">${stats.archived}</span> archived<span class="stat-sep">·</span><span class="stat-n">${rooms}</span> rooms<span class="stat-sep">·</span><span class="stat-n">${met}</span> met</div></div><div class="month-card-actions"><button class="btn ghost sm" data-act="download-month" data-month="${esc(ym)}">↓ DOWNLOAD .TXT</button></div></div>`;
   });
   return html;
 }
@@ -3984,6 +4099,7 @@ function downloadMonthReport(yearMonth){
   // v0.12.0: the rooms attended that month BY EVENT DATE, the ATTENDED pill's
   // rule one month back; the same helper the month card counts by.
   const roomsThis=roomsInMonth(yearMonth);
+  const metThis=metInMonth(yearMonth);
   const pipelineNow=state.comms.filter(c=>getCommBucket(c)==='pipeline').length;
   const p=state.profile||{};
   // v0.4.2 LOCAL DATES: report dates render in the founder's home timezone, labeled
@@ -4066,6 +4182,7 @@ function downloadMonthReport(yearMonth){
   lines.push('Replied: '+repliedThis.length);
   lines.push('Archived: '+archivedThis.length);
   lines.push('Rooms attended: '+roomsThis.length);
+  lines.push('People met: '+metThis.length);
   lines.push('In pipeline now: '+pipelineNow);
   lines.push('');
 
@@ -4110,6 +4227,19 @@ function downloadMonthReport(yearMonth){
     lines.push('  Date:      '+(e.start||'-')+(e.tz?' '+e.tz:''));
     lines.push('  Met:       '+e.met.length+(e.met.length===1?' contact':' contacts'));
     lines.push('  Outcome:   '+String(e.outcome||'none').toUpperCase());
+  });}
+  lines.push('');
+
+  // v0.13.0 MET: the acquaintances whose month this is (the latest room they
+  // were met at, else their downgrade), name, channel, room.
+  lines.push('MET ('+metThis.length+')');
+  if(metThis.length===0){lines.push('(none)');}
+  else{metThis.forEach((c,i)=>{
+    const room=latestMetRoom(c);
+    lines.push('');
+    lines.push('['+(i+1)+'] '+(c.name||''));
+    lines.push('  Channel:   '+(c.channel||'-'));
+    lines.push('  Room:      '+(room?(room.title||'-'):'-'));
   });}
   lines.push('');
 
@@ -4758,7 +4888,8 @@ function _trustedGesture(e){
 function openContactModal(contactId){
   editingContactId=contactId||null;
   const isEdit=!!contactId;
-  g('modal-contact-title').textContent=isEdit?'// EDIT CONTACT':'// NEW CONTACT';
+  const opening=isEdit?state.network.find(x=>x.id===contactId):null;
+  g('modal-contact-title').textContent=isEdit?(opening&&personTier(opening)==='acquaintance'?'// EDIT ACQUAINTANCE':'// EDIT CONTACT'):'// NEW CONTACT';
   g('btn-delete-contact').classList.toggle('hidden',!isEdit);
   _isRestoringFields=true;
   if(isEdit){
@@ -4776,9 +4907,13 @@ function openContactModal(contactId){
       intel=parts.join('\n\n');
     }
     g('c-notes').value=intel;
+    g('c-tier').value=personTier(c);
+    applyTierLayout(personTier(c),c);
   }else{
     ['c-name','c-company','c-website','c-email','c-channel','c-city','c-notes'].forEach(id=>g(id).value='');
     g('c-tz').value=state.profile.homeTz||'America/Chicago';
+    g('c-tier').value='contact';
+    applyTierLayout('contact',null);
   }
   _lastAutosaveSnapshot=autosaveSnapshot('contact');
   captureRestore('modal-contact');
@@ -4803,7 +4938,7 @@ function saveContact(){
     // v4.4.0-fix3: only create on DONE if there's actual content (autosave normally already
     // promoted; this else only fires when nothing was typed, don't make an empty ghost).
     const anyContent=data.name||data.company||data.website||data.channel||data.city||data.notes;
-    if(anyContent)state.network.push(Object.assign({id:uid(),addedAt:new Date().toISOString(),lastTouchAt:null,touches:[]},data));
+    if(anyContent){const born=new Date().toISOString();state.network.push(Object.assign({id:uid(),addedAt:born,lastTouchAt:null,touches:[],tier:'contact',tierHistory:[{tier:'contact',timestamp:born}]},data));}
   }
   saveState();hideModal('modal-contact');renderNetwork();renderOverview();renderMapPins();
   toast(editingContactId?'CONTACT UPDATED':'CONTACT ADDED','green');
@@ -6884,6 +7019,7 @@ function additiveImportState(payload){
     existingN[k]=true;
     var rec=Object.assign({},fc);
     if(!Array.isArray(rec.touches))rec.touches=[];
+    normalizePerson(rec); // v0.13.0: a book with no tier field reads as CONTACT
     state.network.push(rec);
     addedN++;
   });
@@ -7205,6 +7341,7 @@ function mergeServerState(file){
     var take=function(res){if(res.localWon)owed=true;dropped=dropped.concat(res.dropped||[]);return res.records;};
     state.comms=take(mergeRecordSlice(state.comms,file.comms,editingCommId,_syncedIds));
     state.network=take(mergeRecordSlice(state.network,file.network,editingContactId,_syncedIds));
+    state.network.forEach(function(c){normalizePerson(c);});
     state.events=take(mergeRecordSlice(eventsList(),Array.isArray(file.events)?file.events:[],editingEventId,_syncedIds));
     state.events.forEach(function(e){normalizeEvent(e);});
     state.artifacts=take(mergeRecordSlice(artifactsList(),Array.isArray(file.artifacts)?file.artifacts:[],editingArtifactId,_syncedIds));
@@ -7725,6 +7862,17 @@ function wireEvents(){
   });
   g('btn-add-contact').addEventListener('click',()=>openContactModal());
   g('btn-delete-contact').addEventListener('click',deleteContact);
+  // v0.13.0: the TIER select is the form's tier act; a new person is a
+  // contact until saved, so the pick reverts until the record exists.
+  g('c-tier').addEventListener('change',()=>{
+    const pick=g('c-tier').value;
+    if(!editingContactId){g('c-tier').value='contact';return;}
+    const c=state.network.find(x=>x.id===editingContactId);if(!c)return;
+    if(!setPersonTier(c,pick))return;
+    saveState();applyTierLayout(pick,c);g('modal-contact-title').textContent=pick==='acquaintance'?'// EDIT ACQUAINTANCE':'// EDIT CONTACT';
+    renderNetwork();renderOverview();
+    toast((c.name||'(no name)').toUpperCase()+' · '+pick.toUpperCase(),'green');
+  });
   g('network-body').addEventListener('click',e=>{
     const viewBtn=e.target.closest('[data-view]');
     if(viewBtn){setNetworkView(viewBtn.dataset.view);return;}
@@ -7732,6 +7880,8 @@ function wireEvents(){
     const act=btn.dataset.act;const id=btn.dataset.id;
     if(act==='edit-contact')openContactModal(id);
     if(act==='council-contact')openCouncil('contact',id);
+    if(act==='upgrade-person')changePersonTier(id,'contact');
+    if(act==='downgrade-person')changePersonTier(id,'acquaintance');
     if(act==='edit-event')openEventModal(id);
     if(act==='select-event')quickEventStatus(id,'selected');
     if(act==='attend-event')quickEventStatus(id,'attended');
