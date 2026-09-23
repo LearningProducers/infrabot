@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.10.1 (THE READINESS ANSWER) 26-09-22                                     ║
+║  v0.11.0 (THE MET LINKS) 26-09-22                                            ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  334  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  344  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   336–  362  :root, CSS variables, fonts, reset, body                     ║
-║  L   363–  420  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   421–  463  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   464–  481  CLOCKS — live clock grid                                     ║
-║  L   482–  543  CARDS — contact card, comm card, status pills                ║
-║  L   544–  570  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   571–  580  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   581–  586  EMPTY: state placeholder                                     ║
-║  L   587–  610  MODAL — bg, box, header, footer                              ║
-║  L   611–  622  DRAWER — settings drawer + backdrop                          ║
-║  L   623–  628  COUNCIL: stream items (legacy reused)                        ║
-║  L   629–  635  TOAST: notification                                          ║
-║  L   636–  684  STATS: grid + profile block                                  ║
-║  L   685–  707  CREW BLOCK — Groq key row, council slots                     ║
-║  L   708–  729  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   730–  735  Per-response copy button (v1.2)                              ║
-║  L   736–  755  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   756–  762  v1.4: Foundation context source blocks                       ║
-║  L   763–  845  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   846–  872  INSIGHT VAULT                                                ║
+║  L   346–  372  :root, CSS variables, fonts, reset, body                     ║
+║  L   373–  430  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   431–  473  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   474–  491  CLOCKS — live clock grid                                     ║
+║  L   492–  553  CARDS — contact card, comm card, status pills                ║
+║  L   554–  580  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   581–  590  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   591–  596  EMPTY: state placeholder                                     ║
+║  L   597–  620  MODAL — bg, box, header, footer                              ║
+║  L   621–  632  DRAWER — settings drawer + backdrop                          ║
+║  L   633–  638  COUNCIL: stream items (legacy reused)                        ║
+║  L   639–  645  TOAST: notification                                          ║
+║  L   646–  694  STATS: grid + profile block                                  ║
+║  L   695–  717  CREW BLOCK — Groq key row, council slots                     ║
+║  L   718–  739  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   740–  745  Per-response copy button (v1.2)                              ║
+║  L   746–  765  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   766–  772  v1.4: Foundation context source blocks                       ║
+║  L   773–  853  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   854–  880  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   877–  895  APP: shell — header, brand, top clock, settings              ║
-║  L   896–  903  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   904–  942  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   943–  951  TAB-NETWORK — contacts list                                  ║
-║  L   952– 1045  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1046– 1060  TAB-VAULT — insights                                         ║
-║  L  1061– 1146  MODAL-CONTACT — add/edit contact                             ║
-║  L  1147– 1186  MODAL-COMM — add/edit communication                          ║
-║  L  1187– 1208  MODAL-PROFILE — edit your profile                            ║
-║  L  1209– 1223  MODAL-CLOCK — add world clock                                ║
-║  L  1224– 1239  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1240– 1267  DRAWER — profile, data, version footer                       ║
-║  L  1268– 1287  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1288– 1299  MODAL-MEM — memory inspector                                 ║
-║  L  1300– 1306  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1307– 1308  TOAST: container                                             ║
+║  L   885–  903  APP: shell — header, brand, top clock, settings              ║
+║  L   904–  911  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   912–  950  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L   951–  959  TAB-NETWORK — contacts list                                  ║
+║  L   960– 1053  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1054– 1068  TAB-VAULT — insights                                         ║
+║  L  1069– 1155  MODAL-CONTACT — add/edit contact                             ║
+║  L  1156– 1195  MODAL-COMM — add/edit communication                          ║
+║  L  1196– 1217  MODAL-PROFILE — edit your profile                            ║
+║  L  1218– 1232  MODAL-CLOCK — add world clock                                ║
+║  L  1233– 1248  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1249– 1276  DRAWER — profile, data, version footer                       ║
+║  L  1277– 1296  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1297– 1308  MODAL-MEM — memory inspector                                 ║
+║  L  1309– 1315  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1316– 1317  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1311– 1521  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1522– 1793  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1794– 1831  g, esc, uid, toast helpers + state globals                   ║
-║  L  1832– 2312  freshState, loadState (migrations), saveState                ║
-║  L  2313– 2538  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2539– 2572  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2573– 2618  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2619– 3221  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3222– 3346  getCommBucket + age helpers, setCommsView                    ║
-║  L  3347– 3484  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3485– 3629  renderComms — full status/triage rendering                   ║
-║  L  3630– 3657  archiveComm + reviveComm                                     ║
-║  L  3658– 3774  renderReportsPanel + computeMonthStats                       ║
-║  L  3775– 3932  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  3933– 4206  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4207– 4257  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4258– 4534  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4535– 4677  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  4678– 4745  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  4746– 5034  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1320– 1530  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1531– 1802  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1803– 1840  g, esc, uid, toast helpers + state globals                   ║
+║  L  1841– 2322  freshState, loadState (migrations), saveState                ║
+║  L  2323– 2548  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2549– 2582  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2583– 2628  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2629– 3332  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3333– 3457  getCommBucket + age helpers, setCommsView                    ║
+║  L  3458– 3595  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  3596– 3740  renderComms — full status/triage rendering                   ║
+║  L  3741– 3768  archiveComm + reviveComm                                     ║
+║  L  3769– 3885  renderReportsPanel + computeMonthStats                       ║
+║  L  3886– 4043  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4044– 4317  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4318– 4368  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4369– 4645  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4646– 4790  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  4791– 4858  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  4859– 5147  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5035– 5149  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5150– 5180  saveProfile + clock save/remove                              ║
-║  L  5181– 5334  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5335– 5513  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5514– 5758  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  5759– 6176  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6177– 6516  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6517– 6528  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6529– 6573  saveGroqKey, clearGroqKey                                    ║
-║  L  6574– 7503  exportAll, importJson, wipeAll                               ║
+║  L  5148– 5262  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5263– 5293  saveProfile + clock save/remove                              ║
+║  L  5294– 5447  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5448– 5626  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5627– 5871  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  5872– 6289  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6290– 6629  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6630– 6641  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6642– 6686  saveGroqKey, clearGroqKey                                    ║
+║  L  6687– 7625  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -294,7 +294,17 @@
 ║      The closer is written as settled law: a directive line plus the link    ║
 ║      on its own line is the closer, never solicitation, never a floating     ║
 ║      link, never re-ruled. Prompt text only; tests/pane_prompt_check.js.     ║
-║  L  7504– 7808  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.11.0 THE MET LINKS: the event form's MET is a text box of names,      ║
+║      one per line or comma separated; SAVE EVENT links each name to the     ║
+║      Network contact of that name (case-insensitive, trimmed) or creates    ║
+║      one, records the event on the contact (metAt: event id and title,      ║
+║      derived from the events' met lists) and the contact ids on the event;  ║
+║      a name removed unlinks and never deletes. Contacts carry a free-text   ║
+║      CHANNEL field. One status act, moveEventStatus, behind the form's      ║
+║      select and the card's buttons; the select says what SAVE will do.      ║
+║      Import re-points met ids onto the book's own cards; schemaVersion       ║
+║      stays 3 (record-level fields). tests/met_links_check.js.                ║
+║  L  7626– 7931  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -790,7 +800,6 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .url-link:hover{text-decoration:underline}
 .field-link{font-family:var(--mono);font-size:11px;margin-top:6px;word-break:break-all}
 .edit-text-size{display:none}
-#ev-met label{font-size:12px}
 @media(min-width:601px){
   .modal-bg.wide-bg{padding:0;align-items:stretch}
   .modal.modal-wide{max-width:none;width:100%;min-height:100vh;border:none;box-shadow:none;display:flex;flex-direction:column;--edit-fs:18px}
@@ -813,7 +822,6 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   .modal-wide textarea{line-height:1.6;min-height:calc(var(--edit-fs) * 6)}
   .modal-wide .tiny{font-size:calc(var(--edit-fs) * .72)}
   .modal-wide .field-link{font-size:calc(var(--edit-fs) * .8)}
-  .modal-wide #ev-met label{font-size:var(--edit-fs)}
   .modal-wide .modal-foot{padding:14px 48px}
   .modal-wide .btn{font-size:calc(var(--edit-fs) * .7)}
 }
@@ -888,7 +896,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.10.1</span>
+      <span class="version-pill" title="INFRABOT build">v0.11.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1068,6 +1076,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       </div>
       <div class="field"><label>Website</label><input type="text" id="c-website" placeholder="janedoe.com"></div>
       <div class="field"><label>Email</label><input type="email" id="c-email" placeholder="jane@janedoe.com"></div>
+      <div class="field"><label>Channel</label><input type="text" id="c-channel" placeholder="Phone, handle, or how to reach them" autocomplete="off"></div>
       <div class="field-row">
         <div class="field"><label>City *</label><input type="text" id="c-city" placeholder="Chicago"></div>
         <div class="field"><label>Timezone</label><select id="c-tz"></select></div>
@@ -1099,10 +1108,10 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
         <div class="field"><label>Cost</label><input type="text" id="ev-cost" placeholder="free, or a number"></div>
       </div>
       <div class="field"><label>Verify link</label><input type="text" id="ev-url" placeholder="https://..."><div class="field-link" id="ev-url-link"></div></div>
-      <div class="field"><label>Status</label><select id="ev-status"><option value="candidate">CANDIDATE</option><option value="selected">SELECTED</option><option value="attended">ATTENDED</option><option value="skipped">SKIPPED</option></select></div>
+      <div class="field"><label>Status</label><select id="ev-status"><option value="candidate">CANDIDATE</option><option value="selected">SELECTED</option><option value="attended">ATTENDED</option><option value="skipped">SKIPPED</option></select><div id="ev-status-note" class="tiny mono" style="margin-top:6px;color:var(--amber)"></div></div>
       <div class="field wide-span"><label>Why this room *</label><textarea id="ev-why" placeholder="The reason this room is worth the trip. No reason, no card." style="min-height:80px"></textarea><div id="ev-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
       <div id="ev-after">
-        <div class="field"><label>Met (tick Network contacts)</label><div id="ev-met" class="tiny mono"></div></div>
+        <div class="field"><label>Met (names; each links to a Network contact, or creates one)</label><textarea id="ev-met" placeholder="One name per line, or comma separated. A name with no contact card gets one on save." style="min-height:64px"></textarea></div>
         <div class="field"><label>Outcome</label><select id="ev-outcome"><option value="none">NONE</option><option value="conversation">CONVERSATION</option><option value="meeting">MEETING</option><option value="deposit">DEPOSIT</option></select></div>
       </div>
       <div class="field wide-span"><label>Notes</label><textarea id="ev-notes" placeholder="What the room opened." style="min-height:80px"></textarea></div>
@@ -1261,7 +1270,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.10.1 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.11.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1308,7 +1317,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.10.1';
+const APP_VERSION='infrabot-v0.11.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1393,7 +1402,7 @@ const AUTOSAVE_SURFACES={
   },
   contact:{
     kind:'contact',
-    fields:['c-name','c-company','c-website','c-email','c-city','c-tz','c-notes'],
+    fields:['c-name','c-company','c-website','c-email','c-channel','c-city','c-tz','c-notes'],
     required:['c-name'],
     store:()=>state.network,
     editId:()=>editingContactId
@@ -2194,6 +2203,7 @@ function autosaveApplyFields(surfaceKey,cfg,rec,vals){
     rec.company=(vals['c-company']||'').trim();
     rec.website=(vals['c-website']||'').trim();
     rec.email=(vals['c-email']||'').trim();
+    rec.channel=(vals['c-channel']||'').trim();
     rec.tz=vals['c-tz'];
     rec.notes=(vals['c-notes']||'').trim();
   }else if(surfaceKey==='insight'){
@@ -2222,7 +2232,7 @@ function autosavePromote(surfaceKey,cfg,vals){
   }else if(surfaceKey==='contact'){
     const rec={id:uid(),addedAt:nowISO,lastTouchAt:null,touches:[],
       name:(vals['c-name']||'').trim(),company:(vals['c-company']||'').trim(),
-      website:(vals['c-website']||'').trim(),email:(vals['c-email']||'').trim(),city:(vals['c-city']||'').trim(),
+      website:(vals['c-website']||'').trim(),email:(vals['c-email']||'').trim(),channel:(vals['c-channel']||'').trim(),city:(vals['c-city']||'').trim(),
       tz:vals['c-tz'],notes:(vals['c-notes']||'').trim(),updatedAt:nowISO};
     state.network.push(rec);editingContactId=rec.id;return rec;
   }else if(surfaceKey==='insight'){
@@ -2696,7 +2706,8 @@ function renderNetwork(){
     const isConnected=cem!=='' && (state.comms||[]).some(k=>((k.target||'').trim().toLowerCase())===cem);
     const connClass=isConnected?' card-converted':'';
     const connStar=isConnected?'<span class="conv-star" title="Linked to logged outreach">★</span> ':'';
-    html+=`<div class="card${connClass}"><div class="card-h"><div><div class="card-name">${connStar}${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}</div></div></div><div class="card-body">${rowClock}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button></div></div>`;
+    const metAt=metAtHtml(c);
+    html+=`<div class="card${connClass}"><div class="card-h"><div><div class="card-name">${connStar}${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}${c.channel?' · '+esc(c.channel):''}</div></div></div><div class="card-body">${rowClock}${metAt}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button></div></div>`;
   });
   html+='</div>';
   body.innerHTML=html;
@@ -2716,6 +2727,7 @@ const EVENT_STATUSES=['candidate','selected','attended','skipped'];
 const EVENT_OUTCOMES=['none','conversation','meeting','deposit'];
 let networkView='contacts';
 let editingEventId=null;
+let openedEventStatus='candidate';
 let eventsCityFilter='';
 function eventsList(){
   if(!state)return [];
@@ -2758,7 +2770,8 @@ function eventStatusRank(s){
   return i<0?0:Math.min(i,2);
 }
 // The ONE transition path. Appends to statusHistory, never rewrites it; a
-// no-change call appends nothing and returns false.
+// no-change call appends nothing and returns false. Every hand goes through
+// moveEventStatus below; this function is the record write it wraps.
 function setEventStatus(e,status,when){
   const st=String(status||'').toLowerCase();
   if(!EVENT_STATUSES.includes(st))return false;
@@ -2769,6 +2782,100 @@ function setEventStatus(e,status,when){
   e.statusHistory.push({status:st,timestamp:ts});
   e.status=st;e.updatedAt=ts;
   return true;
+}
+// THE ONE STATUS ACT. The form's select (on SAVE EVENT) and the card's
+// quick buttons (on click) both land here and nowhere else: the transition
+// through setEventStatus, and the toast that names the status the card now
+// carries. Returns whether the status moved; the caller persists and renders.
+function moveEventStatus(e,status,when){
+  const moved=setEventStatus(e,status,when);
+  if(moved)toast((e.title||'(untitled)').toUpperCase()+' · '+e.status.toUpperCase(),'green');
+  return moved;
+}
+// The select does nothing until SAVE EVENT; this line under it says so the
+// moment the pick differs from the status the form opened on.
+function eventStatusNote(){
+  const note=g('ev-status-note');if(!note)return;
+  const pick=g('ev-status').value;
+  note.textContent=pick===openedEventStatus?'':'MOVES TO '+pick.toUpperCase()+' ON SAVE EVENT';
+}
+// MET LINKS =====================================================================
+// The MET box holds names, one per line or comma separated. On SAVE EVENT each
+// name resolves to the Network contact of that name (case-insensitive,
+// trimmed) or becomes a new contact carrying it; the event stores the contact
+// ids (met) and each contact stores the events it was met at (metAt: event id
+// and title), derived from the events' met lists so the two can never
+// disagree. A name removed from the box unlinks; no contact is ever deleted
+// by this path. The contact's own legacy `met` string (a free-text field the
+// Intel block absorbed) is untouched and unrelated.
+function parseMetNames(text){
+  const out=[];const seen={};
+  String(text||'').split(/[\n,]/).forEach(raw=>{
+    const name=raw.trim();if(!name)return;
+    const k=name.toLowerCase();if(seen[k])return;
+    seen[k]=true;out.push(name);
+  });
+  return out;
+}
+function findContactByName(name){
+  const k=String(name||'').trim().toLowerCase();
+  if(!k)return null;
+  return state.network.find(c=>String(c.name||'').trim().toLowerCase()===k)||null;
+}
+// Names to contact ids. A new contact takes the event's city and zone (the
+// room is where they were met; one edit fixes it) and nothing else.
+function linkMetNames(names,e,when){
+  const now=when||new Date().toISOString();
+  const ids=[];
+  names.forEach(name=>{
+    let c=findContactByName(name);
+    if(!c){
+      c={id:uid(),addedAt:now,lastTouchAt:null,touches:[],name:name,company:'',website:'',email:'',channel:'',city:(e&&e.city)||'',tz:(e&&e.tz)||homeTzNow(),notes:'',metAt:[],updatedAt:now};
+      state.network.push(c);
+    }
+    if(ids.indexOf(c.id)<0)ids.push(c.id);
+  });
+  return ids;
+}
+// Every contact's metAt rebuilt from the events' met lists, events in id
+// order so two books holding the same records derive the same bytes. Only a
+// contact whose list actually changed is written (and stamped when a stamp
+// is given). Returns whether anything changed.
+function syncMetLinks(when){
+  const byId={};
+  eventsList().slice().sort((a,b)=>String(a.id).localeCompare(String(b.id))).forEach(e=>{
+    (Array.isArray(e.met)?e.met:[]).forEach(id=>{(byId[id]=byId[id]||[]).push({eventId:e.id,title:e.title||''});});
+  });
+  let changed=false;
+  state.network.forEach(c=>{
+    const want=byId[c.id]||[];
+    const have=Array.isArray(c.metAt)?c.metAt:[];
+    if(JSON.stringify(want)===JSON.stringify(have))return;
+    c.metAt=want;if(when)c.updatedAt=when;changed=true;
+  });
+  return changed;
+}
+// The names the MET box shows for an event: its linked contacts, in the
+// event's own met order; a dangling id (its contact deleted) shows nothing.
+function metNamesText(e){
+  return (Array.isArray(e.met)?e.met:[]).map(id=>{const c=state.network.find(x=>x.id===id);return c?c.name:'';}).filter(Boolean).join('\n');
+}
+function metAtHtml(c){
+  const list=Array.isArray(c.metAt)?c.metAt.filter(m=>m&&m.title):[];
+  if(!list.length)return '';
+  return `<div class="card-section"><div class="card-section-h">Met at</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${list.map(m=>esc(m.title)).join(' · ')}</div></div>`;
+}
+// Across an import: an incoming event's met ids are re-pointed through the
+// map the contacts leg built (an incoming contact the book already held
+// under another id lands on the book's own card); an id no contact carries
+// is dropped, a link to nobody. Pure; the caller passes the map.
+function remapImportedMet(events,idMap){
+  return events.map(raw=>{
+    if(!raw||typeof raw!=='object'||!Array.isArray(raw.met))return raw;
+    const met=[];
+    raw.met.forEach(id=>{const to=Object.prototype.hasOwnProperty.call(idMap,id)?idMap[id]:null;if(to&&met.indexOf(to)<0)met.push(to);});
+    return Object.assign({},raw,{met:met});
+  });
 }
 // Import identity: the verify link plus the start day; a record with no link
 // falls back to its title plus the start day.
@@ -2883,9 +2990,9 @@ function openEventModal(eventId){
   g('ev-start').value=String(v.start||'').slice(0,16);
   g('ev-cost').value=v.cost==='free'?'free':String(v.cost);
   g('ev-url').value=v.url;g('ev-status').value=v.status;g('ev-why').value=v.whyThisRoom;g('ev-outcome').value=v.outcome;g('ev-notes').value=v.notes;
+  openedEventStatus=v.status;eventStatusNote();
   eventTzOptions(g('ev-tz'),v.tz||cityToTz(v.city)||homeTzNow());
-  const people=state.network.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||''));
-  g('ev-met').innerHTML=people.length?people.map(c=>`<label style="display:flex;align-items:center;gap:8px;margin:4px 0;cursor:pointer;text-transform:none;letter-spacing:0;color:var(--text)"><input type="checkbox" value="${esc(c.id)}"${v.met.includes(c.id)?' checked':''}>${esc(c.name||'(no name)')}${c.company?' · '+esc(c.company):''}</label>`).join(''):'<span class="dim">No Network contacts yet. Add the people you met as contacts, then tick them here.</span>';
+  g('ev-met').value=metNamesText(v);
   g('ev-after').style.opacity=(v.start&&eventPassed(v))?'1':'.55';
   g('ev-gate').textContent='';
   refreshFieldLink('ev-url');applyEditSize(fsCurrentSize);
@@ -2902,19 +3009,22 @@ function saveEvent(){
   if(!why){gate.textContent='NO REASON, NO CARD. Say why this room is worth the trip before it can be saved.';g('ev-why').focus();return false;}
   if(!title){gate.textContent='TITLE REQUIRED. The card has nothing to show without one.';g('ev-title').focus();return false;}
   gate.textContent='';
-  const met=Array.from(g('ev-met').querySelectorAll('input[type=checkbox]:checked')).map(i=>i.value);
-  const data={title:title,organizer:g('ev-organizer').value.trim(),venue:g('ev-venue').value.trim(),city:g('ev-city').value.trim(),tz:g('ev-tz').value,start:g('ev-start').value.trim(),url:g('ev-url').value.trim(),cost:normalizeCost(g('ev-cost').value),whyThisRoom:why,met:met,outcome:g('ev-outcome').value,notes:g('ev-notes').value.trim()};
+  const data={title:title,organizer:g('ev-organizer').value.trim(),venue:g('ev-venue').value.trim(),city:g('ev-city').value.trim(),tz:g('ev-tz').value,start:g('ev-start').value.trim(),url:g('ev-url').value.trim(),cost:normalizeCost(g('ev-cost').value),whyThisRoom:why,outcome:g('ev-outcome').value,notes:g('ev-notes').value.trim()};
   const status=g('ev-status').value;
   const now=new Date().toISOString();
   const wasEdit=!!editingEventId;
+  let moved=false;
   if(wasEdit){
     const e=eventsList().find(x=>x.id===editingEventId);
-    if(e){Object.assign(e,data,{updatedAt:now});setEventStatus(e,status,now);}
+    if(e){Object.assign(e,data,{updatedAt:now});e.met=linkMetNames(parseMetNames(g('ev-met').value),e,now);moved=moveEventStatus(e,status,now);}
   }else{
-    eventsList().push(normalizeEvent(Object.assign({id:uid(),createdAt:now,updatedAt:now,status:status,statusHistory:[{status:status,timestamp:now}]},data)));
+    const e=normalizeEvent(Object.assign({id:uid(),createdAt:now,updatedAt:now,status:status,statusHistory:[{status:status,timestamp:now}],met:[]},data));
+    e.met=linkMetNames(parseMetNames(g('ev-met').value),e,now);
+    eventsList().push(e);
   }
+  syncMetLinks(now);
   saveState();hideModal('modal-event');renderNetwork();renderOverview();
-  toast(wasEdit?'EVENT UPDATED':'EVENT ADDED','green');
+  if(!moved)toast(wasEdit?'EVENT UPDATED':'EVENT ADDED','green');
   editingEventId=null;
   return true;
 }
@@ -2923,16 +3033,17 @@ function deleteEvent(){
   const e=eventsList().find(x=>x.id===editingEventId);if(!e)return;
   if(!confirm('Delete "'+(e.title||'(untitled)')+'"? Cannot be undone.'))return;
   state.events=eventsList().filter(x=>x.id!==editingEventId);
+  syncMetLinks(new Date().toISOString());
   saveState();hideModal('modal-event');renderNetwork();renderOverview();
   toast('EVENT DELETED','amber');
   editingEventId=null;
 }
-// Card quick actions: a hand moving one status in one tap.
+// Card quick actions: a hand moving one status in one tap, through the same
+// act the form's SAVE uses.
 function quickEventStatus(id,status){
   const e=eventsList().find(x=>x.id===id);if(!e)return;
-  if(!setEventStatus(e,status))return;
+  if(!moveEventStatus(e,status))return;
   saveState();renderNetwork();renderOverview();
-  toast((e.title||'(untitled)').toUpperCase()+' · '+status.toUpperCase(),'green');
 }
 // The additive import leg for events (called by additiveImportState). Dedupe
 // on eventKey. A match moves status only up the ladder, never back, and fills
@@ -4562,7 +4673,7 @@ function openContactModal(contactId){
   if(isEdit){
     const c=state.network.find(x=>x.id===contactId);if(!c){_isRestoringFields=false;return;}
     g('c-name').value=c.name||'';g('c-company').value=c.company||'';g('c-website').value=c.website||'';
-    g('c-email').value=c.email||'';
+    g('c-email').value=c.email||'';g('c-channel').value=c.channel||'';
     g('c-city').value=c.city||'';g('c-tz').value=c.tz||state.profile.homeTz||'America/Chicago';
     // Migrate legacy split fields into single Intel block on edit if Notes empty
     let intel=c.notes||'';
@@ -4575,7 +4686,7 @@ function openContactModal(contactId){
     }
     g('c-notes').value=intel;
   }else{
-    ['c-name','c-company','c-website','c-email','c-city','c-notes'].forEach(id=>g(id).value='');
+    ['c-name','c-company','c-website','c-email','c-channel','c-city','c-notes'].forEach(id=>g(id).value='');
     g('c-tz').value=state.profile.homeTz||'America/Chicago';
   }
   _lastAutosaveSnapshot=autosaveSnapshot('contact');
@@ -4590,7 +4701,7 @@ function saveContact(){
   if(_autosaveTimer){clearTimeout(_autosaveTimer);_autosaveTimer=null;} // v4.4.0-fix5: kill any pending debounce; this synchronous write supersedes it
   // v4.4.0-fix3: DONE button. Autosave persisted edits; no required-field gate.
   const name=g('c-name').value.trim();
-  const data={name,company:g('c-company').value.trim(),website:g('c-website').value.trim(),email:g('c-email').value.trim(),city:g('c-city').value.trim(),tz:g('c-tz').value,notes:g('c-notes').value.trim()};
+  const data={name,company:g('c-company').value.trim(),website:g('c-website').value.trim(),email:g('c-email').value.trim(),channel:g('c-channel').value.trim(),city:g('c-city').value.trim(),tz:g('c-tz').value,notes:g('c-notes').value.trim()};
   if(editingContactId){
     const c=state.network.find(x=>x.id===editingContactId);
     if(c){
@@ -4600,7 +4711,7 @@ function saveContact(){
   }else{
     // v4.4.0-fix3: only create on DONE if there's actual content (autosave normally already
     // promoted; this else only fires when nothing was typed, don't make an empty ghost).
-    const anyContent=data.name||data.company||data.website||data.city||data.notes;
+    const anyContent=data.name||data.company||data.website||data.channel||data.city||data.notes;
     if(anyContent)state.network.push(Object.assign({id:uid(),addedAt:new Date().toISOString(),lastTouchAt:null,touches:[]},data));
   }
   saveState();hideModal('modal-contact');renderNetwork();renderOverview();renderMapPins();
@@ -4614,6 +4725,8 @@ function deleteContact(){
   const c=state.network.find(x=>x.id===editingContactId);if(!c)return;
   if(!confirm(`Delete ${c.name}? Cannot be undone.`))return;
   state.network=state.network.filter(x=>x.id!==editingContactId);
+  const gone=new Date().toISOString();
+  eventsList().forEach(e=>{if(Array.isArray(e.met)&&e.met.includes(editingContactId)){e.met=e.met.filter(id=>id!==editingContactId);e.updatedAt=gone;}});
   saveState();hideModal('modal-contact');renderNetwork();renderOverview();
   toast('CONTACT DELETED','amber');
   clearRestore('modal-contact');
@@ -6673,9 +6786,9 @@ function additiveImportState(payload){
     else if(c.name)existingN['name:'+c.name.toLowerCase()]=true;
   });
   var addedN=0,skippedN=0;
+  var contactKey=function(c){var k=(c.email||'').toLowerCase().trim();return k?k:'name:'+String(c.name||'').toLowerCase();};
   contacts.forEach(function(fc){
-    var k=(fc.email||'').toLowerCase().trim();
-    if(!k)k='name:'+String(fc.name||'').toLowerCase();
+    var k=contactKey(fc);
     if(existingN[k]){skippedN++;return;}
     existingN[k]=true;
     var rec=Object.assign({},fc);
@@ -6683,9 +6796,17 @@ function additiveImportState(payload){
     state.network.push(rec);
     addedN++;
   });
-  var ev=importEvents(Array.isArray(payload.events)?payload.events:[]);
+  // v0.11.0 THE MET LINKS: every incoming contact id points at the book's
+  // own card for that person (the same id when it was added, the local id
+  // when it was skipped as already held), and the events' met lists are
+  // re-pointed through that map before the import reads them.
+  var metIdMap={};var localByKey={};
+  state.network.forEach(function(c){metIdMap[c.id]=c.id;localByKey[contactKey(c)]=c.id;});
+  contacts.forEach(function(fc){if(fc&&fc.id&&localByKey[contactKey(fc)])metIdMap[fc.id]=localByKey[contactKey(fc)];});
+  var ev=importEvents(remapImportedMet(Array.isArray(payload.events)?payload.events:[],metIdMap));
   var ar=importArtifacts(Array.isArray(payload.artifacts)?payload.artifacts:[]);
-  if(addedC>0||addedN>0||ev.added>0||ev.updated>0||ar.added>0||ar.updated>0){saveState();renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();}
+  var linksMoved=syncMetLinks(new Date().toISOString());
+  if(addedC>0||addedN>0||ev.added>0||ev.updated>0||ar.added>0||ar.updated>0||linksMoved){saveState();renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();}
   var wentQuiet=autoArchiveStaleComms();
   if(wentQuiet.length>0){renderComms();renderOverview();renderMapPins();}
   return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,addedEvents:ev.added,updatedEvents:ev.updated,skippedEvents:ev.skipped,refusedEvents:ev.refused,addedArtifacts:ar.added,updatedArtifacts:ar.updated,skippedArtifacts:ar.skipped,refusedArtifacts:ar.refused,wentQuiet:wentQuiet};
@@ -6997,6 +7118,7 @@ function mergeServerState(file){
     state.events.forEach(function(e){normalizeEvent(e);});
     state.artifacts=take(mergeRecordSlice(artifactsList(),Array.isArray(file.artifacts)?file.artifacts:[],editingArtifactId,_syncedIds));
     state.artifacts.forEach(function(a){normalizeArtifact(a);});
+    if(syncMetLinks(new Date().toISOString()))owed=true; // v0.11.0: metAt follows the merged events; a change owes the file a sync
     state.comms.forEach(function(c){
       if(!Array.isArray(c.history))c.history=[];
       if(!Array.isArray(c.statusHistory))c.statusHistory=[{status:c.status||'draft',timestamp:c.createdAt||new Date().toISOString()}];
@@ -7528,6 +7650,7 @@ function wireEvents(){
     if(e.target&&e.target.id==='ev-city-filter'){eventsCityFilter=e.target.value;renderNetwork();}
   });
   g('btn-add-event').addEventListener('click',()=>openEventModal());
+  g('ev-status').addEventListener('change',eventStatusNote);
   g('btn-save-event').addEventListener('click',saveEvent);
   g('btn-delete-event').addEventListener('click',deleteEvent);
   g('ev-city').addEventListener('input',()=>{const z=cityToTz(g('ev-city').value);if(z)eventTzOptions(g('ev-tz'),z);});
