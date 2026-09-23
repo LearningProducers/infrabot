@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.10.0.
+dependencies beyond Python 3 and a browser. This README describes v0.12.0.
 
 ## What it does
 
@@ -11,8 +11,16 @@ The app has four tabs.
 
 - **OVERVIEW.** A world map with your cities pinned, live clocks, today's
   counters, and your profile (used in the messages you share).
-- **NETWORK.** Your contacts, and the in-person events you are considering;
-  each event carries a status you move by hand.
+- **NETWORK.** Your contacts and the in-person events you are considering,
+  behind four pills: CONTACTS, CANDIDATES, SELECTED and ATTENDED, each with
+  its count; SKIPPED rooms sit folded at the foot of CANDIDATES, and a city
+  filter narrows every events pill. A contact carries a CHANNEL field
+  (phone, handle, how to reach them) and the rooms you met them at. An
+  event carries a status you move by hand and a MET box: type the names of
+  the people you met, one per line or comma separated, and saving links
+  each name to the contact of that name or creates one. ATTENDED shows the
+  rooms whose date falls in the current month; earlier rooms leave the pill
+  untouched and appear under ROOMS in that month's report.
 - **COMMUNICATIONS.** Draft cards, one per message. A card carries the
   person, the company, the address, the discovery trail (how they showed
   up), a one-line hook (why they would care and what you are handing them),
@@ -143,7 +151,7 @@ Every check in `tests/` runs standalone from the repo root against the real
 `infrabot.html` and the real launcher scripts, with invented fixtures:
 `node tests/<name>.js` or `python3 tests/<name>.py`.
 
-## What changed since v0.7.0 (the build this README last described)
+## What changed since v0.7.0
 
 - **v0.8.0.** Crew slots resolve from Groq's live catalog; no model id is
   pinned in the code; labels derive from the running id.
@@ -153,6 +161,14 @@ Every check in `tests/` runs standalone from the repo root against the real
 - **v0.10.0.** The drop rule: a record the server file no longer carries is
   dropped from the tab unless the tab created it since its last sync, so a
   restored state file holds.
+- **v0.11.0.** The met links: an event's MET box takes names and links or
+  creates contacts; contacts carry a CHANNEL field and the rooms they were
+  met at; one status act behind the event form's select and the card's
+  buttons.
+- **v0.12.0.** The room pills: CONTACTS, CANDIDATES, SELECTED and ATTENDED
+  on the NETWORK bar, SKIPPED folded, the city filter on every events pill;
+  ATTENDED shows this month's rooms and earlier rooms print in their
+  month's report under ROOMS.
 
 ## Licenses
 
