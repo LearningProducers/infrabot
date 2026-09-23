@@ -72,7 +72,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   ['EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','networkView','eventsCityFilter'].forEach(function(n){ge(extractVar(html,n));});
   ['eventsList','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','localYearMonth','archiveMonth',
    'inMonthWindow','inArchiveWindow','eventStartMonth','byEventStart','roomsInMonth','eventCities','eventsShown',
-   'networkViewBar','setNetworkView'].forEach(function(n){ge(extractFn(html,n));});
+   'personTier','acquaintanceMonth','networkViewBar','setNetworkView'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){
@@ -169,16 +169,16 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('S1 renderEventsView folds SKIPPED under CANDIDATES in a details element',/networkView==='candidates'[\s\S]*?<details class="skip-fold"><summary[^>]*>SKIPPED · \$\{skipped\.length\}<\/summary>/.test(html));
   check('S2 renderEventsView\'s ATTENDED view filters through inMonthWindow(eventStartMonth(e)) and names the earlier rooms',html.indexOf("const thisMonth=att.filter(e=>inMonthWindow(eventStartMonth(e))).sort(byEventStart);")>0&&html.indexOf("EARLIER ROOM${earlier===1?'':'S'} · IN THEIR MONTH'S REPORT")>0);
   check('S3 every events pill reads eventsShown, the one city-filtered list',(html.match(/eventsShown\(\)/g)||[]).length>=2&&extractFn(html,'renderEventsView').indexOf('eventsShown()')>0&&extractFn(html,'networkViewBar').indexOf('eventsShown()')>0);
-  check('S4 renderNetwork routes every non-contacts view to the events view',html.indexOf("if(networkView!=='contacts'){body.innerHTML=viewBar+renderEventsView();return;}")>0);
+  check('S4 renderNetwork routes every events view to the events view (v0.13.0: the two people views aside)',html.indexOf("if(networkView!=='contacts'&&networkView!=='acquaintances'){body.innerHTML=viewBar+renderEventsView();return;}")>0);
   check('S5 the report month set includes a room-only month',extractFn(html,'renderReportsPanel').indexOf("if(e.status==='attended'){const ym=eventStartMonth(e);if(ym)monthSet.add(ym);}")>0);
   check('S6 the month card counts rooms through roomsInMonth',extractFn(html,'renderReportsPanel').indexOf('const rooms=roomsInMonth(ym).length;')>0&&extractFn(html,'renderReportsPanel').indexOf('${rooms}</span> rooms')>0);
   var dl=extractFn(html,'downloadMonthReport');
   check('S7 the .txt carries a ROOMS section with title, organizer, city, met count and outcome',dl.indexOf("lines.push('ROOMS ('+roomsThis.length+')');")>0&&dl.indexOf("'  Organizer: '")>0&&dl.indexOf("'  City:      '")>0&&dl.indexOf("'  Met:       '+e.met.length")>0&&dl.indexOf("'  Outcome:   '+String(e.outcome||'none').toUpperCase()")>0&&dl.indexOf("'Rooms attended: '+roomsThis.length")>0);
   check('S8 computeMonthStats is untouched (comms only, the month_stats harness extracts it bare)',extractFn(html,'computeMonthStats').indexOf('rooms')<0);
   check('S9 the scoreboard\'s rooms lane and the ROOMS THIS MONTH cell keep their transition-month keys',extractFn(html,'scoreboardCounts').indexOf('eventOutcomeMonth(e)===ym')>0&&extractFn(html,'eventMonthCounts').indexOf('localYearMonth(x.timestamp)!==ym')>0&&extractFn(html,'scoreboardCounts').indexOf('eventStartMonth')<0&&extractFn(html,'eventMonthCounts').indexOf('eventStartMonth')<0);
-  check('S10 the add buttons follow the view',html.indexOf("g('btn-add-contact').classList.toggle('hidden',networkView!=='contacts');")>0&&html.indexOf("g('btn-add-event').classList.toggle('hidden',networkView==='contacts');")>0);
-  check('S11 the README names the pills, the MET box and CHANNEL, and the version it describes',(function(){
-    try{var r=readText(isNode?require('path').join(__dirname,'..','README.md'):'README.md');return r.indexOf('This README describes v0.12.0.')>0&&r.indexOf('CONTACTS, CANDIDATES, SELECTED and ATTENDED')>0&&r.indexOf('MET box')>0&&r.indexOf('CHANNEL')>0;}catch(e){return false;}
+  check('S10 the add buttons follow the view',html.indexOf("g('btn-add-contact').classList.toggle('hidden',networkView!=='contacts');")>0&&html.indexOf("g('btn-add-event').classList.toggle('hidden',networkView==='contacts'||networkView==='acquaintances');")>0);
+  check('S11 the README names the pills, the MET box and CHANNEL, and states a version it describes (any release; which one is the ship\'s call, not this pin\'s)',(function(){
+    try{var r=readText(isNode?require('path').join(__dirname,'..','README.md'):'README.md');return /This README describes v\d+\.\d+\.\d+\./.test(r)&&r.indexOf('CANDIDATES,')>0&&r.indexOf('SELECTED and ATTENDED')>0&&r.indexOf('MET box')>0&&r.indexOf('CHANNEL')>0;}catch(e){return false;}
   })());
 
   out(checks+' checks, '+failures+' failure(s)');
