@@ -133,6 +133,35 @@ A block with no body, or with neither an address nor a URL, is skipped and
 counted, never carded. A `dossier.txt` placed beside the page is read the
 same way at load; it is gitignored.
 
+**The state door, for an agent that reads and writes cards itself.** While
+`serve.py` runs, the whole state is one JSON document behind two loopback
+calls, the same two the page uses. `GET http://127.0.0.1:8119/state`
+returns it with a `rev` number (404 with `"rev": 0` before the first sync).
+`POST /state` with a body of `{"baseRev": <that rev>, "state": <the whole
+document, comms and network lists included>}` replaces it and answers
+`{"rev": <rev + 1>}`; a `baseRev` that is no longer current answers 409 with
+the current `rev` and writes nothing, so read again, re-apply your change,
+and post again. Every accepted write first copies the prior file under
+`state/backups/`. Change only the records you mean to change, keep every
+other key as read, and stamp each changed record's `updatedAt` with the
+current time, because an open tab merges the file back per record and the
+newer copy wins. A note onto one card, end to end:
+
+```bash
+curl -s http://127.0.0.1:8119/state > s.json
+python3 - <<'EOF'
+import json, datetime
+d = json.load(open("s.json")); rev = d.pop("rev")
+for p in d["network"]:
+    if p["name"] == "Ada Example":
+        p["notes"] = "met at the demo night; wants the deck"
+        now = datetime.datetime.now(datetime.timezone.utc)
+        p["updatedAt"] = now.strftime("%Y-%m-%dT%H:%M:%S.") + "%03dZ" % (now.microsecond // 1000)
+json.dump({"baseRev": rev, "state": d}, open("post.json", "w"))
+EOF
+curl -s -X POST http://127.0.0.1:8119/state --data @post.json
+```
+
 ## The loop
 
 1. **Your agent researches and drafts.** It writes the blocks; you import
