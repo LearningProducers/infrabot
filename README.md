@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.13.1.
+dependencies beyond Python 3 and a browser. This README describes v0.13.2.
 
 ## What it does
 
@@ -31,7 +31,9 @@ The app has four tabs.
   person, the company, the address, the discovery trail (how they showed
   up), a one-line hook (why they would care and what you are handing them),
   the subject and the body. The hook is written by your agent or typed in
-  the card's form; the page never generates it. Cards move DRAFT to
+  the card's form; the page never generates it. A card whose address is a
+  CONTACT's email carries the gold mark; one whose address is an
+  ACQUAINTANCE's reads IN NETWORK, plain. Cards move DRAFT to
   SCHEDULED to SENT (and REPLIED); a sent card with no reply after five days
   is marked WENT QUIET automatically; CLOSED is your call. A filter row
   switches between drafts, the pipeline, the archive and monthly reports,
@@ -211,6 +213,10 @@ Every check in `tests/` runs standalone from the repo root against the real
 - **v0.13.1.** The tier words: an acquaintance card carries no tier
   label; the tier move on a card reads CONTACT or ACQUAINTANCE, the tier
   it moves the person to; the TIER select's note follows.
+- **v0.13.2.** The gold predicate: one rule decides the gold mark on both
+  tabs, the tier; a communication card is gold only when its address is
+  a CONTACT's, reads IN NETWORK plainly when it is an ACQUAINTANCE's, and
+  reads nothing when nobody matches.
 
 ## Licenses
 
