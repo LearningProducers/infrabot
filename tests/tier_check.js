@@ -6,11 +6,15 @@
 // the gold mark is the CONTACT mark. v0.13.1 THE TIER WORDS: the
 // acquaintance card carries no tier label; the tier move on a card reads
 // CONTACT or ACQUAINTANCE, the tier it moves the person to; UPGRADE and
-// DOWNGRADE stand on no rendered surface.
+// DOWNGRADE stand on no rendered surface. v0.13.2 THE GOLD PREDICATE: one
+// rule, goldFor, decides the gold star and border on both tabs (a person
+// by tier; a comm card by the tier of the person its target email matches
+// through networkMatch); a comm matching an acquaintance reads a plain IN
+// NETWORK label in the star's slot and no gold; no match reads nothing.
 //
 // Runs the REAL PERSON_TIERS, RENDERED_TIERS, personTier, normalizePerson,
-// setPersonTier, acquaintanceMonth, latestMetRoom, metInMonth,
-// linkMetNames, networkViewBar and their helpers extracted from
+// setPersonTier, goldFor, networkMatch, acquaintanceMonth, latestMetRoom,
+// metInMonth, linkMetNames, networkViewBar and their helpers extracted from
 // infrabot.html by a brace walk (never a re-implementation) against
 // SYNTHETIC people and rooms: invented names, invented organizers,
 // synthetic dates; the city names are real place names on invented rooms,
@@ -33,7 +37,10 @@
 // source pins (the contact mark on every contact card and no acquaintance
 // card, the buttons, the form's select and layout, the import and merge
 // normalization, the load migration, the report's MET section, the
-// scoreboard and rooms counters untouched).
+// scoreboard and rooms counters untouched); the gold predicate: a contact
+// match earns the gold, an acquaintance match earns the plain label and
+// no gold, no match earns nothing, a customer record reads as a contact,
+// the email the only key, and both renderers read the one function.
 //
 // Run from the repo root:   node tests/tier_check.js
 //                     or:   jsc  tests/tier_check.js
@@ -75,7 +82,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   ['EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','PERSON_TIERS','RENDERED_TIERS','networkView','eventsCityFilter','uid'].forEach(function(n){ge(extractVar(html,n));});
   ['eventsList','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','localYearMonth','inMonthWindow',
    'eventStartMonth','byEventStart','eventCities','eventsShown','findContactByName','linkMetNames',
-   'personTier','normalizePerson','setPersonTier','acquaintanceMonth','latestMetRoom','metInMonth','networkViewBar'].forEach(function(n){ge(extractFn(html,n));});
+   'personTier','normalizePerson','setPersonTier','goldFor','networkMatch','acquaintanceMonth','latestMetRoom','metInMonth','networkViewBar'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){
@@ -162,7 +169,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
 
   // --- S: source pins ------------------------------------------------------
   var card=extractFn(html,'renderPersonCard');
-  check('S1 the gold star and border render on every contact card',card.indexOf('<div class="card card-converted"><div class="card-h"><div><div class="card-name"><span class="conv-star" title="Contact">★</span>')>0);
+  check('S1 the gold star and border render on every contact card, through goldFor',card.indexOf('const gold=goldFor(c);')>0&&card.indexOf("const mark=gold?'<span class=\"conv-star\" title=\"Contact\">★</span> ':'';")>0&&card.indexOf('<div class="card${gold?\' card-converted\':\'\'}"><div class="card-h"><div><div class="card-name">${mark}${esc(c.name)}</div>')>0);
   check('S2 no acquaintance card renders either',(function(){var acq=card.slice(card.indexOf("if(tier==='acquaintance')"),card.indexOf('// v0.2.6'));return acq.indexOf('card-converted')<0&&acq.indexOf('conv-star')<0;})());
   check('S3 an acquaintance card shows name, channel, MET AT, notes with OPEN and CONTACT and no COUNCIL',(function(){var acq=card.slice(card.indexOf("if(tier==='acquaintance')"),card.indexOf('// v0.2.6'));return acq.indexOf('data-act="upgrade-person"')>0&&acq.indexOf('data-act="edit-contact"')>0&&acq.indexOf('council-contact')<0&&acq.indexOf('${metAt}')>0&&acq.indexOf('Notes')>0&&acq.indexOf('esc(c.channel)')>0&&acq.indexOf('c.company')<0;})());
   check('S4 a contact card carries COUNCIL and ACQUAINTANCE',card.indexOf('data-act="council-contact"')>0&&card.indexOf('data-act="downgrade-person"')>0);
@@ -175,6 +182,20 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('S10 the scoreboard and the rooms counters are untouched',extractFn(html,'scoreboardCounts').indexOf('tier')<0&&extractFn(html,'eventMonthCounts').indexOf('tier')<0&&extractFn(html,'roomsInMonth').indexOf('tier')<0);
   check('S11 the ACQUAINTANCES view runs through the shared window and names the earlier ones',extractFn(html,'renderAcquaintancesView').indexOf('inMonthWindow(acquaintanceMonth(c))')>0&&extractFn(html,'renderAcquaintancesView').indexOf("MET EARLIER · IN THEIR MONTH'S REPORT")>0);
   check('S12 the contacts view renders contacts only',extractFn(html,'renderNetwork').indexOf("const contacts=state.network.filter(c=>personTier(c)==='contact');")>0);
+  // --- G: the gold predicate (v0.13.2) ------------------------------------
+  state.network=[
+    normalizePerson(person('g1','Ada Fixture',{email:'ada@fixture.example'})),
+    normalizePerson(person('g2','Fay Prop',{tier:'acquaintance',tierHistory:[{tier:'acquaintance',timestamp:T}],email:'fay@fixture.example'})),
+    normalizePerson(person('g3','Jun Sample',{tier:'customer',email:'jun@fixture.example'}))
+  ];
+  var rc=extractFn(html,'renderComms');
+  check('G1 a comm whose target matches a CONTACT earns the gold',networkMatch('ada@fixture.example')===state.network[0]&&goldFor(networkMatch('ada@fixture.example'))===true);
+  check('G2 a comm whose target matches an ACQUAINTANCE is matched and earns no gold',networkMatch('fay@fixture.example')===state.network[1]&&goldFor(networkMatch('fay@fixture.example'))===false);
+  check('G3 a comm with no match earns nothing: no person, no gold',networkMatch('nobody@fixture.example')===null&&networkMatch('')===null&&networkMatch(undefined)===null&&goldFor(null)===false);
+  check('G4 case and whitespace still match; a name or a domain never does',networkMatch('  ADA@Fixture.Example ')===state.network[0]&&networkMatch('Ada Fixture')===null&&networkMatch('fixture.example')===null);
+  check('G5 a customer record reads as a contact and earns the gold',goldFor(networkMatch('jun@fixture.example'))===true&&goldFor({tier:'customer'})===true&&goldFor({})===true&&goldFor({tier:'acquaintance'})===false);
+  check('G6 both renderers read the one predicate (source)',card.indexOf('goldFor(c)')>0&&rc.indexOf('const match=networkMatch(k.target);')>0&&rc.indexOf('const isConverted=goldFor(match);')>0&&rc.indexOf('.some(')<0&&(html.match(/function goldFor\(/g)||[]).length===1);
+  check('G7 an acquaintance match renders the plain IN NETWORK label in the star slot, no gold class, and the label carries no gold (source)',rc.indexOf("(match?'<span class=\"net-plain\" title=\"In your Network as an acquaintance\">IN NETWORK</span> ':'')")>0&&rc.indexOf("const convClass=isConverted?' card-converted':'';")>0&&/\.net-plain\{[^}]*color:var\(--text-dim\)[^}]*\}/.test(html)&&!/\.net-plain\{[^}]*(d4af37|c9a227|gold)/.test(html));
   // --- W: the tier words (v0.13.1) ----------------------------------------
   check('W1 the acquaintance card carries no tier label',(function(){var acq=card.slice(card.indexOf("if(tier==='acquaintance')"),card.indexOf('// v0.2.6'));return acq.indexOf('card-status')<0&&acq.indexOf('card-h-right')<0&&acq.indexOf('>ACQUAINTANCE<')<0;})());
   check('W2 the tier move on a card reads the tier it moves to: CONTACT on an acquaintance card, ACQUAINTANCE on a contact card',card.indexOf('data-act="upgrade-person" data-id="${esc(c.id)}">CONTACT</button>')>0&&card.indexOf('data-act="downgrade-person" data-id="${esc(c.id)}">ACQUAINTANCE</button>')>0);

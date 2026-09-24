@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.13.1 (THE TIER WORDS) 26-09-23                                           ║
+║  v0.13.2 (THE GOLD PREDICATE) 26-09-24                                       ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  373  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  379  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   375–  401  :root, CSS variables, fonts, reset, body                     ║
-║  L   402–  459  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   460–  502  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   503–  520  CLOCKS — live clock grid                                     ║
-║  L   521–  583  CARDS — contact card, comm card, status pills                ║
-║  L   584–  610  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   611–  620  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   621–  626  EMPTY: state placeholder                                     ║
-║  L   627–  650  MODAL — bg, box, header, footer                              ║
-║  L   651–  662  DRAWER — settings drawer + backdrop                          ║
-║  L   663–  668  COUNCIL: stream items (legacy reused)                        ║
-║  L   669–  675  TOAST: notification                                          ║
-║  L   676–  724  STATS: grid + profile block                                  ║
-║  L   725–  747  CREW BLOCK — Groq key row, council slots                     ║
-║  L   748–  769  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   770–  775  Per-response copy button (v1.2)                              ║
-║  L   776–  795  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   796–  802  v1.4: Foundation context source blocks                       ║
-║  L   803–  883  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   884–  910  INSIGHT VAULT                                                ║
+║  L   381–  407  :root, CSS variables, fonts, reset, body                     ║
+║  L   408–  465  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   466–  508  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   509–  526  CLOCKS — live clock grid                                     ║
+║  L   527–  592  CARDS — contact card, comm card, status pills                ║
+║  L   593–  619  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   620–  629  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   630–  635  EMPTY: state placeholder                                     ║
+║  L   636–  659  MODAL — bg, box, header, footer                              ║
+║  L   660–  671  DRAWER — settings drawer + backdrop                          ║
+║  L   672–  677  COUNCIL: stream items (legacy reused)                        ║
+║  L   678–  684  TOAST: notification                                          ║
+║  L   685–  733  STATS: grid + profile block                                  ║
+║  L   734–  756  CREW BLOCK — Groq key row, council slots                     ║
+║  L   757–  778  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   779–  784  Per-response copy button (v1.2)                              ║
+║  L   785–  804  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   805–  811  v1.4: Foundation context source blocks                       ║
+║  L   812–  892  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   893–  919  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   915–  933  APP: shell — header, brand, top clock, settings              ║
-║  L   934–  941  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   942–  980  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   981–  989  TAB-NETWORK — contacts list                                  ║
-║  L   990– 1083  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1084– 1098  TAB-VAULT — insights                                         ║
-║  L  1099– 1187  MODAL-CONTACT — add/edit contact                             ║
-║  L  1188– 1227  MODAL-COMM — add/edit communication                          ║
-║  L  1228– 1249  MODAL-PROFILE — edit your profile                            ║
-║  L  1250– 1264  MODAL-CLOCK — add world clock                                ║
-║  L  1265– 1280  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1281– 1308  DRAWER — profile, data, version footer                       ║
-║  L  1309– 1328  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1329– 1340  MODAL-MEM — memory inspector                                 ║
-║  L  1341– 1347  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1348– 1349  TOAST: container                                             ║
+║  L   924–  942  APP: shell — header, brand, top clock, settings              ║
+║  L   943–  950  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   951–  989  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L   990–  998  TAB-NETWORK — contacts list                                  ║
+║  L   999– 1092  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1093– 1107  TAB-VAULT — insights                                         ║
+║  L  1108– 1196  MODAL-CONTACT — add/edit contact                             ║
+║  L  1197– 1236  MODAL-COMM — add/edit communication                          ║
+║  L  1237– 1258  MODAL-PROFILE — edit your profile                            ║
+║  L  1259– 1273  MODAL-CLOCK — add world clock                                ║
+║  L  1274– 1289  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1290– 1317  DRAWER — profile, data, version footer                       ║
+║  L  1318– 1337  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1338– 1349  MODAL-MEM — memory inspector                                 ║
+║  L  1350– 1356  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1357– 1358  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1352– 1562  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1563– 1834  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1835– 1872  g, esc, uid, toast helpers + state globals                   ║
-║  L  1873– 2358  freshState, loadState (migrations), saveState                ║
-║  L  2359– 2584  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2585– 2618  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2619– 2664  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2665– 3524  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3525– 3645  getCommBucket + age helpers, setCommsView                    ║
-║  L  3646– 3783  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3784– 3928  renderComms — full status/triage rendering                   ║
-║  L  3929– 3956  archiveComm + reviveComm                                     ║
-║  L  3957– 4079  renderReportsPanel + computeMonthStats                       ║
-║  L  4080– 4271  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4272– 4545  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4546– 4596  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4597– 4873  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4874– 5023  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5024– 5091  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5092– 5380  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1361– 1571  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1572– 1843  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1844– 1881  g, esc, uid, toast helpers + state globals                   ║
+║  L  1882– 2367  freshState, loadState (migrations), saveState                ║
+║  L  2368– 2593  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2594– 2627  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2628– 2673  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2674– 3551  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3552– 3672  getCommBucket + age helpers, setCommsView                    ║
+║  L  3673– 3810  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  3811– 3958  renderComms — full status/triage rendering                   ║
+║  L  3959– 3986  archiveComm + reviveComm                                     ║
+║  L  3987– 4109  renderReportsPanel + computeMonthStats                       ║
+║  L  4110– 4301  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4302– 4575  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4576– 4626  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4627– 4903  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4904– 5053  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5054– 5121  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5122– 5410  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5381– 5495  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5496– 5526  saveProfile + clock save/remove                              ║
-║  L  5527– 5680  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5681– 5859  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5860– 6104  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6105– 6522  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6523– 6862  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6863– 6874  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6875– 6919  saveGroqKey, clearGroqKey                                    ║
-║  L  6920– 7860  exportAll, importJson, wipeAll                               ║
+║  L  5411– 5525  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5526– 5556  saveProfile + clock save/remove                              ║
+║  L  5557– 5710  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5711– 5889  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5890– 6134  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6135– 6552  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6553– 6892  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6893– 6904  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6905– 6949  saveGroqKey, clearGroqKey                                    ║
+║  L  6950– 7890  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -333,7 +333,13 @@
 ║      same act behind both; the TIER select's note follows. The               ║
 ║      transition record and the tier field keep their names. Nothing          ║
 ║      else moved. tests/tier_check.js.                                        ║
-║  L  7861– 8179  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.13.2 THE GOLD PREDICATE: one rule, goldFor, decides the gold star     ║
+║      and border on both tabs: a person by tier (CONTACT), a comm card by     ║
+║      the tier of the person its target email matches (networkMatch, the      ║
+║      email still the only key). A comm matching an ACQUAINTANCE reads a      ║
+║      plain IN NETWORK label in the star's slot and no gold; no match, no     ║
+║      label. Nothing stored. tests/tier_check.js G1 to G7.                    ║
+║  L  7891– 8209  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -530,10 +536,13 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .card:hover{border-color:var(--cyan-dim)}
 /* v4.6.0-2B: converted comm (person is in Network, matched by email). Gold glow,
    deliberately distinct from the cyan/green status palette. Subtle, not neon.
-   v0.13.0: the same rules mark a CONTACT card on the NETWORK tab, by tier. */
+   v0.13.0: the same rules mark a CONTACT card on the NETWORK tab, by tier.
+   v0.13.2: one predicate, goldFor, decides both tabs by tier; a comm whose
+   match is an acquaintance gets .net-plain in the star's slot, no gold. */
 .card-converted{border-color:#c9a227;box-shadow:0 0 0 1px rgba(212,175,55,.35),0 0 14px rgba(212,175,55,.18)}
 .card-converted:hover{border-color:#d4af37}
 .conv-star{color:#d4af37;font-size:13px;line-height:1;text-shadow:0 0 6px rgba(212,175,55,.5)}
+.net-plain{font-size:10px;letter-spacing:.1em;color:var(--text-dim);font-weight:400;vertical-align:middle}
 .card-h{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .card-name{font-family:var(--mono);font-size:14px;letter-spacing:.05em;color:var(--text-bright);font-weight:600;line-height:1.3}
 .card-sub{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--text-dim);margin-top:4px}
@@ -926,7 +935,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.13.1</span>
+      <span class="version-pill" title="INFRABOT build">v0.13.2</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1302,7 +1311,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.13.1 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.13.2 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1349,7 +1358,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.13.1';
+const APP_VERSION='infrabot-v0.13.2';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2732,9 +2741,10 @@ function personIntel(c,sep){
   return intel;
 }
 // One card per person, shaped by tier. THE CONTACT MARK: the gold star and
-// the gold border render on every CONTACT card and on no ACQUAINTANCE card
-// (they used to mean an email-keyed link to a logged comm; the comm card's
-// own mark keeps that meaning, 3a). A contact card: OPEN, COUNCIL,
+// the gold border render on every CONTACT card and on no ACQUAINTANCE card,
+// decided by goldFor, the one rule the comm card reads too (v0.13.2 THE
+// GOLD PREDICATE; the comm card's gold used to be an email match alone,
+// 3a). A contact card: OPEN, COUNCIL,
 // ACQUAINTANCE (the move down). An acquaintance card: name, channel, MET
 // AT, notes, no tier label; OPEN, CONTACT (the move up); no council
 // (v0.13.1 THE TIER WORDS). Comments authored with zero brace pairs.
@@ -2753,7 +2763,9 @@ function renderPersonCard(c){
     ?`<div class="row-clock" data-tz="${esc(ctz)}"><span class="live-dot"></span><span class="clock-time-inline">--<span class="clock-colon">:</span>--</span><span class="clock-tz-inline">--</span><span class="city-label">${esc((c.city||'').toUpperCase())}</span></div>`
     :(c.city?`<div class="row-clock"><span class="city-label">${esc(c.city.toUpperCase())}</span></div>`:'');
   const intel=personIntel(c,' · ');
-  return `<div class="card card-converted"><div class="card-h"><div><div class="card-name"><span class="conv-star" title="Contact">★</span> ${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}${c.channel?' · '+esc(c.channel):''}</div></div></div><div class="card-body">${rowClock}${metAt}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button><button class="btn muted sm" data-act="downgrade-person" data-id="${esc(c.id)}">ACQUAINTANCE</button></div></div>`;
+  const gold=goldFor(c);
+  const mark=gold?'<span class="conv-star" title="Contact">★</span> ':'';
+  return `<div class="card${gold?' card-converted':''}"><div class="card-h"><div><div class="card-name">${mark}${esc(c.name)}</div><div class="card-sub">${esc(c.company||'—')}${c.website?' · '+linkHtml(c.website):''}${c.channel?' · '+esc(c.channel):''}</div></div></div><div class="card-body">${rowClock}${metAt}${intel?`<div class="card-section"><div class="card-section-h">Intel</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(intel)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-contact" data-id="${esc(c.id)}">OPEN</button><button class="btn muted sm" data-act="council-contact" data-id="${esc(c.id)}">COUNCIL</button><button class="btn muted sm" data-act="downgrade-person" data-id="${esc(c.id)}">ACQUAINTANCE</button></div></div>`;
 }
 // THE ACQUAINTANCES PILL: the acquaintances whose month is the current
 // home-zone month through the shared window; the rest are named by count
@@ -2778,6 +2790,21 @@ const RENDERED_TIERS=['acquaintance','contact'];
 function personTier(c){
   const t=String((c&&c.tier)||'').toLowerCase();
   return t==='acquaintance'?'acquaintance':'contact';
+}
+// THE GOLD PREDICATE (v0.13.2): one rule decides the gold star and border
+// on both tabs. A person earns them by tier, CONTACT and nothing else; a
+// comm card earns them when its target email matches a person who does.
+// A comm whose match is an acquaintance gets a plain IN NETWORK label in
+// the star's slot and no gold. Computed at render, never stored (D-GLW-4).
+function goldFor(c){
+  return !!c&&personTier(c)==='contact';
+}
+// The Network person a comm's target email names: trimmed, lowercased,
+// non-empty, the email the only key (D-GLW-1). null when nobody matches.
+function networkMatch(target){
+  const t=(target||'').trim().toLowerCase();
+  if(!t)return null;
+  return (state.network||[]).find(ct=>((ct.email||'').trim().toLowerCase())===t)||null;
 }
 // A person with no tier is a CONTACT since the day they were added: the
 // seed rides addedAt, a stamp the record already carries, never the clock.
@@ -3902,13 +3929,16 @@ function renderComms(){
       extraActions=`<button class="btn muted sm" data-act="revive-comm" data-id="${esc(k.id)}" title="Move back to PIPELINE as SENT">↩ REVIVE</button>`;
     }
 
-    // v4.6.0-2B: a comm is "converted" when its target email matches a Network
-    // contact's email (case-insensitive, trimmed). Email is the reliable key (the
-    // contact email field added in 2A). Non-empty target only; no fuzzy name match.
-    const tgt=(k.target||'').trim().toLowerCase();
-    const isConverted=tgt!=='' && (state.network||[]).some(ct=>((ct.email||'').trim().toLowerCase())===tgt);
+    // THE GOLD PREDICATE (v0.13.2): a comm card's gold follows the tier of
+    // the Network person its target email names (networkMatch; the email the
+    // only key since v4.6.0-2B, trimmed and lowercased) through goldFor, the
+    // one rule both tabs read. An acquaintance match reads IN NETWORK, plain,
+    // in the star's slot; no match reads nothing. "Converted" is the v4.6.0
+    // name of the gold case and nothing else about that rule survives here.
+    const match=networkMatch(k.target);
+    const isConverted=goldFor(match);
     const convClass=isConverted?' card-converted':'';
-    const convStar=isConverted?'<span class="conv-star" title="In your Network">★</span> ':'';
+    const convStar=isConverted?'<span class="conv-star" title="In your Network">★</span> ':(match?'<span class="net-plain" title="In your Network as an acquaintance">IN NETWORK</span> ':'');
 
     // v0.2.6: live local-time clock for the comm's logged City (CITY_TZ lookup,
     // same row-clock treatment as the Network cards). Unknown city renders
