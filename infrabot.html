@@ -64,28 +64,28 @@
 ║  L  2674– 3551  switchTab, renderAll, renderOverview, renderNetwork          ║
 ║  L  3552– 3672  getCommBucket + age helpers, setCommsView                    ║
 ║  L  3673– 3810  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3811– 3957  renderComms — full status/triage rendering                   ║
-║  L  3958– 3985  archiveComm + reviveComm                                     ║
-║  L  3986– 4108  renderReportsPanel + computeMonthStats                       ║
-║  L  4109– 4300  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4301– 4574  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4575– 4625  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4626– 4902  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4903– 5052  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5053– 5120  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5121– 5409  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  3811– 3958  renderComms — full status/triage rendering                   ║
+║  L  3959– 3986  archiveComm + reviveComm                                     ║
+║  L  3987– 4109  renderReportsPanel + computeMonthStats                       ║
+║  L  4110– 4301  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4302– 4575  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4576– 4626  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4627– 4903  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  4904– 5053  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5054– 5121  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5122– 5410  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5410– 5524  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5525– 5555  saveProfile + clock save/remove                              ║
-║  L  5556– 5709  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5710– 5888  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5889– 6133  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6134– 6551  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6552– 6891  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6892– 6903  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6904– 6948  saveGroqKey, clearGroqKey                                    ║
-║  L  6949– 7889  exportAll, importJson, wipeAll                               ║
+║  L  5411– 5525  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5526– 5556  saveProfile + clock save/remove                              ║
+║  L  5557– 5710  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  5711– 5889  buildCouncilContext (system+profile+body+intel)              ║
+║  L  5890– 6134  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6135– 6552  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6553– 6892  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  6893– 6904  initCrewBlock, drawer toggle, crew status                    ║
+║  L  6905– 6949  saveGroqKey, clearGroqKey                                    ║
+║  L  6950– 7890  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -339,7 +339,7 @@
 ║      email still the only key). A comm matching an ACQUAINTANCE reads a      ║
 ║      plain IN NETWORK label in the star's slot and no gold; no match, no     ║
 ║      label. Nothing stored. tests/tier_check.js G1 to G7.                    ║
-║  L  7890– 8208  wireEvents + DOMContentLoaded boot                           ║
+║  L  7891– 8209  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -3929,11 +3929,12 @@ function renderComms(){
       extraActions=`<button class="btn muted sm" data-act="revive-comm" data-id="${esc(k.id)}" title="Move back to PIPELINE as SENT">↩ REVIVE</button>`;
     }
 
-    // v4.6.0-2B: a comm is "converted" when its target email matches a Network
-    // person's email (case-insensitive, trimmed; networkMatch). v0.13.2 THE
-    // GOLD PREDICATE: the gold follows that person's tier through goldFor,
-    // the one rule both tabs read. An acquaintance match reads IN NETWORK,
-    // plain, in the star's slot; no match reads nothing. Email stays the key.
+    // THE GOLD PREDICATE (v0.13.2): a comm card's gold follows the tier of
+    // the Network person its target email names (networkMatch; the email the
+    // only key since v4.6.0-2B, trimmed and lowercased) through goldFor, the
+    // one rule both tabs read. An acquaintance match reads IN NETWORK, plain,
+    // in the star's slot; no match reads nothing. "Converted" is the v4.6.0
+    // name of the gold case and nothing else about that rule survives here.
     const match=networkMatch(k.target);
     const isConverted=goldFor(match);
     const convClass=isConverted?' card-converted':'';
