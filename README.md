@@ -155,7 +155,8 @@ d = json.load(open("s.json")); rev = d.pop("rev")
 for p in d["network"]:
     if p["name"] == "Ada Example":
         p["notes"] = "met at the demo night; wants the deck"
-        p["updatedAt"] = datetime.datetime.utcnow().isoformat(timespec="milliseconds") + "Z"
+        now = datetime.datetime.now(datetime.timezone.utc)
+        p["updatedAt"] = now.strftime("%Y-%m-%dT%H:%M:%S.") + "%03dZ" % (now.microsecond // 1000)
 json.dump({"baseRev": rev, "state": d}, open("post.json", "w"))
 EOF
 curl -s -X POST http://127.0.0.1:8119/state --data @post.json
