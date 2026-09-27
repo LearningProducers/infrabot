@@ -223,3 +223,11 @@ Every check in `tests/` runs standalone from the repo root against the real
 This repository is MIT licensed (see `LICENSE`). Groq's API and the models
 served through it belong to their providers under their own terms; nothing
 here claims otherwise.
+
+## Provenance
+
+A dated, commit-anchored lineage and prior-art record for infrabot lives at
+[docs/infrabot-prior-art.md](docs/infrabot-prior-art.md): what the
+application is, who wrote it, which commit first carried each feature, the
+SHA-256 of `infrabot.html` at every version, and the prior art each scoped
+claim is measured against.
