@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.13.2.
+dependencies beyond Python 3 and a browser. This README describes v0.13.3.
 
 ## What it does
 
@@ -217,6 +217,10 @@ Every check in `tests/` runs standalone from the repo root against the real
   tabs, the tier; a communication card is gold only when its address is
   a CONTACT's, reads IN NETWORK plainly when it is an ACQUAINTANCE's, and
   reads nothing when nobody matches.
+- **v0.13.3.** The trail links: a URL inside a communication card's
+  discovery trail is a link, the same link the event card's Verify line
+  renders (new tab, no referrer, the URL itself as the text); the text
+  around it and a trail with no URL render as before.
 
 ## Licenses
 

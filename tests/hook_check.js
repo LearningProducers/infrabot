@@ -5,7 +5,8 @@
 // Runs the REAL dossier parser and additive import extracted from
 // infrabot.html by a brace walk (parseDossierText, additiveImportComms and
 // their helpers, the same symbols the external ingest extracts), plus the
-// real hookHtml, trailHtml and esc, against a SYNTHETIC fixture: invented
+// real hookHtml, trailHtml (with the link helpers it reads since v0.13.3) and
+// esc, against a SYNTHETIC fixture: invented
 // companies, people, addresses and ids. The real state file never enters
 // this file: the repo is public.
 //
@@ -68,7 +69,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   ['DOSSIER_KNOWN_LABELS','DOSSIER_EMAIL_RE','uid','CW_APP_URL','esc'].forEach(function(n){ge(extractVar(html,n));});
   ['_dEscapeRe','_dSplitBlocks','_dIsProspect','_dField','_dLooksLikeLabel','_dGrabBody',
    '_dExtractEmail','_dExtractUrl','_dIsNonDraft','_dTargetName','_dHeaderCity',
-   'parseDossierText','additiveImportComms','expandAppLink','hookHtml','trailHtml'].forEach(function(n){ge(extractFn(html,n));});
+   'parseDossierText','additiveImportComms','expandAppLink','hookHtml','linkHref','linkHtml','trailTextHtml','trailHtml'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){
