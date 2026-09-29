@@ -82,7 +82,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   ['EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','PERSON_TIERS','RENDERED_TIERS','networkView','eventsCityFilter','uid'].forEach(function(n){ge(extractVar(html,n));});
   ['eventsList','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','localYearMonth','inMonthWindow',
    'eventStartMonth','byEventStart','eventCities','eventsShown','findContactByName','linkMetNames',
-   'personTier','normalizePerson','setPersonTier','goldFor','networkMatch','acquaintanceMonth','latestMetRoom','metInMonth','networkViewBar'].forEach(function(n){ge(extractFn(html,n));});
+   'personTier','normalizePerson','setPersonTier','goldFor','networkMatch','acquaintanceMonth','latestMetRoom','metInMonth','callsList','networkViewBar'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){

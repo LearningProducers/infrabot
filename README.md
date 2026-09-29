@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.13.3.
+dependencies beyond Python 3 and a browser. This README describes v0.14.0.
 
 ## What it does
 
@@ -11,10 +11,11 @@ The app has four tabs.
 
 - **OVERVIEW.** A world map with your cities pinned, live clocks, today's
   counters, and your profile (used in the messages you share).
-- **NETWORK.** The people you know and the in-person events you are
-  considering, behind five pills: CONTACTS, ACQUAINTANCES, CANDIDATES,
-  SELECTED and ATTENDED, each with its count; SKIPPED rooms sit folded at
-  the foot of CANDIDATES, and a city filter narrows every events pill.
+- **NETWORK.** The people you know, the in-person events you are
+  considering and the phone calls you are about to make, behind six pills:
+  CONTACTS, ACQUAINTANCES, CANDIDATES, SELECTED, ATTENDED and CALLS, each
+  with its count; SKIPPED rooms sit folded at the foot of CANDIDATES, and a
+  city filter narrows every events pill.
   Every person carries a tier. A CONTACT is someone you have had a live
   conversation with: the full card (company, website, email, CHANNEL,
   city, intel), the gold mark, a COUNCIL button and an ACQUAINTANCE
@@ -26,7 +27,15 @@ The app has four tabs.
   acquaintances, and every tier change is recorded with its time. ATTENDED
   shows the rooms whose date falls in the current month and ACQUAINTANCES
   the people met this month; earlier ones leave their pill untouched and
-  appear under ROOMS and MET in that month's report.
+  appear under ROOMS and MET in that month's report. CALLS holds one brief
+  per company you dial: the company, its location, the number (a tap-to-dial
+  link), the website, the hook (the one reason for the call), the support
+  (citations, each with the exact words, the page they read on and the day
+  you checked it; a citation with no page, no date or a flag reads
+  UNVERIFIED on the card), and the follow-through: the person you were
+  given, who links to a Network person of that name or becomes one. A brief
+  is written by your agent through the state door or typed in the form; the
+  page generates none of it.
 - **COMMUNICATIONS.** Draft cards, one per message. A card carries the
   person, the company, the address, the discovery trail (how they showed
   up), a one-line hook (why they would care and what you are handing them),
@@ -221,6 +230,11 @@ Every check in `tests/` runs standalone from the repo root against the real
   discovery trail is a link, the same link the event card's Verify line
   renders (new tab, no referrer, the URL itself as the text); the text
   around it and a trail with no URL render as before.
+- **v0.14.0.** The calls pill: a CALLS pill on the NETWORK bar holding one
+  brief per company you dial (company, location, a tap-to-dial number, the
+  website, the hook, citations with a check date and an UNVERIFIED flag, the
+  follow-through name that links or creates a Network person); a `calls` key
+  on the state export and the state door.
 
 ## Licenses
 

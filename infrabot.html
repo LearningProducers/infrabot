@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.13.3 (THE TRAIL LINKS) 26-09-28                                          ║
+║  v0.14.0 (THE CALLS PILL) 26-09-29                                           ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  385  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  391  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   387–  413  :root, CSS variables, fonts, reset, body                     ║
-║  L   414–  471  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   472–  514  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   515–  532  CLOCKS — live clock grid                                     ║
-║  L   533–  598  CARDS — contact card, comm card, status pills                ║
-║  L   599–  625  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   626–  635  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   636–  641  EMPTY: state placeholder                                     ║
-║  L   642–  665  MODAL — bg, box, header, footer                              ║
-║  L   666–  677  DRAWER — settings drawer + backdrop                          ║
-║  L   678–  683  COUNCIL: stream items (legacy reused)                        ║
-║  L   684–  690  TOAST: notification                                          ║
-║  L   691–  739  STATS: grid + profile block                                  ║
-║  L   740–  762  CREW BLOCK — Groq key row, council slots                     ║
-║  L   763–  784  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   785–  790  Per-response copy button (v1.2)                              ║
-║  L   791–  810  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   811–  817  v1.4: Foundation context source blocks                       ║
-║  L   818–  898  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   899–  925  INSIGHT VAULT                                                ║
+║  L   393–  419  :root, CSS variables, fonts, reset, body                     ║
+║  L   420–  477  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   478–  520  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   521–  538  CLOCKS — live clock grid                                     ║
+║  L   539–  609  CARDS — contact card, comm card, status pills                ║
+║  L   610–  636  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   637–  646  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   647–  652  EMPTY: state placeholder                                     ║
+║  L   653–  676  MODAL — bg, box, header, footer                              ║
+║  L   677–  688  DRAWER — settings drawer + backdrop                          ║
+║  L   689–  694  COUNCIL: stream items (legacy reused)                        ║
+║  L   695–  701  TOAST: notification                                          ║
+║  L   702–  750  STATS: grid + profile block                                  ║
+║  L   751–  773  CREW BLOCK — Groq key row, council slots                     ║
+║  L   774–  795  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   796–  801  Per-response copy button (v1.2)                              ║
+║  L   802–  821  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   822–  828  v1.4: Foundation context source blocks                       ║
+║  L   829–  909  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   910–  936  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   930–  948  APP: shell — header, brand, top clock, settings              ║
-║  L   949–  956  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   957–  995  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L   996– 1004  TAB-NETWORK — contacts list                                  ║
-║  L  1005– 1098  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1099– 1113  TAB-VAULT — insights                                         ║
-║  L  1114– 1202  MODAL-CONTACT — add/edit contact                             ║
-║  L  1203– 1242  MODAL-COMM — add/edit communication                          ║
-║  L  1243– 1264  MODAL-PROFILE — edit your profile                            ║
-║  L  1265– 1279  MODAL-CLOCK — add world clock                                ║
-║  L  1280– 1295  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1296– 1323  DRAWER — profile, data, version footer                       ║
-║  L  1324– 1343  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1344– 1355  MODAL-MEM — memory inspector                                 ║
-║  L  1356– 1362  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1363– 1364  TOAST: container                                             ║
+║  L   941–  959  APP: shell — header, brand, top clock, settings              ║
+║  L   960–  967  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   968– 1006  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L  1007– 1016  TAB-NETWORK — contacts list                                  ║
+║  L  1017– 1110  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1111– 1125  TAB-VAULT — insights                                         ║
+║  L  1126– 1242  MODAL-CONTACT — add/edit contact                             ║
+║  L  1243– 1282  MODAL-COMM — add/edit communication                          ║
+║  L  1283– 1304  MODAL-PROFILE — edit your profile                            ║
+║  L  1305– 1319  MODAL-CLOCK — add world clock                                ║
+║  L  1320– 1335  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1336– 1363  DRAWER — profile, data, version footer                       ║
+║  L  1364– 1383  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1384– 1395  MODAL-MEM — memory inspector                                 ║
+║  L  1396– 1402  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1403– 1404  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1367– 1577  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1578– 1849  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1850– 1887  g, esc, uid, toast helpers + state globals                   ║
-║  L  1888– 2373  freshState, loadState (migrations), saveState                ║
-║  L  2374– 2599  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2600– 2633  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2634– 2679  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2680– 3557  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3558– 3678  getCommBucket + age helpers, setCommsView                    ║
-║  L  3679– 3829  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  3830– 3977  renderComms — full status/triage rendering                   ║
-║  L  3978– 4005  archiveComm + reviveComm                                     ║
-║  L  4006– 4128  renderReportsPanel + computeMonthStats                       ║
-║  L  4129– 4320  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4321– 4594  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4595– 4645  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  4646– 4922  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  4923– 5072  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5073– 5140  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5141– 5429  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1407– 1617  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1618– 1889  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1890– 1927  g, esc, uid, toast helpers + state globals                   ║
+║  L  1928– 2414  freshState, loadState (migrations), saveState                ║
+║  L  2415– 2640  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2641– 2674  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2675– 2720  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2721– 3885  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3886– 4006  getCommBucket + age helpers, setCommsView                    ║
+║  L  4007– 4157  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4158– 4305  renderComms — full status/triage rendering                   ║
+║  L  4306– 4333  archiveComm + reviveComm                                     ║
+║  L  4334– 4456  renderReportsPanel + computeMonthStats                       ║
+║  L  4457– 4648  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4649– 4922  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4923– 4973  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  4974– 5250  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5251– 5400  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5401– 5468  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5469– 5757  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5430– 5544  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5545– 5575  saveProfile + clock save/remove                              ║
-║  L  5576– 5729  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  5730– 5908  buildCouncilContext (system+profile+body+intel)              ║
-║  L  5909– 6153  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6154– 6571  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6572– 6911  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  6912– 6923  initCrewBlock, drawer toggle, crew status                    ║
-║  L  6924– 6968  saveGroqKey, clearGroqKey                                    ║
-║  L  6969– 7909  exportAll, importJson, wipeAll                               ║
+║  L  5758– 5872  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5873– 5903  saveProfile + clock save/remove                              ║
+║  L  5904– 6057  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6058– 6236  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6237– 6481  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6482– 6899  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6900– 7239  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7240– 7251  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7252– 7296  saveGroqKey, clearGroqKey                                    ║
+║  L  7297– 8243  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -345,7 +345,13 @@
 ║      the url itself the text); the fold is unchanged, the text around a url  ║
 ║      stays escaped text, punctuation after a url stays outside the anchor.   ║
 ║      Nothing stored. tests/trail_link_check.js.                              ║
-║  L  7910– 8228  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.14.0 THE CALLS PILL: a CALLS pill on the NETWORK bar, state.calls:    ║
+║      one brief per company the founder dials: company, location, the number  ║
+║      through telHtml (tel: only, never linkHref), the website through        ║
+║      linkHtml, the hook, citations each with a page, a check date and a      ║
+║      VERIFIED-or-UNVERIFIED pill, the follow-through name linking or         ║
+║      creating a Network acquaintance. tests/calls_check.js.                  ║
+║  L  8244– 8571  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -589,6 +595,11 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 /* ARTIFACT LEDGER: status and type pills plus the Overview scoreboard, the same palette */
 .card-status.planned{color:var(--amber);border-color:var(--amber-dim);background:rgba(251,191,36,.05)}
 .card-status.delivered{color:var(--green);border-color:#065f46;background:rgba(16,185,129,.05)}
+/* PHONE CALLS: status pills and the citation check pill, the same palette */
+.card-status.queued{color:var(--amber);border-color:var(--amber-dim);background:rgba(251,191,36,.05)}
+.card-status.called{color:var(--green);border-color:#065f46;background:rgba(16,185,129,.05)}
+.cite-pill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;padding:2px 6px;border:1px solid #065f46;color:var(--green);text-transform:uppercase;white-space:nowrap;margin-left:6px}
+.cite-pill.unverified{border-color:var(--amber-dim);color:var(--amber);background:rgba(251,191,36,.08)}
 .card-status.ar-type{color:var(--cyan);border-color:var(--cyan-dim);margin-left:8px;vertical-align:middle}
 .scoreboard{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .scoreboard th,.scoreboard td{border:1px solid var(--line);padding:10px 8px;text-align:center;color:var(--text)}
@@ -941,7 +952,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.13.3</span>
+      <span class="version-pill" title="INFRABOT build">v0.14.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -998,6 +1009,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
         <div class="section-h-title">// NETWORK</div>
         <button class="btn" id="btn-add-contact">+ ADD CONTACT</button>
         <button class="btn hidden" id="btn-add-event">+ ADD EVENT</button>
+        <button class="btn hidden" id="btn-add-call">+ NEW CALL</button>
       </div>
       <div id="network-body"></div>
     </section>
@@ -1171,6 +1183,34 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 </div>
 
+<div class="modal-bg wide-bg" id="modal-call">
+  <div class="modal modal-wide">
+    <div class="modal-h"><span class="mh-title" id="modal-call-title">// NEW CALL</span><div class="edit-text-size"><button type="button" data-edit-size="-1" title="Decrease text size">A−</button><span class="edit-size-label">LG</span><button type="button" data-edit-size="1" title="Increase text size">A+</button></div><button class="modal-close" data-close="modal-call">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Company *</label><input type="text" id="cl-company" placeholder="Who you are calling"></div>
+      <div class="field-row">
+        <div class="field"><label>Location</label><input type="text" id="cl-location" placeholder="City, state; where the role sits"></div>
+        <div class="field"><label>Phone</label><input type="text" id="cl-phone" placeholder="(312) 555-0100"><div class="field-link" id="cl-phone-link"></div></div>
+      </div>
+      <div class="field"><label>Phone note (leave empty when the number is verified)</label><input type="text" id="cl-phone-note" placeholder="UNVERIFIED: what it reaches was never checked"></div>
+      <div class="field"><label>Website</label><input type="text" id="cl-website" placeholder="https://..."><div class="field-link" id="cl-website-link"></div></div>
+      <div class="field"><label>Status</label><select id="cl-status"><option value="queued">QUEUED</option><option value="called">CALLED</option><option value="skipped">SKIPPED</option></select><div id="cl-status-note" class="tiny mono" style="margin-top:6px;color:var(--amber)"></div></div>
+      <div class="field wide-span"><label>Hook *</label><textarea id="cl-hook" placeholder="The one-line reason for the call. No hook, no brief." style="min-height:64px"></textarea><div id="cl-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
+      <div class="field wide-span"><label>Support (one citation per line: the checked date, the URL, then the exact words; start a line with UNVERIFIED when it could not be re-opened)</label><textarea id="cl-support" placeholder="2026-01-15 https://example.com/page &quot;the exact words, verbatim&quot;" style="min-height:96px"></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Follow-through name (the person you were given; links to a Network person or creates one)</label><input type="text" id="cl-follow-name" placeholder="Blank until after the call"></div>
+        <div class="field"><label>Follow-through channel (their number, or how to reach them)</label><input type="text" id="cl-follow-channel" placeholder="(312) 555-0101, or an address"></div>
+      </div>
+      <div class="field wide-span"><label>Notes</label><textarea id="cl-notes" placeholder="What the call opened." style="min-height:64px"></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn danger hidden" id="btn-delete-call">DELETE</button>
+      <button class="btn muted" data-close="modal-call">CANCEL</button>
+      <button class="btn" id="btn-save-call">SAVE CALL</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-bg wide-bg" id="modal-artifact">
   <div class="modal modal-wide">
     <div class="modal-h"><span class="mh-title" id="modal-artifact-title">// NEW ARTIFACT</span><div class="edit-text-size"><button type="button" data-edit-size="-1" title="Decrease text size">A−</button><span class="edit-size-label">LG</span><button type="button" data-edit-size="1" title="Increase text size">A+</button></div><button class="modal-close" data-close="modal-artifact">×</button></div>
@@ -1317,7 +1357,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.13.3 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.14.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1364,7 +1404,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.13.3';
+const APP_VERSION='infrabot-v0.14.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1901,6 +1941,7 @@ function freshState(){
     comms:[],
     events:[],
     artifacts:[],
+    calls:[],
     insights:[],
     customCities:{},
     groqKey:'',
@@ -2721,8 +2762,10 @@ function renderOverview(){
 function renderNetwork(){
   const body=g('network-body');
   g('btn-add-contact').classList.toggle('hidden',networkView!=='contacts');
-  g('btn-add-event').classList.toggle('hidden',networkView==='contacts'||networkView==='acquaintances');
+  g('btn-add-event').classList.toggle('hidden',networkView==='contacts'||networkView==='acquaintances'||networkView==='calls');
+  g('btn-add-call').classList.toggle('hidden',networkView!=='calls');
   const viewBar=networkViewBar();
+  if(networkView==='calls'){body.innerHTML=viewBar+renderCallsView();return;}
   if(networkView!=='contacts'&&networkView!=='acquaintances'){body.innerHTML=viewBar+renderEventsView();return;}
   if(networkView==='acquaintances'){body.innerHTML=viewBar+renderAcquaintancesView();return;}
   const contacts=state.network.filter(c=>personTier(c)==='contact');
@@ -2885,7 +2928,7 @@ const EVENT_STATUSES=['candidate','selected','attended','skipped'];
 const EVENT_OUTCOMES=['none','conversation','meeting','deposit'];
 // THE NETWORK VIEWS. One pill per view; 'events' is the pre-v0.12.0 name and
 // resolves to candidates.
-const NETWORK_VIEWS=['contacts','acquaintances','candidates','selected','attended'];
+const NETWORK_VIEWS=['contacts','acquaintances','candidates','selected','attended','calls'];
 let networkView='contacts';
 let editingEventId=null;
 let openedEventStatus='candidate';
@@ -3136,7 +3179,8 @@ function eventsShown(){
 // archive-pill rule), so a pill and its grid can never disagree. SKIPPED has
 // no pill; its count sits on the fold at the foot of CANDIDATES.
 function networkViewBar(){
-  const counts={contacts:0,acquaintances:0,candidates:0,selected:0,attended:0};
+  const counts={contacts:0,acquaintances:0,candidates:0,selected:0,attended:0,calls:0};
+  callsList().forEach(c=>{if(c.status!=='skipped')counts.calls++;});
   state.network.forEach(c=>{
     if(personTier(c)==='contact')counts.contacts++;
     else if(inMonthWindow(acquaintanceMonth(c)))counts.acquaintances++;
@@ -3297,6 +3341,290 @@ function importEvents(incoming){
     if(!String(local.notes||'').trim()&&String(inc.notes||'').trim()){local.notes=inc.notes;moved=true;}
     if((!Array.isArray(local.met)||!local.met.length)&&inc.met.length){local.met=inc.met.slice();moved=true;}
     if((!local.outcome||local.outcome==='none')&&inc.outcome!=='none'){local.outcome=inc.outcome;moved=true;}
+    if(moved)res.updated++;else res.skipped++;
+  });
+  return res;
+}
+
+// PHONE CALLS ==================================================================
+// One brief per company the founder dials, on state.calls, a record class of
+// its own beside the rooms: the company, its location, the number, the site,
+// the hook (the one reason for the call), the support (citations, each with
+// the words as they read, the page they read on and the day they were
+// checked) and, after the call, the person the founder was given. A brief
+// is written by an agent through the state door or typed in the form; the
+// page generates none of it. The card is the event card's sibling: the hook
+// where a room shows its reason, the website through the one link helper,
+// the number through its own tel helper, the citations under it. A citation
+// is VERIFIED only when it names a page the link helper accepts, carries a
+// check date and is not flagged; anything else reads UNVERIFIED on the card,
+// never silently. Nothing moves a brief but a hand: no sweep, no clock.
+// Comments in this block authored with zero brace pairs.
+const CALL_STATUSES=['queued','called','skipped'];
+let editingCallId=null;
+let openedCallStatus='queued';
+function callsList(){
+  if(!state)return [];
+  if(!Array.isArray(state.calls))state.calls=[];
+  return state.calls;
+}
+// One citation: the exact words, the page, the day checked, the flag. Every
+// field present with its type; an entry with neither words nor a page is
+// dropped, so a blank line in the form stores nothing.
+function normalizeSupport(list){
+  const out=[];
+  (Array.isArray(list)?list:[]).forEach(s=>{
+    if(!s||typeof s!=='object')return;
+    const e={quote:String(s.quote==null?'':s.quote).trim(),url:String(s.url==null?'':s.url).trim(),checked:String(s.checked==null?'':s.checked).trim(),unverified:!!s.unverified};
+    if(!e.quote&&!e.url)return;
+    out.push(e);
+  });
+  return out;
+}
+// Every field present with its type; a well-formed record passes through
+// byte-identical, which keeps export then import byte-stable.
+function normalizeCall(c){
+  if(!c||typeof c!=='object')return c;
+  ['company','location','phone','phoneNote','website','hook','followName','followChannel','contactId','notes'].forEach(k=>{if(typeof c[k]!=='string')c[k]=c[k]==null?'':String(c[k]);});
+  const st=String(c.status||'').toLowerCase();
+  c.status=CALL_STATUSES.includes(st)?st:'queued';
+  c.support=normalizeSupport(c.support);
+  if(!c.createdAt)c.createdAt=new Date().toISOString();
+  if(!Array.isArray(c.statusHistory)||!c.statusHistory.length)c.statusHistory=[{status:c.status,timestamp:c.createdAt}];
+  return c;
+}
+// The form's support box, one citation per line, in any order of tokens: a
+// leading UNVERIFIED word flags it, a YYYY-MM-DD token is the check date, an
+// http or https token is the page, and everything else is the words (outer
+// straight quotes dropped). The text form of a record is the same line back.
+function parseSupportLines(text){
+  const out=[];
+  String(text||'').split('\n').forEach(line=>{
+    const e={quote:'',url:'',checked:'',unverified:false};
+    const words=[];
+    line.trim().split(/\s+/).forEach((tok,i)=>{
+      if(!tok)return;
+      if(i===0&&/^unverified:?$/i.test(tok)){e.unverified=true;return;}
+      if(!e.checked&&/^\d{4}-\d{2}-\d{2}$/.test(tok)){e.checked=tok;return;}
+      if(!e.url&&/^https?:\/\/\S+$/i.test(tok)){e.url=tok;return;}
+      words.push(tok);
+    });
+    e.quote=words.join(' ').replace(/^"(.*)"$/,'$1').trim();
+    if(e.quote||e.url)out.push(e);
+  });
+  return out;
+}
+function supportLinesText(list){
+  return normalizeSupport(list).map(s=>[s.unverified?'UNVERIFIED':'',s.checked,s.url,s.quote?'"'+s.quote+'"':''].filter(Boolean).join(' ')).join('\n');
+}
+// A citation stands only when its page is one the link helper accepts, it
+// carries a check date and nobody flagged it. The rule: nothing goes on a
+// brief that cannot be opened and checked on the spot.
+function citationVerified(s){
+  return !!(s&&!s.unverified&&/^\d{4}-\d{2}-\d{2}$/.test(String(s.checked||''))&&linkHref(s.url));
+}
+function supportHtml(list){
+  const items=normalizeSupport(list);
+  if(!items.length)return '';
+  const rows=items.map(s=>{
+    const ok=citationVerified(s);
+    const pill=ok?'<span class="cite-pill">CHECKED '+esc(s.checked)+'</span>':'<span class="cite-pill unverified">UNVERIFIED</span>';
+    const words=s.quote?'<div>&ldquo;'+esc(s.quote)+'&rdquo;</div>':'';
+    const page=s.url?'<div style="font-family:var(--mono);font-size:11px;word-break:break-all">'+linkHtml(s.url)+pill+'</div>':'<div style="font-family:var(--mono);font-size:11px">no page'+pill+'</div>';
+    return '<div style="margin-bottom:8px">'+words+page+'</div>';
+  }).join('');
+  return '<div class="card-section"><div class="card-section-h">Support</div><div class="card-section-body" style="font-size:12px;line-height:1.5">'+rows+'</div></div>';
+}
+// TAP TO DIAL. A helper of its own: it admits a phone number and nothing
+// else (digits, spaces, dots, dashes, parens, one leading plus; seven digits
+// at least) and never reads linkHref, which admits http and https alone.
+// Anything else renders as escaped text.
+function telHref(phone){
+  const p=String(phone||'').trim();
+  if(!p||!/^\+?[\d\s().-]+$/.test(p))return null;
+  const digits=p.replace(/\D/g,'');
+  if(digits.length<7||digits.length>15)return null;
+  return 'tel:'+(p.charAt(0)==='+'?'+':'')+digits;
+}
+function telHtml(phone){
+  const p=String(phone||'').trim();
+  if(!p)return '';
+  const href=telHref(p);
+  return href?'<a class="url-link" href="'+esc(href)+'">'+esc(p)+'</a>':esc(p);
+}
+function refreshPhoneLink(inputId){
+  const el=g(inputId+'-link');if(!el)return;
+  el.innerHTML=telHtml(g(inputId).value);
+}
+// Import identity: the website (lower-cased, trailing slash dropped), else
+// the company name. One company, one brief.
+function callKey(c){
+  const u=String(c.website||'').trim().toLowerCase().replace(/\/+$/,'');
+  return u?u:'company:'+String(c.company||'').trim().toLowerCase();
+}
+function callStatusRank(s){
+  const i=CALL_STATUSES.indexOf(String(s||'').toLowerCase());
+  return i<0?0:Math.min(i,1);
+}
+// The ONE transition path, the events shape: appends to statusHistory, never
+// rewrites it; a no-change call appends nothing and returns false.
+function setCallStatus(c,status,when){
+  const st=String(status||'').toLowerCase();
+  if(!CALL_STATUSES.includes(st))return false;
+  if(!Array.isArray(c.statusHistory))c.statusHistory=[];
+  const last=c.statusHistory.length?c.statusHistory[c.statusHistory.length-1].status:null;
+  if(c.status===st&&last===st)return false;
+  const ts=when||new Date().toISOString();
+  c.statusHistory.push({status:st,timestamp:ts});
+  c.status=st;c.updatedAt=ts;
+  return true;
+}
+function moveCallStatus(c,status,when){
+  const moved=setCallStatus(c,status,when);
+  if(moved)toast((c.company||'(no company)').toUpperCase()+' · '+c.status.toUpperCase(),'green');
+  return moved;
+}
+function callStatusNote(){
+  const note=g('cl-status-note');if(!note)return;
+  const pick=g('cl-status').value;
+  note.textContent=pick===openedCallStatus?'':'MOVES TO '+pick.toUpperCase()+' ON SAVE CALL';
+}
+// THE FOLLOW-THROUGH. The name the founder was given resolves to the Network
+// person of that name or becomes one, an acquaintance in the MET box's own
+// record shape (the same literal linkMetNames writes, with the call's
+// channel and location where a room gives its city and zone). The channel
+// fills only an empty one; a person is never deleted by this path. A call
+// is not a room, so no MET AT entry is written: the rooms' derivation stays
+// the events' alone.
+function linkCallContact(name,channel,location,when){
+  const n=String(name||'').trim();
+  if(!n)return '';
+  const now=when||new Date().toISOString();
+  let c=findContactByName(n);
+  if(!c){
+    c={id:uid(),addedAt:now,lastTouchAt:null,touches:[],name:n,company:'',website:'',email:'',channel:'',city:String(location||'').trim(),tz:homeTzNow(),notes:'',metAt:[],tier:'acquaintance',tierHistory:[{tier:'acquaintance',timestamp:now}],updatedAt:now};
+    state.network.push(c);
+  }
+  const ch=String(channel||'').trim();
+  if(ch&&!String(c.channel||'').trim()){c.channel=ch;c.updatedAt=now;}
+  return c.id;
+}
+function renderCallsView(){
+  const list=callsList().map(normalizeCall);
+  if(!list.length)return `<div class="empty-state"><div class="es-h">NO CALLS YET</div><div class="es-sub">A brief per company you dial: the hook, the support you can check on the spot, the number. Your agent writes one through the state door, or you type one here.</div><button class="btn" data-open="call">+ NEW CALL</button></div>`;
+  const newest=(a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||'');
+  const grid=l=>`<div class="card-grid">${l.map(renderCallCard).join('')}</div>`;
+  const queued=list.filter(c=>c.status==='queued').sort(newest);
+  const called=list.filter(c=>c.status==='called').sort(newest);
+  const skipped=list.filter(c=>c.status==='skipped').sort(newest);
+  let html='';
+  [['queued',queued],['called',called]].forEach(pair=>{
+    if(!pair[1].length)return;
+    html+=`<div class="card-section-h" style="margin:16px 0 8px;font-size:10px">${pair[0].toUpperCase()} · ${pair[1].length}</div>${grid(pair[1])}`;
+  });
+  if(!html)html=`<div class="empty-state"><div class="es-h">NO CALLS QUEUED</div><div class="es-sub">Every brief here is skipped. Add one, or reopen a skipped brief below.</div></div>`;
+  if(skipped.length)html+=`<details class="skip-fold"><summary class="card-section-h" style="cursor:pointer;margin:16px 0 8px;font-size:10px">SKIPPED · ${skipped.length}</summary>${grid(skipped)}</details>`;
+  return html;
+}
+// Sibling of the event card: company; location and the number to dial;
+// the hook where a room shows its reason; the website through the one link
+// helper; the citations; the follow-through; notes.
+function renderCallCard(c){
+  const phone=c.phone?telHtml(c.phone)+(c.phoneNote?' <span class="cite-pill unverified">'+esc(c.phoneNote)+'</span>':''):'';
+  const line2=[c.location?esc(c.location):'',phone].filter(Boolean).join(' · ');
+  const site=c.website?`<div class="card-section"><div class="card-section-h">Website</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all">${linkHtml(c.website)}</div></div>`:'';
+  const person=state.network.find(x=>x.id===c.contactId);
+  const followName=person?person.name:c.followName;
+  const follow=`<div class="card-section"><div class="card-section-h">Follow-through</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${followName?esc(followName)+(c.followChannel?' · '+telHtml(c.followChannel):''):'blank until after the call'}</div></div>`;
+  const notes=c.notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(c.notes)}</div></div>`:'';
+  const quick=c.status==='queued'?`<button class="btn muted sm" data-act="called-call" data-id="${esc(c.id)}">CALLED</button><button class="btn muted sm" data-act="skip-call" data-id="${esc(c.id)}">SKIP</button>`:'';
+  return `<div class="card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(c.company||'(no company)')}</div><div class="card-sub">${line2||'no location, no number'}</div></div><div class="card-h-right"><span class="card-status ${esc(c.status)}">${esc(c.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Hook</div><div class="card-section-body">${esc(c.hook)}</div></div>${site}${supportHtml(c.support)}${follow}${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-call" data-id="${esc(c.id)}">OPEN</button>${quick}</div></div>`;
+}
+// The call modal is an explicit-save surface, the event modal's shape: not
+// an autosave surface, so a cancel discards and the gate can refuse.
+function openCallModal(callId){
+  editingCallId=callId||null;
+  const isEdit=!!callId;
+  const c=isEdit?callsList().find(x=>x.id===callId):null;
+  if(isEdit&&!c){editingCallId=null;return;}
+  g('modal-call-title').textContent=isEdit?'// EDIT CALL':'// NEW CALL';
+  g('btn-delete-call').classList.toggle('hidden',!isEdit);
+  const v=c?normalizeCall(c):{company:'',location:'',phone:'',phoneNote:'',website:'',hook:'',support:[],followName:'',followChannel:'',contactId:'',status:'queued',notes:''};
+  const person=state.network.find(x=>x.id===v.contactId);
+  g('cl-company').value=v.company;g('cl-location').value=v.location;g('cl-phone').value=v.phone;g('cl-phone-note').value=v.phoneNote;
+  g('cl-website').value=v.website;g('cl-status').value=v.status;g('cl-hook').value=v.hook;g('cl-support').value=supportLinesText(v.support);
+  g('cl-follow-name').value=person?person.name:v.followName;g('cl-follow-channel').value=v.followChannel;g('cl-notes').value=v.notes;
+  openedCallStatus=v.status;callStatusNote();
+  g('cl-gate').textContent='';
+  refreshFieldLink('cl-website');refreshPhoneLink('cl-phone');applyEditSize(fsCurrentSize);
+  showModal('modal-call');
+  setTimeout(()=>g('cl-company').focus(),100);
+}
+// THE GATE: a company and a hook, or nothing is saved and nothing is dropped
+// silently. Returns true only when a record was written.
+function saveCall(){
+  const company=g('cl-company').value.trim();
+  const hook=g('cl-hook').value.trim();
+  const gate=g('cl-gate');
+  if(!company){gate.textContent='COMPANY REQUIRED. The brief has nothing to show without one.';g('cl-company').focus();return false;}
+  if(!hook){gate.textContent='NO HOOK, NO BRIEF. Say the one reason for the call before it can be saved.';g('cl-hook').focus();return false;}
+  gate.textContent='';
+  const now=new Date().toISOString();
+  const data={company:company,location:g('cl-location').value.trim(),phone:g('cl-phone').value.trim(),phoneNote:g('cl-phone-note').value.trim(),website:g('cl-website').value.trim(),hook:hook,support:parseSupportLines(g('cl-support').value),followName:g('cl-follow-name').value.trim(),followChannel:g('cl-follow-channel').value.trim(),notes:g('cl-notes').value.trim()};
+  data.contactId=linkCallContact(data.followName,data.followChannel,data.location,now);
+  const status=g('cl-status').value;
+  const wasEdit=!!editingCallId;
+  let moved=false;
+  if(wasEdit){
+    const c=callsList().find(x=>x.id===editingCallId);
+    if(c){Object.assign(c,data,{updatedAt:now});moved=moveCallStatus(c,status,now);}
+  }else{
+    callsList().push(normalizeCall(Object.assign({id:uid(),createdAt:now,updatedAt:now,status:status,statusHistory:[{status:status,timestamp:now}]},data)));
+  }
+  saveState();hideModal('modal-call');renderNetwork();
+  if(!moved)toast(wasEdit?'CALL UPDATED':'CALL ADDED','green');
+  editingCallId=null;
+  return true;
+}
+function deleteCall(){
+  if(!editingCallId)return;
+  const c=callsList().find(x=>x.id===editingCallId);if(!c)return;
+  if(!confirm('Delete the brief for "'+(c.company||'(no company)')+'"? Cannot be undone.'))return;
+  state.calls=callsList().filter(x=>x.id!==editingCallId);
+  editingCallId=null;
+  saveState();hideModal('modal-call');renderNetwork();
+  toast('CALL DELETED','amber');
+}
+function quickCallStatus(id,status){
+  const c=callsList().find(x=>x.id===id);if(!c)return;
+  if(!moveCallStatus(c,status))return;
+  saveState();renderNetwork();
+}
+// The additive import leg for calls (called by additiveImportState). Dedupe
+// on callKey. A match moves status only up the ladder, never back, and fills
+// the hook, the support, the follow-through and the notes only where the
+// local record has none: a hand-written field is never overwritten. An
+// incoming record with no company or no hook is refused and counted.
+function importCalls(incoming){
+  var res={added:0,updated:0,skipped:0,refused:0};
+  if(!Array.isArray(incoming)||!incoming.length)return res;
+  var list=callsList();
+  var byKey={};
+  list.forEach(function(c){byKey[callKey(c)]=c;});
+  incoming.forEach(function(raw){
+    if(!raw||typeof raw!=='object'){res.refused++;return;}
+    var inc=normalizeCall(Object.assign({},raw));
+    if(!String(inc.company||'').trim()||!String(inc.hook||'').trim()){res.refused++;return;}
+    var k=callKey(inc);
+    var local=byKey[k];
+    if(!local){
+      if(!inc.id||list.some(function(c){return c.id===inc.id;}))inc.id=uid();
+      list.push(inc);byKey[k]=inc;res.added++;return;
+    }
+    var moved=false;
+    if(callStatusRank(inc.status)>callStatusRank(local.status))moved=setCallStatus(local,inc.status)||moved;
+    ['location','phone','phoneNote','website','followName','followChannel','contactId','notes'].forEach(function(f){if(!String(local[f]||'').trim()&&String(inc[f]||'').trim()){local[f]=inc[f];moved=true;}});
+    if(!normalizeSupport(local.support).length&&inc.support.length){local.support=inc.support.slice();moved=true;}
     if(moved)res.updated++;else res.skipped++;
   });
   return res;
@@ -7016,7 +7344,8 @@ function buildStateExport(){
   var network=state.network.slice().sort(byId);
   var events=eventsList().slice().sort(byId);
   var artifacts=artifactsList().slice().sort(byId);
-  var payload={schemaVersion:STATE_SCHEMA_VERSION,comms:comms,network:network,events:events,artifacts:artifacts};
+  var calls=callsList().slice().sort(byId);
+  var payload={schemaVersion:STATE_SCHEMA_VERSION,comms:comms,network:network,events:events,artifacts:artifacts,calls:calls};
   return JSON.stringify(_canonicalJson(payload),null,2);
 }
 function exportState(){
@@ -7088,11 +7417,12 @@ function additiveImportState(payload){
   contacts.forEach(function(fc){if(fc&&fc.id&&localByKey[contactKey(fc)])metIdMap[fc.id]=localByKey[contactKey(fc)];});
   var ev=importEvents(remapImportedMet(Array.isArray(payload.events)?payload.events:[],metIdMap));
   var ar=importArtifacts(Array.isArray(payload.artifacts)?payload.artifacts:[]);
+  var cl=importCalls(Array.isArray(payload.calls)?payload.calls:[]);
   var linksMoved=syncMetLinks(new Date().toISOString());
-  if(addedC>0||addedN>0||ev.added>0||ev.updated>0||ar.added>0||ar.updated>0||linksMoved){saveState();renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();}
+  if(addedC>0||addedN>0||ev.added>0||ev.updated>0||ar.added>0||ar.updated>0||cl.added>0||cl.updated>0||linksMoved){saveState();renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();}
   var wentQuiet=autoArchiveStaleComms();
   if(wentQuiet.length>0){renderComms();renderOverview();renderMapPins();}
-  return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,addedEvents:ev.added,updatedEvents:ev.updated,skippedEvents:ev.skipped,refusedEvents:ev.refused,addedArtifacts:ar.added,updatedArtifacts:ar.updated,skippedArtifacts:ar.skipped,refusedArtifacts:ar.refused,wentQuiet:wentQuiet};
+  return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,addedEvents:ev.added,updatedEvents:ev.updated,skippedEvents:ev.skipped,refusedEvents:ev.refused,addedArtifacts:ar.added,updatedArtifacts:ar.updated,skippedArtifacts:ar.skipped,refusedArtifacts:ar.refused,addedCalls:cl.added,updatedCalls:cl.updated,skippedCalls:cl.skipped,refusedCalls:cl.refused,wentQuiet:wentQuiet};
 }
 function importStateFile(file){
   var reader=new FileReader();
@@ -7108,8 +7438,10 @@ function importStateFile(file){
     if(r.refusedEvents)msg+=' · '+r.refusedEvents+' EVENT'+(r.refusedEvents===1?'':'S')+' REFUSED: NO REASON GIVEN';
     if(r.addedArtifacts||r.updatedArtifacts)msg+=' · '+r.addedArtifacts+' ARTIFACT'+(r.addedArtifacts===1?'':'S')+(r.updatedArtifacts?' + '+r.updatedArtifacts+' UPDATED':'');
     if(r.refusedArtifacts)msg+=' · '+r.refusedArtifacts+' ARTIFACT'+(r.refusedArtifacts===1?'':'S')+' REFUSED: NO TITLE OR NO REASON';
+    if(r.addedCalls||r.updatedCalls)msg+=' · '+r.addedCalls+' CALL'+(r.addedCalls===1?'':'S')+(r.updatedCalls?' + '+r.updatedCalls+' UPDATED':'');
+    if(r.refusedCalls)msg+=' · '+r.refusedCalls+' CALL'+(r.refusedCalls===1?'':'S')+' REFUSED: NO COMPANY OR NO HOOK';
     if(r.wentQuiet&&r.wentQuiet.length)msg+=' · WENT QUIET: '+r.wentQuiet.join(', ');
-    toast(msg,(r.addedComms+r.addedContacts+r.addedEvents+r.updatedEvents+r.addedArtifacts+r.updatedArtifacts)>0&&!r.refusedEvents&&!r.refusedArtifacts?'green':'amber');
+    toast(msg,(r.addedComms+r.addedContacts+r.addedEvents+r.updatedEvents+r.addedArtifacts+r.updatedArtifacts+r.addedCalls+r.updatedCalls)>0&&!r.refusedEvents&&!r.refusedArtifacts&&!r.refusedCalls?'green':'amber');
   };
   reader.readAsText(file);
 }
@@ -7276,7 +7608,7 @@ var _stateRev=0;               // the rev this tab last built on / received
 var _syncedIds=null;
 function allStateIds(){
   var ids={};
-  [state.comms,state.network,eventsList(),artifactsList()].forEach(function(list){(list||[]).forEach(function(r){if(r&&r.id)ids[r.id]=true;});});
+  [state.comms,state.network,eventsList(),artifactsList(),callsList()].forEach(function(list){(list||[]).forEach(function(r){if(r&&r.id)ids[r.id]=true;});});
   return ids;
 }
 function loadSyncedIds(){
@@ -7402,6 +7734,8 @@ function mergeServerState(file){
     state.events.forEach(function(e){normalizeEvent(e);});
     state.artifacts=take(mergeRecordSlice(artifactsList(),Array.isArray(file.artifacts)?file.artifacts:[],editingArtifactId,_syncedIds));
     state.artifacts.forEach(function(a){normalizeArtifact(a);});
+    state.calls=take(mergeRecordSlice(callsList(),Array.isArray(file.calls)?file.calls:[],editingCallId,_syncedIds));
+    state.calls.forEach(function(c){normalizeCall(c);});
     if(syncMetLinks(new Date().toISOString()))owed=true; // v0.11.0: metAt follows the merged events; a change owes the file a sync
     state.comms.forEach(function(c){
       if(!Array.isArray(c.history))c.history=[];
@@ -7409,7 +7743,7 @@ function mergeServerState(file){
     });
     if(typeof file.rev==='number')_stateRev=file.rev;
     // v0.10.0: the ledger is the file's ids as of this merge.
-    var fileIds={};[file.comms,file.network,Array.isArray(file.events)?file.events:[],Array.isArray(file.artifacts)?file.artifacts:[]].forEach(function(list){list.forEach(function(r){if(r&&r.id)fileIds[r.id]=true;});});
+    var fileIds={};[file.comms,file.network,Array.isArray(file.events)?file.events:[],Array.isArray(file.artifacts)?file.artifacts:[],Array.isArray(file.calls)?file.calls:[]].forEach(function(list){list.forEach(function(r){if(r&&r.id)fileIds[r.id]=true;});});
     saveSyncedIds(fileIds);
     saveState(); // the ONE canonical writer persists the merge locally; the
                  // _isMergingServerState guard keeps it from echoing a POST
@@ -7942,6 +8276,9 @@ function wireEvents(){
     if(act==='select-event')quickEventStatus(id,'selected');
     if(act==='attend-event')quickEventStatus(id,'attended');
     if(act==='skip-event')quickEventStatus(id,'skipped');
+    if(act==='edit-call')openCallModal(id);
+    if(act==='called-call')quickCallStatus(id,'called');
+    if(act==='skip-call')quickCallStatus(id,'skipped');
   });
   g('network-body').addEventListener('change',e=>{
     if(e.target&&e.target.id==='ev-city-filter'){eventsCityFilter=e.target.value;renderNetwork();}
@@ -7950,11 +8287,16 @@ function wireEvents(){
   g('ev-status').addEventListener('change',eventStatusNote);
   g('btn-save-event').addEventListener('click',saveEvent);
   g('btn-delete-event').addEventListener('click',deleteEvent);
+  g('btn-add-call').addEventListener('click',()=>openCallModal());
+  g('cl-status').addEventListener('change',callStatusNote);
+  g('btn-save-call').addEventListener('click',saveCall);
+  g('btn-delete-call').addEventListener('click',deleteCall);
+  g('cl-phone').addEventListener('input',()=>refreshPhoneLink('cl-phone'));
   g('ev-city').addEventListener('input',()=>{const z=cityToTz(g('ev-city').value);if(z)eventTzOptions(g('ev-tz'),z);});
   // v0.5.12 wide edit: the size steppers in the three form headers, and the
   // link line under each url field.
   document.querySelectorAll('[data-edit-size]').forEach(b=>b.addEventListener('click',()=>editSizeStep(parseInt(b.dataset.editSize,10))));
-  ['ev-url','ar-url'].forEach(id=>g(id).addEventListener('input',()=>refreshFieldLink(id)));
+  ['ev-url','ar-url','cl-website'].forEach(id=>g(id).addEventListener('input',()=>refreshFieldLink(id)));
   g('btn-add-comm').addEventListener('click',()=>openCommModal());
   // v0.3.5: the DONE wiring is gone with its button, and saveComm no longer exists. The
   // comm modal's exits are the x (data-close) and the backdrop, both via closeCommModal.
@@ -8016,6 +8358,7 @@ function wireEvents(){
     if(which==='profile')openProfileModal();
     if(which==='contact')openContactModal();
     if(which==='event')openEventModal();
+    if(which==='call')openCallModal();
     if(which==='artifact')openArtifactModal();
     if(which==='comm')openCommModal();
     if(which==='insight')openInsightModal();
