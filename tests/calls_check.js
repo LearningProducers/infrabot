@@ -68,11 +68,11 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var toasts=[];
   g.toast=function(msg){toasts.push(String(msg));};
   var ge=eval;
-  ['CALL_STATUSES','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','STATE_SCHEMA_VERSION','networkView','eventsCityFilter','uid','esc'].forEach(function(n){ge(extractVar(html,n));});
+  ['CALL_STATUSES','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','STATE_SCHEMA_VERSION','EDIT_WIDE_MODALS','networkView','eventsCityFilter','uid','esc'].forEach(function(n){ge(extractVar(html,n));});
   ['linkHref','linkHtml','callsList','eventsList','artifactsList','homeTzNow','normalizeSupport','normalizeCall',
    'parseSupportLines','supportLinesText','citationVerified','supportHtml','telHref','telHtml','callKey',
    'callStatusRank','setCallStatus','moveCallStatus','findContactByName','linkCallContact','renderCallCard',
-   'renderCallsView','importCalls','personTier','normalizePerson','inMonthWindow','localYearMonth','acquaintanceMonth',
+   'renderCallsView','importCalls','supportRowsHtml','parseFollowThrough','followThroughText','personTier','normalizePerson','inMonthWindow','localYearMonth','acquaintanceMonth',
    'latestMetRoom','wallTimeToDate','eventStartMonth','eventCities','eventsShown','normalizeEvent','normalizeCost',
    'networkViewBar','setNetworkView','getCommBucket','_canonicalJson','buildStateExport'].forEach(function(n){ge(extractFn(html,n));});
   g.renderNetwork=function(){};
@@ -167,18 +167,29 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var card=renderCallCard(normalizeCall(brief()));
   check('R1 the company is the card name and the status pill reads QUEUED',card.indexOf('<div class="card-name">Fixture Fastener Works</div>')>0&&card.indexOf('<span class="card-status queued">QUEUED</span>')>0);
   check('R2 the number is a tel: anchor in the sub line beside the location',card.indexOf('Placeholder, IL · <a class="url-link" href="tel:3125550142">(312) 555-0142</a>')>0,card);
-  check('R3 the website renders the exact anchor linkHtml renders',card.indexOf('<div class="card-section-h">Website</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all">'+linkHtml(SITE)+'</div>')>0);
+  check('R3 the website renders the exact anchor linkHtml renders',card.indexOf('<div class="card-section-h">Website</div><div class="card-section-body cite-page">'+linkHtml(SITE)+'</div>')>0);
   check('R4 the hook sits where a room shows its reason',card.indexOf('<div class="card-section-h">Hook</div><div class="card-section-body">Their posting asks for faster writing.</div>')>0);
   check('R5 the support renders with its CHECKED pill',card.indexOf('CHECKED 2026-09-29')>0);
-  check('R6 the follow-through reads blank until after the call',card.indexOf('<div class="card-section-h">Follow-through</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">blank until after the call</div>')>0);
+  check('R6 the follow-through reads blank until after the call',card.indexOf('<div class="card-section-h">Follow-through</div><div class="card-section-body call-mono">blank until after the call</div>')>0);
   check('R7 a queued card offers CALLED and SKIP; OPEN always',card.indexOf('data-act="called-call"')>0&&card.indexOf('data-act="skip-call"')>0&&card.indexOf('data-act="edit-call"')>0);
-  var pn=renderCallCard(normalizeCall(brief({phoneNote:'UNVERIFIED: what it reaches was never checked'})));
-  check('R8 a phone note renders as an UNVERIFIED pill beside the number',pn.indexOf('</a> <span class="cite-pill unverified">UNVERIFIED: what it reaches was never checked</span>')>0,pn);
+  var legacy=normalizeCall(brief({phoneNote:'a note from before v0.15.0'}));
+  var pn=renderCallCard(legacy);
+  check('R8 a legacy phoneNote key passes through untouched and renders nothing (its home is NOTES now)',legacy.phoneNote==='a note from before v0.15.0'&&pn.indexOf('a note from before')<0&&pn.indexOf('</a> <span class="cite-pill unverified">')<0,pn);
+  check('R8b the card is a wide call card and the view lays one per row (source)',card.indexOf('<div class="card call-card">')===0&&extractFn(html,'renderCallsView').indexOf('<div class="card-grid calls-grid">')>0&&html.indexOf('.card-grid.calls-grid{grid-template-columns:1fr}')>0&&html.indexOf('.call-card .card-section-body{font-size:15px;line-height:1.6}')>0);
   state.network.push({id:'c_fixture_9',name:'Ada Fixture',channel:'(312) 555-0144'});
   var fc=renderCallCard(normalizeCall(brief({status:'called',contactId:'c_fixture_9',followName:'stale name',followChannel:'(312) 555-0144'})));
   check('R9 a called card names the linked person (the book, not the stale field) with their channel dialable, and offers no quick action',fc.indexOf('Ada Fixture · <a class="url-link" href="tel:3125550144">(312) 555-0144</a>')>0&&fc.indexOf('data-act="called-call"')<0&&fc.indexOf('data-act="skip-call"')<0,fc);
+  check('R9b the support rows render through one helper the form preview reads too (source)',extractFn(html,'supportHtml').indexOf('supportRowsHtml(list)')>0&&extractFn(html,'refreshSupportPreview').indexOf('supportRowsHtml(parseSupportLines(')>0);
   check('R10 a card with nothing to dial says so',renderCallCard(normalizeCall({company:'X',hook:'h'})).indexOf('no location, no number')>0);
   check('R11 the card escapes its fields',renderCallCard(normalizeCall({company:'<b>X</b>',hook:'<i>h</i>',location:'<u>L</u>'})).indexOf('<b>')<0);
+
+  // --- F: the one follow-through field ---------------------------------------
+  check('F1 Name (channel) splits into the two record fields',JSON.stringify(parseFollowThrough('Ada Fixture ((312) 555-0144)'))==='{"name":"Ada Fixture","channel":"(312) 555-0144"}'&&JSON.stringify(parseFollowThrough('Ada Fixture (ada@fixture.example)'))==='{"name":"Ada Fixture","channel":"ada@fixture.example"}');
+  check('F2 a bare name is the name and no channel; blank is blank',JSON.stringify(parseFollowThrough('  Ada Fixture '))==='{"name":"Ada Fixture","channel":""}'&&JSON.stringify(parseFollowThrough(''))==='{"name":"","channel":""}');
+  check('F3 the text form round-trips',followThroughText('Ada Fixture','(312) 555-0144')==='Ada Fixture ((312) 555-0144)'&&followThroughText('Ada Fixture','')==='Ada Fixture'&&followThroughText('','x')===''&&JSON.stringify(parseFollowThrough(followThroughText('Ada Fixture','(312) 555-0144')))==='{"name":"Ada Fixture","channel":"(312) 555-0144"}');
+  check('F4 the form carries one follow-through field and no phone-note field (source)',html.indexOf('id="cl-follow"')>0&&html.indexOf('cl-follow-name')<0&&html.indexOf('cl-phone-note')<0&&extractFn(html,'saveCall').indexOf("parseFollowThrough(g('cl-follow').value)")>0);
+  check('F5 both textareas carry the EXPAND that opens the field edit; the comm body opens through the same path (source)',html.indexOf('data-fs-edit="cl-support"')>0&&html.indexOf('data-fs-edit="cl-notes"')>0&&html.indexOf("openFieldEdit(b.dataset.fsEdit,b.dataset.fsLabel,")>0&&extractFn(html,'openCommBodyEdit').indexOf("openFieldEdit('k-body','EDIT BODY',")>0&&extractFn(html,'renderFullscreenBodyCommEdit').indexOf('g(fsEditTargetId)')>0&&extractFn(html,'closeFullscreen').indexOf("fsEditTargetId='k-body';")>0);
+  check('F6 the call form is on the size stepper list',EDIT_WIDE_MODALS.indexOf('modal-call')>=0);
 
   // --- G: the view and the pill ----------------------------------------------
   fresh();
@@ -217,7 +228,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('X2 the merge slices calls per record, normalizes them and ledgers their ids (source)',(function(){var m=extractFn(html,'mergeServerState');return m.indexOf("state.calls=take(mergeRecordSlice(callsList(),Array.isArray(file.calls)?file.calls:[],editingCallId,_syncedIds))")>0&&m.indexOf('state.calls.forEach(function(c){normalizeCall(c);});')>0&&m.indexOf('Array.isArray(file.calls)?file.calls:[]].forEach')>0;})());
   check('X3 the sync ledger and the additive import read the key (source)',extractFn(html,'allStateIds').indexOf('callsList()')>0&&extractFn(html,'additiveImportState').indexOf('importCalls(Array.isArray(payload.calls)?payload.calls:[])')>0);
   check('X4 freshState carries calls (source)',/calls:\[\],\n\s*insights:\[\]/.test(extractFn(html,'freshState')));
-  check('X5 the wiring routes the three acts, the add button, the save, the delete and the phone link (source)',["if(act==='edit-call')openCallModal(id);","if(act==='called-call')quickCallStatus(id,'called');","if(act==='skip-call')quickCallStatus(id,'skipped');","g('btn-add-call').addEventListener('click',()=>openCallModal());","g('btn-save-call').addEventListener('click',saveCall);","g('btn-delete-call').addEventListener('click',deleteCall);","g('cl-phone').addEventListener('input',()=>refreshPhoneLink('cl-phone'));","if(which==='call')openCallModal();"].every(function(s){return html.indexOf(s)>0;}));
+  check('X5 the wiring routes the three acts, the add button, the save, the delete, the phone link and the support preview (source)',["if(act==='edit-call')openCallModal(id);","if(act==='called-call')quickCallStatus(id,'called');","if(act==='skip-call')quickCallStatus(id,'skipped');","g('btn-add-call').addEventListener('click',()=>openCallModal());","g('btn-save-call').addEventListener('click',saveCall);","g('btn-delete-call').addEventListener('click',deleteCall);","g('cl-phone').addEventListener('input',()=>refreshPhoneLink('cl-phone'));","g('cl-support').addEventListener('input',refreshSupportPreview);","if(which==='call')openCallModal();"].every(function(s){return html.indexOf(s)>0;}));
   check('X6 the website field joins the link-line list and the NEW CALL button swaps with the view (source)',html.indexOf("['ev-url','ar-url','cl-website']")>0&&html.indexOf("g('btn-add-call').classList.toggle('hidden',networkView!=='calls');")>0&&html.indexOf('<button class="btn hidden" id="btn-add-call">+ NEW CALL</button>')>0);
   check('X7 the form gate is the import gate (source)',(function(){var s=extractFn(html,'saveCall');return s.indexOf('COMPANY REQUIRED')>0&&s.indexOf('NO HOOK, NO BRIEF')>0&&s.indexOf('linkCallContact(data.followName,data.followChannel,data.location,now)')>0;})());
   check('X8 the nine MET-pinned symbols are not read by the new block for a write (source)',(function(){var s=extractFn(html,'saveCall')+extractFn(html,'linkCallContact')+extractFn(html,'importCalls');return s.indexOf('linkMetNames')<0&&s.indexOf('syncMetLinks')<0&&s.indexOf('parseMetNames')<0;})());

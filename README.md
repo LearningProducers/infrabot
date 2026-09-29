@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.14.0.
+dependencies beyond Python 3 and a browser. This README describes v0.15.0.
 
 ## What it does
 
@@ -33,9 +33,11 @@ The app has four tabs.
   (citations, each with the exact words, the page they read on and the day
   you checked it; a citation with no page, no date or a flag reads
   UNVERIFIED on the card), and the follow-through: the person you were
-  given, who links to a Network person of that name or becomes one. A brief
-  is written by your agent through the state door or typed in the form; the
-  page generates none of it.
+  given, typed as "Name (number or channel)", who links to a Network person
+  of that name or becomes one. Each brief spans the pane, one per row. A
+  brief is written by your agent through the state door or typed in the
+  form, where SUPPORT and NOTES each open in the fullscreen editor the
+  message body has; the page generates none of it.
 - **COMMUNICATIONS.** Draft cards, one per message. A card carries the
   person, the company, the address, the discovery trail (how they showed
   up), a one-line hook (why they would care and what you are handing them),
@@ -235,6 +237,11 @@ Every check in `tests/` runs standalone from the repo root against the real
   website, the hook, citations with a check date and an UNVERIFIED flag, the
   follow-through name that links or creates a Network person); a `calls` key
   on the state export and the state door.
+- **v0.15.0.** The wide brief: a call card spans the pane, one per row, its
+  text a size up; the phone-note field is gone (a number's note lives in
+  NOTES); SUPPORT shows a live preview with clickable pages; NOTES sits
+  beside one FOLLOW-THROUGH field; both textareas open in the fullscreen
+  editor the message body uses.
 
 ## Licenses
 
