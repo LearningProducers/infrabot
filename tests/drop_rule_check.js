@@ -68,7 +68,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   g._syncedIds=null;
   var ge=eval;
   ge(extractConstLine(html,'SYNCED_IDS_KEY'));
-  ['recordTouch','mergeRecordSlice','allStateIds','loadSyncedIds','saveSyncedIds'].forEach(function(n){ge(extractFn(html,n));});
+  ['recordTouch','mergeRecordSlice','allStateIds','loadSyncedIds','saveSyncedIds','callsList'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){
@@ -131,7 +131,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('S1 the boot loads the ledger and seeds it from what the tab holds when none is stored', init.indexOf('_syncedIds=loadSyncedIds();if(_syncedIds===null)saveSyncedIds(allStateIds());')!==-1&&init.indexOf('_syncedIds')<init.indexOf('fetch(STATE_ENDPOINT_PATH'), '');
   check('S2 the boot export re-arms after the first merge', /mergeServerState\(f\);scheduleAutoExport\(\);/.test(init), '');
   var msv=extractFn(html,'mergeServerState');
-  check('S3 every slice merges with the ledger', (msv.match(/,_syncedIds\)\)/g)||[]).length===4, String((msv.match(/,_syncedIds\)\)/g)||[]).length));
+  check('S3 every slice merges with the ledger', (msv.match(/,_syncedIds\)\)/g)||[]).length===5, String((msv.match(/,_syncedIds\)\)/g)||[]).length));
   check('S4 after a merge the ledger is the file\'s ids', msv.indexOf('saveSyncedIds(fileIds)')!==-1&&msv.indexOf('var fileIds={}')!==-1, '');
   check('S5 a merge that dropped records says so once', /if\(dropped\.length\)toast\(dropped\.length\+' RECORD'/.test(msv), '');
   var sync=extractFn(html,'syncStateToServer');
