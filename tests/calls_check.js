@@ -200,7 +200,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   fresh();
   var r1=importCalls([brief(),{company:'',hook:'h'},{company:'No Hook Co'},null]);
   check('I1 a brief lands; no company, no hook and a non-object are refused and counted',r1.added===1&&r1.refused===3&&state.calls.length===1,JSON.stringify(r1));
-  var r2=importCalls([brief({status:'called',notes:'from the import',phone:'(312) 555-9999'})]);
+  var r2=importCalls([brief({status:'called',notes:'from the import',phone:'(312) 555-0199'})]);
   check('I2 a match by website moves the status up and fills only empty fields',r2.updated===1&&state.calls[0].status==='called'&&state.calls[0].notes==='from the import'&&state.calls[0].phone==='(312) 555-0142',JSON.stringify(state.calls[0]));
   var r3=importCalls([brief({status:'queued',hook:'a different hook'})]);
   check('I3 a match never moves back down and never overwrites the hook',r3.skipped===1&&state.calls[0].status==='called'&&state.calls[0].hook==='Their posting asks for faster writing.');

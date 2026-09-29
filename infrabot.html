@@ -7441,7 +7441,7 @@ function importStateFile(file){
     if(r.addedCalls||r.updatedCalls)msg+=' · '+r.addedCalls+' CALL'+(r.addedCalls===1?'':'S')+(r.updatedCalls?' + '+r.updatedCalls+' UPDATED':'');
     if(r.refusedCalls)msg+=' · '+r.refusedCalls+' CALL'+(r.refusedCalls===1?'':'S')+' REFUSED: NO COMPANY OR NO HOOK';
     if(r.wentQuiet&&r.wentQuiet.length)msg+=' · WENT QUIET: '+r.wentQuiet.join(', ');
-    toast(msg,(r.addedComms+r.addedContacts+r.addedEvents+r.updatedEvents+r.addedArtifacts+r.updatedArtifacts)>0&&!r.refusedEvents&&!r.refusedArtifacts?'green':'amber');
+    toast(msg,(r.addedComms+r.addedContacts+r.addedEvents+r.updatedEvents+r.addedArtifacts+r.updatedArtifacts+r.addedCalls+r.updatedCalls)>0&&!r.refusedEvents&&!r.refusedArtifacts&&!r.refusedCalls?'green':'amber');
   };
   reader.readAsText(file);
 }
