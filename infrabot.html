@@ -61,31 +61,31 @@
 ║  L  2436– 2661  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
 ║  L  2662– 2695  launchApp (gate flow removed in v0.2.5)                      ║
 ║  L  2696– 2741  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2742– 3926  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3927– 4047  getCommBucket + age helpers, setCommsView                    ║
-║  L  4048– 4198  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4199– 4346  renderComms — full status/triage rendering                   ║
-║  L  4347– 4374  archiveComm + reviveComm                                     ║
-║  L  4375– 4497  renderReportsPanel + computeMonthStats                       ║
-║  L  4498– 4689  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4690– 4963  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  4964– 5014  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5015– 5291  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5292– 5441  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5442– 5509  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5510– 5798  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  2742– 3928  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3929– 4049  getCommBucket + age helpers, setCommsView                    ║
+║  L  4050– 4200  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4201– 4348  renderComms — full status/triage rendering                   ║
+║  L  4349– 4376  archiveComm + reviveComm                                     ║
+║  L  4377– 4499  renderReportsPanel + computeMonthStats                       ║
+║  L  4500– 4691  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4692– 4965  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  4966– 5016  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5017– 5293  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5294– 5443  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5444– 5511  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5512– 5800  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5799– 5913  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5914– 5944  saveProfile + clock save/remove                              ║
-║  L  5945– 6098  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6099– 6277  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6278– 6522  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6523– 6940  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6941– 7288  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7289– 7300  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7301– 7345  saveGroqKey, clearGroqKey                                    ║
-║  L  7346– 8292  exportAll, importJson, wipeAll                               ║
+║  L  5801– 5915  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5916– 5946  saveProfile + clock save/remove                              ║
+║  L  5947– 6100  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6101– 6279  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6280– 6524  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6525– 6942  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  6943– 7290  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7291– 7302  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7303– 7347  saveGroqKey, clearGroqKey                                    ║
+║  L  7348– 8294  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -357,7 +357,7 @@
 ║      NOTES beside one FOLLOW-THROUGH field (Name (channel)), both textareas  ║
 ║      with the comm body's fullscreen EXPAND through one field-edit path      ║
 ║      (openFieldEdit); the call form joins the size stepper. calls_check.     ║
-║  L  8293– 8622  wireEvents + DOMContentLoaded boot                           ║
+║  L  8295– 8624  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -3466,7 +3466,9 @@ function refreshSupportPreview(){
 }
 // THE FOLLOW-THROUGH FIELD: one line, the name with the channel in parens
 // after it, the channel running to the line's last closing paren so a
-// formatted number keeps its own; the record keeps the two apart.
+// formatted number keeps its own; a channel with no name reads as bare
+// parens, so a record the state door wrote that way loses nothing on a
+// save; the record keeps the two apart.
 function parseFollowThrough(text){
   const t=String(text||'').trim();
   const m=/^(.*?)\s*\((.*)\)\s*$/.exec(t);
@@ -3474,7 +3476,7 @@ function parseFollowThrough(text){
 }
 function followThroughText(name,channel){
   const n=String(name||'').trim(),c=String(channel||'').trim();
-  return n?(c?n+' ('+c+')':n):'';
+  return n?(c?n+' ('+c+')':n):(c?'('+c+')':'');
 }
 // TAP TO DIAL. A helper of its own: it admits a phone number and nothing
 // else (digits, spaces, dots, dashes, parens, one leading plus; seven digits
