@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.15.0.
+dependencies beyond Python 3 and a browser. This README describes v0.15.1.
 
 ## What it does
 
@@ -242,6 +242,11 @@ Every check in `tests/` runs standalone from the repo root against the real
   NOTES); SUPPORT shows a live preview with clickable pages; NOTES sits
   beside one FOLLOW-THROUGH field; both textareas open in the fullscreen
   editor the message body uses.
+- **v0.15.1.** The text links: every URL in a communication's discovery
+  trail, hook and body opens from the form (a link line under each field
+  lists the URLs it carries) and from the card (the hook and the body
+  preview render their URLs as the trail already did; a URL the preview's
+  cut would split is carried whole).
 
 ## Licenses
 
