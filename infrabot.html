@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.15.1 (THE TEXT LINKS) 26-09-29                                           ║
+║  v0.15.2 (THE READINESS VERDICT) 26-09-30                                    ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  403  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  409  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   405–  431  :root, CSS variables, fonts, reset, body                     ║
-║  L   432–  489  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   490–  532  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   533–  550  CLOCKS — live clock grid                                     ║
-║  L   551–  631  CARDS — contact card, comm card, status pills                ║
-║  L   632–  658  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   659–  668  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   669–  674  EMPTY: state placeholder                                     ║
-║  L   675–  698  MODAL — bg, box, header, footer                              ║
-║  L   699–  710  DRAWER — settings drawer + backdrop                          ║
-║  L   711–  716  COUNCIL: stream items (legacy reused)                        ║
-║  L   717–  723  TOAST: notification                                          ║
-║  L   724–  772  STATS: grid + profile block                                  ║
-║  L   773–  795  CREW BLOCK — Groq key row, council slots                     ║
-║  L   796–  817  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   818–  823  Per-response copy button (v1.2)                              ║
-║  L   824–  843  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   844–  850  v1.4: Foundation context source blocks                       ║
-║  L   851–  931  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   932–  958  INSIGHT VAULT                                                ║
+║  L   411–  437  :root, CSS variables, fonts, reset, body                     ║
+║  L   438–  495  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   496–  538  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   539–  556  CLOCKS — live clock grid                                     ║
+║  L   557–  637  CARDS — contact card, comm card, status pills                ║
+║  L   638–  664  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   665–  674  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   675–  680  EMPTY: state placeholder                                     ║
+║  L   681–  704  MODAL — bg, box, header, footer                              ║
+║  L   705–  716  DRAWER — settings drawer + backdrop                          ║
+║  L   717–  722  COUNCIL: stream items (legacy reused)                        ║
+║  L   723–  729  TOAST: notification                                          ║
+║  L   730–  778  STATS: grid + profile block                                  ║
+║  L   779–  801  CREW BLOCK — Groq key row, council slots                     ║
+║  L   802–  823  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   824–  829  Per-response copy button (v1.2)                              ║
+║  L   830–  849  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   850–  856  v1.4: Foundation context source blocks                       ║
+║  L   857–  937  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   938–  964  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   963–  981  APP: shell — header, brand, top clock, settings              ║
-║  L   982–  989  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L   990– 1028  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L  1029– 1038  TAB-NETWORK — contacts list                                  ║
-║  L  1039– 1132  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1133– 1147  TAB-VAULT — insights                                         ║
-║  L  1148– 1269  MODAL-CONTACT — add/edit contact                             ║
-║  L  1270– 1310  MODAL-COMM — add/edit communication                          ║
-║  L  1311– 1332  MODAL-PROFILE — edit your profile                            ║
-║  L  1333– 1347  MODAL-CLOCK — add world clock                                ║
-║  L  1348– 1363  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1364– 1391  DRAWER — profile, data, version footer                       ║
-║  L  1392– 1411  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1412– 1423  MODAL-MEM — memory inspector                                 ║
-║  L  1424– 1430  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1431– 1432  TOAST: container                                             ║
+║  L   969–  987  APP: shell — header, brand, top clock, settings              ║
+║  L   988–  995  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L   996– 1034  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L  1035– 1044  TAB-NETWORK — contacts list                                  ║
+║  L  1045– 1138  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1139– 1153  TAB-VAULT — insights                                         ║
+║  L  1154– 1275  MODAL-CONTACT — add/edit contact                             ║
+║  L  1276– 1316  MODAL-COMM — add/edit communication                          ║
+║  L  1317– 1338  MODAL-PROFILE — edit your profile                            ║
+║  L  1339– 1353  MODAL-CLOCK — add world clock                                ║
+║  L  1354– 1369  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1370– 1397  DRAWER — profile, data, version footer                       ║
+║  L  1398– 1417  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1418– 1429  MODAL-MEM — memory inspector                                 ║
+║  L  1430– 1436  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1437– 1438  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1435– 1645  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1646– 1917  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1918– 1955  g, esc, uid, toast helpers + state globals                   ║
-║  L  1956– 2442  freshState, loadState (migrations), saveState                ║
-║  L  2443– 2668  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2669– 2702  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2703– 2748  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2749– 3935  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3936– 4056  getCommBucket + age helpers, setCommsView                    ║
-║  L  4057– 4247  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4248– 4395  renderComms — full status/triage rendering                   ║
-║  L  4396– 4423  archiveComm + reviveComm                                     ║
-║  L  4424– 4546  renderReportsPanel + computeMonthStats                       ║
-║  L  4547– 4738  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4739– 5012  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5013– 5063  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5064– 5340  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5341– 5491  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5492– 5559  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5560– 5848  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1441– 1651  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1652– 1926  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1927– 1964  g, esc, uid, toast helpers + state globals                   ║
+║  L  1965– 2451  freshState, loadState (migrations), saveState                ║
+║  L  2452– 2677  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2678– 2711  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2712– 2757  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2758– 3944  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3945– 4065  getCommBucket + age helpers, setCommsView                    ║
+║  L  4066– 4256  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4257– 4404  renderComms — full status/triage rendering                   ║
+║  L  4405– 4432  archiveComm + reviveComm                                     ║
+║  L  4433– 4555  renderReportsPanel + computeMonthStats                       ║
+║  L  4556– 4747  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4748– 5021  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5022– 5072  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5073– 5349  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5350– 5500  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5501– 5568  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5569– 5857  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5849– 5963  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  5964– 5994  saveProfile + clock save/remove                              ║
-║  L  5995– 6148  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6149– 6327  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6328– 6572  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6573– 6990  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  6991– 7348  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7349– 7360  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7361– 7405  saveGroqKey, clearGroqKey                                    ║
-║  L  7406– 8352  exportAll, importJson, wipeAll                               ║
+║  L  5858– 5972  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  5973– 6003  saveProfile + clock save/remove                              ║
+║  L  6004– 6157  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6158– 6336  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6337– 6581  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6582– 6999  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7000– 7357  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7358– 7369  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7370– 7414  saveGroqKey, clearGroqKey                                    ║
+║  L  7415– 8361  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -363,7 +363,13 @@
 ║      body preview through linkedTextHtml, the trail's v0.13.3 rule shared;   ║
 ║      a url the 280-character cut would split is carried whole).              ║
 ║      tests/text_link_check.js.                                               ║
-║  L  8353– 8683  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.15.2 THE READINESS VERDICT: the council prompt answers "is this       ║
+║      ready to send?" with YES or NO alone on line one, decided by the        ║
+║      doctrine the prompt carries, then the reasons in plain words; no        ║
+║      deferral to any other judge. A claim the draft makes about the target   ║
+║      is the founder's verified research: "unverifiable from here", never     ║
+║      "fabricated". Prompt text only; tests/pane_prompt_check.js.             ║
+║  L  8362– 8692  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -974,7 +980,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.15.1</span>
+      <span class="version-pill" title="INFRABOT build">v0.15.2</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1385,7 +1391,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.15.1 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.15.2 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1432,7 +1438,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.15.1';
+const APP_VERSION='infrabot-v0.15.2';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1681,6 +1687,7 @@ The \`<begin_body>...<end_body>\` block is the LATEST saved body; it supersedes 
 
 ## FABRICATION BAN (HARDEST RULE)
 The founder is SOLO unless his profile says otherwise. Never invent a network, team, collective, customer roster, or "we"/"us"/"founders like us"/"people like us". Describe what HE actually has. If you don't know a specific wound or value, say so in one sentence and stop; do not improvise business facts.
+This ban faces the founder's side only: his business, his network, his claims about himself. A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it: that is his verified research, you cannot see the source, so it is never fabricated, never a lie, never a fabrication risk, never a ban breach; the most you ever say about it is "unverifiable from here".
 
 ## NEVER SUPPLICANT (HARDWIRED)
 The founder delivers tactical intel from expertise. The target is being filtered, not courted. Every phrase that asks permission, hedges value, or signals "I hope you'll consider me" kills the comm. Binds critiques, rewrites, drafts, follow-ups.
@@ -1709,7 +1716,7 @@ The founder delivers tactical intel from expertise. The target is being filtered
 
 **CTAs are imperative or declarative, never interrogative. The strongest CTA is no CTA.** Acceptable shapes, in order:
 1. **The link directive.** State what exists and end on the Combat Writing link as its own paragraph. DEFAULT, and the ONLY closer for a cold send: never tell the founder to remove that link. SETTLED LAW, never re-decided: a directive line that points the reader at the link ("Run your next piece through it:") with the link on its own line below it IS this closer. It is not solicitation, not an ask, not a floating link, and never a reason to drop the directive and end on the bare URL. A bare URL with no directive is the one closer defect, and its fix is to add the directive, never to remove the link. You never propose removing, softening, or re-ruling the closer.
-2. **Bare directive** ("Run it." / "Test it.") only when the next step is concrete from the body itself. Never on cold first-contact; prefer shape #1 there.
+2. **Bare directive** ("Run it." / "Test it."; a directive with NO link after it) only when the next step is concrete from the body itself. Never on cold first-contact; prefer shape #1 there. A directive line with the link on the line below it is shape #1, never this one.
 
 **Forbidden CTAs:** any question to the target ("Worth a call?" / "Sound useful?" / "Make sense?"); any sentence ending in "?" to the target (postfixing "Yes/No." does not rehabilitate it); any magic-word reply protocol; any conditional begging ("If interested,..." / "If relevant,..."). The fix for any of these: delete the CTA line, end on the link directive.
 
@@ -1724,7 +1731,7 @@ If you can't name it, you don't have the intel: cut modifier AND noun, or tell t
 ## STATUS POSTURE
 Read the Status field every fire; it dictates posture:
 - **DRAFT** → critique the body (subject, opening, value, CTA, register).
-- **SCHEDULED** → last-pass; higher bar, only flag what would hurt the comm, don't relitigate settled choices. If OVERDUE, say so on line one.
+- **SCHEDULED** → last-pass; higher bar, only flag what would hurt the comm, don't relitigate settled choices. If OVERDUE, say so on line one (on a readiness question, line two, under the verdict).
 - **SENT** → reception phase, it left his hands. Read silence vs reply, follow-up window. No line-edits.
 - **REPLIED** → read the reply's signal (warm/cold/curious/transactional), advise the reply.
 - **GHOSTED / DEAD** → lesson extraction only.
@@ -1732,11 +1739,13 @@ Read the Status field every fire; it dictates posture:
 Unclear posture → default to Status, not DRAFT.
 
 ## THE READINESS ANSWER
-"Is this ready?", "ready to send?", "good to go?", "any reason not to send?" with NO production verb present is a readiness question. If a production verb is present (rewrite/edit/redraft/fix-and-send/etc.), ORDER DOMINANCE governs instead; produce the artifact. A readiness question is NEVER answered with a verdict: no "Ready", no "No", no checklist, no pass or fail. The gauntlet, the judging pass that runs outside this pane before a send, judges readiness; a seat does not. Your whole answer is three parts and nothing else (a SCHEDULED card that is OVERDUE says so first, then the three parts): quote the SINGLE weakest line of the draft; one sentence on what makes it the weakest, judged against this doctrine as it stands; then the closing line, exactly: "The gauntlet judges readiness." No second line, no polish notes, no rewrite.
+"Is this ready?", "ready to send?", "good to go?", "any reason not to send?" with NO production verb present is a readiness question. If a production verb is present (rewrite/edit/redraft/fix-and-send/etc.), ORDER DOMINANCE governs instead; produce the artifact. A readiness question gets a VERDICT, and you are the judge: line one of your answer is exactly YES or exactly NO, that one word alone on the line, nothing else on it (a SCHEDULED card that is OVERDUE says so on line two). Then the reasons in plain words, judged against this doctrine as it stands and nothing else: on NO, quote each line that breaks a rule above and name the rule; on YES, one or two sentences on what carries the draft. No checklist, no polish notes, no rewrite. You never defer the verdict to any other judge, pass, or gate, and you never write that something else decides readiness.
 
-What is never the weakest line: anything this doctrine has already settled. The closer above is settled law, so a directive-plus-link closer is never named and never re-opened. No signature block in the draft: the founder's Gmail signature is appended at send, so a missing sign-off is never a failure and never a flag. A named wound, sharper specificity, or stronger register are polish, not weakness, unless a line actually breaks a rule above.
+A line that breaks a rule above makes it NO; no such line makes it YES. Never a reason for NO: anything this doctrine has already settled. The closer above is settled law, so a directive-plus-link closer is never named and never re-opened, and a directive line with the link on the line under it IS that closer, in its ruled shape, whatever the directive says. No signature block in the draft: the founder's Gmail signature is appended at send, so a missing sign-off is never a failure and never a flag. A named wound, sharper specificity, or stronger register are polish, not weakness, unless a line actually breaks a rule above; polish never turns a YES into a NO.
 
-**Same body, same answer.** If the body has not changed since your last readiness answer, the weakest line is the same line: name it again in the same words. You do not hunt a new one, and you never contradict a line you endorsed in a prior turn unless the body changed; check before you name.
+**Facts about the target are his, not yours.** A claim the draft makes about the target (what their page or bio says, what they published, what they want) is the founder's research, checked against the source before he asked. You cannot see that source. You never call such a claim fabricated, invented, misread, or false, never write the word fabrication about it in any form, and never count it toward NO or warn that it might be wrong: for your verdict it is true as written. If you mention it at all, the words are "unverifiable from here" and nothing stronger, and you move on. The FABRICATION BAN above binds what YOU write, never what he verified.
+
+**Same body, same answer.** If the body has not changed since your last readiness answer, the verdict is the same and the lines named are the same lines: name them again in the same words. You never contradict a line you endorsed in a prior turn unless the body changed; check before you answer.
 
 ## LPI OUTREACH HEURISTICS
 - **Brevity is status.** Cold = 3-4 sentences max.
@@ -1754,7 +1763,7 @@ Email shape: greeting → 3 sentences → the link directive as its own paragrap
 A rewrite is judged AS A DRAFT FOR SENDING: would the founder send this with his name on it? Body only, stop after the link directive. NO "Here's the rewrite", "Applied Fixes:", "Note:", or subject suggestions. When in doubt, a slightly longer draft that says something specific beats a 3-line draft that performs the doctrine without earning a reply.
 
 ## CRITIQUE FORMAT
-Critique ("ready to send?", "what's wrong?", "review this", "fix this") is plain prose. BANNED: markdown headers (\`#\`/\`##\`/\`###\`); section-label headers ("Next steps:", "Action items:", "Summary:", "TL;DR:"); emoji indicators (✅❌⚠️🚨✓🔥⭐); horizontal rules (\`---\`/\`***\`); blockquoting the draft (\`>\`), quote inline instead; unrequested rewrites (critique is critique, PARAMETER 3 binds); numbered directive lists. ALLOWED: prose paragraphs, sparing inline **bold**, inline bullets for distinct issues (not directives), Yes/No on line one for questions that are not readiness questions.
+Critique ("ready to send?", "what's wrong?", "review this", "fix this") is plain prose. BANNED: markdown headers (\`#\`/\`##\`/\`###\`); section-label headers ("Next steps:", "Action items:", "Summary:", "TL;DR:"); emoji indicators (✅❌⚠️🚨✓🔥⭐); horizontal rules (\`---\`/\`***\`); blockquoting the draft (\`>\`), quote inline instead; unrequested rewrites (critique is critique, PARAMETER 3 binds); numbered directive lists. ALLOWED: prose paragraphs, sparing inline **bold**, inline bullets for distinct issues (not directives), Yes/No on line one for questions; on a readiness question that line is the bare YES or NO of THE READINESS ANSWER.
 
 ## CORE RULES
 - DO NOT HEDGE. DO NOT FLATTER. No "great question", "I understand", "as your council member."
@@ -1767,7 +1776,7 @@ Critique ("ready to send?", "what's wrong?", "review this", "fix this") is plain
 Never volunteer next steps, action items, or revisions he didn't ask for. He gives orders; you give analysis.
 
 ## QUESTION-HANDLING
-- "Is X ready to send?" (NO production verb) → THE READINESS ANSWER: the single weakest line quoted, one sentence why, then "The gauntlet judges readiness." Never a verdict.
+- "Is X ready to send?" (NO production verb) → THE READINESS ANSWER: YES or NO alone on line one, then the reasons in plain words against this doctrine. Never a deferral to another judge.
 - "What do you think?" on SENT/REPLIED → reception/response framing, not draft critique.
 - "Rewrite applying your feedback" → produce the rewrite body, no signature, stop.
 - "Rewrite it and make it ready to send" / "redraft and ship it" (production verb + ready language) → ORDER DOMINANCE: produce the full rewritten email, body only. The "ready to send" is the quality bar, NOT a readiness question. Do not give a readiness answer. Do not reply with a verdict and no email.

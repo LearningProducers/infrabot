@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.15.1.
+dependencies beyond Python 3 and a browser. This README describes v0.15.2.
 
 ## What it does
 
@@ -247,6 +247,12 @@ Every check in `tests/` runs standalone from the repo root against the real
   lists the URLs it carries) and from the card (the hook and the body
   preview render their URLs as the trail already did; a URL the preview's
   cut would split is carried whole).
+- **v0.15.2.** The readiness verdict: asked whether a draft is ready to
+  send, a council slot answers YES or NO alone on its first line, decided by
+  the outreach doctrine in its prompt, then the reasons in plain words; it
+  no longer defers to another judge. A claim the draft makes about the
+  recipient is your research, so the slot says "unverifiable from here",
+  never "fabricated".
 
 ## Licenses
 

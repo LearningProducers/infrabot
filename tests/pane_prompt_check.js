@@ -1,7 +1,9 @@
 // pane_prompt_check.js: the council pane stops grading the signature and
 // keeps the link closer (infrabot v0.5.5); since v0.10.1 it also pins THE
-// READINESS ANSWER (no verdict, the single weakest line, the gauntlet judges)
-// and the closer written as settled law.
+// READINESS ANSWER and the closer written as settled law; since v0.15.2 the
+// readiness answer is a verdict (YES or NO alone on line one, decided by the
+// doctrine, no deferral to any other judge) and a claim about the target is
+// "unverifiable from here", never "fabricated".
 //
 // Reads the REAL COUNCIL_SYSTEM_BASE out of infrabot.html (the template
 // literal between its backticks; never a copy) and pins what the prompt
@@ -62,19 +64,33 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('the retired "drop the URL" wording is gone',has('drop the URL'),false);
   expect('the retired "drop the asset" shape name is gone from the gate',has('no-CTA-drop-the-asset'),false);
   expect('no signature block is never the weakest line (the readiness answer)',has('No signature block in the draft: the founder\'s Gmail signature is appended at send'),true);
-  // v0.10.1 THE READINESS ANSWER: no verdict, the single weakest line, the gauntlet judges;
-  // the closer is settled law and is never re-ruled.
+  // v0.10.1 THE READINESS ANSWER, reshaped v0.15.2 THE READINESS VERDICT: the seat
+  // is the judge, YES or NO alone on line one, no deferral; the closer stays settled law.
   expect('the ready-to-send gate is gone',has('READY-TO-SEND GATE'),false);
   expect('no line asks for the "Ready. Send it." verdict',has('say **"Ready. Send it."**'),false);
   expect('the readiness answer section exists',has('## THE READINESS ANSWER'),true);
-  expect('a readiness question is never answered with a verdict',has('A readiness question is NEVER answered with a verdict'),true);
-  expect('the answer is the single weakest line',has('quote the SINGLE weakest line of the draft'),true);
-  expect('the closing line names the gauntlet as the judge',count(/The gauntlet judges readiness\./g)>=2,true);
+  expect('a readiness question gets a verdict and the seat is the judge',has('A readiness question gets a VERDICT, and you are the judge'),true);
+  expect('line one is exactly YES or exactly NO, alone',has('line one of your answer is exactly YES or exactly NO, that one word alone on the line'),true);
+  expect('the seat never defers the verdict to another judge',has('You never defer the verdict to any other judge, pass, or gate'),true);
+  expect('the retired "never answered with a verdict" rule is gone',has('A readiness question is NEVER answered with a verdict'),false);
+  expect('the retired gauntlet closing line is gone',count(/The gauntlet judges readiness\./g),0);
+  expect('the word gauntlet is gone from the prompt',has('gauntlet'),false);
+  expect('a target claim is never called fabricated',has('You never call such a claim fabricated, invented, misread, or false'),true);
+  expect('the words for a target claim are unverifiable from here',has('the words are "unverifiable from here" and nothing stronger'),true);
+  expect('the fabrication ban faces the founder side only, never a target claim',has('A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it'),true);
+  expect('the OVERDUE line agrees with the readiness verdict (line two under it)',has('If OVERDUE, say so on line one (on a readiness question, line two, under the verdict).'),true);
+  expect('a target claim is never counted toward NO',has('never count it toward NO or warn that it might be wrong'),true);
+  expect('a directive line with the link under it is the ruled closer, never the bare-directive shape',has('A directive line with the link on the line below it is shape #1, never this one'),true);
+  expect('the fabrication ban binds what the seat writes, not what the founder verified',has('The FABRICATION BAN above binds what YOU write, never what he verified'),true);
   expect('the closer is settled law, never re-decided',has('SETTLED LAW, never re-decided'),true);
   expect('a directive line plus the link is the closer, not solicitation',has('It is not solicitation, not an ask, not a floating link'),true);
   expect('the seat never re-rules the closer',has('You never propose removing, softening, or re-ruling the closer'),true);
+  expect('the closer is never a reason for NO',has('a directive-plus-link closer is never named and never re-opened'),true);
+  expect('polish never turns a YES into a NO',has('polish never turns a YES into a NO'),true);
   expect('same body, same answer',has('**Same body, same answer.**'),true);
-  expect('question handling routes readiness to the answer, never a verdict',has('THE READINESS ANSWER: the single weakest line quoted, one sentence why, then "The gauntlet judges readiness." Never a verdict.'),true);
+  expect('same body, same verdict',has('the verdict is the same and the lines named are the same lines'),true);
+  expect('question handling routes readiness to the verdict, never a deferral',has('THE READINESS ANSWER: YES or NO alone on line one, then the reasons in plain words against this doctrine. Never a deferral to another judge.'),true);
+  expect('critique format admits the bare verdict on line one',has('on a readiness question that line is the bare YES or NO of THE READINESS ANSWER'),true);
 
   if(failures.length){
     out('pane_prompt_check: FAIL ('+failures.length+' failure(s))');
