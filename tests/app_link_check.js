@@ -64,7 +64,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   // Every body surface rides the helper.
   expect('COPY ALL text rides it',extractFn(html,'commPlainText').indexOf('expandAppLink(')>=0,true);
   expect('the fullscreen view rides it',extractFn(html,'renderFullscreenBodyComm').indexOf('expandAppLink(')>=0,true);
-  expect('the card preview rides it',extractFn(html,'renderComms').indexOf('expandAppLink(')>=0,true);
+  expect('the card preview rides it (through commBodyPreviewHtml since v0.15.1)',extractFn(html,'renderComms').indexOf('commBodyPreviewHtml(k.body)')>=0&&extractFn(html,'commBodyPreviewHtml').indexOf('expandAppLink(')>=0,true);
   expect('the editor shows the expanded body',extractFn(html,'openCommModal').indexOf("g('k-body').value=expandAppLink(")>=0,true);
   expect('the council context rides it (both sites)',(html.match(/<begin_body>\n\$\{expandAppLink\(k\.body\)\|\|'\(empty\)'\}/g)||[]).length,2);
   expect('the dossier mint rides it',extractFn(html,'_dGrabBody').indexOf('return expandAppLink(')>=0,true);

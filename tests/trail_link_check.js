@@ -1,7 +1,8 @@
 // trail_link_check.js: a url inside a communication card's discovery trail
 // renders as a link through the one link helper (infrabot v0.13.3).
 //
-// Runs the REAL esc, linkHref, linkHtml, trailTextHtml and trailHtml
+// Runs the REAL esc, linkHref, linkHtml, URL_TOKEN_RE, urlTokenParts,
+// linkedTextHtml (named trailTextHtml through v0.15.0) and trailHtml
 // extracted from infrabot.html by a brace walk (never a re-implementation)
 // against SYNTHETIC trails: invented hosts under the reserved .invalid
 // domain, no real record. The repo is public.
@@ -52,7 +53,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
 
   var ge=eval;
   ge(extractVar(html,'esc'));
-  ['linkHref','linkHtml','trailTextHtml','trailHtml'].forEach(function(n){ge(extractFn(html,n));});
+  ge(extractVar(html,'URL_TOKEN_RE'));
+  ['linkHref','linkHtml','urlTokenParts','linkedTextHtml','trailHtml'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){
@@ -106,8 +108,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('S1 exactly one linkHtml definition in the file', (html.match(/function linkHtml\(/g)||[]).length===1, '');
   check('S2 the event card renders its Verify url through linkHtml', extractFn(html,'renderEventCard').indexOf('linkHtml(e.url)')!==-1, '');
   check('S3 the comm card renders its trail through trailHtml', extractFn(html,'renderComms').indexOf('trailHtml(k.trail)')!==-1, '');
-  var th=extractFn(html,'trailHtml'),tt=extractFn(html,'trailTextHtml');
-  check('S4 trailHtml and trailTextHtml write no anchor of their own; the link is linkHtml or nothing', th.indexOf('<a ')===-1&&tt.indexOf('<a ')===-1&&tt.indexOf('linkHtml(')!==-1&&th.indexOf('trailTextHtml(head)')!==-1&&th.indexOf('trailTextHtml(rest)')!==-1, '');
+  var th=extractFn(html,'trailHtml'),tt=extractFn(html,'linkedTextHtml');
+  check('S4 trailHtml and linkedTextHtml write no anchor of their own; the link is linkHtml or nothing', th.indexOf('<a ')===-1&&tt.indexOf('<a ')===-1&&tt.indexOf('linkHtml(')!==-1&&th.indexOf('linkedTextHtml(head)')!==-1&&th.indexOf('linkedTextHtml(rest)')!==-1, '');
   check('S5 the MORE control is still the element right before the folded remainder (the toggle reads nextElementSibling)', th.indexOf('</button><div class="trail-rest hidden">')!==-1, '');
 
   out('\n'+checks+' checks, '+failures+' failure(s)');
