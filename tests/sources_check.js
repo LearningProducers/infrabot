@@ -149,7 +149,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
     'Quarter: Q3-2026',
     'Subject: A fixture door',
     'Body:',
-    'Hello,',
+    'Hi,',
     '',
     'A fixture body. Run one through it:',
     '',
@@ -190,7 +190,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('D3 the minted trail is empty: nothing writes the trail from this version on', c1.trail===''&&c2.trail===''&&c3.trail==='', JSON.stringify([c1.trail,c2.trail,c3.trail]));
   check('D4 a block with no Sources: line carries its Source URL as the one row', JSON.stringify(c2.sources)===JSON.stringify([{claim:'',url:'https://fallback.invalid/about',section:''}]), JSON.stringify(c2.sources));
   check('D5 sources is a known label, so the body grab stops at a Sources: line typed under the body, and that line is still a source row', c3.body==='Sam, a third fixture body.'&&DOSSIER_KNOWN_LABELS.indexOf('sources')!==-1&&JSON.stringify(c3.sources)===JSON.stringify([{claim:'a label typed under the body',url:'https://under-body.invalid/x',section:'Footer'}]), JSON.stringify([c3.body,c3.sources]));
-  check('D6 the body keeps its shape: salutation line, blank, body, blank, the link alone', /^Hello,\n\nA fixture body\. Run one through it:\n\nhttps:\/\//.test(c1.body), JSON.stringify(c1.body));
+  check('D6 the body keeps its shape: salutation line, blank, body, blank, the link alone', /^Hi,\n\nA fixture body\. Run one through it:\n\nhttps:\/\//.test(c1.body), JSON.stringify(c1.body));
   check('D7 the hook rides as its own field beside the rows', c1.hook==='OPERATOR. Three offices in two countries; hand them one page tested first.', c1.hook);
   glob.state.comms=[{id:'id_fix_present',title:'Fallback Co · Robin Fallback',target:'robin@fallback.invalid',trail:'kept',hook:'the founder typed this',sources:[{claim:'kept',url:'https://kept.invalid/a',section:''}],body:'kept body',status:'draft'}];
   var r=additiveImportComms(res);

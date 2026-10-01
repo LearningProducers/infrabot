@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.16.0 (THE SOURCES) 26-09-30                                              ║
+║  v0.17.0 (THE CALL ON THE COMMS TAB) 26-09-30                                ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  417  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  425  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   419–  445  :root, CSS variables, fonts, reset, body                     ║
-║  L   446–  503  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   504–  546  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   547–  564  CLOCKS — live clock grid                                     ║
-║  L   565–  641  CARDS — contact card, comm card, status pills                ║
-║  L   642–  668  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   669–  678  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   679–  684  EMPTY: state placeholder                                     ║
-║  L   685–  708  MODAL — bg, box, header, footer                              ║
-║  L   709–  720  DRAWER — settings drawer + backdrop                          ║
-║  L   721–  726  COUNCIL: stream items (legacy reused)                        ║
-║  L   727–  733  TOAST: notification                                          ║
-║  L   734–  782  STATS: grid + profile block                                  ║
-║  L   783–  805  CREW BLOCK — Groq key row, council slots                     ║
-║  L   806–  827  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   828–  833  Per-response copy button (v1.2)                              ║
-║  L   834–  853  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   854–  860  v1.4: Foundation context source blocks                       ║
-║  L   861–  941  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   942–  968  INSIGHT VAULT                                                ║
+║  L   427–  453  :root, CSS variables, fonts, reset, body                     ║
+║  L   454–  511  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   512–  554  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   555–  572  CLOCKS — live clock grid                                     ║
+║  L   573–  649  CARDS — contact card, comm card, status pills                ║
+║  L   650–  676  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   677–  686  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   687–  692  EMPTY: state placeholder                                     ║
+║  L   693–  716  MODAL — bg, box, header, footer                              ║
+║  L   717–  728  DRAWER — settings drawer + backdrop                          ║
+║  L   729–  734  COUNCIL: stream items (legacy reused)                        ║
+║  L   735–  741  TOAST: notification                                          ║
+║  L   742–  790  STATS: grid + profile block                                  ║
+║  L   791–  813  CREW BLOCK — Groq key row, council slots                     ║
+║  L   814–  835  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   836–  841  Per-response copy button (v1.2)                              ║
+║  L   842–  861  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   862–  868  v1.4: Foundation context source blocks                       ║
+║  L   869–  949  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   950–  976  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   973–  991  APP: shell — header, brand, top clock, settings              ║
-║  L   992–  999  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L  1000– 1038  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L  1039– 1048  TAB-NETWORK — contacts list                                  ║
-║  L  1049– 1142  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1143– 1157  TAB-VAULT — insights                                         ║
-║  L  1158– 1279  MODAL-CONTACT — add/edit contact                             ║
-║  L  1280– 1320  MODAL-COMM — add/edit communication                          ║
-║  L  1321– 1342  MODAL-PROFILE — edit your profile                            ║
-║  L  1343– 1357  MODAL-CLOCK — add world clock                                ║
-║  L  1358– 1373  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1374– 1401  DRAWER — profile, data, version footer                       ║
-║  L  1402– 1421  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1422– 1433  MODAL-MEM — memory inspector                                 ║
-║  L  1434– 1440  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1441– 1442  TOAST: container                                             ║
+║  L   981–  999  APP: shell — header, brand, top clock, settings              ║
+║  L  1000– 1007  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L  1008– 1046  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L  1047– 1056  TAB-NETWORK — contacts list                                  ║
+║  L  1057– 1150  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1151– 1165  TAB-VAULT — insights                                         ║
+║  L  1166– 1287  MODAL-CONTACT — add/edit contact                             ║
+║  L  1288– 1328  MODAL-COMM — add/edit communication                          ║
+║  L  1329– 1350  MODAL-PROFILE — edit your profile                            ║
+║  L  1351– 1365  MODAL-CLOCK — add world clock                                ║
+║  L  1366– 1381  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1382– 1409  DRAWER — profile, data, version footer                       ║
+║  L  1410– 1429  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1430– 1441  MODAL-MEM — memory inspector                                 ║
+║  L  1442– 1448  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1449– 1450  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1445– 1655  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1656– 1933  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1934– 1971  g, esc, uid, toast helpers + state globals                   ║
-║  L  1972– 2461  freshState, loadState (migrations), saveState                ║
-║  L  2462– 2687  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2688– 2721  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2722– 2767  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2768– 3954  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3955– 4075  getCommBucket + age helpers, setCommsView                    ║
-║  L  4076– 4309  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4310– 4457  renderComms — full status/triage rendering                   ║
-║  L  4458– 4485  archiveComm + reviveComm                                     ║
-║  L  4486– 4608  renderReportsPanel + computeMonthStats                       ║
-║  L  4609– 4800  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4801– 5074  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5075– 5125  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5126– 5402  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5403– 5553  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5554– 5621  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5622– 5911  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1453– 1663  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1664– 1941  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1942– 1979  g, esc, uid, toast helpers + state globals                   ║
+║  L  1980– 2469  freshState, loadState (migrations), saveState                ║
+║  L  2470– 2695  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2696– 2729  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2730– 2775  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2776– 3962  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3963– 4083  getCommBucket + age helpers, setCommsView                    ║
+║  L  4084– 4344  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4345– 4498  renderComms — full status/triage rendering                   ║
+║  L  4499– 4526  archiveComm + reviveComm                                     ║
+║  L  4527– 4649  renderReportsPanel + computeMonthStats                       ║
+║  L  4650– 4841  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4842– 5115  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5116– 5166  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5167– 5443  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5444– 5594  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5595– 5662  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5663– 5952  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5912– 6026  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6027– 6057  saveProfile + clock save/remove                              ║
-║  L  6058– 6211  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6212– 6391  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6392– 6636  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6637– 7055  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7056– 7414  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7415– 7426  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7427– 7471  saveGroqKey, clearGroqKey                                    ║
-║  L  7472– 8427  exportAll, importJson, wipeAll                               ║
+║  L  5953– 6067  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6068– 6098  saveProfile + clock save/remove                              ║
+║  L  6099– 6252  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6253– 6432  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6433– 6677  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6678– 7096  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7097– 7455  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7456– 7467  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7468– 7512  saveGroqKey, clearGroqKey                                    ║
+║  L  7513– 8468  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -377,7 +377,15 @@
 ║      its urls seeded into sources on every record (normalizeComm, at load,   ║
 ║      import and merge); the dossier parser reads Sources: lines; the pane    ║
 ║      judges addressing, sources and the email shape. tests/sources_check.js. ║
-║  L  8428– 8755  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.17.0 THE CALL ON THE COMMS TAB: a completed call (status called)      ║
+║      shows on the Communications tab as its own card in the PIPELINE         ║
+║      view, outbound, channel PHONE, with its outcome, follow-through and     ║
+║      the day it was made, sorted among the email cards and counted in the    ║
+║      pill; derived at render from the call record, nothing written, the      ║
+║      Network tab untouched; OPEN opens the call brief. The nameless          ║
+║      salutation in the council prompt is "Hi," alone.                        ║
+║      tests/call_comm_check.js.                                               ║
+║  L  8469– 8797  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -984,7 +992,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.16.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.17.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1395,7 +1403,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.16.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.17.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1442,7 +1450,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.16.0';
+const APP_VERSION='infrabot-v0.17.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1754,7 +1762,7 @@ A line that breaks a rule above makes it NO; no such line makes it YES. Never a 
 **Same body, same answer.** If the body has not changed since your last readiness answer, the verdict is the same and the lines named are the same lines: name them again in the same words. You never contradict a line you endorsed in a prior turn unless the body changed; check before you answer.
 
 ## LPI OUTREACH HEURISTICS
-- **Addressing.** The Target field is the inbox. When it is a generic inbox (info@, hello@, contact@, sales@, office@, team@, press@ and their kind) and the record or the hook places the company at more than one location outside its own state or country, the draft opens with "Hello," alone and names no person. When the company is one location, or the Target is a person's own address, the salutation names that person. A nameless opener is never a missing salutation, and it is a NO only when the Target is a person's own address or the record shows one location; when the record does not show the locations, that is unverifiable from here and you say so.
+- **Addressing.** The Target field is the inbox. When it is a generic inbox (info@, hello@, contact@, sales@, office@, team@, press@ and their kind) and the record or the hook places the company at more than one location outside its own state or country, the draft opens with "Hi," alone and names no person. When the company is one location, or the Target is a person's own address, the salutation names that person. A nameless opener is never a missing salutation, and it is a NO only when the Target is a person's own address or the record shows one location; when the record does not show the locations, that is unverifiable from here and you say so.
 - **Brevity is status.** Cold = 3-4 sentences max.
 - **Value first.** Lead with relevance to their specific wound.
 - **No thirst.** No phone number in cold outreach, no "reach out anytime," no soft-multi-option CTAs.
@@ -1764,7 +1772,7 @@ A line that breaks a rule above makes it NO; no such line makes it YES. Never a 
 - **No theatrical metaphors.** "war zone" / "war machine" / "battlefield" as standalone metaphor is FILLER. Replace with a specific operational claim or cut.
 - **One-sentence value rule.** Fits one sentence, passes the "1,000 songs in your pocket" test. Not "AI-powered platform for orchestrating workflows"; instead "writing that holds up under VP review". No jargon.
 - **No filler.** "At scale", "what's actually working", "navigating X" without a metric are noise.
-Email shape, every line of it: the salutation line (the name with a comma, or "Hello," alone under Addressing), one blank line, the body of 3 sentences, one blank line, the link directive as its own paragraph, nothing after it. No sign-off, no signature (appended at send), no phone, no tagline, no second CTA; a missing sign-off is never a flag.
+Email shape, every line of it: the salutation line (the name with a comma, or "Hi," alone under Addressing), one blank line, the body of 3 sentences, one blank line, the link directive as its own paragraph, nothing after it. No sign-off, no signature (appended at send), no phone, no tagline, no second CTA; a missing sign-off is never a flag.
 
 ## REWRITE COHERENCE
 A rewrite is judged AS A DRAFT FOR SENDING: would the founder send this with his name on it? Body only, stop after the link directive. NO "Here's the rewrite", "Applied Fixes:", "Note:", or subject suggestions. When in doubt, a slightly longer draft that says something specific beats a 3-line draft that performs the doctrine without earning a reply.
@@ -4307,6 +4315,33 @@ function commBodyPreviewHtml(body){
   }
   return linkedTextHtml(text.slice(0,cut))+'...';
 }
+// v0.17.0 THE CALL ON THE COMMUNICATIONS TAB. A completed call (status
+// called) shows on this tab as its own card in the PIPELINE view, outbound,
+// channel PHONE, with the outcome, alongside the email cards, sorted among
+// them by the day it was made. Derived at render from the call record and
+// written nowhere: no comm record is minted, the call keeps working on the
+// Network tab exactly as before, and the month report and COPY ALL count
+// emails as they did. The card opens the call's own brief. Comment written
+// with zero brace pairs.
+function calledAt(c){
+  const h=Array.isArray(c.statusHistory)?c.statusHistory.filter(x=>x&&x.status==='called'&&x.timestamp):[];
+  return h.length?h[h.length-1].timestamp:(c.updatedAt||c.createdAt||'');
+}
+function callCommItems(){
+  return callsList().map(normalizeCall).filter(c=>c.status==='called').map(c=>({kind:'call',c:c,when:calledAt(c)}));
+}
+function renderCallCommCard(c){
+  const when=calledAt(c);
+  let day='';
+  try{day=when?new Intl.DateTimeFormat('en-CA',{timeZone:homeTzNow(),year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(when)):'';}catch(_){day='';}
+  const person=state.network.find(x=>x.id===c.contactId);
+  const followName=person?person.name:c.followName;
+  const sub=['<span style="color:var(--cyan)">OUT →</span>','PHONE',c.phone?esc(c.phone):'',c.location?esc(c.location.toUpperCase()):''].filter(Boolean).join(' · ');
+  const outcome='<div class="card-section"><div class="card-section-h">Outcome</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55;overflow-wrap:anywhere">'+(c.notes?esc(c.notes):'<span style="color:var(--text-dim)">no notes on the call</span>')+'</div></div>';
+  const follow=followName?'<div class="card-section"><div class="card-section-h">Follow-through</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">'+esc(followName)+(c.followChannel?' · '+esc(c.followChannel):'')+'</div></div>':'';
+  const dayHtml=day?'<div class="card-section"><div class="card-section-h">Called</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">'+esc(day)+'</div></div>':'';
+  return '<div class="card call-comm-card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">'+esc(c.company||'(no company)')+'</div><div class="card-sub">'+sub+'</div></div><div class="card-h-right"><span class="card-status called">CALLED</span></div></div><div class="card-body">'+hookHtml(c.hook)+outcome+follow+dayHtml+'</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-call" data-id="'+esc(c.id)+'">OPEN</button></div></div>';
+}
 function renderComms(){
   renderCommSearch();
   const body=g('comms-body');
@@ -4318,6 +4353,8 @@ function renderComms(){
   // pill and the grid can never disagree; past months live in REPORTS.
   const counts={drafts:0,pipeline:0,archive:0};
   state.comms.forEach(c=>{const b=getCommBucket(c);if(b==='archive'&&!inArchiveWindow(c))return;if(counts[b]!==undefined)counts[b]++;});
+  const callItems=callCommItems(); // v0.17.0: completed calls ride the PIPELINE view and its count
+  counts.pipeline+=callItems.length;
 
   // Triage bar — always rendered, even with zero comms. Encourages workflow muscle memory.
   const triageBar=`<div class="triage-bar">`
@@ -4334,7 +4371,7 @@ function renderComms(){
   }
 
   // No comms at all — special-case first-run empty state under whichever view is active.
-  if(state.comms.length===0){
+  if(state.comms.length===0&&!callItems.length){
     body.innerHTML=triageBar+`<div class="empty-state"><div class="es-h">NO COMMUNICATIONS LOGGED</div><div class="es-sub">Log every outreach (outbound) and every reply (inbound).<br>The map drops a pin where each lands.<br>Status colors track signal: violet scheduled · red sent · green replied · gray went quiet · amber inbound.</div><button class="btn" data-open="comm">+ LOG FIRST COMMUNICATION</button></div>`;
     return;
   }
@@ -4343,7 +4380,7 @@ function renderComms(){
   // (inArchiveWindow, fail visible). Drafts and pipeline filter by bucket only.
   const filtered=state.comms.filter(c=>getCommBucket(c)===view&&(view!=='archive'||inArchiveWindow(c)));
 
-  if(filtered.length===0){
+  if(filtered.length===0&&!(view==='pipeline'&&callItems.length)){
     let title='',sub='';
     if(view==='drafts'){title='NO DRAFTS';sub=`You're caught up on drafts. Log a new communication to start one, or switch to PIPELINE to see what's in the field.`;}
     else if(view==='pipeline'){title='PIPELINE EMPTY';sub=`No active sends. The moment you mark a comm SCHEDULED, SENT, or REPLIED it shows up here as your active follow-up list.`;}
@@ -4375,7 +4412,11 @@ function renderComms(){
   });
 
   let html=triageBar+'<div class="card-grid">';
-  sorted.forEach(k=>{
+  const items=sorted.map(k=>({kind:'comm',k:k,when:k.sentDate||k.updatedAt||k.createdAt||''}));
+  if(view==='pipeline'){callItems.forEach(it=>items.push(it));items.sort((a,b)=>(a.kind==='comm'&&a.k.status==='scheduled'?-1:0)-(b.kind==='comm'&&b.k.status==='scheduled'?-1:0)||String(a.when).localeCompare(String(b.when)));}
+  items.forEach(it=>{
+    if(it.kind==='call'){html+=renderCallCommCard(it.c);return;}
+    const k=it.k;
     const dirLabel=k.direction==='inbound'?'IN ←':'OUT →';
     const dirColor=k.direction==='inbound'?'amber':'cyan';
     const channelLabel=(k.channel||'').toUpperCase().replace('-',' ');
@@ -8509,6 +8550,7 @@ function wireEvents(){
     const btn=e.target.closest('[data-act]');if(!btn)return;
     const act=btn.dataset.act;const id=btn.dataset.id;
     if(act==='edit-comm')openCommModal(id);
+    if(act==='edit-call')openCallModal(id); // v0.17.0: a completed call's card on this tab opens its brief
     if(act==='council-comm')openCouncil('comm',id);
     if(act==='copy-comm')copyCommBody(id);
     if(act==='archive-comm')archiveComm(id);

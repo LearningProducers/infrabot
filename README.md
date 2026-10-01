@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.16.0.
+dependencies beyond Python 3 and a browser. This README describes v0.17.0.
 
 ## What it does
 
@@ -264,6 +264,12 @@ Every check in `tests/` runs standalone from the repo root against the real
   "Hello," and no name), the hook's sources, and the email shape (salutation
   line, blank line, body, blank line, the link as its own paragraph, nothing
   after).
+- **v0.17.0.** The call on the Communications tab: a completed call shows
+  there as its own card in the PIPELINE view, outbound, channel PHONE, with
+  its outcome, follow-through and the day it was made, sorted among the
+  email cards and counted in the pill; derived from the call record at
+  render, nothing written, and the Network tab's calls work as before. The
+  nameless salutation a council slot uses is "Hi," alone.
 
 ## Licenses
 
