@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.15.2.
+dependencies beyond Python 3 and a browser. This README describes v0.16.0.
 
 ## What it does
 
@@ -39,10 +39,12 @@ The app has four tabs.
   form, where SUPPORT and NOTES each open in the fullscreen editor the
   message body has; the page generates none of it.
 - **COMMUNICATIONS.** Draft cards, one per message. A card carries the
-  person, the company, the address, the discovery trail (how they showed
-  up), a one-line hook (why they would care and what you are handing them),
-  the subject and the body. The hook is written by your agent or typed in
-  the card's form; the page never generates it. A card whose address is a
+  person, the company, the address, a one-line hook (why they would care and
+  what you are handing them), the hook's sources (one row per factual claim
+  the hook makes: the claim, the page it sits on, the page section, each
+  page a link), the subject and the body. The hook and its sources are
+  written by your agent or typed in the card's form; the page never
+  generates them. A card whose address is a
   CONTACT's email carries the gold mark; one whose address is an
   ACQUAINTANCE's reads IN NETWORK, plain. Cards move DRAFT to
   SCHEDULED to SENT (and REPLIED); a sent card with no reply after five days
@@ -253,6 +255,15 @@ Every check in `tests/` runs standalone from the repo root against the real
   no longer defers to another judge. A claim the draft makes about the
   recipient is your research, so the slot says "unverifiable from here",
   never "fabricated".
+- **v0.16.0.** The sources: a communication card carries one source row per
+  factual claim its hook makes (the claim, the page it sits on, the page
+  section), shown under the hook with each page a link and an UNSOURCED
+  HOOK mark when a hook has none; the discovery trail box is gone and the
+  URLs the saved trails held become source rows on every card; a council
+  slot judges addressing (a generic inbox at a multi-location company gets
+  "Hello," and no name), the hook's sources, and the email shape (salutation
+  line, blank line, body, blank line, the link as its own paragraph, nothing
+  after).
 
 ## Licenses
 

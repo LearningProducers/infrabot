@@ -57,7 +57,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('the DRAFT posture no longer lists the signature',has('CTA, signature, register'),false);
   expect('no line ends the email on the signature',count(/end on the signature/g),0);
   expect('no line stops after the signature',has('stop after the signature'),false);
-  expect('the email shape ends on the link directive',has('the link directive as its own paragraph. No signature (appended at send)'),true);
+  expect('the email shape ends on the link directive with nothing after it',has('the link directive as its own paragraph, nothing after it. No sign-off, no signature (appended at send)'),true);
   expect('the default closer is the link directive',has('1. **The link directive.**'),true);
   expect('a cold send never has the link removed',has('never tell the founder to remove that link'),true);
   expect('the forbidden-CTA fix ends on the link directive',has('delete the CTA line, end on the link directive'),true);
@@ -81,6 +81,13 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('the OVERDUE line agrees with the readiness verdict (line two under it)',has('If OVERDUE, say so on line one (on a readiness question, line two, under the verdict).'),true);
   expect('a target claim is never counted toward NO',has('never count it toward NO or warn that it might be wrong'),true);
   expect('a directive line with the link under it is the ruled closer, never the bare-directive shape',has('A directive line with the link on the line below it is shape #1, never this one'),true);
+  // v0.16.0 THE SOURCES: addressing, the hook's sources, the email shape.
+  expect('the addressing rule names the generic-inbox, multi-location case',has('the draft opens with "Hello," alone and names no person'),true);
+  expect('a single location or a personal address is addressed by name',has('When the company is one location, or the Target is a person\'s own address, the salutation names that person'),true);
+  expect('a nameless opener is never a missing salutation, a NO only at a personal address or a single location',has('A nameless opener is never a missing salutation, and it is a NO only when the Target is a person\'s own address or the record shows one location'),true);
+  expect('a hook claim with no source row is a NO',has('A hook claim with no source row is a NO on its own, named as the missing row'),true);
+  expect('the email shape is spelled line by line',has('the salutation line (the name with a comma, or "Hello," alone under Addressing), one blank line, the body of 3 sentences, one blank line, the link directive as its own paragraph, nothing after it'),true);
+  expect('no sign-off, and a missing sign-off is never a flag',has('No sign-off, no signature (appended at send), no phone, no tagline, no second CTA; a missing sign-off is never a flag.'),true);
   expect('the fabrication ban binds what the seat writes, not what the founder verified',has('The FABRICATION BAN above binds what YOU write, never what he verified'),true);
   expect('the closer is settled law, never re-decided',has('SETTLED LAW, never re-decided'),true);
   expect('a directive line plus the link is the closer, not solicitation',has('It is not solicitation, not an ask, not a floating link'),true);

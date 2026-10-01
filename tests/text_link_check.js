@@ -1,17 +1,17 @@
 // text_link_check.js: THE TEXT LINKS (infrabot v0.15.1). Every url in a
-// communication's discovery trail, hook and body opens from the form and
+// communication's hook, sources and body opens from the form and
 // from the card, through the one link helper.
 //
 // Runs the REAL esc, linkHref, linkHtml, URL_TOKEN_RE, urlTokenParts,
-// linkedTextHtml, textUrls, textLinksHtml, hookHtml, trailHtml,
+// linkedTextHtml, textUrls, textLinksHtml, hookHtml, sourcesRowsHtml,
 // expandAppLink, commBodyPreviewHtml and refreshTextLinks extracted from
 // infrabot.html by a brace walk (never a re-implementation) against
 // SYNTHETIC text: invented hosts under the reserved .invalid domain, no real
 // record. The repo is public.
 //
-// What it pins: one tokenizer (URL_TOKEN_RE, urlTokenParts) behind the trail,
-// the hook and the body; the hook section and the body preview render a url
-// as the exact anchor the trail renders (linkHtml, new tab, rel noopener
+// What it pins: one tokenizer (URL_TOKEN_RE, urlTokenParts) behind the hook,
+// the sources and the body; the hook section, the source rows and the body
+// preview render a url as the one anchor linkHtml renders (new tab, rel noopener
 // noreferrer, the url as its text) and stay escaped text otherwise; the body
 // preview keeps its 280-character cut and carries a url the cut would split
 // whole, the ellipsis outside every anchor; the form's link line under each
@@ -63,7 +63,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
 
   var ge=eval;
   ['esc','CW_APP_URL','URL_TOKEN_RE','BODY_PREVIEW_CHARS','COMM_TEXT_LINK_FIELDS'].forEach(function(n){ge(extractVar(html,n));});
-  ['linkHref','linkHtml','urlTokenParts','linkedTextHtml','textUrls','textLinksHtml','hookHtml','trailHtml','expandAppLink','commBodyPreviewHtml','refreshTextLinks'].forEach(function(n){ge(extractFn(html,n));});
+  ['linkHref','linkHtml','urlTokenParts','linkedTextHtml','textUrls','textLinksHtml','hookHtml','sourcesRowsHtml','normalizeSources','expandAppLink','commBodyPreviewHtml','refreshTextLinks'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){
@@ -87,17 +87,17 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('U6 URL_TOKEN_RE is the one url spelling: linkedTextHtml, textUrls and commBodyPreviewHtml read it and carry no url regex of their own',
     /split\(URL_TOKEN_RE\)/.test(extractFn(html,'linkedTextHtml'))&&/split\(URL_TOKEN_RE\)/.test(extractFn(html,'textUrls'))&&/URL_TOKEN_RE\.source/.test(extractFn(html,'commBodyPreviewHtml'))&&!/https\?:/.test(extractFn(html,'linkedTextHtml')+extractFn(html,'textUrls')+extractFn(html,'commBodyPreviewHtml')), '');
 
-  // --- T: the text renderer is the trail's rule -----------------------------
+  // --- T: the text renderer is the one rule (the trail's, through v0.15.2) -----
   var t1=linkedTextHtml('Source: '+U1);
   check('T1 linkedTextHtml renders a url as the exact anchor linkHtml renders', t1==='Source: '+A1, t1);
-  check('T2 a one-line trail renders through the same rule, byte for byte', trailHtml('Source: '+U1)===t1, trailHtml('Source: '+U1));
+  check('T2 a source row renders its page through the same anchor, byte for byte', sourcesRowsHtml([{claim:'c',url:U1,section:''}]).indexOf(A1)!==-1, sourcesRowsHtml([{claim:'c',url:U1,section:''}]));
   var t3=linkedTextHtml('a <b>bold</b> & "quoted" line with '+U1+'. <i>after</i>');
   check('T3 the text around a url stays escaped and the period stays outside the anchor', t3==='a &lt;b&gt;bold&lt;/b&gt; &amp; &quot;quoted&quot; line with '+A1+'. &lt;i&gt;after&lt;/i&gt;', t3);
   check('T4 the anchor carries the url-link class, a new tab and rel noopener noreferrer, the url as its text', A1.indexOf('class="url-link"')!==-1&&A1.indexOf('target="_blank"')!==-1&&A1.indexOf('rel="noopener noreferrer"')!==-1&&A1.indexOf('>'+U1+'</a>')!==-1, A1);
 
   // --- H: the hook on the card -------------------------------------------------
   var h1=hookHtml('Job posting at '+U1+', they pay for a writer.');
-  check('H1 a url in the hook renders as the trail\'s anchor inside the Hook section', h1.indexOf('card-section-h">Hook<')!==-1&&h1.indexOf('Job posting at '+A1+', they pay for a writer.')!==-1, h1);
+  check('H1 a url in the hook renders as the one anchor inside the Hook section', h1.indexOf('card-section-h">Hook<')!==-1&&h1.indexOf('Job posting at '+A1+', they pay for a writer.')!==-1, h1);
   var h2=hookHtml('JOB POSTING. Hand them one page.');
   check('H2 a hook with no url renders no anchor and its text escaped, the v0.9.0 shape', h2.indexOf('<a ')===-1&&h2.indexOf('>JOB POSTING. Hand them one page.</div>')!==-1, h2);
   var h3=hookHtml('<b>x</b> '+U1);
@@ -130,11 +130,11 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('B8 markup in a body stays escaped and a quote ends the url token', b8.indexOf('<b>')===-1&&b8.indexOf('&lt;b&gt;')!==-1&&b8.indexOf('onmouseover="x')===-1&&b8.indexOf(A1)!==-1, b8);
 
   // --- F: the form's link lines --------------------------------------------------
-  check('F1 COMM_TEXT_LINK_FIELDS names the trail, the hook and the body', JSON.stringify(COMM_TEXT_LINK_FIELDS)===JSON.stringify(['k-trail','k-hook','k-body']), JSON.stringify(COMM_TEXT_LINK_FIELDS));
-  check('F2 the form carries a link line right after each of the three textareas', /id="k-trail"[^>]*><\/textarea><div class="field-link" id="k-trail-link"><\/div>/.test(html)&&/id="k-hook"[^>]*><\/textarea><div class="field-link" id="k-hook-link"><\/div>/.test(html)&&/id="k-body"[^>]*><\/textarea>\s*<div class="field-link" id="k-body-link"><\/div>/.test(html), '');
-  el('k-trail').value='Source: '+U1+'.\nThen '+U2;el('k-trail-link');
-  refreshTextLinks('k-trail');
-  check('F3 the link line lists every url the field carries, each the trail\'s anchor', el('k-trail-link').innerHTML===A1+' · '+A2, el('k-trail-link').innerHTML);
+  check('F1 COMM_TEXT_LINK_FIELDS names the hook, the sources and the body', JSON.stringify(COMM_TEXT_LINK_FIELDS)===JSON.stringify(['k-hook','k-sources','k-body']), JSON.stringify(COMM_TEXT_LINK_FIELDS));
+  check('F2 the form carries a link line right after each of the three textareas', /id="k-sources"[^>]*><\/textarea><div class="field-link" id="k-sources-link"><\/div>/.test(html)&&/id="k-hook"[^>]*><\/textarea><div class="field-link" id="k-hook-link"><\/div>/.test(html)&&/id="k-body"[^>]*><\/textarea>\s*<div class="field-link" id="k-body-link"><\/div>/.test(html), '');
+  el('k-sources').value='a claim '+U1+' About\nanother '+U2;el('k-sources-link');
+  refreshTextLinks('k-sources');
+  check('F3 the link line lists every url the field carries, each the one anchor', el('k-sources-link').innerHTML===A1+' · '+A2, el('k-sources-link').innerHTML);
   el('k-hook').value='no address here';el('k-hook-link').innerHTML='stale';
   refreshTextLinks('k-hook');
   check('F4 a field with no url clears its line', el('k-hook-link').innerHTML==='', el('k-hook-link').innerHTML);
@@ -149,13 +149,13 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
 
   // --- S: one helper, pinned on the source ---------------------------------------
   check('S1 exactly one linkHtml definition in the file', (html.match(/function linkHtml\(/g)||[]).length===1, '');
-  var own=['linkedTextHtml','textUrls','textLinksHtml','hookHtml','commBodyPreviewHtml','trailHtml','refreshTextLinks'].map(function(n){return extractFn(html,n);}).join('\n');
+  var own=['linkedTextHtml','textUrls','textLinksHtml','hookHtml','commBodyPreviewHtml','sourcesRowsHtml','refreshTextLinks'].map(function(n){return extractFn(html,n);}).join('\n');
   check('S2 none of the text helpers writes an anchor of its own', own.indexOf('<a ')===-1, '');
   check('S3 none of the text helpers reads or writes the stored record', own.indexOf('state.')===-1&&own.indexOf('saveState')===-1, '');
   var rc=extractFn(html,'renderComms');
-  check('S4 the comm card renders the trail, the hook and the body preview through the three helpers', rc.indexOf('trailHtml(k.trail)')!==-1&&rc.indexOf('hookHtml(k.hook)')!==-1&&rc.indexOf('commBodyPreviewHtml(k.body)')!==-1&&rc.indexOf('expandAppLink(k.body)')===-1, '');
-  check('S5 the trail anchor, the hook anchor and the body anchor for one url are byte-identical', trailHtml(U1)===A1&&hookHtml(U1).indexOf(A1)!==-1&&commBodyPreviewHtml(U1)===A1, '');
-  check('S6 the old helper name is gone', html.indexOf('trailTextHtml')===-1, '');
+  check('S4 the comm card renders the hook, the sources and the body preview through the three helpers', rc.indexOf('sourcesHtml(k.sources,k.hook)')!==-1&&rc.indexOf('trailHtml')===-1&&rc.indexOf('hookHtml(k.hook)')!==-1&&rc.indexOf('commBodyPreviewHtml(k.body)')!==-1&&rc.indexOf('expandAppLink(k.body)')===-1, '');
+  check('S5 the source anchor, the hook anchor and the body anchor for one url are byte-identical', sourcesRowsHtml([{claim:'',url:U1,section:''}]).indexOf(A1)!==-1&&hookHtml(U1).indexOf(A1)!==-1&&commBodyPreviewHtml(U1)===A1, '');
+  check('S6 the old helper names are gone', html.indexOf('trailTextHtml')===-1&&html.indexOf('trailHtml')===-1, '');
   check('S7 the event card still renders its Verify url through linkHtml', extractFn(html,'renderEventCard').indexOf('linkHtml(e.url)')!==-1, '');
 
   out('\n'+checks+' checks, '+failures+' failure(s)');
