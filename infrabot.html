@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.17.0 (THE CALL ON THE COMMS TAB) 26-09-30                                ║
+║  v0.18.0 (CALLS IN THE MONTH REPORT) 26-10-01                                ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  425  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  433  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   427–  453  :root, CSS variables, fonts, reset, body                     ║
-║  L   454–  511  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   512–  554  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   555–  572  CLOCKS — live clock grid                                     ║
-║  L   573–  649  CARDS — contact card, comm card, status pills                ║
-║  L   650–  676  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   677–  686  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   687–  692  EMPTY: state placeholder                                     ║
-║  L   693–  716  MODAL — bg, box, header, footer                              ║
-║  L   717–  728  DRAWER — settings drawer + backdrop                          ║
-║  L   729–  734  COUNCIL: stream items (legacy reused)                        ║
-║  L   735–  741  TOAST: notification                                          ║
-║  L   742–  790  STATS: grid + profile block                                  ║
-║  L   791–  813  CREW BLOCK — Groq key row, council slots                     ║
-║  L   814–  835  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   836–  841  Per-response copy button (v1.2)                              ║
-║  L   842–  861  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   862–  868  v1.4: Foundation context source blocks                       ║
-║  L   869–  949  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   950–  976  INSIGHT VAULT                                                ║
+║  L   435–  461  :root, CSS variables, fonts, reset, body                     ║
+║  L   462–  519  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   520–  562  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   563–  580  CLOCKS — live clock grid                                     ║
+║  L   581–  657  CARDS — contact card, comm card, status pills                ║
+║  L   658–  684  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   685–  694  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   695–  700  EMPTY: state placeholder                                     ║
+║  L   701–  724  MODAL — bg, box, header, footer                              ║
+║  L   725–  736  DRAWER — settings drawer + backdrop                          ║
+║  L   737–  742  COUNCIL: stream items (legacy reused)                        ║
+║  L   743–  749  TOAST: notification                                          ║
+║  L   750–  798  STATS: grid + profile block                                  ║
+║  L   799–  821  CREW BLOCK — Groq key row, council slots                     ║
+║  L   822–  843  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   844–  849  Per-response copy button (v1.2)                              ║
+║  L   850–  869  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   870–  876  v1.4: Foundation context source blocks                       ║
+║  L   877–  957  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   958–  984  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   981–  999  APP: shell — header, brand, top clock, settings              ║
-║  L  1000– 1007  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L  1008– 1046  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L  1047– 1056  TAB-NETWORK — contacts list                                  ║
-║  L  1057– 1150  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1151– 1165  TAB-VAULT — insights                                         ║
-║  L  1166– 1287  MODAL-CONTACT — add/edit contact                             ║
-║  L  1288– 1328  MODAL-COMM — add/edit communication                          ║
-║  L  1329– 1350  MODAL-PROFILE — edit your profile                            ║
-║  L  1351– 1365  MODAL-CLOCK — add world clock                                ║
-║  L  1366– 1381  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1382– 1409  DRAWER — profile, data, version footer                       ║
-║  L  1410– 1429  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1430– 1441  MODAL-MEM — memory inspector                                 ║
-║  L  1442– 1448  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1449– 1450  TOAST: container                                             ║
+║  L   989– 1007  APP: shell — header, brand, top clock, settings              ║
+║  L  1008– 1015  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L  1016– 1054  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L  1055– 1064  TAB-NETWORK — contacts list                                  ║
+║  L  1065– 1158  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1159– 1173  TAB-VAULT — insights                                         ║
+║  L  1174– 1295  MODAL-CONTACT — add/edit contact                             ║
+║  L  1296– 1336  MODAL-COMM — add/edit communication                          ║
+║  L  1337– 1358  MODAL-PROFILE — edit your profile                            ║
+║  L  1359– 1373  MODAL-CLOCK — add world clock                                ║
+║  L  1374– 1389  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1390– 1417  DRAWER — profile, data, version footer                       ║
+║  L  1418– 1437  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1438– 1449  MODAL-MEM — memory inspector                                 ║
+║  L  1450– 1456  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1457– 1458  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1453– 1663  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1664– 1941  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1942– 1979  g, esc, uid, toast helpers + state globals                   ║
-║  L  1980– 2469  freshState, loadState (migrations), saveState                ║
-║  L  2470– 2695  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2696– 2729  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2730– 2775  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2776– 3962  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3963– 4083  getCommBucket + age helpers, setCommsView                    ║
-║  L  4084– 4344  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4345– 4498  renderComms — full status/triage rendering                   ║
-║  L  4499– 4526  archiveComm + reviveComm                                     ║
-║  L  4527– 4649  renderReportsPanel + computeMonthStats                       ║
-║  L  4650– 4841  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4842– 5115  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5116– 5166  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5167– 5443  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5444– 5594  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5595– 5662  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5663– 5952  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1461– 1671  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1672– 1949  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1950– 1987  g, esc, uid, toast helpers + state globals                   ║
+║  L  1988– 2477  freshState, loadState (migrations), saveState                ║
+║  L  2478– 2703  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2704– 2737  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2738– 2783  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2784– 3970  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3971– 4091  getCommBucket + age helpers, setCommsView                    ║
+║  L  4092– 4361  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4362– 4515  renderComms — full status/triage rendering                   ║
+║  L  4516– 4543  archiveComm + reviveComm                                     ║
+║  L  4544– 4670  renderReportsPanel + computeMonthStats                       ║
+║  L  4671– 4883  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  4884– 5157  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5158– 5208  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5209– 5485  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5486– 5636  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5637– 5704  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5705– 5994  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5953– 6067  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6068– 6098  saveProfile + clock save/remove                              ║
-║  L  6099– 6252  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6253– 6432  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6433– 6677  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6678– 7096  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7097– 7455  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7456– 7467  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7468– 7512  saveGroqKey, clearGroqKey                                    ║
-║  L  7513– 8468  exportAll, importJson, wipeAll                               ║
+║  L  5995– 6109  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6110– 6140  saveProfile + clock save/remove                              ║
+║  L  6141– 6294  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6295– 6474  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6475– 6719  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6720– 7138  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7139– 7497  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7498– 7509  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7510– 7554  saveGroqKey, clearGroqKey                                    ║
+║  L  7555– 8510  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -385,7 +385,15 @@
 ║      Network tab untouched; OPEN opens the call brief. The nameless          ║
 ║      salutation in the council prompt is "Hi," alone.                        ║
 ║      tests/call_comm_check.js.                                               ║
-║  L  8469– 8797  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.18.0 CALLS IN THE MONTH REPORT: a completed call is a figure in its   ║
+║      month's report, on the month card (n calls) and in the downloaded .txt  ║
+║      (a Calls line in SUMMARY and a CALLS section: company, location, the    ║
+║      local day, the outcome when the record carries one, the                 ║
+║      follow-through when one was given), counted by the called instant       ║
+║      through callsInMonth, the one list the card and the file both read,     ║
+║      from the same call record the Communications tab's phone card derives   ║
+║      from, so a call is counted once. tests/call_report_check.js.            ║
+║  L  8511– 8839  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -992,7 +1000,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.17.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.18.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1403,7 +1411,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.17.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.18.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1450,7 +1458,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.17.0';
+const APP_VERSION='infrabot-v0.18.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -4330,6 +4338,15 @@ function calledAt(c){
 function callCommItems(){
   return callsList().map(normalizeCall).filter(c=>c.status==='called').map(c=>({kind:'call',c:c,when:calledAt(c)}));
 }
+// v0.18.0 CALLS IN THE MONTH REPORT. The completed calls whose called
+// instant falls in one home-zone month, oldest first. The month card's
+// calls count, the .txt's Calls line and its CALLS section all read this
+// one list, so a call is counted once, from the same record and the same
+// instant the Communications tab's phone card derives from. Comment
+// written with zero brace pairs.
+function callsInMonth(ym){
+  return callCommItems().filter(it=>localYearMonth(it.when)===ym).sort((a,b)=>String(a.when).localeCompare(String(b.when)));
+}
 function renderCallCommCard(c){
   const when=calledAt(c);
   let day='';
@@ -4538,8 +4555,10 @@ function renderReportsPanel(){
   eventsList().forEach(e=>{if(e.status==='attended'){const ym=eventStartMonth(e);if(ym)monthSet.add(ym);}});
   // v0.13.0: a month somebody was met in is a report month too.
   state.network.forEach(c=>{if(personTier(c)==='acquaintance'){const ym=acquaintanceMonth(c);if(ym)monthSet.add(ym);}});
+  // v0.18.0: a month with a completed call (by its called instant) is a report month too.
+  callCommItems().forEach(it=>{const ym=localYearMonth(it.when);if(ym)monthSet.add(ym);});
 
-  const intro=`<div class="reports-intro">Monthly outreach reports. Each entry rolls up everything that happened that month — <strong>drafted, sent, replied, archived, rooms attended, people met</strong> — into a clean text file you can paste into your CRM spreadsheet or read as a record. Reports are computed live from your local state; nothing is precomputed.</div>`;
+  const intro=`<div class="reports-intro">Monthly outreach reports. Each entry rolls up everything that happened that month — <strong>drafted, sent, replied, archived, calls made, rooms attended, people met</strong> — into a clean text file you can paste into your CRM spreadsheet or read as a record. Reports are computed live from your local state; nothing is precomputed.</div>`;
 
   if(monthSet.size===0){
     return intro+`<div class="empty-state"><div class="es-h">NO ACTIVITY YET</div><div class="es-sub">Log your first communication and a monthly report will appear here.</div><button class="btn" data-open="comm">+ LOG COMMUNICATION</button></div>`;
@@ -4554,7 +4573,7 @@ function renderReportsPanel(){
     const rooms=roomsInMonth(ym).length;
     const met=metInMonth(ym).length;
     const label=monthNames[parseInt(m)-1]+' '+y;
-    html+=`<div class="month-card"><div><div class="month-card-h">${esc(label)}</div><div class="month-card-stats"><span class="stat-n">${stats.drafted}</span> drafted<span class="stat-sep">·</span><span class="stat-n">${stats.sent}</span> sent<span class="stat-sep">·</span><span class="stat-n">${stats.replied}</span> replied<span class="stat-sep">·</span><span class="stat-n">${stats.archived}</span> archived<span class="stat-sep">·</span><span class="stat-n">${rooms}</span> rooms<span class="stat-sep">·</span><span class="stat-n">${met}</span> met</div></div><div class="month-card-actions"><button class="btn ghost sm" data-act="download-month" data-month="${esc(ym)}">↓ DOWNLOAD .TXT</button></div></div>`;
+    html+=`<div class="month-card"><div><div class="month-card-h">${esc(label)}</div><div class="month-card-stats"><span class="stat-n">${stats.drafted}</span> drafted<span class="stat-sep">·</span><span class="stat-n">${stats.sent}</span> sent<span class="stat-sep">·</span><span class="stat-n">${stats.replied}</span> replied<span class="stat-sep">·</span><span class="stat-n">${stats.archived}</span> archived<span class="stat-sep">·</span><span class="stat-n">${stats.calls}</span> calls<span class="stat-sep">·</span><span class="stat-n">${rooms}</span> rooms<span class="stat-sep">·</span><span class="stat-n">${met}</span> met</div></div><div class="month-card-actions"><button class="btn ghost sm" data-act="download-month" data-month="${esc(ym)}">↓ DOWNLOAD .TXT</button></div></div>`;
   });
   return html;
 }
@@ -4622,7 +4641,7 @@ function computeMonthStats(year,month){
   // ignored profile homeTz.
   const ymKey=year+'-'+String(month).padStart(2,'0');
   const inMonth=ts=>localYearMonth(ts)===ymKey;
-  const stats={drafted:0,sent:0,replied:0,archived:0};
+  const stats={drafted:0,sent:0,replied:0,archived:0,calls:0};
   state.comms.forEach(c=>{
     if(inMonth(c.createdAt))stats.drafted++;
     const sr=sentRecord(c);
@@ -4632,6 +4651,8 @@ function computeMonthStats(year,month){
     }
     standingArchiveEntries(c).forEach(entry=>{if(inMonth(entry.timestamp))stats.archived++;});
   });
+  // v0.18.0: completed calls by their called instant, the one list the .txt prints.
+  stats.calls=callsInMonth(ymKey).length;
   return stats;
 }
 
@@ -4677,6 +4698,8 @@ function downloadMonthReport(yearMonth){
   // rule one month back; the same helper the month card counts by.
   const roomsThis=roomsInMonth(yearMonth);
   const metThis=metInMonth(yearMonth);
+  // v0.18.0: the completed calls of the month, the list the month card counts by.
+  const callsThis=callsInMonth(yearMonth);
   const pipelineNow=state.comms.filter(c=>getCommBucket(c)==='pipeline').length;
   const p=state.profile||{};
   // v0.4.2 LOCAL DATES: report dates render in the founder's home timezone, labeled
@@ -4758,6 +4781,7 @@ function downloadMonthReport(yearMonth){
   lines.push('Sent: '+sentThis.length);
   lines.push('Replied: '+repliedThis.length);
   lines.push('Archived: '+archivedThis.length);
+  lines.push('Calls: '+callsThis.length);
   lines.push('Rooms attended: '+roomsThis.length);
   lines.push('People met: '+metThis.length);
   lines.push('In pipeline now: '+pipelineNow);
@@ -4789,6 +4813,24 @@ function downloadMonthReport(yearMonth){
     lines.push('');
     lines.push('['+(i+1)+'] '+(item.comm.title||''));
     lines.push(renderArchivedMinimal(item));
+  });}
+  lines.push('');
+
+  // v0.18.0 CALLS: the completed calls whose called instant fell in the
+  // month, metadata plus the outcome when the record carries one and the
+  // follow-through when one was given; the same list the month card counts.
+  lines.push('CALLS ('+callsThis.length+')');
+  if(callsThis.length===0){lines.push('(none)');}
+  else{callsThis.forEach((it,i)=>{
+    const c=it.c;
+    const person=state.network.find(x=>x.id===c.contactId);
+    const follow=person?person.name:c.followName;
+    lines.push('');
+    lines.push('['+(i+1)+'] '+(c.company||''));
+    lines.push('  Location:  '+(c.location||'-'));
+    lines.push('  Called on: '+fmtDate(it.when));
+    if(c.notes)lines.push('  Outcome:   '+String(c.notes).split('\n').join('\n             '));
+    if(follow)lines.push('  Follow-through: '+follow+(c.followChannel?' ('+c.followChannel+')':''));
   });}
   lines.push('');
 

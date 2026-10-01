@@ -51,6 +51,13 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
     }
     throw new Error('extract: unbalanced braces in '+name);
   }
+  function extractVar(src,name){
+    var m=new RegExp('(?:var|const|let)\\s+'+name+'\\s*=').exec(src);
+    if(!m)throw new Error('extract: constant '+name+' not found in '+htmlPath);
+    var end=src.indexOf(';\n',m.index);
+    if(end<0)throw new Error('extract: unterminated constant '+name);
+    return src.slice(m.index,end+1).replace(/^(var|const|let)\s+/,'var ');
+  }
 
   // ---- THE FIXTURE ------------------------------------------------------
   // One row per card: [currentStatus, createdYM, sentDate|null, history],
@@ -90,7 +97,10 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
       statusHistory:hist,history:[],body:'fixture body '+idx};
   });
   var g=(typeof globalThis!=='undefined')?globalThis:this;
-  g.state={comms:comms,network:[],profile:{homeTz:'America/Chicago'}};
+  // v0.18.0: computeMonthStats also counts completed calls (callsInMonth),
+  // so the call-record helpers ride along; this fixture holds no calls and
+  // pins the email counts, tests/call_report_check.js pins the calls.
+  g.state={comms:comms,network:[],calls:[],profile:{homeTz:'America/Chicago'}};
 
   var failures=[];
   function expect(label,got,want){
@@ -104,6 +114,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   // named FAIL, and a stub stands in so the count assertions still run and
   // show what the old rule reports.
   var ge=eval;
+  ['callsList','normalizeSupport','normalizeCall','calledAt','callCommItems','callsInMonth'].forEach(function(n){ge(extractFn(html,n));});
+  ge(extractVar(html,'CALL_STATUSES'));
   ['localYearMonth','computeMonthStats'].forEach(function(n){ge(extractFn(html,n));});
   ['sentRecord','standingArchiveEntries'].forEach(function(n){
     if(html.indexOf('function '+n+'(')>=0){ge(extractFn(html,n));}
@@ -121,6 +133,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('drafted untouched (createdAt), April',apr.drafted,5);
   expect('replied counts the reply in its month, March',mar.replied,1);
   expect('replied counts the reply in its month, April',apr.replied,1);
+  expect('calls counts zero with no call records, March',mar.calls,0);
 
   // The cancel rule at card level.
   var reflipped=comms[3];       // sent, ghosted, sent
