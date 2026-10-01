@@ -1,13 +1,12 @@
 // hook_check.js: THE HOOK LINE (infrabot v0.9.0). A comm record carries hook,
-// one line shown under the discovery trail on the card: why this person
-// would care and what the founder is handing them.
+// one line shown on the card (its sources under it since v0.16.0): why this
+// person would care and what the founder is handing them.
 //
 // Runs the REAL dossier parser and additive import extracted from
 // infrabot.html by a brace walk (parseDossierText, additiveImportComms and
 // their helpers, the same symbols the external ingest extracts), plus the
-// real hookHtml, trailHtml (with the link helpers it reads since v0.13.3,
-// linkedTextHtml since v0.15.1) and
-// esc, against a SYNTHETIC fixture: invented
+// real hookHtml (with the link helpers it reads, linkedTextHtml since
+// v0.15.1) and esc, against a SYNTHETIC fixture: invented
 // companies, people, addresses and ids. The real state file never enters
 // this file: the repo is public.
 //
@@ -16,8 +15,7 @@
 // empty hook; a Hook: line placed after the body is a known label, so the
 // body grab stops at it and the body stays clean; the import writes the
 // field on a new record and never touches a card already present; the card
-// section renders only when the record carries a hook, escaped; the trail
-// fold is unchanged; and the form, the autosave surface, the commit path,
+// section renders only when the record carries a hook, escaped; and the form, the autosave surface, the commit path,
 // COPY ALL and the fullscreen meta row all carry the field (source pins).
 // Nothing in the page generates a hook: no pin here calls a model, because
 // no code path does.
@@ -70,7 +68,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   ['DOSSIER_KNOWN_LABELS','DOSSIER_EMAIL_RE','uid','CW_APP_URL','esc','URL_TOKEN_RE'].forEach(function(n){ge(extractVar(html,n));});
   ['_dEscapeRe','_dSplitBlocks','_dIsProspect','_dField','_dLooksLikeLabel','_dGrabBody',
    '_dExtractEmail','_dExtractUrl','_dIsNonDraft','_dTargetName','_dHeaderCity',
-   'parseDossierText','additiveImportComms','expandAppLink','hookHtml','linkHref','linkHtml','urlTokenParts','linkedTextHtml','trailHtml'].forEach(function(n){ge(extractFn(html,n));});
+   'parseDossierText','additiveImportComms','expandAppLink','hookHtml','linkHref','linkHtml','urlTokenParts','linkedTextHtml','textUrls','_dFields','parseSourceLines','normalizeSources'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){
@@ -165,27 +163,24 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('H3 the hook text is escaped', hx.indexOf('<b>')===-1&&hx.indexOf('&lt;b&gt;')!==-1&&hx.indexOf('&amp;')!==-1&&hx.indexOf('&quot;')!==-1, hx);
   check('H5 the section carries no model call and no button', h.indexOf('<button')===-1&&h.indexOf('data-act')===-1, h);
 
-  // --- T: the trail fold is unchanged --------------------------------------
-  var t=trailHtml('Source: https://fixture.invalid/a\nArchetype: two lines');
-  check('T1 a two-line trail still folds with a MORE control', t.indexOf('trail-toggle')!==-1&&t.indexOf('>MORE<')!==-1&&t.indexOf('trail-rest hidden')!==-1, t);
-  check('T2 a one-sentence trail still renders plain', trailHtml('One line.')==='One line.', trailHtml('One line.'));
+  // --- T: the trail fold is gone (v0.16.0); its pins left with it --------------------------------------
 
   // --- S: the surfaces, pinned on the source -------------------------------
   var rc=extractFn(html,'renderComms');
-  var iTrail=rc.indexOf('trailHtml(k.trail)'),iHook=rc.indexOf('hookHtml(k.hook)'),iBody=rc.indexOf('card-section-h">Body<');
-  check('S3 the card calls hookHtml after the trail and before the body', iTrail>=0&&iHook>iTrail&&iBody>iHook, [iTrail,iHook,iBody].join(','));
-  check('S2 the form carries the k-hook field under the trail', /id="k-trail"[\s\S]{0,400}id="k-hook"/.test(html), '');
-  check('S1 the autosave surface watches k-hook', /fields:\[[^\]]*'k-trail','k-hook','k-subject'[^\]]*\]/.test(html), '');
-  check('S6 autosaveApplyFields writes rec.hook', /rec\.trail=\(vals\['k-trail'\]\|\|''\)\.trim\(\);\s*rec\.hook=\(vals\['k-hook'\]\|\|''\)\.trim\(\);/.test(html), '');
+  var iHook=rc.indexOf('hookHtml(k.hook)'),iSources=rc.indexOf('sourcesHtml(k.sources,k.hook)'),iBody=rc.indexOf('card-section-h">Body<');
+  check('S3 the card calls hookHtml, then sourcesHtml, then the body', iHook>=0&&iSources>iHook&&iBody>iSources, [iHook,iSources,iBody].join(','));
+  check('S2 the form carries the k-sources field under the hook', /id="k-hook"[\s\S]{0,500}id="k-sources"/.test(html)&&html.indexOf('id="k-trail"')===-1, '');
+  check('S1 the autosave surface watches k-hook and k-sources', /fields:\[[^\]]*'k-hook','k-sources','k-subject'[^\]]*\]/.test(html), '');
+  check('S6 autosaveApplyFields writes rec.hook, then rec.sources, never the trail', /rec\.hook=\(vals\['k-hook'\]\|\|''\)\.trim\(\);\s*rec\.sources=parseSourceLines\(vals\['k-sources'\]\);/.test(html)&&extractFn(html,'autosaveApplyFields').indexOf('rec.trail')===-1, '');
   check('S7 autosavePromote carries hook', /hook:\(vals\['k-hook'\]\|\|''\)\.trim\(\),/.test(extractFn(html,'autosavePromote')), '');
   var cc=extractFn(html,'commitCommRecord');
   check('S5 commitCommRecord commits hook and counts it as content', cc.indexOf("hook:g('k-hook').value.trim(),")!==-1&&cc.indexOf('||data.hook||')!==-1, '');
   var om=extractFn(html,'openCommModal');
-  check('S8 openCommModal fills and clears k-hook', om.indexOf("g('k-hook').value=k.hook||'';")!==-1&&om.indexOf("'k-trail','k-hook','k-subject'")!==-1, '');
+  check('S8 openCommModal fills and clears k-hook', om.indexOf("g('k-hook').value=k.hook||'';")!==-1&&om.indexOf("'k-hook','k-sources','k-subject'")!==-1, '');
   var cpt=extractFn(html,'commPlainText');
-  check('S4 COPY ALL (commPlainText) prints the Hook line under the subject, before the body', /if\(k\.subject\)lines\.push\('Subject: '\+k\.subject\);\s*if\(k\.hook\)lines\.push\('Hook: '\+k\.hook\);\s*lines\.push\(''\);/.test(cpt), cpt.slice(-260));
+  check('S4 COPY ALL (commPlainText) prints the Hook line under the subject, the Source lines after it, before the body', /if\(k\.subject\)lines\.push\('Subject: '\+k\.subject\);\s*if\(k\.hook\)lines\.push\('Hook: '\+k\.hook\);\s*normalizeSources\(k\.sources\)\.forEach\([^\n]*\);\s*lines\.push\(''\);/.test(cpt), '');
   check('S4 the monthly report block carries no Hook line (a pre-send field, the report untouched)', extractFn(html,'downloadMonthReport').indexOf('.hook')===-1, '');
-  check('S9 the fullscreen meta row carries HOOK after TRAIL', /TRAIL: \$\{esc\(k\.trail\)\}<\/span>`\);\s*if\(k\.hook\)metaRows\.push\(`<span[^`]*HOOK: \$\{esc\(k\.hook\)\}/.test(html), '');
+  check('S9 the fullscreen meta row carries HOOK, then the SOURCES count', /HOOK: \$\{esc\(k\.hook\)\}<\/span>`\);\s*const srcN=normalizeSources\(k\.sources\)\.length;/.test(html), '');
   check('S10 no code path generates a hook (no model call names the field)', !/hook[^\n]{0,80}(callGroq|fireSlot|fetch\()/.test(html)&&!/(callGroq|fireSlot)[^\n]{0,80}\.hook/.test(html), '');
 
   out('\n'+checks+' checks, '+failures+' failure(s)');
