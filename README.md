@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.17.0.
+dependencies beyond Python 3 and a browser. This README describes v0.18.0.
 
 ## What it does
 
@@ -49,7 +49,9 @@ The app has four tabs.
   ACQUAINTANCE's reads IN NETWORK, plain. Cards move DRAFT to
   SCHEDULED to SENT (and REPLIED); a sent card with no reply after five days
   is marked WENT QUIET automatically; CLOSED is your call. A filter row
-  switches between drafts, the pipeline, the archive and monthly reports,
+  switches between drafts, the pipeline, the archive and monthly reports
+  (each month rolls up drafted, sent, replied, archived, calls made, rooms
+  attended and people met, on screen and in a downloadable text file),
   and EXPORT STATE / IMPORT STATE buttons sit under the same tab.
 - **VAULT.** Insights you want to keep, and an artifact ledger of the things
   you made.
@@ -270,6 +272,13 @@ Every check in `tests/` runs standalone from the repo root against the real
   email cards and counted in the pill; derived from the call record at
   render, nothing written, and the Network tab's calls work as before. The
   nameless salutation a council slot uses is "Hi," alone.
+- **v0.18.0.** Calls in the month report: a completed call is a figure in
+  its month's report, on the month card and in the downloaded .txt (a
+  Calls line in the summary and a CALLS section with the company, the
+  location, the day, the outcome when the record carries one and the
+  follow-through when one was given), counted by the day it was made from
+  the same call record the Communications tab's phone card derives from,
+  so a call is counted once.
 
 ## Licenses
 
