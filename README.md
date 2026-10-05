@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.18.0.
+dependencies beyond Python 3 and a browser. This README describes v0.19.0.
 
 ## What it does
 
@@ -40,9 +40,13 @@ The app has four tabs.
   message body has; the page generates none of it.
 - **COMMUNICATIONS.** Draft cards, one per message. A card carries the
   person, the company, the address, a one-line hook (why they would care and
-  what you are handing them), the hook's sources (one row per factual claim
-  the hook makes: the claim, the page it sits on, the page section, each
-  page a link), the subject and the body. The hook and its sources are
+  what you are handing them), its sources (one row per claim the hook or the
+  body makes about the recipient: the claim, the page it sits on, where on
+  that page to the paragraph, and for a body claim the sentence it
+  supports), the subject and the body. The DRAFTS view shows one draft at a
+  time across the pane, with PREVIOUS and NEXT, the whole body, and under
+  each body sentence a source row names, that row: the claim, the page as a
+  link, the place on the page. The hook and the sources are
   written by your agent or typed in the card's form; the page never
   generates them. A card whose address is a
   CONTACT's email carries the gold mark; one whose address is an
@@ -143,8 +147,15 @@ Source URL: <where you found them>
 Website: <their site>
 Subject: <subject line>
 Hook: <one line: why they would care, what you are handing them>
+Sources: <a claim> <the page URL> <where on the page> || <the body sentence it supports>
 Body: <the message, as many lines as it takes>
 ```
+
+One `Sources:` line per claim the hook or the body makes about the
+recipient, each on a single line. The words before the URL are the claim,
+the words after it say where on the page it sits (to the paragraph), and
+the text after `||` is the body sentence the row supports, word for word; a
+row for a hook claim leaves the `||` part off.
 
 A block with no body, or with neither an address nor a URL, is skipped and
 counted, never carded. A `dossier.txt` placed beside the page is read the
@@ -279,6 +290,14 @@ Every check in `tests/` runs standalone from the repo root against the real
   follow-through when one was given), counted by the day it was made from
   the same call record the Communications tab's phone card derives from,
   so a call is counted once.
+- **v0.19.0.** One draft at a time, and a source under every claim: the
+  DRAFTS view shows one card across the pane with PREVIOUS and NEXT and the
+  whole body; a source row covers a claim in the hook or the body, says
+  where on the page the claim sits to the paragraph, and can name the body
+  sentence it supports, which the card then shows the row under; a row
+  whose sentence the body no longer carries is listed, marked NOT IN BODY.
+  A council slot answers NO to a body sentence about the recipient that no
+  row supports, and cuts such a sentence when it rewrites.
 
 ## Licenses
 

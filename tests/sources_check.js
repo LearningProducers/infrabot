@@ -84,30 +84,30 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   // --- G: the line grammar ----------------------------------------------------
   var g1=parseSourceLines('three offices in two countries '+U1+' About us\nguides published this spring '+U2);
   check('G1 a line parses to claim, page and section in order', g1.length===2&&g1[0].claim==='three offices in two countries'&&g1[0].url===U1&&g1[0].section==='About us'&&g1[1].claim==='guides published this spring'&&g1[1].url===U2&&g1[1].section==='', JSON.stringify(g1));
-  check('G2 a line with only a page is a row with an empty claim', JSON.stringify(parseSourceLines(U1))===JSON.stringify([{claim:'',url:U1,section:''}]), JSON.stringify(parseSourceLines(U1)));
-  check('G3 a line with only words is a row with no page', JSON.stringify(parseSourceLines('a claim with no page'))===JSON.stringify([{claim:'a claim with no page',url:'',section:''}]), '');
+  check('G2 a line with only a page is a row with an empty claim', JSON.stringify(parseSourceLines(U1))===JSON.stringify([{claim:'',url:U1,section:'',sentence:''}]), JSON.stringify(parseSourceLines(U1)));
+  check('G3 a line with only words is a row with no page', JSON.stringify(parseSourceLines('a claim with no page'))===JSON.stringify([{claim:'a claim with no page',url:'',section:'',sentence:''}]), '');
   check('G4 blank lines parse to nothing', parseSourceLines('\n  \n').length===0&&parseSourceLines('').length===0&&parseSourceLines(null).length===0, '');
   check('G5 sentence punctuation after the page stays off the url', parseSourceLines('claim '+U1+'.')[0].url===U1, parseSourceLines('claim '+U1+'.')[0].url);
   check('G6 a second url on a line is section text, never a second page', parseSourceLines('c '+U1+' '+U2)[0].section===U2&&parseSourceLines('c '+U1+' '+U2).length===1, '');
   var rt=sourceLinesText(g1);
   check('G7 the text form round-trips through the parser byte for byte', rt==='three offices in two countries '+U1+' About us\nguides published this spring '+U2&&JSON.stringify(parseSourceLines(rt))===JSON.stringify(normalizeSources(g1)), rt);
-  check('G8 normalizeSources drops empty rows and non-objects and trims', JSON.stringify(normalizeSources([null,{},{claim:' x ',url:'',section:' s '},{url:U1}]))===JSON.stringify([{claim:'x',url:'',section:'s'},{claim:'',url:U1,section:''}]), '');
+  check('G8 normalizeSources drops empty rows and non-objects and trims', JSON.stringify(normalizeSources([null,{},{claim:' x ',url:'',section:' s ',sentence:''},{url:U1}]))===JSON.stringify([{claim:'x',url:'',section:'s',sentence:''},{claim:'',url:U1,section:'',sentence:''}]), '');
   check('G9 the block text lists one row per line, or (none)', sourcesBlockText([])==='(none)'&&sourcesBlockText(g1)==='\n- three offices in two countries '+U1+' About us\n- guides published this spring '+U2, sourcesBlockText(g1));
 
   // --- M: the migration -------------------------------------------------------
   var m1={id:'id_fix_1',trail:'Source: '+U1+'\nArchetype: a founder\nFit thesis: fits.',sourceUrl:U1,updatedAt:'2026-01-02T00:00:00.000Z',createdAt:'2026-01-01T00:00:00.000Z'};
   normalizeComm(m1);
-  check('M1 a record with no sources field takes one row per url its trail carries, the sourceUrl deduped', JSON.stringify(m1.sources)===JSON.stringify([{claim:'',url:U1,section:''}]), JSON.stringify(m1.sources));
+  check('M1 a record with no sources field takes one row per url its trail carries, the sourceUrl deduped', JSON.stringify(m1.sources)===JSON.stringify([{claim:'',url:U1,section:'',sentence:''}]), JSON.stringify(m1.sources));
   check('M2 the trail string stays byte for byte and the stamps are untouched', m1.trail==='Source: '+U1+'\nArchetype: a founder\nFit thesis: fits.'&&m1.updatedAt==='2026-01-02T00:00:00.000Z'&&m1.createdAt==='2026-01-01T00:00:00.000Z', m1.trail);
   var m2={id:'id_fix_2',trail:'podcast to social to website',sourceUrl:''};
   normalizeComm(m2);
   check('M3 a prose trail with no url seeds no rows and keeps its text', m2.sources.length===0&&m2.trail==='podcast to social to website', JSON.stringify(m2));
   var m3={id:'id_fix_3',trail:'Source: '+U1,sourceUrl:U2};
   normalizeComm(m3);
-  check('M4 a different sourceUrl is a second row after the trail\'s', JSON.stringify(m3.sources)===JSON.stringify([{claim:'',url:U1,section:''},{claim:'',url:U2,section:''}]), JSON.stringify(m3.sources));
-  var m4={id:'id_fix_4',trail:'Source: '+U1,sources:[{claim:'kept',url:U2,section:'x'}]};
+  check('M4 a different sourceUrl is a second row after the trail\'s', JSON.stringify(m3.sources)===JSON.stringify([{claim:'',url:U1,section:'',sentence:''},{claim:'',url:U2,section:'',sentence:''}]), JSON.stringify(m3.sources));
+  var m4={id:'id_fix_4',trail:'Source: '+U1,sources:[{claim:'kept',url:U2,section:'x',sentence:''}]};
   normalizeComm(m4);
-  check('M5 a record that already carries sources keeps them and takes nothing from the trail', JSON.stringify(m4.sources)===JSON.stringify([{claim:'kept',url:U2,section:'x'}]), JSON.stringify(m4.sources));
+  check('M5 a record that already carries sources keeps them and takes nothing from the trail', JSON.stringify(m4.sources)===JSON.stringify([{claim:'kept',url:U2,section:'x',sentence:''}]), JSON.stringify(m4.sources));
   var m5={id:'id_fix_5'};
   normalizeComm(m5);
   check('M6 a record with neither field gets an empty trail string and an empty sources array', m5.trail===''&&Array.isArray(m5.sources)&&m5.sources.length===0, JSON.stringify(m5));
@@ -117,17 +117,17 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('M8 normalizeComm never stamps updatedAt', !('updatedAt' in m6), JSON.stringify(m6));
 
   // --- R: the card section ----------------------------------------------------
-  var r1=sourcesRowsHtml([{claim:'three offices',url:U1,section:'About'},{claim:'no page yet',url:'',section:''}]);
+  var r1=sourcesRowsHtml([{claim:'three offices',url:U1,section:'About',sentence:''},{claim:'no page yet',url:'',section:'',sentence:''}]);
   check('R1 a row renders its claim, its page as the one anchor, and its section', r1.indexOf('<div>three offices</div>')!==-1&&r1.indexOf(A1)!==-1&&r1.indexOf('>About</span>')!==-1, r1);
   check('R2 a row with no page shows the NO PAGE pill', r1.indexOf('<span class="cite-pill unverified">NO PAGE</span>')!==-1, r1);
-  var r3=sourcesRowsHtml([{claim:'<b>x</b> & "q"',url:U1,section:'<i>s</i>'}]);
+  var r3=sourcesRowsHtml([{claim:'<b>x</b> & "q"',url:U1,section:'<i>s</i>',sentence:''}]);
   check('R3 claim and section text stay escaped', r3.indexOf('<b>')===-1&&r3.indexOf('&lt;b&gt;x&lt;/b&gt; &amp; &quot;q&quot;')!==-1&&r3.indexOf('&lt;i&gt;s&lt;/i&gt;')!==-1, r3);
-  var s1=sourcesHtml([{claim:'c',url:U1,section:''}],'');
+  var s1=sourcesHtml([{claim:'c',url:U1,section:'',sentence:''}],'');
   check('R4 rows render the Sources section even with no hook', s1.indexOf('card-section-h">Sources<')!==-1&&s1.indexOf(A1)!==-1, s1);
   var s2=sourcesHtml([],'JOB POSTING. A hook with no row.');
   check('R5 a hook with no row renders the UNSOURCED HOOK pill in the Sources section', s2.indexOf('card-section-h">Sources<')!==-1&&s2.indexOf('UNSOURCED HOOK')!==-1, s2);
   check('R6 no hook and no rows renders nothing', sourcesHtml([],'')===''&&sourcesHtml(null,null)===''&&sourcesHtml([],'   ')==='', sourcesHtml([],'   '));
-  check('R7 the anchor is byte-identical to the hook\'s and the event card\'s', sourcesRowsHtml([{claim:'',url:U1,section:''}]).indexOf(A1)!==-1&&hookHtml(U1).indexOf(A1)!==-1, '');
+  check('R7 the anchor is byte-identical to the hook\'s and the event card\'s', sourcesRowsHtml([{claim:'',url:U1,section:'',sentence:''}]).indexOf(A1)!==-1&&hookHtml(U1).indexOf(A1)!==-1, '');
   var own=['sourcesRowsHtml','sourcesHtml','normalizeSources','parseSourceLines','normalizeComm','sourceLinesText','sourcesBlockText'].map(function(n){return extractFn(html,n);}).join('\n');
   check('R8 none of the sources helpers writes an anchor of its own, calls a model, or reads the stored state', own.indexOf('<a ')===-1&&own.indexOf('callGroq')===-1&&own.indexOf('fetch(')===-1&&own.indexOf('state.')===-1&&own.indexOf('saveState')===-1, '');
 
@@ -186,19 +186,19 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var res=parseDossierText(BLOCKS);
   var c1=res.cards[0],c2=res.cards[1],c3=res.cards[2];
   check('D1 three fixture blocks parse to three cards', res.cards.length===3&&res.scratched.length===0, res.cards.length+' '+JSON.stringify(res.scratched));
-  check('D2 the block\'s Sources: lines are the card\'s rows, in order, claim page section', JSON.stringify(c1.sources)===JSON.stringify([{claim:'three offices in two countries',url:'https://fixture-freight.invalid/about',section:'Offices'},{claim:'hiring a docs writer',url:'https://fixture-freight.invalid/careers',section:'Careers'}]), JSON.stringify(c1.sources));
+  check('D2 the block\'s Sources: lines are the card\'s rows, in order, claim page section', JSON.stringify(c1.sources)===JSON.stringify([{claim:'three offices in two countries',url:'https://fixture-freight.invalid/about',section:'Offices',sentence:''},{claim:'hiring a docs writer',url:'https://fixture-freight.invalid/careers',section:'Careers',sentence:''}]), JSON.stringify(c1.sources));
   check('D3 the minted trail is empty: nothing writes the trail from this version on', c1.trail===''&&c2.trail===''&&c3.trail==='', JSON.stringify([c1.trail,c2.trail,c3.trail]));
-  check('D4 a block with no Sources: line carries its Source URL as the one row', JSON.stringify(c2.sources)===JSON.stringify([{claim:'',url:'https://fallback.invalid/about',section:''}]), JSON.stringify(c2.sources));
-  check('D5 sources is a known label, so the body grab stops at a Sources: line typed under the body, and that line is still a source row', c3.body==='Sam, a third fixture body.'&&DOSSIER_KNOWN_LABELS.indexOf('sources')!==-1&&JSON.stringify(c3.sources)===JSON.stringify([{claim:'a label typed under the body',url:'https://under-body.invalid/x',section:'Footer'}]), JSON.stringify([c3.body,c3.sources]));
+  check('D4 a block with no Sources: line carries its Source URL as the one row', JSON.stringify(c2.sources)===JSON.stringify([{claim:'',url:'https://fallback.invalid/about',section:'',sentence:''}]), JSON.stringify(c2.sources));
+  check('D5 sources is a known label, so the body grab stops at a Sources: line typed under the body, and that line is still a source row', c3.body==='Sam, a third fixture body.'&&DOSSIER_KNOWN_LABELS.indexOf('sources')!==-1&&JSON.stringify(c3.sources)===JSON.stringify([{claim:'a label typed under the body',url:'https://under-body.invalid/x',section:'Footer',sentence:''}]), JSON.stringify([c3.body,c3.sources]));
   check('D6 the body keeps its shape: salutation line, blank, body, blank, the link alone', /^Hi,\n\nA fixture body\. Run one through it:\n\nhttps:\/\//.test(c1.body), JSON.stringify(c1.body));
   check('D7 the hook rides as its own field beside the rows', c1.hook==='OPERATOR. Three offices in two countries; hand them one page tested first.', c1.hook);
-  glob.state.comms=[{id:'id_fix_present',title:'Fallback Co · Robin Fallback',target:'robin@fallback.invalid',trail:'kept',hook:'the founder typed this',sources:[{claim:'kept',url:'https://kept.invalid/a',section:''}],body:'kept body',status:'draft'}];
+  glob.state.comms=[{id:'id_fix_present',title:'Fallback Co · Robin Fallback',target:'robin@fallback.invalid',trail:'kept',hook:'the founder typed this',sources:[{claim:'kept',url:'https://kept.invalid/a',section:'',sentence:''}],body:'kept body',status:'draft'}];
   var r=additiveImportComms(res);
   check('D8 the import adds the two new cards and skips the present one', r.added===2&&r.skipped===1, JSON.stringify(r));
   var minted=glob.state.comms.filter(function(c){return c.target==='alex@fixture-freight.invalid';})[0];
   check('D9 the minted record carries sources in the app\'s shape and an empty trail', minted&&JSON.stringify(minted.sources)===JSON.stringify(c1.sources)&&minted.trail===''&&/^id_/.test(minted.id||''), JSON.stringify(minted&&minted.sources));
   var kept=glob.state.comms[0];
-  check('D10 a card already present keeps its own sources and trail', JSON.stringify(kept.sources)===JSON.stringify([{claim:'kept',url:'https://kept.invalid/a',section:''}])&&kept.trail==='kept', JSON.stringify(kept.sources));
+  check('D10 a card already present keeps its own sources and trail', JSON.stringify(kept.sources)===JSON.stringify([{claim:'kept',url:'https://kept.invalid/a',section:'',sentence:''}])&&kept.trail==='kept', JSON.stringify(kept.sources));
 
   // --- S: source pins -----------------------------------------------------------
   check('S1 the form carries k-sources with its link line and no k-trail', /id="k-sources"[^>]*><\/textarea><div class="field-link" id="k-sources-link"><\/div>/.test(html)&&html.indexOf('id="k-trail"')===-1&&html.indexOf('Discovery trail (optional)')===-1, '');
@@ -215,7 +215,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var dm=extractFn(html,'downloadMonthReport');
   check('S9 the month report prints Source lines and no Trail line', dm.indexOf("out.push('  Source:    '+sourceLineText(s))")!==-1&&dm.indexOf('Trail:')===-1, '');
   check('S10 the fullscreen meta row carries the SOURCES count after HOOK and no TRAIL', /HOOK: \$\{esc\(k\.hook\)\}<\/span>`\);\s*const srcN=normalizeSources\(k\.sources\)\.length;/.test(html)&&html.indexOf('TRAIL: ${esc(k.trail)}')===-1, '');
-  check('S11 the council block carries the Hook and the Sources rows in both sites and no Discovery trail line', (html.match(/Sources \(one row per hook claim: the claim, the page, the section\): \$\{sourcesBlockText\(k\.sources\)\}/g)||[]).length===2&&html.indexOf('Discovery trail:')===-1, '');
+  check('S11 the council block carries the Hook and the Sources rows in both sites and no Discovery trail line', (html.match(/Sources \(one row per claim about the target, hook or body: the claim, the page, where on the page; after \|\| the body sentence the row supports\): \$\{sourcesBlockText\(k\.sources\)\}/g)||[]).length===2&&html.indexOf('Discovery trail:')===-1, '');
   check('S12 normalizeComm runs at load, at import and at the server merge, and a file copy that lacked the field owes the file a sync', /s\.comms\.forEach\(c=>\{normalizeComm\(c\);\}\);/.test(extractFn(html,'loadState'))&&extractFn(html,'additiveImportState').indexOf('normalizeComm(rec);')!==-1&&extractFn(html,'mergeServerState').indexOf('normalizeComm(c);')!==-1&&extractFn(html,'mergeServerState').indexOf('if(!Array.isArray(c.sources))owed=true;')!==-1, '');
   check('S13 the trail renderer, its fold control and its styles are gone', html.indexOf('trailHtml')===-1&&html.indexOf('trail-toggle')===-1&&html.indexOf('.trail-rest')===-1, '');
   check('S14 COMM_TEXT_LINK_FIELDS names the hook, the sources and the body', html.indexOf("const COMM_TEXT_LINK_FIELDS=['k-hook','k-sources','k-body'];")!==-1, '');

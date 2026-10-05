@@ -86,7 +86,15 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('the addressing rule names the generic-inbox, multi-location case',has('the draft opens with "Hi," alone and names no person'),true);
   expect('a single location or a personal address is addressed by name',has('When the company is one location, or the Target is a person\'s own address, the salutation names that person'),true);
   expect('a nameless opener is never a missing salutation, a NO only at a personal address or a single location',has('A nameless opener is never a missing salutation, and it is a NO only when the Target is a person\'s own address or the record shows one location'),true);
-  expect('a hook claim with no source row is a NO',has('A hook claim with no source row is a NO on its own, named as the missing row'),true);
+  expect('a hook claim with no source row is a NO',has('A hook claim with no row is a NO on its own, named as the missing row'),true);
+  // v0.19.0 THE CLAIM SOURCES: a body sentence about the target needs a row.
+  expect('a body sentence about the target with no row is a NO, quoted',has('with no row behind it is a NO on its own: quote the sentence and say it carries no source row'),true);
+  expect('an inference from the sector is a claim',has('An inference from what companies like theirs usually do is such a claim'),true);
+  expect('a row with no page or no place on the page is a NO',has('A row with no page, or no place on the page, is a NO, named'),true);
+  expect('the NO is for the missing row, never for falsity',has('never that it is false, which you cannot know, only that no row carries it'),true);
+  expect('a sentence about the product or the founder needs no row',has('A sentence about Combat Writing or the founder needs no row'),true);
+  expect('a rewrite cuts an unsourced claim rather than keeping it',has('state nothing about the target that no row carries; cut the sentence rather than keep the claim'),true);
+  expect('the old hook-only sentence is gone',has("the body's own claims about the target stay unverifiable from here, as above"),false);
   expect('the email shape is spelled line by line',has('the salutation line (the name with a comma, or "Hi," alone under Addressing), one blank line, the body of 3 sentences, one blank line, the link directive as its own paragraph, nothing after it'),true);
   expect('no sign-off, and a missing sign-off is never a flag',has('No sign-off, no signature (appended at send), no phone, no tagline, no second CTA; a missing sign-off is never a flag.'),true);
   expect('the fabrication ban binds what the seat writes, not what the founder verified',has('The FABRICATION BAN above binds what YOU write, never what he verified'),true);
