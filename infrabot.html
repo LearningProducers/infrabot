@@ -85,7 +85,7 @@
 ║  L  7255– 7613  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
 ║  L  7614– 7625  initCrewBlock, drawer toggle, crew status                    ║
 ║  L  7626– 7670  saveGroqKey, clearGroqKey                                    ║
-║  L  7671– 8626  exportAll, importJson, wipeAll                               ║
+║  L  7671– 8627  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -403,7 +403,7 @@
 ║      sentence (claimPlacements, draftBodyHtml) and lists a row whose         ║
 ║      sentence the body lost. The pane answers NO to a body sentence about    ║
 ║      the target with no row. tests/draft_card_check.js.                      ║
-║  L  8627– 8956  wireEvents + DOMContentLoaded boot                           ║
+║  L  8628– 8957  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -1723,7 +1723,7 @@ The \`<begin_body>...<end_body>\` block is the LATEST saved body; it supersedes 
 
 ## FABRICATION BAN (HARDEST RULE)
 The founder is SOLO unless his profile says otherwise. Never invent a network, team, collective, customer roster, or "we"/"us"/"founders like us"/"people like us". Describe what HE actually has. If you don't know a specific wound or value, say so in one sentence and stop; do not improvise business facts.
-This ban faces the founder's side only: his business, his network, his claims about himself. A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it: that is his verified research, you cannot see the source, so it is never fabricated, never a lie, never a fabrication risk, never a ban breach; the most you ever say about it is "unverifiable from here".
+This ban faces the founder's side only: his business, his network, his claims about himself. A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it: that is his verified research, you cannot see the source, so it is never fabricated, never a lie, never a fabrication risk, never a ban breach; the most you ever say about its truth is "unverifiable from here".
 
 ## NEVER SUPPLICANT (HARDWIRED)
 The founder delivers tactical intel from expertise. The target is being filtered, not courted. Every phrase that asks permission, hedges value, or signals "I hope you'll consider me" kills the comm. Binds critiques, rewrites, drafts, follow-ups.
@@ -1779,7 +1779,7 @@ Unclear posture → default to Status, not DRAFT.
 
 A line that breaks a rule above makes it NO; no such line makes it YES. Never a reason for NO: anything this doctrine has already settled. The closer above is settled law, so a directive-plus-link closer is never named and never re-opened, and a directive line with the link on the line under it IS that closer, in its ruled shape, whatever the directive says. No signature block in the draft: the founder's Gmail signature is appended at send, so a missing sign-off is never a failure and never a flag. A named wound, sharper specificity, or stronger register are polish, not weakness, unless a line actually breaks a rule above; polish never turns a YES into a NO.
 
-**Facts about the target are his, not yours.** A claim the draft makes about the target (what their page or bio says, what they published, what they want) is the founder's research, checked against the source before he asked. You cannot see that source. You never call such a claim fabricated, invented, misread, or false, never write the word fabrication about it in any form, and never count it toward NO for being wrong or warn that it might be wrong: for your verdict it is true as written. The one exception is a missing source row, under Sources below. If you mention it at all, the words are "unverifiable from here" and nothing stronger, and you move on. The FABRICATION BAN above binds what YOU write, never what he verified.
+**Facts about the target are his, not yours.** A claim the draft makes about the target (what their page or bio says, what they published, what they want) is the founder's research, checked against the source before he asked. You cannot see that source. You never call such a claim fabricated, invented, misread, or false, never write the word fabrication about it in any form, and never count it toward NO for being wrong or warn that it might be wrong: for your verdict it is true as written. If you mention its truth at all, the words are "unverifiable from here" and nothing stronger, and you move on. The one exception is a missing source row, under Sources below: that you name, in the words that paragraph gives. The FABRICATION BAN above binds what YOU write, never what he verified.
 
 **Sources.** The comm record lists each claim the draft makes about the target, in the hook or in the body, with the page it sits on and where on that page (the Sources rows in SESSION CONTEXT; the words after || are the body sentence the row supports). A hook claim with no row is a NO on its own, named as the missing row. A body sentence that states something about the target (what they did, run, publish, face or need, or what follows from their sector) with no row behind it is a NO on its own: quote the sentence and say it carries no source row. An inference from what companies like theirs usually do is such a claim. A row with no page, or no place on the page, is a NO, named. This is the one way a target claim counts toward NO: never that it is false, which you cannot know, only that no row carries it. A sentence about Combat Writing or the founder needs no row. When you draft or rewrite, state nothing about the target that no row carries; cut the sentence rather than keep the claim.
 
@@ -8583,6 +8583,7 @@ function importDraftsFile(file){
     // ensure DRAFTS view so the founder sees what landed
     state.commsView='drafts';
     var r=additiveImportComms(res);
+    if(r.added>0){draftCursorId=null;draftCursorIdx=0;renderComms();} // v0.19.0: the import's newest card is the card shown
     var msg='IMPORTED '+r.added+' DRAFT'+(r.added===1?'':'S');
     if(r.skipped)msg+=' \u00b7 '+r.skipped+' ALREADY PRESENT';
     if(r.scratched)msg+=' \u00b7 '+r.scratched+' SCRATCHED';
