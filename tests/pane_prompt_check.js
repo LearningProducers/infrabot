@@ -76,17 +76,27 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('the retired gauntlet closing line is gone',count(/The gauntlet judges readiness\./g),0);
   expect('the word gauntlet is gone from the prompt',has('gauntlet'),false);
   expect('a target claim is never called fabricated',has('You never call such a claim fabricated, invented, misread, or false'),true);
-  expect('the words for a target claim are unverifiable from here',has('the words are "unverifiable from here" and nothing stronger'),true);
+  expect('the words for a target claim\'s truth are unverifiable from here, nothing stronger (a missing source row is named in its own words)',has('the words are "unverifiable from here" and nothing stronger'),true);
   expect('the fabrication ban faces the founder side only, never a target claim',has('A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it'),true);
   expect('the OVERDUE line agrees with the readiness verdict (line two under it)',has('If OVERDUE, say so on line one (on a readiness question, line two, under the verdict).'),true);
-  expect('a target claim is never counted toward NO',has('never count it toward NO or warn that it might be wrong'),true);
+  expect('a target claim is never counted toward NO for being wrong (a missing source row is the one exception)',has('never count it toward NO for being wrong or warn that it might be wrong'),true);
+  expect('the older never names its one exception, the missing source row',has('The one exception is a missing source row, under Sources below: that you name, in the words that paragraph gives.'),true);
+  expect('the unverifiable cap is on the claim\'s truth, so naming a missing row is not capped',has('the most you ever say about its truth is "unverifiable from here"')&&has('If you mention its truth at all, the words are "unverifiable from here" and nothing stronger'),true);
   expect('a directive line with the link under it is the ruled closer, never the bare-directive shape',has('A directive line with the link on the line below it is shape #1, never this one'),true);
   // v0.16.0 THE SOURCES: addressing, the hook's sources, the email shape.
   expect('the nameless salutation is Hi, alone, Hello, gone from the prompt',has('"Hello,"'),false);
   expect('the addressing rule names the generic-inbox, multi-location case',has('the draft opens with "Hi," alone and names no person'),true);
   expect('a single location or a personal address is addressed by name',has('When the company is one location, or the Target is a person\'s own address, the salutation names that person'),true);
   expect('a nameless opener is never a missing salutation, a NO only at a personal address or a single location',has('A nameless opener is never a missing salutation, and it is a NO only when the Target is a person\'s own address or the record shows one location'),true);
-  expect('a hook claim with no source row is a NO',has('A hook claim with no source row is a NO on its own, named as the missing row'),true);
+  expect('a hook claim with no source row is a NO',has('A hook claim with no row is a NO on its own, named as the missing row'),true);
+  // v0.19.0 THE CLAIM SOURCES: a body sentence about the target needs a row.
+  expect('a body sentence about the target with no row is a NO, quoted',has('with no row behind it is a NO on its own: quote the sentence and say it carries no source row'),true);
+  expect('an inference from the sector is a claim',has('An inference from what companies like theirs usually do is such a claim'),true);
+  expect('a row with no page or no place on the page is a NO',has('A row with no page, or no place on the page, is a NO, named'),true);
+  expect('the NO is for the missing row, never for falsity',has('never that it is false, which you cannot know, only that no row carries it'),true);
+  expect('a sentence about the product or the founder needs no row',has('A sentence about Combat Writing or the founder needs no row'),true);
+  expect('a rewrite cuts an unsourced claim rather than keeping it',has('state nothing about the target that no row carries; cut the sentence rather than keep the claim'),true);
+  expect('the old hook-only sentence is gone',has("the body's own claims about the target stay unverifiable from here, as above"),false);
   expect('the email shape is spelled line by line',has('the salutation line (the name with a comma, or "Hi," alone under Addressing), one blank line, the body of 3 sentences, one blank line, the link directive as its own paragraph, nothing after it'),true);
   expect('no sign-off, and a missing sign-off is never a flag',has('No sign-off, no signature (appended at send), no phone, no tagline, no second CTA; a missing sign-off is never a flag.'),true);
   expect('the fabrication ban binds what the seat writes, not what the founder verified',has('The FABRICATION BAN above binds what YOU write, never what he verified'),true);

@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.18.0 (CALLS IN THE MONTH REPORT) 26-10-01                                ║
+║  v0.19.0 (ONE DRAFT AT A TIME, THE CLAIM SOURCES) 26-10-05                   ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  433  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  443  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   435–  461  :root, CSS variables, fonts, reset, body                     ║
-║  L   462–  519  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   520–  562  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   563–  580  CLOCKS — live clock grid                                     ║
-║  L   581–  657  CARDS — contact card, comm card, status pills                ║
-║  L   658–  684  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   685–  694  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   695–  700  EMPTY: state placeholder                                     ║
-║  L   701–  724  MODAL — bg, box, header, footer                              ║
-║  L   725–  736  DRAWER — settings drawer + backdrop                          ║
-║  L   737–  742  COUNCIL: stream items (legacy reused)                        ║
-║  L   743–  749  TOAST: notification                                          ║
-║  L   750–  798  STATS: grid + profile block                                  ║
-║  L   799–  821  CREW BLOCK — Groq key row, council slots                     ║
-║  L   822–  843  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   844–  849  Per-response copy button (v1.2)                              ║
-║  L   850–  869  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   870–  876  v1.4: Foundation context source blocks                       ║
-║  L   877–  957  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   958–  984  INSIGHT VAULT                                                ║
+║  L   445–  471  :root, CSS variables, fonts, reset, body                     ║
+║  L   472–  529  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   530–  572  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   573–  590  CLOCKS — live clock grid                                     ║
+║  L   591–  673  CARDS — contact card, comm card, status pills                ║
+║  L   674–  700  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   701–  710  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   711–  716  EMPTY: state placeholder                                     ║
+║  L   717–  740  MODAL — bg, box, header, footer                              ║
+║  L   741–  752  DRAWER — settings drawer + backdrop                          ║
+║  L   753–  758  COUNCIL: stream items (legacy reused)                        ║
+║  L   759–  765  TOAST: notification                                          ║
+║  L   766–  814  STATS: grid + profile block                                  ║
+║  L   815–  837  CREW BLOCK — Groq key row, council slots                     ║
+║  L   838–  859  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   860–  865  Per-response copy button (v1.2)                              ║
+║  L   866–  885  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   886–  892  v1.4: Foundation context source blocks                       ║
+║  L   893–  973  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   974– 1000  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L   989– 1007  APP: shell — header, brand, top clock, settings              ║
-║  L  1008– 1015  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L  1016– 1054  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L  1055– 1064  TAB-NETWORK — contacts list                                  ║
-║  L  1065– 1158  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1159– 1173  TAB-VAULT — insights                                         ║
-║  L  1174– 1295  MODAL-CONTACT — add/edit contact                             ║
-║  L  1296– 1336  MODAL-COMM — add/edit communication                          ║
-║  L  1337– 1358  MODAL-PROFILE — edit your profile                            ║
-║  L  1359– 1373  MODAL-CLOCK — add world clock                                ║
-║  L  1374– 1389  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1390– 1417  DRAWER — profile, data, version footer                       ║
-║  L  1418– 1437  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1438– 1449  MODAL-MEM — memory inspector                                 ║
-║  L  1450– 1456  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1457– 1458  TOAST: container                                             ║
+║  L  1005– 1023  APP: shell — header, brand, top clock, settings              ║
+║  L  1024– 1031  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L  1032– 1070  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L  1071– 1080  TAB-NETWORK — contacts list                                  ║
+║  L  1081– 1174  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1175– 1189  TAB-VAULT — insights                                         ║
+║  L  1190– 1311  MODAL-CONTACT — add/edit contact                             ║
+║  L  1312– 1352  MODAL-COMM — add/edit communication                          ║
+║  L  1353– 1374  MODAL-PROFILE — edit your profile                            ║
+║  L  1375– 1389  MODAL-CLOCK — add world clock                                ║
+║  L  1390– 1405  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1406– 1433  DRAWER — profile, data, version footer                       ║
+║  L  1434– 1453  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1454– 1465  MODAL-MEM — memory inspector                                 ║
+║  L  1466– 1472  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1473– 1474  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1461– 1671  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1672– 1949  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1950– 1987  g, esc, uid, toast helpers + state globals                   ║
-║  L  1988– 2477  freshState, loadState (migrations), saveState                ║
-║  L  2478– 2703  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2704– 2737  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2738– 2783  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2784– 3970  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3971– 4091  getCommBucket + age helpers, setCommsView                    ║
-║  L  4092– 4361  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4362– 4515  renderComms — full status/triage rendering                   ║
-║  L  4516– 4543  archiveComm + reviveComm                                     ║
-║  L  4544– 4670  renderReportsPanel + computeMonthStats                       ║
-║  L  4671– 4883  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4884– 5157  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5158– 5208  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5209– 5485  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5486– 5636  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5637– 5704  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5705– 5994  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1477– 1687  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1688– 1965  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1966– 2003  g, esc, uid, toast helpers + state globals                   ║
+║  L  2004– 2493  freshState, loadState (migrations), saveState                ║
+║  L  2494– 2719  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2720– 2753  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2754– 2799  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2800– 3986  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  3987– 4107  getCommBucket + age helpers, setCommsView                    ║
+║  L  4108– 4469  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4470– 4631  renderComms — full status/triage rendering                   ║
+║  L  4632– 4659  archiveComm + reviveComm                                     ║
+║  L  4660– 4786  renderReportsPanel + computeMonthStats                       ║
+║  L  4787– 4999  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  5000– 5273  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5274– 5324  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5325– 5601  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5602– 5752  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5753– 5820  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5821– 6110  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  5995– 6109  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6110– 6140  saveProfile + clock save/remove                              ║
-║  L  6141– 6294  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6295– 6474  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6475– 6719  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6720– 7138  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7139– 7497  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7498– 7509  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7510– 7554  saveGroqKey, clearGroqKey                                    ║
-║  L  7555– 8510  exportAll, importJson, wipeAll                               ║
+║  L  6111– 6225  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6226– 6256  saveProfile + clock save/remove                              ║
+║  L  6257– 6410  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6411– 6590  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6591– 6835  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6836– 7254  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7255– 7613  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7614– 7625  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7626– 7670  saveGroqKey, clearGroqKey                                    ║
+║  L  7671– 8627  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -393,7 +393,17 @@
 ║      through callsInMonth, the one list the card and the file both read,     ║
 ║      from the same call record the Communications tab's phone card derives   ║
 ║      from, so a call is counted once. tests/call_report_check.js.            ║
-║  L  8511– 8839  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.19.0 ONE DRAFT AT A TIME, THE CLAIM SOURCES: the DRAFTS view shows    ║
+║      one card in the call card's frame with PREVIOUS and NEXT and the whole  ║
+║      body (renderDraftOne, stepDraft; the cursor follows the card's id). A   ║
+║      source row covers a claim in the hook or the body; the words after the  ║
+║      page say where on the page to the paragraph (the stored key stays       ║
+║      section) and a row gains sentence, the body sentence it supports,       ║
+║      written after two pipes on its line. The card shows each row under its  ║
+║      sentence (claimPlacements, draftBodyHtml) and lists a row whose         ║
+║      sentence the body lost. The pane answers NO to a body sentence about    ║
+║      the target with no row. tests/draft_card_check.js.                      ║
+║  L  8628– 8957  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -640,6 +650,12 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .cite-pill.unverified{border-color:var(--amber-dim);color:var(--amber);background:rgba(251,191,36,.08)}
 /* THE CALL CARD reads wide: one brief per row, the body a size up from the event card */
 .card-grid.calls-grid{grid-template-columns:1fr}
+.draft-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.draft-nav .btn:disabled{opacity:.35;cursor:default}
+.draft-pos{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase}
+.draft-one .draft-body{white-space:pre-wrap;overflow-wrap:anywhere}
+.claim-src{white-space:normal;margin:6px 0 10px;padding:6px 10px;border-left:2px solid var(--cyan-dim);background:var(--panel-2);font-family:var(--mono);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.claim-src .claim-loc{color:var(--text-dim)}
 .call-card .card-sub{font-size:12px}
 .call-card .card-section-body{font-size:15px;line-height:1.6}
 .call-card .cite-page{font-family:var(--mono);font-size:13px;word-break:break-all}
@@ -1000,7 +1016,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.18.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.19.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1309,7 +1325,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <div class="field"><label>Target (who / where it lands)</label><input type="text" id="k-target" placeholder="name@example.com · person · etc."></div>
       <div class="field"><label>City *</label><input type="text" id="k-city" placeholder="Austin" autocomplete="off"><div id="k-city-hint" class="tiny dim mono" style="margin-top:6px"></div></div>
       <div class="field"><label>Hook (why they care, what you are handing them)</label><textarea id="k-hook" rows="2" placeholder="Job posting: they pay for a technical writer; hand them one page tested first" style="min-height:48px"></textarea><div class="field-link" id="k-hook-link"></div></div>
-      <div class="field"><label>Sources (one per line: the hook claim, the page it sits on, the page section)</label><textarea id="k-sources" rows="3" placeholder="they pay for a technical writer https://their-site.example/careers Careers" style="min-height:64px"></textarea><div class="field-link" id="k-sources-link"></div></div>
+      <div class="field"><label>Sources (one per line: the claim, the page it sits on, where on the page to the paragraph; for a body claim add || and the body sentence it supports)</label><textarea id="k-sources" rows="3" placeholder="they opened a second site in March https://their-site.example/news/second-site third paragraph under the intro || Your second site opened in March." style="min-height:64px"></textarea><div class="field-link" id="k-sources-link"></div></div>
       <div class="field"><label>Subject (email)</label><input type="text" id="k-subject" placeholder="Subject line — for EMAIL comms"></div>
       <div class="field wide-span">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px">
@@ -1411,7 +1427,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.18.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.19.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1458,7 +1474,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.18.0';
+const APP_VERSION='infrabot-v0.19.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1707,7 +1723,7 @@ The \`<begin_body>...<end_body>\` block is the LATEST saved body; it supersedes 
 
 ## FABRICATION BAN (HARDEST RULE)
 The founder is SOLO unless his profile says otherwise. Never invent a network, team, collective, customer roster, or "we"/"us"/"founders like us"/"people like us". Describe what HE actually has. If you don't know a specific wound or value, say so in one sentence and stop; do not improvise business facts.
-This ban faces the founder's side only: his business, his network, his claims about himself. A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it: that is his verified research, you cannot see the source, so it is never fabricated, never a lie, never a fabrication risk, never a ban breach; the most you ever say about it is "unverifiable from here".
+This ban faces the founder's side only: his business, his network, his claims about himself. A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it: that is his verified research, you cannot see the source, so it is never fabricated, never a lie, never a fabrication risk, never a ban breach; the most you ever say about its truth is "unverifiable from here".
 
 ## NEVER SUPPLICANT (HARDWIRED)
 The founder delivers tactical intel from expertise. The target is being filtered, not courted. Every phrase that asks permission, hedges value, or signals "I hope you'll consider me" kills the comm. Binds critiques, rewrites, drafts, follow-ups.
@@ -1763,9 +1779,9 @@ Unclear posture → default to Status, not DRAFT.
 
 A line that breaks a rule above makes it NO; no such line makes it YES. Never a reason for NO: anything this doctrine has already settled. The closer above is settled law, so a directive-plus-link closer is never named and never re-opened, and a directive line with the link on the line under it IS that closer, in its ruled shape, whatever the directive says. No signature block in the draft: the founder's Gmail signature is appended at send, so a missing sign-off is never a failure and never a flag. A named wound, sharper specificity, or stronger register are polish, not weakness, unless a line actually breaks a rule above; polish never turns a YES into a NO.
 
-**Facts about the target are his, not yours.** A claim the draft makes about the target (what their page or bio says, what they published, what they want) is the founder's research, checked against the source before he asked. You cannot see that source. You never call such a claim fabricated, invented, misread, or false, never write the word fabrication about it in any form, and never count it toward NO or warn that it might be wrong: for your verdict it is true as written. If you mention it at all, the words are "unverifiable from here" and nothing stronger, and you move on. The FABRICATION BAN above binds what YOU write, never what he verified.
+**Facts about the target are his, not yours.** A claim the draft makes about the target (what their page or bio says, what they published, what they want) is the founder's research, checked against the source before he asked. You cannot see that source. You never call such a claim fabricated, invented, misread, or false, never write the word fabrication about it in any form, and never count it toward NO for being wrong or warn that it might be wrong: for your verdict it is true as written. If you mention its truth at all, the words are "unverifiable from here" and nothing stronger, and you move on. The one exception is a missing source row, under Sources below: that you name, in the words that paragraph gives. The FABRICATION BAN above binds what YOU write, never what he verified.
 
-**Sources.** The comm record lists each factual claim the hook makes about the target with the page it sits on (the Sources rows in SESSION CONTEXT). A hook claim with no source row is a NO on its own, named as the missing row; the body's own claims about the target stay unverifiable from here, as above.
+**Sources.** The comm record lists each claim the draft makes about the target, in the hook or in the body, with the page it sits on and where on that page (the Sources rows in SESSION CONTEXT; the words after || are the body sentence the row supports). A hook claim with no row is a NO on its own, named as the missing row. A body sentence that states something about the target (what they did, run, publish, face or need, or what follows from their sector) with no row behind it is a NO on its own: quote the sentence and say it carries no source row. An inference from what companies like theirs usually do is such a claim. A row with no page, or no place on the page, is a NO, named. This is the one way a target claim counts toward NO: never that it is false, which you cannot know, only that no row carries it. A sentence about Combat Writing or the founder needs no row. When you draft or rewrite, state nothing about the target that no row carries; cut the sentence rather than keep the claim.
 
 **Same body, same answer.** If the body has not changed since your last readiness answer, the verdict is the same and the lines named are the same lines: name them again in the same words. You never contradict a line you endorsed in a prior turn unless the body changed; check before you answer.
 
@@ -4248,11 +4264,16 @@ function hookHtml(hook){
 // words after it the section; the text form of a record is the same line
 // back. A hook with no source row shows the UNSOURCED HOOK pill. Comment
 // written with zero brace pairs.
+// v0.19.0 THE CLAIM SOURCES. A row covers a claim the hook or the body makes
+// about the target. The words after the page say where on the page the claim
+// sits, to the paragraph; the stored key stays section, so no saved row
+// moves. A row gains sentence: the body sentence it supports, word for word,
+// written on the line after two pipes. A row with no sentence is the hook's.
 function normalizeSources(list){
   const out=[];
   (Array.isArray(list)?list:[]).forEach(s=>{
     if(!s||typeof s!=='object')return;
-    const e={claim:String(s.claim==null?'':s.claim).trim(),url:String(s.url==null?'':s.url).trim(),section:String(s.section==null?'':s.section).trim()};
+    const e={claim:String(s.claim==null?'':s.claim).trim(),url:String(s.url==null?'':s.url).trim(),section:String(s.section==null?'':s.section).trim(),sentence:String(s.sentence==null?'':s.sentence).trim()};
     if(!e.claim&&!e.url)return;
     out.push(e);
   });
@@ -4261,8 +4282,10 @@ function normalizeSources(list){
 function parseSourceLines(text){
   const out=[];
   String(text||'').split('\n').forEach(line=>{
-    const e={claim:'',url:'',section:''};
+    const e={claim:'',url:'',section:'',sentence:''};
     const before=[],after=[];
+    const cut=line.indexOf('||');
+    if(cut!==-1){e.sentence=line.slice(cut+2).trim();line=line.slice(0,cut);}
     line.trim().split(/\s+/).forEach(tok=>{
       if(!tok)return;
       if(!e.url&&/^https?:\/\/\S+$/i.test(tok)){e.url=urlTokenParts(tok)[0];return;}
@@ -4273,7 +4296,7 @@ function parseSourceLines(text){
   });
   return out;
 }
-function sourceLineText(s){return [s.claim,s.url,s.section].filter(Boolean).join(' ');}
+function sourceLineText(s){return [s.claim,s.url,s.section].filter(Boolean).join(' ')+(s.sentence?' || '+s.sentence:'');}
 function sourceLinesText(list){return normalizeSources(list).map(sourceLineText).join('\n');}
 function sourcesBlockText(list){
   const rows=normalizeSources(list);
@@ -4293,6 +4316,91 @@ function sourcesHtml(list,hook){
   const body=rows||'<span class="cite-pill unverified">UNSOURCED HOOK</span>';
   return '<div class="card-section"><div class="card-section-h">Sources</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;line-height:1.5">'+body+'</div></div>';
 }
+// v0.19.0 ONE DRAFT AT A TIME. The DRAFTS view shows one card in the call
+// card's frame, the pane's full width, with the whole body and a previous and
+// next step. Under each body sentence a source row names, that row: the
+// claim, the page as a link, the place on the page. A row whose sentence the
+// body no longer carries is listed under the body, marked, never dropped.
+// The cursor follows the card's id, so an edit that re-sorts the list keeps
+// the same card on screen; when that card leaves the list the view keeps its
+// position. Nothing here writes a record. Comment written with zero brace
+// pairs.
+let draftCursorId=null,draftCursorIdx=0;
+function draftsSorted(){
+  return state.comms.filter(c=>getCommBucket(c)==='drafts').sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''));
+}
+function draftCursorAt(list){
+  const i=list.findIndex(k=>k.id===draftCursorId);
+  return i<0?Math.max(0,Math.min(draftCursorIdx,list.length-1)):i;
+}
+function stepDraft(delta){
+  const list=draftsSorted();
+  if(!list.length)return;
+  const i=Math.max(0,Math.min(draftCursorAt(list)+delta,list.length-1));
+  draftCursorId=list[i].id;draftCursorIdx=i;
+  renderComms();
+}
+function claimPlacements(body,list){
+  const text=String(body||'');
+  const placed=[],loose=[];
+  normalizeSources(list).forEach(s=>{
+    if(!s.sentence)return;
+    const m=new RegExp(s.sentence.split(/\s+/).filter(Boolean).map(_dEscapeRe).join('\\s+')).exec(text);
+    if(!m){loose.push(s);return;}
+    let end=m.index+m[0].length;
+    // a row that quotes part of a sentence sits under the whole sentence: run
+    // on to its closing mark, or to the paragraph's end when it has none
+    if(!/[.!?]["')]*$/.test(m[0])){
+      const rest=/^[^\n]*?(?:\n(?!\n)[^\n]*?)*?[.!?](?=["')]*(?:\s|$))/.exec(text.slice(end));
+      const para=text.indexOf('\n\n',end);
+      end=rest&&(para===-1||end+rest[0].length<=para)?end+rest[0].length:(para===-1?text.length:para);
+    }
+    while(end<text.length&&'"\')'.indexOf(text[end])!==-1)end++;
+    placed.push({end:end,s:s});
+  });
+  placed.sort((a,b)=>a.end-b.end);
+  return {placed:placed,loose:loose};
+}
+function claimSourceHtml(s){
+  const claim=s.claim?'<div>'+esc(s.claim)+'</div>':'';
+  const page=s.url?linkHtml(s.url):'<span class="cite-pill unverified" style="margin-left:0">NO PAGE</span>';
+  const where=s.section?'<div class="claim-loc">'+esc(s.section)+'</div>':'<div><span class="cite-pill unverified" style="margin-left:0">NO LOCATION</span></div>';
+  return '<div class="claim-src">'+claim+'<div>'+page+'</div>'+where+'</div>';
+}
+function draftBodyHtml(body,list){
+  const text=String(body||'');
+  const seg=(a,b)=>linkedTextHtml(a>0?text.slice(a,b).replace(/^[ \t]*\n?/,''):text.slice(a,b));
+  let html='',at=0;
+  claimPlacements(text,list).placed.forEach(p=>{
+    if(p.end>at){html+=seg(at,p.end);at=p.end;}
+    html+=claimSourceHtml(p.s);
+  });
+  return html+seg(at,text.length);
+}
+function looseSourcesHtml(body,list){
+  const loose=claimPlacements(body,list).loose;
+  if(!loose.length)return '';
+  return '<div class="card-section"><div class="card-section-h">Sources whose sentence is not in the body</div><div class="card-section-body">'+loose.map(s=>'<div style="margin-bottom:8px"><div>&ldquo;'+esc(s.sentence)+'&rdquo;<span class="cite-pill unverified">NOT IN BODY</span></div>'+claimSourceHtml(s)+'</div>').join('')+'</div></div>';
+}
+function renderDraftOne(list){
+  const i=draftCursorAt(list),n=list.length,k=list[i];
+  draftCursorId=k.id;draftCursorIdx=i;
+  const dirLabel=k.direction==='inbound'?'IN ←':'OUT →';
+  const dirColor=k.direction==='inbound'?'amber':'cyan';
+  const channelLabel=(k.channel||'').toUpperCase().replace('-',' ');
+  const match=networkMatch(k.target);
+  const gold=goldFor(match);
+  const star=gold?'<span class="conv-star" title="In your Network">★</span> ':(match?'<span class="net-plain" title="In your Network as an acquaintance">IN NETWORK</span> ':'');
+  const ctz=cityToTz(k.city);
+  const rowClock=ctz?`<div class="row-clock" data-tz="${esc(ctz)}"><span class="live-dot"></span><span class="clock-time-inline">--<span class="clock-colon">:</span>--</span><span class="clock-tz-inline">--</span><span class="city-label">${esc((k.city||'').toUpperCase())}</span></div>`:'';
+  const all=normalizeSources(k.sources);
+  const hookRows=all.filter(s=>!s.sentence);
+  const hookSources=(hookRows.length||!all.length)?sourcesHtml(hookRows,k.hook):'';
+  const subject=k.subject?`<div class="card-section"><div class="card-section-h">Subject</div><div class="card-section-body">${esc(k.subject)}</div></div>`:'';
+  const bodyHtml=k.body?`<div class="card-section"><div class="card-section-h">Body</div><div class="card-section-body draft-body">${draftBodyHtml(k.body,k.sources)}</div></div>`:'';
+  const nav=`<div class="draft-nav"><button class="btn muted sm" data-act="draft-prev"${i<=0?' disabled':''}>&#x2039; PREVIOUS</button><span class="draft-pos">DRAFT ${i+1} OF ${n}</span><button class="btn muted sm" data-act="draft-next"${i>=n-1?' disabled':''}>NEXT &#x203A;</button></div>`;
+  return nav+`<div class="card-grid calls-grid"><div class="card call-card draft-one${gold?' card-converted':''}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${star}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div></div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span></div></div><div class="card-body">${rowClock}${hookHtml(k.hook)}${hookSources}${subject}${bodyHtml}${looseSourcesHtml(k.body,k.sources)}${k.sentDate?`<div class="card-section"><div class="card-section-h">Sent</div><div class="card-section-body call-mono">${esc(k.sentDate)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">OPEN</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button></div></div></div>`;
+}
 function normalizeComm(c){
   if(!c||typeof c!=='object')return c;
   if(typeof c.trail!=='string')c.trail=c.trail==null?'':String(c.trail);
@@ -4300,7 +4408,7 @@ function normalizeComm(c){
   const seen={};const rows=[];
   textUrls(c.trail).concat(c.sourceUrl?[String(c.sourceUrl).trim()]:[]).forEach(u=>{
     if(!u||seen[u])return;
-    seen[u]=true;rows.push({claim:'',url:u,section:''});
+    seen[u]=true;rows.push({claim:'',url:u,section:'',sentence:''});
   });
   c.sources=rows;
   return c;
@@ -4427,6 +4535,14 @@ function renderComms(){
     }
     return (b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||'');
   });
+
+  // v0.19.0: the DRAFTS view is one card at a time, the call card's frame.
+  if(view==='drafts'){
+    if(editingCommId&&sorted.findIndex(k=>k.id===editingCommId)>=0)draftCursorId=editingCommId; // a card under edit, a new one included, is the card shown
+    body.innerHTML=triageBar+renderDraftOne(sorted);
+    updateContactClocks(new Date());
+    return;
+  }
 
   let html=triageBar+'<div class="card-grid">';
   const items=sorted.map(k=>({kind:'comm',k:k,when:k.sentDate||k.updatedAt||k.createdAt||''}));
@@ -6336,7 +6452,7 @@ Location: ${k.city||'(unspecified)'}
 Channel: ${k.channel||'(unspecified)'}
 Status: ${k.status}
 Hook: ${k.hook||'(none)'}
-Sources (one row per hook claim: the claim, the page, the section): ${sourcesBlockText(k.sources)}
+Sources (one row per claim about the target, hook or body: the claim, the page, where on the page; after || the body sentence the row supports): ${sourcesBlockText(k.sources)}
 Subject line: ${k.subject||'(none)'}
 
 [CURRENT DRAFT BODY]
@@ -7041,7 +7157,7 @@ Location: ${k.city||'(unspecified)'}
 Channel: ${k.channel||'(unspecified)'}
 Status: ${k.status}
 Hook: ${k.hook||'(none)'}
-Sources (one row per hook claim: the claim, the page, the section): ${sourcesBlockText(k.sources)}
+Sources (one row per claim about the target, hook or body: the claim, the page, where on the page; after || the body sentence the row supports): ${sourcesBlockText(k.sources)}
 Subject line: ${k.subject||'(none)'}
 
 [CURRENT DRAFT BODY]
@@ -8467,6 +8583,7 @@ function importDraftsFile(file){
     // ensure DRAFTS view so the founder sees what landed
     state.commsView='drafts';
     var r=additiveImportComms(res);
+    if(r.added>0){draftCursorId=null;draftCursorIdx=0;renderComms();} // v0.19.0: the import's newest card is the card shown, unless a draft's form is open, whose card stays
     var msg='IMPORTED '+r.added+' DRAFT'+(r.added===1?'':'S');
     if(r.skipped)msg+=' \u00b7 '+r.skipped+' ALREADY PRESENT';
     if(r.scratched)msg+=' \u00b7 '+r.scratched+' SCRATCHED';
@@ -8490,7 +8607,7 @@ function fetchDossierOnLoad(){
         if(res.cards.length===0)return; // nothing new/parseable; stay silent
         var r=additiveImportComms(res);
         if(r.added>0){
-          state.commsView='drafts';renderComms();
+          state.commsView='drafts';draftCursorId=null;draftCursorIdx=0;renderComms(); // v0.19.0: an import shows its newest card
           var fm='FETCHED '+r.added+' NEW DRAFT'+(r.added===1?'':'S');
           if(r.wentQuiet&&r.wentQuiet.length)fm+=' · WENT QUIET: '+r.wentQuiet.join(', ');
           toast(fm,'green');
@@ -8591,6 +8708,7 @@ function wireEvents(){
     if(monthBtn&&monthBtn.dataset.act==='download-month'){downloadMonthReport(monthBtn.dataset.month);return;}
     const btn=e.target.closest('[data-act]');if(!btn)return;
     const act=btn.dataset.act;const id=btn.dataset.id;
+    if(act==='draft-prev'||act==='draft-next'){stepDraft(act==='draft-next'?1:-1);return;} // v0.19.0: the DRAFTS view's step
     if(act==='edit-comm')openCommModal(id);
     if(act==='edit-call')openCallModal(id); // v0.17.0: a completed call's card on this tab opens its brief
     if(act==='council-comm')openCouncil('comm',id);
