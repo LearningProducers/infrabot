@@ -76,7 +76,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('the retired gauntlet closing line is gone',count(/The gauntlet judges readiness\./g),0);
   expect('the word gauntlet is gone from the prompt',has('gauntlet'),false);
   expect('a target claim is never called fabricated',has('You never call such a claim fabricated, invented, misread, or false'),true);
-  expect('the words for a target claim are unverifiable from here',has('the words are "unverifiable from here" and nothing stronger'),true);
+  expect('the words for a target claim\'s truth are unverifiable from here, nothing stronger (a missing source row is named in its own words)',has('the words are "unverifiable from here" and nothing stronger'),true);
   expect('the fabrication ban faces the founder side only, never a target claim',has('A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it'),true);
   expect('the OVERDUE line agrees with the readiness verdict (line two under it)',has('If OVERDUE, say so on line one (on a readiness question, line two, under the verdict).'),true);
   expect('a target claim is never counted toward NO for being wrong (a missing source row is the one exception)',has('never count it toward NO for being wrong or warn that it might be wrong'),true);

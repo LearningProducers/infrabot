@@ -8583,7 +8583,7 @@ function importDraftsFile(file){
     // ensure DRAFTS view so the founder sees what landed
     state.commsView='drafts';
     var r=additiveImportComms(res);
-    if(r.added>0){draftCursorId=null;draftCursorIdx=0;renderComms();} // v0.19.0: the import's newest card is the card shown
+    if(r.added>0){draftCursorId=null;draftCursorIdx=0;renderComms();} // v0.19.0: the import's newest card is the card shown, unless a draft's form is open, whose card stays
     var msg='IMPORTED '+r.added+' DRAFT'+(r.added===1?'':'S');
     if(r.skipped)msg+=' \u00b7 '+r.skipped+' ALREADY PRESENT';
     if(r.scratched)msg+=' \u00b7 '+r.scratched+' SCRATCHED';
