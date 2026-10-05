@@ -142,6 +142,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var onlyBody=draft('id_fix_d','Body Rows Only · Bo Body','2026-01-01T09:00:00.000Z',{sources:[rows[1]],body:BODY});
   check('V9 a card whose every row has a sentence shows no UNSOURCED HOOK mark', renderDraftOne([onlyBody]).indexOf('UNSOURCED HOOK')===-1, '');
 
+  check('V10 a draft holding a date shows it in a Sent section, as the grid card does; one without shows none', renderDraftOne([draft('id_fix_e','Dated \u00b7 Dee Dated','2026-01-01T08:00:00.000Z',{sentDate:'2026-02-03'})]).indexOf('card-section-h">Sent</div><div class="card-section-body call-mono">2026-02-03<')!==-1&&h.indexOf('card-section-h">Sent<')===-1, '');
+
   // --- C: the cursor ------------------------------------------------------------
   ge('draftCursorId=null;draftCursorIdx=0;');
   stepDraft(1);
@@ -165,6 +167,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   // --- S: source pins -------------------------------------------------------------
   var rc=extractFn(html,'renderComms');
   check('S1 renderComms hands the DRAFTS view to the one-card renderer before the grid is built', rc.indexOf("if(view==='drafts'){")!==-1&&rc.indexOf('body.innerHTML=triageBar+renderDraftOne(sorted);')!==-1&&rc.indexOf('renderDraftOne(sorted)')<rc.indexOf("let html=triageBar+'<div class=\"card-grid\">';"), '');
+  check('S1b a card under edit is the card shown, and an import resets the view to its newest card', rc.indexOf('if(editingCommId&&sorted.findIndex(k=>k.id===editingCommId)>=0)draftCursorId=editingCommId;')!==-1&&html.indexOf("state.commsView='drafts';draftCursorId=null;draftCursorIdx=0;renderComms();")!==-1, '');
   check('S2 the PIPELINE and ARCHIVE views keep the grid and its body preview', rc.indexOf('commBodyPreviewHtml(k.body)')!==-1&&rc.indexOf("items.forEach(it=>{")!==-1, '');
   check('S3 the dispatcher steps the view on draft-prev and draft-next', html.indexOf("if(act==='draft-prev'||act==='draft-next'){stepDraft(act==='draft-next'?1:-1);return;}")!==-1, '');
   check('S4 nothing in the view writes a record', ['draftsSorted','draftCursorAt','stepDraft','claimPlacements','claimSourceHtml','draftBodyHtml','looseSourcesHtml','renderDraftOne'].every(function(n){return extractFn(html,n).indexOf('saveState')===-1;}), '');

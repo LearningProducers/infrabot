@@ -79,7 +79,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('the words for a target claim are unverifiable from here',has('the words are "unverifiable from here" and nothing stronger'),true);
   expect('the fabrication ban faces the founder side only, never a target claim',has('A claim the draft makes about the TARGET (their page or bio, their work, what they want) is never under it'),true);
   expect('the OVERDUE line agrees with the readiness verdict (line two under it)',has('If OVERDUE, say so on line one (on a readiness question, line two, under the verdict).'),true);
-  expect('a target claim is never counted toward NO',has('never count it toward NO or warn that it might be wrong'),true);
+  expect('a target claim is never counted toward NO',has('never count it toward NO for being wrong or warn that it might be wrong'),true);
+  expect('the older never names its one exception, the missing source row',has('The one exception is a missing source row, under Sources below.'),true);
   expect('a directive line with the link under it is the ruled closer, never the bare-directive shape',has('A directive line with the link on the line below it is shape #1, never this one'),true);
   // v0.16.0 THE SOURCES: addressing, the hook's sources, the email shape.
   expect('the nameless salutation is Hi, alone, Hello, gone from the prompt',has('"Hello,"'),false);

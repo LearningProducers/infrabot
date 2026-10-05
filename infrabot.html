@@ -64,28 +64,28 @@
 ║  L  2800– 3986  switchTab, renderAll, renderOverview, renderNetwork          ║
 ║  L  3987– 4107  getCommBucket + age helpers, setCommsView                    ║
 ║  L  4108– 4469  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4470– 4630  renderComms — full status/triage rendering                   ║
-║  L  4631– 4658  archiveComm + reviveComm                                     ║
-║  L  4659– 4785  renderReportsPanel + computeMonthStats                       ║
-║  L  4786– 4998  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  4999– 5272  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5273– 5323  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5324– 5600  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5601– 5751  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5752– 5819  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5820– 6109  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  4470– 4631  renderComms — full status/triage rendering                   ║
+║  L  4632– 4659  archiveComm + reviveComm                                     ║
+║  L  4660– 4786  renderReportsPanel + computeMonthStats                       ║
+║  L  4787– 4999  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  5000– 5273  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5274– 5324  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5325– 5601  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5602– 5752  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5753– 5820  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5821– 6110  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  6110– 6224  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6225– 6255  saveProfile + clock save/remove                              ║
-║  L  6256– 6409  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6410– 6589  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6590– 6834  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6835– 7253  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7254– 7612  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7613– 7624  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7625– 7669  saveGroqKey, clearGroqKey                                    ║
-║  L  7670– 8625  exportAll, importJson, wipeAll                               ║
+║  L  6111– 6225  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6226– 6256  saveProfile + clock save/remove                              ║
+║  L  6257– 6410  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6411– 6590  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6591– 6835  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6836– 7254  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7255– 7613  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7614– 7625  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7626– 7670  saveGroqKey, clearGroqKey                                    ║
+║  L  7671– 8626  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -403,7 +403,7 @@
 ║      sentence (claimPlacements, draftBodyHtml) and lists a row whose         ║
 ║      sentence the body lost. The pane answers NO to a body sentence about    ║
 ║      the target with no row. tests/draft_card_check.js.                      ║
-║  L  8626– 8955  wireEvents + DOMContentLoaded boot                           ║
+║  L  8627– 8956  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -1779,7 +1779,7 @@ Unclear posture → default to Status, not DRAFT.
 
 A line that breaks a rule above makes it NO; no such line makes it YES. Never a reason for NO: anything this doctrine has already settled. The closer above is settled law, so a directive-plus-link closer is never named and never re-opened, and a directive line with the link on the line under it IS that closer, in its ruled shape, whatever the directive says. No signature block in the draft: the founder's Gmail signature is appended at send, so a missing sign-off is never a failure and never a flag. A named wound, sharper specificity, or stronger register are polish, not weakness, unless a line actually breaks a rule above; polish never turns a YES into a NO.
 
-**Facts about the target are his, not yours.** A claim the draft makes about the target (what their page or bio says, what they published, what they want) is the founder's research, checked against the source before he asked. You cannot see that source. You never call such a claim fabricated, invented, misread, or false, never write the word fabrication about it in any form, and never count it toward NO or warn that it might be wrong: for your verdict it is true as written. If you mention it at all, the words are "unverifiable from here" and nothing stronger, and you move on. The FABRICATION BAN above binds what YOU write, never what he verified.
+**Facts about the target are his, not yours.** A claim the draft makes about the target (what their page or bio says, what they published, what they want) is the founder's research, checked against the source before he asked. You cannot see that source. You never call such a claim fabricated, invented, misread, or false, never write the word fabrication about it in any form, and never count it toward NO for being wrong or warn that it might be wrong: for your verdict it is true as written. The one exception is a missing source row, under Sources below. If you mention it at all, the words are "unverifiable from here" and nothing stronger, and you move on. The FABRICATION BAN above binds what YOU write, never what he verified.
 
 **Sources.** The comm record lists each claim the draft makes about the target, in the hook or in the body, with the page it sits on and where on that page (the Sources rows in SESSION CONTEXT; the words after || are the body sentence the row supports). A hook claim with no row is a NO on its own, named as the missing row. A body sentence that states something about the target (what they did, run, publish, face or need, or what follows from their sector) with no row behind it is a NO on its own: quote the sentence and say it carries no source row. An inference from what companies like theirs usually do is such a claim. A row with no page, or no place on the page, is a NO, named. This is the one way a target claim counts toward NO: never that it is false, which you cannot know, only that no row carries it. A sentence about Combat Writing or the founder needs no row. When you draft or rewrite, state nothing about the target that no row carries; cut the sentence rather than keep the claim.
 
@@ -4399,7 +4399,7 @@ function renderDraftOne(list){
   const subject=k.subject?`<div class="card-section"><div class="card-section-h">Subject</div><div class="card-section-body">${esc(k.subject)}</div></div>`:'';
   const bodyHtml=k.body?`<div class="card-section"><div class="card-section-h">Body</div><div class="card-section-body draft-body">${draftBodyHtml(k.body,k.sources)}</div></div>`:'';
   const nav=`<div class="draft-nav"><button class="btn muted sm" data-act="draft-prev"${i<=0?' disabled':''}>&#x2039; PREVIOUS</button><span class="draft-pos">DRAFT ${i+1} OF ${n}</span><button class="btn muted sm" data-act="draft-next"${i>=n-1?' disabled':''}>NEXT &#x203A;</button></div>`;
-  return nav+`<div class="card-grid calls-grid"><div class="card call-card draft-one${gold?' card-converted':''}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${star}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div></div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span></div></div><div class="card-body">${rowClock}${hookHtml(k.hook)}${hookSources}${subject}${bodyHtml}${looseSourcesHtml(k.body,k.sources)}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">OPEN</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button></div></div></div>`;
+  return nav+`<div class="card-grid calls-grid"><div class="card call-card draft-one${gold?' card-converted':''}"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${star}${esc(k.title||'(untitled)')}</div><div class="card-sub"><span style="color:var(--${dirColor})">${dirLabel}</span> · ${esc(channelLabel||', ')}${k.target?' · '+esc(k.target):''}${k.city?' · '+esc(k.city.toUpperCase()):''}</div></div><div class="card-h-right"><span class="card-status ${esc(k.status)}">${esc(statusDisplay(k.status))}</span></div></div><div class="card-body">${rowClock}${hookHtml(k.hook)}${hookSources}${subject}${bodyHtml}${looseSourcesHtml(k.body,k.sources)}${k.sentDate?`<div class="card-section"><div class="card-section-h">Sent</div><div class="card-section-body call-mono">${esc(k.sentDate)}</div></div>`:''}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-comm" data-id="${esc(k.id)}">OPEN</button><button class="btn muted sm" data-act="copy-comm" data-id="${esc(k.id)}">COPY ALL</button><button class="btn muted sm" data-act="council-comm" data-id="${esc(k.id)}">COUNCIL</button></div></div></div>`;
 }
 function normalizeComm(c){
   if(!c||typeof c!=='object')return c;
@@ -4538,6 +4538,7 @@ function renderComms(){
 
   // v0.19.0: the DRAFTS view is one card at a time, the call card's frame.
   if(view==='drafts'){
+    if(editingCommId&&sorted.findIndex(k=>k.id===editingCommId)>=0)draftCursorId=editingCommId; // a card under edit, a new one included, is the card shown
     body.innerHTML=triageBar+renderDraftOne(sorted);
     updateContactClocks(new Date());
     return;
@@ -8605,7 +8606,7 @@ function fetchDossierOnLoad(){
         if(res.cards.length===0)return; // nothing new/parseable; stay silent
         var r=additiveImportComms(res);
         if(r.added>0){
-          state.commsView='drafts';renderComms();
+          state.commsView='drafts';draftCursorId=null;draftCursorIdx=0;renderComms(); // v0.19.0: an import shows its newest card
           var fm='FETCHED '+r.added+' NEW DRAFT'+(r.added===1?'':'S');
           if(r.wentQuiet&&r.wentQuiet.length)fm+=' · WENT QUIET: '+r.wentQuiet.join(', ');
           toast(fm,'green');
