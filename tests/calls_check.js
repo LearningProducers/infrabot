@@ -71,7 +71,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   ['CALL_STATUSES','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','STATE_SCHEMA_VERSION','EDIT_WIDE_MODALS','networkView','eventsCityFilter','uid','esc'].forEach(function(n){ge(extractVar(html,n));});
   ['linkHref','linkHtml','callsList','eventsList','artifactsList','homeTzNow','normalizeSupport','normalizeCall',
    'parseSupportLines','supportLinesText','citationVerified','supportHtml','telHref','telHtml','callKey',
-   'callStatusRank','setCallStatus','moveCallStatus','findContactByName','linkCallContact','renderCallCard',
+   'callStatusRank','setCallStatus','moveCallStatus','findContactByName','linkCallContact','callNotesHtml','renderCallCard',
    'renderCallsView','importCalls','supportRowsHtml','parseFollowThrough','followThroughText','personTier','normalizePerson','inMonthWindow','localYearMonth','acquaintanceMonth',
    'latestMetRoom','wallTimeToDate','eventStartMonth','eventCities','eventsShown','normalizeEvent','normalizeCost',
    'networkViewBar','setNetworkView','getCommBucket','_canonicalJson','buildStateExport'].forEach(function(n){ge(extractFn(html,n));});
@@ -142,6 +142,12 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var n2=normalizeCall({company:'Fixture Fastener Works',hook:'h',support:'not a list',status:'CALLED',phone:7});
   check('N2 types are forced, the status lower-cased, an unknown status queued',n2.support.length===0&&n2.status==='called'&&n2.phone==='7'&&n2.statusHistory.length===1&&normalizeCall({status:'wat'}).status==='queued');
   check('N3 callKey is the website, trailing slash dropped, else the company',callKey({website:'HTTPS://Fixture-Fastener.invalid//',company:'x'})==='https://fixture-fastener.invalid'&&callKey({website:'',company:' Fixture Fastener Works '})==='company:fixture fastener works');
+  // --- N4 to N8: the notes divider (v0.19.1) ------------------------------
+  check('N4 one note per line, a rule between notes, none after the last',callNotesHtml('LIKELY OWNER: a line.\nLOCATIONS: another.\nEvery citation re-opened.')==='<div class="call-note">LIKELY OWNER: a line.</div><div class="note-rule"></div><div class="call-note">LOCATIONS: another.</div><div class="note-rule"></div><div class="call-note">Every citation re-opened.</div>');
+  check('N5 a single note has no rule; blank and empty notes render nothing',callNotesHtml('one note')==='<div class="call-note">one note</div>'&&callNotesHtml('')===''&&callNotesHtml('\n  \n')==='');
+  check('N6 a blank line between notes earns no rule and no empty note',callNotesHtml('a\n\n  \nb')==='<div class="call-note">a</div><div class="note-rule"></div><div class="call-note">b</div>');
+  check('N7 each note is escaped and the stored notes are untouched',(function(){var b=brief({notes:'<b>x</b>\ny'});var h=renderCallCard(normalizeCall(b));return h.indexOf('<div class="call-note">&lt;b&gt;x&lt;/b&gt;</div><div class="note-rule"></div><div class="call-note">y</div>')>0&&h.indexOf('<b>x')<0&&b.notes==='<b>x</b>\ny';})());
+  check('N8 the card renders notes through the helper and the rule is the theme teal (source)',extractFn(html,'renderCallCard').indexOf('${callNotesHtml(c.notes)}')>0&&/\.call-card \.note-rule\{[^\n]*var\(--cyan-dim\)[^\n]*var\(--cyan\)[^\n]*\}/.test(html));
   var s1=brief();
   check('S1 setCallStatus appends and stamps; a no-change call appends nothing',setCallStatus(s1,'called',T)===true&&s1.status==='called'&&s1.statusHistory.length===2&&s1.updatedAt===T&&setCallStatus(s1,'called',T)===false&&setCallStatus(s1,'wat',T)===false);
   toasts.length=0;

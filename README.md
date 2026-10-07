@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.19.0.
+dependencies beyond Python 3 and a browser. This README describes v0.19.1.
 
 ## What it does
 
@@ -298,6 +298,10 @@ Every check in `tests/` runs standalone from the repo root against the real
   whose sentence the body no longer carries is listed, marked NOT IN BODY.
   A council slot answers NO to a body sentence about the recipient that no
   row supports, and cuts such a sentence when it rewrites.
+- **v0.19.1.** The notes divider: a call card's notes render one note per
+  line with a thin glowing rule in the console's teal between one note and
+  the next, nothing after the last; the stored notes and the form are
+  untouched.
 
 ## Licenses
 
