@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.19.2 (THE GREETING RULE) 26-10-09                                        ║
+║  v0.20.0 (THE OVERVIEW) 26-10-09                                             ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  454  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  463  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   456–  482  :root, CSS variables, fonts, reset, body                     ║
-║  L   483–  540  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   541–  583  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   584–  601  CLOCKS — live clock grid                                     ║
-║  L   602–  685  CARDS — contact card, comm card, status pills                ║
-║  L   686–  712  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   713–  722  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   723–  728  EMPTY: state placeholder                                     ║
-║  L   729–  752  MODAL — bg, box, header, footer                              ║
-║  L   753–  764  DRAWER — settings drawer + backdrop                          ║
-║  L   765–  770  COUNCIL: stream items (legacy reused)                        ║
-║  L   771–  777  TOAST: notification                                          ║
-║  L   778–  826  STATS: grid + profile block                                  ║
-║  L   827–  849  CREW BLOCK — Groq key row, council slots                     ║
-║  L   850–  871  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   872–  877  Per-response copy button (v1.2)                              ║
-║  L   878–  897  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   898–  904  v1.4: Foundation context source blocks                       ║
-║  L   905–  985  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   986– 1012  INSIGHT VAULT                                                ║
+║  L   465–  491  :root, CSS variables, fonts, reset, body                     ║
+║  L   492–  549  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   550–  592  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   593–  610  CLOCKS — live clock grid                                     ║
+║  L   611–  689  CARDS — contact card, comm card, status pills                ║
+║  L   690–  716  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   717–  726  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   727–  732  EMPTY: state placeholder                                     ║
+║  L   733–  756  MODAL — bg, box, header, footer                              ║
+║  L   757–  768  DRAWER — settings drawer + backdrop                          ║
+║  L   769–  774  COUNCIL: stream items (legacy reused)                        ║
+║  L   775–  781  TOAST: notification                                          ║
+║  L   782–  857  STATS: grid + profile block                                  ║
+║  L   858–  880  CREW BLOCK — Groq key row, council slots                     ║
+║  L   881–  902  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   903–  908  Per-response copy button (v1.2)                              ║
+║  L   909–  928  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   929–  935  v1.4: Foundation context source blocks                       ║
+║  L   936– 1016  FULLSCREEN OVERLAY for response boxes                        ║
+║  L  1017– 1043  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L  1017– 1035  APP: shell — header, brand, top clock, settings              ║
-║  L  1036– 1043  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L  1044– 1082  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L  1083– 1092  TAB-NETWORK — contacts list                                  ║
-║  L  1093– 1186  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1187– 1201  TAB-VAULT — insights                                         ║
-║  L  1202– 1323  MODAL-CONTACT — add/edit contact                             ║
-║  L  1324– 1364  MODAL-COMM — add/edit communication                          ║
-║  L  1365– 1386  MODAL-PROFILE — edit your profile                            ║
-║  L  1387– 1401  MODAL-CLOCK — add world clock                                ║
-║  L  1402– 1417  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1418– 1445  DRAWER — profile, data, version footer                       ║
-║  L  1446– 1465  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1466– 1477  MODAL-MEM — memory inspector                                 ║
-║  L  1478– 1484  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1485– 1486  TOAST: container                                             ║
+║  L  1048– 1066  APP: shell — header, brand, top clock, settings              ║
+║  L  1067– 1074  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L  1075– 1113  TAB-OVERVIEW — map, clocks, by month, today, profile         ║
+║  L  1114– 1123  TAB-NETWORK — contacts list                                  ║
+║  L  1124– 1217  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1218– 1232  TAB-VAULT — insights                                         ║
+║  L  1233– 1354  MODAL-CONTACT — add/edit contact                             ║
+║  L  1355– 1395  MODAL-COMM — add/edit communication                          ║
+║  L  1396– 1417  MODAL-PROFILE — edit your profile                            ║
+║  L  1418– 1432  MODAL-CLOCK — add world clock                                ║
+║  L  1433– 1448  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1449– 1476  DRAWER — profile, data, version footer                       ║
+║  L  1477– 1496  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1497– 1508  MODAL-MEM — memory inspector                                 ║
+║  L  1509– 1515  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1516– 1517  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1489– 1699  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1700– 1979  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1980– 2017  g, esc, uid, toast helpers + state globals                   ║
-║  L  2018– 2507  freshState, loadState (migrations), saveState                ║
-║  L  2508– 2733  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2734– 2767  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2768– 2813  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2814– 4007  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  4008– 4128  getCommBucket + age helpers, setCommsView                    ║
-║  L  4129– 4490  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4491– 4652  renderComms — full status/triage rendering                   ║
-║  L  4653– 4680  archiveComm + reviveComm                                     ║
-║  L  4681– 4807  renderReportsPanel + computeMonthStats                       ║
-║  L  4808– 5020  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  5021– 5294  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5295– 5345  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5346– 5622  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5623– 5773  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5774– 5841  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5842– 6131  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1520– 1730  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1731– 2010  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  2011– 2048  g, esc, uid, toast helpers + state globals                   ║
+║  L  2049– 2538  freshState, loadState (migrations), saveState                ║
+║  L  2539– 2764  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2765– 2798  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2799– 2844  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2845– 4170  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  4171– 4291  getCommBucket + age helpers, setCommsView                    ║
+║  L  4292– 4653  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4654– 4815  renderComms — full status/triage rendering                   ║
+║  L  4816– 4843  archiveComm + reviveComm                                     ║
+║  L  4844– 4970  renderReportsPanel + computeMonthStats                       ║
+║  L  4971– 5183  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  5184– 5457  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5458– 5508  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5509– 5785  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5786– 5936  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5937– 6004  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  6005– 6294  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  6132– 6246  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6247– 6277  saveProfile + clock save/remove                              ║
-║  L  6278– 6431  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6432– 6611  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6612– 6856  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6857– 7275  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7276– 7634  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7635– 7646  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7647– 7691  saveGroqKey, clearGroqKey                                    ║
-║  L  7692– 8648  exportAll, importJson, wipeAll                               ║
+║  L  6295– 6409  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6410– 6440  saveProfile + clock save/remove                              ║
+║  L  6441– 6594  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6595– 6774  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6775– 7019  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  7020– 7438  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7439– 7797  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7798– 7809  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7810– 7854  saveGroqKey, clearGroqKey                                    ║
+║  L  7855– 8811  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -414,7 +414,16 @@
 ║      missing evidence. The opener tells the target what his page does not    ║
 ║      say (never a NO). "push back" in any form is banned in a comm. Doctrine ║
 ║      string, tests/pane_prompt_check.js, README; no JS, no DOM.              ║
-║  L  8649– 8978  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.20.0 THE OVERVIEW: a month-by-month chart under the clocks, inline SVG║
+║      built by overviewChartSvg, no library, no request: seven lines (drafted,║
+║      sent, replied, archived, calls, rooms, met), one point per month from   ║
+║      the first month in the state, a diamond marked NEW at a kind's first    ║
+║      month; the figures are monthFigures (computeMonthStats, roomsInMonth,   ║
+║      metInMonth, the month card's own helpers). OPENED THIS MONTH removed    ║
+║      (HTML, renderer, CSS; scoreboardCounts stays, pinned). TODAY restyled   ║
+║      under the chart, ROOMS by event date; YOU is three fields with what     ║
+║      each drives, the set-up pitch gone. tests/overview_chart_check.js.      ║
+║  L  8812– 9147  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -651,7 +660,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .card-status.skipped{color:var(--gray);border-color:var(--line-2);text-decoration:line-through}
 .card-status.ev-free{color:var(--cyan);border-color:var(--cyan-dim)}
 .card-status.ev-paid{color:var(--text);border-color:var(--line-2)}
-/* ARTIFACT LEDGER: status and type pills plus the Overview scoreboard, the same palette */
+/* ARTIFACT LEDGER: status and type pills, the same palette */
 .card-status.planned{color:var(--amber);border-color:var(--amber-dim);background:rgba(251,191,36,.05)}
 .card-status.delivered{color:var(--green);border-color:#065f46;background:rgba(16,185,129,.05)}
 /* PHONE CALLS: status pills and the citation check pill, the same palette */
@@ -677,11 +686,6 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px}
 .label-row label{margin-bottom:0}
 .card-status.ar-type{color:var(--cyan);border-color:var(--cyan-dim);margin-left:8px;vertical-align:middle}
-.scoreboard{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-.scoreboard th,.scoreboard td{border:1px solid var(--line);padding:10px 8px;text-align:center;color:var(--text)}
-.scoreboard th{color:var(--text-dim);font-size:9px;letter-spacing:.22em;font-weight:500}
-.scoreboard td.num{font-size:20px;color:var(--cyan);font-weight:700;letter-spacing:.05em}
-.scoreboard td.unbuilt{color:var(--text-dim);font-size:9px}
 
 /* TRIAGE BAR (v3.0) — DRAFTS / PIPELINE / ARCHIVE / REPORTS filter row */
 .triage-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding:0 0 14px;border-bottom:1px solid var(--line)}
@@ -776,12 +780,38 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 #toast.green{border-color:var(--green);color:var(--green)}
 
 /* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
-.stat-cell{border:1px solid var(--line);background:var(--panel-2);padding:18px 16px;text-align:center}
-.stat-num{font-family:var(--mono);font-size:30px;color:var(--cyan);font-weight:700;letter-spacing:.05em;line-height:1}
-.stat-label{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--text);margin-top:8px;text-transform:uppercase}
+/* v0.20.0 THE OVERVIEW: six counters under the chart, one word each; teal
+   for a count, amber for sent, green for replied, the map legend's colors. */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.stat-cell{border:1px solid var(--line);background:var(--panel-2);padding:20px 12px;text-align:center}
+.stat-num{font-family:var(--mono);font-size:40px;color:var(--cyan);font-weight:700;letter-spacing:.04em;line-height:1}
+.stat-label{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--text);margin-top:10px;text-transform:uppercase}
 .stat-cell.amber .stat-num{color:var(--amber)}
 .stat-cell.green .stat-num{color:var(--green)}
+/* v0.20.0 THE OVERVIEW: the months chart. Inline SVG built by overviewChartSvg,
+   every color a theme token so the chart follows the console's theme; the
+   series tokens are the console's own, with pink and the bright text color
+   for the sixth and seventh. --c is set per series on its <g>. */
+:root{--ov-drafted:var(--cyan);--ov-sent:var(--amber);--ov-replied:var(--green);--ov-archived:var(--red);--ov-calls:var(--violet);--ov-rooms:#f472b6;--ov-met:var(--text-bright)}
+.ov-wrap{border:1px solid var(--line);background:var(--panel);padding:14px 16px 10px}
+.ov-legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--text);text-transform:uppercase;margin-bottom:8px}
+.ov-legend .ov-key{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+.ov-chart{width:100%;height:auto;display:block}
+.ov-chart .ov-grid{stroke:var(--line);stroke-width:1}
+.ov-chart .ov-axis{stroke:var(--line-2);stroke-width:1}
+.ov-chart .ov-tick{fill:var(--text-dim);font-family:var(--mono);font-size:10px;letter-spacing:.1em}
+.ov-chart .ov-line{fill:none;stroke:var(--c);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.ov-chart .ov-hit{fill:transparent;stroke:none}
+.ov-chart .ov-dot{fill:var(--c);stroke:var(--panel);stroke-width:2}
+.ov-chart .ov-mark{fill:var(--panel);stroke:var(--c);stroke-width:2}
+.ov-chart .ov-newtext{fill:var(--text-bright);font-family:var(--mono);font-size:9px;letter-spacing:.2em}
+.ov-chart .ov-end{fill:var(--text);font-family:var(--mono);font-size:10px;letter-spacing:.12em}
+.ov-chart .ov-pt{cursor:default;outline:none}
+.ov-chart .ov-pt:hover .ov-dot,.ov-chart .ov-pt:focus .ov-dot{r:5.5}
+.ov-chart .ov-pt:hover .ov-mark,.ov-chart .ov-pt:focus .ov-mark{stroke-width:3}
+.ov-readout{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--text-dim);min-height:18px;margin-top:6px;text-transform:uppercase}
+.ov-readout b{color:var(--text-bright);font-weight:600}
+.ov-empty{border:1px dashed var(--line-2);padding:28px 16px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase}
 
 .section-h-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px;flex-wrap:wrap}
 .section-h-title{font-family:var(--mono);font-size:16px;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase}
@@ -789,7 +819,8 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .profile-block{border:1px solid var(--line);background:var(--panel);padding:16px 18px;position:relative}
 .profile-block .pb-name{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--text-bright);font-weight:600;margin-bottom:4px}
 .profile-block .pb-meta{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--text-dim);margin-bottom:10px}
-.profile-block .pb-row{display:grid;grid-template-columns:80px 1fr;gap:10px;margin-bottom:6px;font-size:12px}
+.profile-block .pb-row{display:grid;grid-template-columns:96px 1fr;gap:10px;margin-bottom:10px;font-size:12px}
+.profile-block .pb-row .why{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase;margin-top:2px}
 .profile-block .pb-row .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase;padding-top:2px}
 .profile-block .pb-row .val{font-family:var(--mono);color:var(--text);line-height:1.55}
 
@@ -1028,7 +1059,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.19.2</span>
+      <span class="version-pill" title="INFRABOT build">v0.20.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1065,13 +1096,13 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       </div>
 
       <div class="section">
-        <div class="section-h"><span>// TODAY</span></div>
-        <div class="stats-grid" id="stats-grid"></div>
+        <div class="section-h"><span>// BY MONTH</span><span class="h-meta" id="overview-chart-meta"></span></div>
+        <div id="overview-chart"></div>
       </div>
 
       <div class="section">
-        <div class="section-h"><span>// OPENED THIS MONTH</span></div>
-        <div id="scoreboard"></div>
+        <div class="section-h"><span>// TODAY</span></div>
+        <div class="stats-grid" id="stats-grid"></div>
       </div>
 
       <div class="section" id="profile-section">
@@ -1439,7 +1470,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.19.2 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.20.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1486,7 +1517,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.19.2';
+const APP_VERSION='infrabot-v0.20.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2823,6 +2854,131 @@ function switchTab(tab){
 
 function renderAll(){renderOverview();renderNetwork();renderComms();renderVault();}
 
+// v0.20.0 THE OVERVIEW: one line per kind of outreach, one point per month,
+// from the first month the state holds to the current one. The figures are
+// monthFigures: computeMonthStats plus roomsInMonth and metInMonth, the
+// three helpers the month card and the .txt download read, so the chart,
+// the card and the file carry the same numbers by construction. The SVG is
+// a string built here, the pattern of the plugin's render-board.js: no
+// library, no request, no URL of any kind in the output; every color a
+// theme token, set as --c on each series group.
+const OVERVIEW_SERIES=[
+  {key:'drafted',label:'DRAFTED'},{key:'sent',label:'SENT'},{key:'replied',label:'REPLIED'},{key:'archived',label:'ARCHIVED'},
+  {key:'calls',label:'CALLS'},{key:'rooms',label:'ROOMS'},{key:'met',label:'MET'}
+];
+const MONTH_SHORT=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const MONTH_LONG=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function monthFigures(ym){
+  const parts=String(ym||'').split('-');
+  const s=computeMonthStats(parseInt(parts[0]),parseInt(parts[1]));
+  return {drafted:s.drafted,sent:s.sent,replied:s.replied,archived:s.archived,calls:s.calls,rooms:roomsInMonth(ym).length,met:metInMonth(ym).length};
+}
+// The months with any activity, sorted: the four sources renderReportsPanel
+// enumerates (comm stamps, attended rooms by event date, acquaintances by
+// the month met, completed calls), read through the same helpers.
+function activityMonths(){
+  const set=new Set();
+  (state.comms||[]).forEach(c=>{
+    const stamps=[c.createdAt,c.updatedAt,c.sentDate].filter(Boolean);
+    if(Array.isArray(c.statusHistory))c.statusHistory.forEach(x=>stamps.push(x.timestamp));
+    stamps.forEach(x=>{const ym=localYearMonth(x);if(ym)set.add(ym);});
+  });
+  eventsList().forEach(e=>{if(e.status==='attended'){const ym=eventStartMonth(e);if(ym)set.add(ym);}});
+  (state.network||[]).forEach(c=>{if(personTier(c)==='acquaintance'){const ym=acquaintanceMonth(c);if(ym)set.add(ym);}});
+  callCommItems().forEach(it=>{const ym=localYearMonth(it.when);if(ym)set.add(ym);});
+  return Array.from(set).sort();
+}
+// Every month from first to last inclusive, YYYY-MM; empty when either is
+// not a month or last precedes first.
+function monthRange(first,last){
+  const out=[];
+  const a=/^(\d{4})-(\d{2})$/.exec(String(first||'')),b=/^(\d{4})-(\d{2})$/.exec(String(last||''));
+  if(!a||!b)return out;
+  let y=+a[1],m=+a[2];
+  const ly=+b[1],lm=+b[2];
+  while((y<ly||(y===ly&&m<=lm))&&out.length<1200){
+    out.push(y+'-'+String(m).padStart(2,'0'));
+    m++;if(m>12){m=1;y++;}
+  }
+  return out;
+}
+function monthLabelLong(ym){const p=String(ym).split('-');return (MONTH_LONG[+p[1]-1]||p[1])+' '+p[0];}
+function monthLabelShort(ym){const p=String(ym).split('-');return (MONTH_SHORT[+p[1]-1]||p[1])+' '+String(p[0]).slice(2);}
+// The chart. nowYm is the current home-zone month (an argument so a check
+// can pin the range); the first month is the earliest activity month, or
+// nowYm when activity sits in the future. Returns '' with no activity.
+function overviewChartSvg(nowYm){
+  const now=nowYm||localYearMonth(new Date().toISOString());
+  const active=activityMonths();
+  if(!active.length||!now)return '';
+  const months=monthRange(active[0]<now?active[0]:now,now);
+  if(!months.length)return '';
+  const rows=months.map(monthFigures);
+  const n=months.length;
+  const W=760,H=300,PL=44,PR=122,PT=22,PB=42,plotW=W-PL-PR,plotH=H-PT-PB;
+  let max=0;rows.forEach(r=>OVERVIEW_SERIES.forEach(sr=>{if(r[sr.key]>max)max=r[sr.key];}));
+  let step=1;[1,2,5,10,20,50,100,200,500,1000,2000,5000].some(v=>{step=v;return max/v<=5;});
+  const top=Math.max(step,Math.ceil(max/step)*step);
+  const x=i=>n<=1?PL+plotW/2:PL+plotW*i/(n-1);
+  const y=v=>PT+plotH*(1-v/top);
+  const f=v=>v.toFixed(1);
+  const svg=[];
+  svg.push('<svg class="ov-chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-labelledby="ov-title ov-desc">');
+  svg.push('<title id="ov-title">Outreach by month</title>');
+  svg.push('<desc id="ov-desc">One line per kind of outreach, one point per month from '+esc(monthLabelLong(months[0]))+' to '+esc(monthLabelLong(months[n-1]))+'. A diamond marked NEW is the first month that kind existed. The REPORTS tab holds the same numbers.</desc>');
+  for(let v=0;v<=top;v+=step){
+    svg.push('<line class="'+(v===0?'ov-axis':'ov-grid')+'" x1="'+PL+'" x2="'+(PL+plotW)+'" y1="'+f(y(v))+'" y2="'+f(y(v))+'"/>');
+    svg.push('<text class="ov-tick" x="'+(PL-8)+'" y="'+f(y(v)+3.5)+'" text-anchor="end">'+v+'</text>');
+  }
+  const every=Math.ceil(n/12);
+  months.forEach((ym,i)=>{
+    if(i%every!==0&&i!==n-1)return;
+    if(i!==n-1&&n-1-i<every)return;
+    svg.push('<text class="ov-tick" x="'+f(x(i))+'" y="'+(H-PB+22)+'" text-anchor="middle">'+esc(monthLabelShort(ym))+'</text>');
+  });
+  // End labels, one per series at its last point, nudged apart by 13px.
+  const ends=OVERVIEW_SERIES.map(sr=>({sr:sr,v:rows[n-1][sr.key],y:y(rows[n-1][sr.key])})).sort((a,b)=>a.y-b.y);
+  for(let k=1;k<ends.length;k++){if(ends[k].y-ends[k-1].y<13)ends[k].y=ends[k-1].y+13;}
+  // A stack that ran past the baseline (several lines ending at zero) is
+  // pushed back up, so no label sits in the month row.
+  const floor=PT+plotH+4;
+  for(let k=ends.length-1;k>=0;k--){const cap=k===ends.length-1?floor:ends[k+1].y-13;if(ends[k].y>cap)ends[k].y=cap;}
+  const labelY={};ends.forEach(e=>{labelY[e.sr.key]=e.y;});
+  OVERVIEW_SERIES.forEach(sr=>{
+    svg.push('<g class="ov-series" data-key="'+sr.key+'" style="--c:var(--ov-'+sr.key+')">');
+    svg.push('<polyline class="ov-line" points="'+rows.map((r,i)=>f(x(i))+','+f(y(r[sr.key]))).join(' ')+'"/>');
+    // NEW: the first month with a count, every earlier month zero or absent.
+    let firstNonZero=-1;rows.some((r,i)=>{if(r[sr.key]>0){firstNonZero=i;return true;}return false;});
+    rows.forEach((r,i)=>{
+      const v=r[sr.key],cx=f(x(i)),cy=f(y(v)),isNew=i===firstNonZero;
+      svg.push('<g class="ov-pt'+(isNew?' ov-new':'')+'" tabindex="0" data-series="'+sr.label+'" data-month="'+esc(monthLabelLong(months[i]))+'" data-value="'+v+(isNew?'" data-new="NEW':'')+'">');
+      svg.push('<title>'+sr.label+' · '+esc(monthLabelLong(months[i]))+' · '+v+(isNew?' · NEW':'')+'</title>');
+      svg.push('<circle class="ov-hit" cx="'+cx+'" cy="'+cy+'" r="10"/>');
+      if(isNew){
+        svg.push('<rect class="ov-mark" x="'+f(x(i)-5)+'" y="'+f(y(v)-5)+'" width="10" height="10" transform="rotate(45 '+cx+' '+cy+')"/>');
+        svg.push('<text class="ov-newtext" x="'+cx+'" y="'+f(y(v)-11)+'" text-anchor="middle">NEW</text>');
+      }else{
+        svg.push('<circle class="ov-dot" cx="'+cx+'" cy="'+cy+'" r="3.5"/>');
+      }
+      svg.push('</g>');
+    });
+    svg.push('<text class="ov-end" x="'+f(x(n-1)+14)+'" y="'+f(labelY[sr.key]+3.5)+'">'+rows[n-1][sr.key]+' '+sr.label+'</text>');
+    svg.push('</g>');
+  });
+  svg.push('</svg>');
+  return svg.join('\n');
+}
+function overviewLegendHtml(){
+  return '<div class="ov-legend">'+OVERVIEW_SERIES.map(sr=>'<span><span class="ov-key" style="background:var(--ov-'+sr.key+')"></span>'+sr.label+'</span>').join('')+'</div>';
+}
+// The readout under the chart: the point under the pointer, the focus or
+// the last tap, so a phone sees what a hover shows.
+function overviewReadout(pt){
+  const out=g('ov-readout');if(!out)return;
+  if(!pt){out.textContent='Hover or tap a point for its month and number.';return;}
+  out.innerHTML='<b>'+esc(pt.dataset.series)+'</b> · '+esc(pt.dataset.month)+' · <b>'+esc(pt.dataset.value)+'</b>'+(pt.dataset.new?' · NEW, the first month with one':'');
+}
+
 function renderOverview(){
   const grid=g('clocks-grid');
   let html='';
@@ -2835,21 +2991,36 @@ function renderOverview(){
   grid.innerHTML=html;
   updateWorldClocks(new Date());
 
+  // v0.20.0 THE OVERVIEW: the months chart, then the six counters under it.
+  const nowYm=localYearMonth(new Date().toISOString());
+  const svg=overviewChartSvg(nowYm);
+  const chartEl=g('overview-chart');
+  if(svg){
+    chartEl.innerHTML='<div class="ov-wrap">'+overviewLegendHtml()+svg+'<div class="ov-readout" id="ov-readout"></div></div>';
+    overviewReadout(null);
+    const months=activityMonths();
+    g('overview-chart-meta').textContent=monthLabelShort(months[0]<nowYm?months[0]:nowYm)+' → '+monthLabelShort(nowYm);
+  }else{
+    chartEl.innerHTML='<div class="ov-empty">No months yet · the first communication, call or room starts the lines</div>';
+    g('overview-chart-meta').textContent='';
+  }
+
   const totalComms=state.comms.length;
   const sentComms=state.comms.filter(k=>k.status==='sent'||k.status==='replied').length;
   const repliedComms=state.comms.filter(k=>k.status==='replied').length;
   const totalInsights=Array.isArray(state.insights)?state.insights.length:0;
-  const rooms=eventMonthCounts(localYearMonth(new Date().toISOString()));
-  renderScoreboard();
-  g('stats-grid').innerHTML=`<div class="stat-cell"><div class="stat-num">${state.network.length}</div><div class="stat-label">CONTACTS</div></div><div class="stat-cell"><div class="stat-num">${totalComms}</div><div class="stat-label">COMMS LOGGED</div></div><div class="stat-cell amber"><div class="stat-num">${sentComms}</div><div class="stat-label">SENT</div></div><div class="stat-cell green"><div class="stat-num">${repliedComms}</div><div class="stat-label">REPLIED</div></div><div class="stat-cell"><div class="stat-num">${totalInsights}</div><div class="stat-label">INSIGHTS</div></div><div class="stat-cell"><div class="stat-num">${rooms.attended}/${rooms.selected}</div><div class="stat-label">ROOMS THIS MONTH · ATTENDED / SELECTED</div></div>`;
+  // ROOMS is this month's attended rooms by event date, monthFigures, the
+  // chart's own last ROOMS point; the transition-month count it replaced
+  // (eventMonthCounts) could disagree with that point by one room.
+  const roomsNow=nowYm?monthFigures(nowYm).rooms:0;
+  g('stats-grid').innerHTML=`<div class="stat-cell"><div class="stat-num">${state.network.length}</div><div class="stat-label">CONTACTS</div></div><div class="stat-cell"><div class="stat-num">${totalComms}</div><div class="stat-label">COMMS</div></div><div class="stat-cell amber"><div class="stat-num">${sentComms}</div><div class="stat-label">SENT</div></div><div class="stat-cell green"><div class="stat-num">${repliedComms}</div><div class="stat-label">REPLIED</div></div><div class="stat-cell"><div class="stat-num">${totalInsights}</div><div class="stat-label">INSIGHTS</div></div><div class="stat-cell" title="Rooms attended this month, by event date: the chart's last ROOMS point"><div class="stat-num">${roomsNow}</div><div class="stat-label">ROOMS</div></div>`;
 
-  const p=state.profile;
-  const has=p.name||p.company;
-  if(!has){
-    g('profile-block').innerHTML=`<div class="empty-state" style="border:none;padding:0"><div class="es-h">SET UP YOUR PROFILE</div><div class="es-sub">Your name, company, what you offer, what you need.<br>Used in messages you share with contacts.</div><button class="btn" data-open="profile">EDIT PROFILE</button></div>`;
-  }else{
-    g('profile-block').innerHTML=`<div class="pb-name">${esc(p.name||'(no name)')}</div><div class="pb-meta">${esc(p.company||'')}${p.website?' · '+esc(p.website):''}${p.homeCity?' · '+esc(p.homeCity.toUpperCase()):''}</div>${p.offering?`<div class="pb-row"><div class="lbl">Offering</div><div class="val">${esc(p.offering)}</div></div>`:''}${p.needing?`<div class="pb-row"><div class="lbl">Needing</div><div class="val">${esc(p.needing)}</div></div>`:''}`;
-  }
+  // v0.20.0 THE OVERVIEW: three fields, each with what it drives. The map
+  // pin and the clocks fall back to Chicago until the profile is set, and
+  // the row shows the value in force.
+  const p=state.profile||{};
+  const row=(lbl,val,why,isDefault)=>`<div class="pb-row"><div class="lbl">${lbl}</div><div class="val">${val?esc(val):'<span class="dim">(not set)</span>'}${isDefault?' <span class="dim">· DEFAULT</span>':''}<div class="why">${why}</div></div></div>`;
+  g('profile-block').innerHTML=row('Home city',p.homeCity||'Chicago','drives the map pin',!p.homeCity)+row('Time zone',p.homeTz||'America/Chicago','drives the clocks',!p.homeTz)+row('Offering',p.offering,'read by the crew',false);
 }
 
 function renderNetwork(){
@@ -3829,10 +4000,10 @@ function eventOutcomeMonth(e){
   for(let i=h.length-1;i>=0;i--){if(h[i]&&h[i].status==='attended')return localYearMonth(h[i].timestamp);}
   return null;
 }
-// THE SCOREBOARD: three lanes by three outcomes for one home-zone month, each
-// record once. Sends: a card with a replied entry in the month is one
-// conversation; the comm record has no meeting or deposit field, so those two
-// cells render UNBUILT, never zero. Rooms and artifacts read their outcome.
+// THE SCOREBOARD COUNTS: three lanes by three outcomes for one home-zone
+// month, each record once. v0.20.0 removed the OPENED THIS MONTH section
+// and its renderer; this count stays, unrendered, with its transition-month
+// keys (tests/room_pills_check.js S9, tests/tier_check.js S10 pin it).
 function scoreboardCounts(ym){
   const lane=()=>({conversation:0,meeting:0,deposit:0});
   const out={sends:lane(),rooms:lane(),artifacts:lane()};
@@ -3843,14 +4014,6 @@ function scoreboardCounts(ym){
   eventsList().forEach(e=>{if(out.rooms[e.outcome]!==undefined&&eventOutcomeMonth(e)===ym)out.rooms[e.outcome]++;});
   artifactsList().forEach(a=>{if(out.artifacts[a.outcome]!==undefined&&artifactMonth(a)===ym)out.artifacts[a.outcome]++;});
   return out;
-}
-function renderScoreboard(){
-  const el=g('scoreboard');if(!el)return;
-  const ym=localYearMonth(new Date().toISOString())||'';
-  const s=scoreboardCounts(ym);
-  const num=n=>`<td class="num">${n}</td>`;
-  const unbuilt='<td class="unbuilt">UNBUILT</td>';
-  el.innerHTML=`<table class="scoreboard"><tr><th>${esc(ym)}</th><th>CONVERSATION</th><th>MEETING</th><th>DEPOSIT</th></tr><tr><th>SENDS</th>${num(s.sends.conversation)}${unbuilt}${unbuilt}</tr><tr><th>ROOMS</th>${num(s.rooms.conversation)}${num(s.rooms.meeting)}${num(s.rooms.deposit)}</tr><tr><th>ARTIFACTS</th>${num(s.artifacts.conversation)}${num(s.artifacts.meeting)}${num(s.artifacts.deposit)}</tr></table>`;
 }
 function vaultViewBar(){
   const n=Array.isArray(state.insights)?state.insights.length:0,m=artifactsList().length;
@@ -8651,6 +8814,12 @@ function wireEvents(){
   document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
   g('add-clock-link').addEventListener('click',openClockModal);
   g('edit-profile-link').addEventListener('click',openProfileModal);
+  // v0.20.0 THE OVERVIEW: a point under the pointer, focused, or tapped
+  // writes its month and number to the readout under the chart.
+  ['mouseover','focusin','click'].forEach(ev=>g('overview-chart').addEventListener(ev,e=>{
+    const pt=e.target.closest&&e.target.closest('.ov-pt');
+    if(pt)overviewReadout(pt);
+  }));
   g('clocks-grid').addEventListener('click',e=>{
     const btn=e.target.closest('[data-act="remove-clock"]');
     if(btn){e.stopPropagation();removeClock(btn.dataset.id);}

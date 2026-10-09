@@ -3,14 +3,20 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.19.2.
+dependencies beyond Python 3 and a browser. This README describes v0.20.0.
 
 ## What it does
 
 The app has four tabs.
 
-- **OVERVIEW.** A world map with your cities pinned, live clocks, today's
-  counters, and your profile (used in the messages you share).
+- **OVERVIEW.** A world map with your cities pinned, live clocks, a
+  month-by-month chart (one line each for drafted, sent, replied, archived,
+  calls, rooms attended and people met, from the first month you have to
+  this one, a diamond marked NEW where a kind first appears, the month and
+  the number under a hover or a tap; the same figures as the REPORTS tab,
+  drawn as inline SVG with no library and no request), today's counters
+  under it, and your profile: home city, time zone and what you offer, each
+  with what it drives.
 - **NETWORK.** The people you know, the in-person events you are
   considering and the phone calls you are about to make, behind six pills:
   CONTACTS, ACQUAINTANCES, CANDIDATES, SELECTED, ATTENDED and CALLS, each
@@ -313,6 +319,19 @@ Every check in `tests/` runs standalone from the repo root against the real
   sentence of a draft tells the recipient something his page does not say,
   never a reason for NO. "push back", in any form, is banned in a
   communication. Doctrine text, tests and this README; no code change.
+- **v0.20.0.** The overview: a month-by-month chart under the clocks, one
+  line per kind of outreach (drafted, sent, replied, archived, calls, rooms
+  attended, people met), one point per month from the first month in your
+  data to the current one, a diamond marked NEW on the first month a kind
+  had a count, the month and the number shown on hover or tap; inline SVG
+  built in the page, no library, no network call, every color a theme
+  token. The figures come from the helpers the REPORTS tab's month card and
+  .txt download read, so the three agree by construction. The OPENED THIS
+  MONTH table is gone. The TODAY counters sit under the chart with one-word
+  labels, and ROOMS counts the month's attended rooms by event date, the
+  chart's own last point. The YOU block is three fields, home city (the map
+  pin), time zone (the clocks) and what you offer (read by the crew), with
+  EDIT; the set-up pitch is gone.
 
 ## Licenses
 
