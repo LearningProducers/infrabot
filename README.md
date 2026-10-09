@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.19.1.
+dependencies beyond Python 3 and a browser. This README describes v0.19.2.
 
 ## What it does
 
@@ -273,10 +273,10 @@ Every check in `tests/` runs standalone from the repo root against the real
   section), shown under the hook with each page a link and an UNSOURCED
   HOOK mark when a hook has none; the discovery trail box is gone and the
   URLs the saved trails held become source rows on every card; a council
-  slot judges addressing (a generic inbox at a multi-location company gets
-  "Hello," and no name), the hook's sources, and the email shape (salutation
-  line, blank line, body, blank line, the link as its own paragraph, nothing
-  after).
+  slot judges addressing (a generic inbox gets "Hello," and no name; since
+  v0.19.2 a name only when the source rows verify a one-person operation),
+  the hook's sources, and the email shape (salutation line, blank line, body,
+  blank line, the link as its own paragraph, nothing after).
 - **v0.17.0.** The call on the Communications tab: a completed call shows
   there as its own card in the PIPELINE view, outbound, channel PHONE, with
   its outcome, follow-through and the day it was made, sorted among the
@@ -302,6 +302,17 @@ Every check in `tests/` runs standalone from the repo root against the real
   line with a thin glowing rule in the console's teal between one note and
   the next, nothing after the last; the stored notes and the form are
   untouched.
+- **v0.19.2.** The greeting rule: a council slot opens a draft to a generic
+  inbox (info@, hello@, contact@ and their kind) with "Hi," alone unless the
+  card's source rows verify the company as a one-person operation, which
+  takes two of three rows: a team page naming one person, a site or blog
+  bylined only by the founder, a public company profile listing one
+  employee; one location is no longer enough, and a named salutation at a
+  generic inbox with fewer than two such rows is NO, named as the missing
+  evidence. A person's own address still gets that person's name. The first
+  sentence of a draft tells the recipient something his page does not say,
+  never a reason for NO. "push back", in any form, is banned in a
+  communication. Doctrine text, tests and this README; no code change.
 
 ## Licenses
 
