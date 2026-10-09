@@ -85,9 +85,24 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   expect('a directive line with the link under it is the ruled closer, never the bare-directive shape',has('A directive line with the link on the line below it is shape #1, never this one'),true);
   // v0.16.0 THE SOURCES: addressing, the hook's sources, the email shape.
   expect('the nameless salutation is Hi, alone, Hello, gone from the prompt',has('"Hello,"'),false);
-  expect('the addressing rule names the generic-inbox, multi-location case',has('the draft opens with "Hi," alone and names no person'),true);
-  expect('a single location or a personal address is addressed by name',has('When the company is one location, or the Target is a person\'s own address, the salutation names that person'),true);
-  expect('a nameless opener is never a missing salutation, a NO only at a personal address or a single location',has('A nameless opener is never a missing salutation, and it is a NO only when the Target is a person\'s own address or the record shows one location'),true);
+  // v0.19.2 THE GREETING RULE: a generic inbox is "Hi," alone unless the Sources
+  // rows verify a one-person operation; one location is no longer enough.
+  expect('a generic inbox opens "Hi," alone unless the record verifies a one-person operation',has('the draft opens with "Hi," alone and names no person, unless the record verifies the company as a one-person operation: then the salutation names the founder'),true);
+  expect('verified means two of three source rows, in the Sources shape',has('Verified means the Sources rows carry, in their own shape (the claim, the page, where on the page), at least two of these three: a team page naming one person; a site or blog bylined only by the founder; a public company profile listing one employee'),true);
+  expect('fewer than two such rows is "Hi," and one location is not verification',has('Fewer than two such rows is "Hi,". One location is not verification.'),true);
+  expect('a personal address is addressed by name',has('When the Target is a person\'s own address, the salutation names that person'),true);
+  expect('a nameless opener is never a missing salutation, a NO only at a personal address',has('A nameless opener is never a missing salutation; it is a NO only when the Target is a person\'s own address'),true);
+  expect('a named salutation at a generic inbox with fewer than two rows is a NO, named as the missing evidence',has('A named salutation at a generic inbox with fewer than two such rows is a NO, named as the missing evidence: say which of the three the rows do not carry'),true);
+  expect('the addressing rows count toward NO only by being missing, never by being false',has('As under Sources, the rows count toward NO only by being missing, never by being false'),true);
+  expect('the old one-location sentence is gone',has('When the company is one location, or the Target is a person\'s own address, the salutation names that person'),false);
+  expect('the old one-location NO clause is gone',has('or the record shows one location'),false);
+  expect('the old more-than-one-location clause is gone',has('more than one location outside its own state or country'),false);
+  expect('the opener bullet exists under the heuristics',has('- **The opener.** The first sentence tells the target something about his own situation that his page does not say; a sentence that repeats his page back to him is cut'),true);
+  expect('the opener binds drafts, rewrites and the DRAFT-posture critique',has('This binds drafts, rewrites and the DRAFT-posture critique'),true);
+  expect('the opener is never a reason for NO',has('It is never a reason for NO; the readiness verdict is unchanged by it'),true);
+  expect('"push back" in any form is on the banned list',has('- "push back" / "pushback" / "push-back" / "pushing back" / "pushed back"; in any form, in any comm the founder sends'),true);
+  expect('the ban is on the list before the frame paragraph',prompt.indexOf('- "push back" / "pushback"')<prompt.indexOf('**The frame.**'),true);
+  expect('the two posture uses of push back stay (the model toward the founder)',count(/push back/g),3);
   expect('a hook claim with no source row is a NO',has('A hook claim with no row is a NO on its own, named as the missing row'),true);
   // v0.19.0 THE CLAIM SOURCES: a body sentence about the target needs a row.
   expect('a body sentence about the target with no row is a NO, quoted',has('with no row behind it is a NO on its own: quote the sentence and say it carries no source row'),true);

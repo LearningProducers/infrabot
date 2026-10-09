@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.19.1 (THE NOTES DIVIDER) 26-10-07                                        ║
+║  v0.19.2 (THE GREETING RULE) 26-10-09                                        ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  447  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  454  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   449–  475  :root, CSS variables, fonts, reset, body                     ║
-║  L   476–  533  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   534–  576  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   577–  594  CLOCKS — live clock grid                                     ║
-║  L   595–  678  CARDS — contact card, comm card, status pills                ║
-║  L   679–  705  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   706–  715  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   716–  721  EMPTY: state placeholder                                     ║
-║  L   722–  745  MODAL — bg, box, header, footer                              ║
-║  L   746–  757  DRAWER — settings drawer + backdrop                          ║
-║  L   758–  763  COUNCIL: stream items (legacy reused)                        ║
-║  L   764–  770  TOAST: notification                                          ║
-║  L   771–  819  STATS: grid + profile block                                  ║
-║  L   820–  842  CREW BLOCK — Groq key row, council slots                     ║
-║  L   843–  864  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   865–  870  Per-response copy button (v1.2)                              ║
-║  L   871–  890  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   891–  897  v1.4: Foundation context source blocks                       ║
-║  L   898–  978  FULLSCREEN OVERLAY for response boxes                        ║
-║  L   979– 1005  INSIGHT VAULT                                                ║
+║  L   456–  482  :root, CSS variables, fonts, reset, body                     ║
+║  L   483–  540  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   541–  583  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   584–  601  CLOCKS — live clock grid                                     ║
+║  L   602–  685  CARDS — contact card, comm card, status pills                ║
+║  L   686–  712  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   713–  722  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   723–  728  EMPTY: state placeholder                                     ║
+║  L   729–  752  MODAL — bg, box, header, footer                              ║
+║  L   753–  764  DRAWER — settings drawer + backdrop                          ║
+║  L   765–  770  COUNCIL: stream items (legacy reused)                        ║
+║  L   771–  777  TOAST: notification                                          ║
+║  L   778–  826  STATS: grid + profile block                                  ║
+║  L   827–  849  CREW BLOCK — Groq key row, council slots                     ║
+║  L   850–  871  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   872–  877  Per-response copy button (v1.2)                              ║
+║  L   878–  897  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   898–  904  v1.4: Foundation context source blocks                       ║
+║  L   905–  985  FULLSCREEN OVERLAY for response boxes                        ║
+║  L   986– 1012  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L  1010– 1028  APP: shell — header, brand, top clock, settings              ║
-║  L  1029– 1036  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L  1037– 1075  TAB-OVERVIEW — map, clocks, today, profile                   ║
-║  L  1076– 1085  TAB-NETWORK — contacts list                                  ║
-║  L  1086– 1179  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1180– 1194  TAB-VAULT — insights                                         ║
-║  L  1195– 1316  MODAL-CONTACT — add/edit contact                             ║
-║  L  1317– 1357  MODAL-COMM — add/edit communication                          ║
-║  L  1358– 1379  MODAL-PROFILE — edit your profile                            ║
-║  L  1380– 1394  MODAL-CLOCK — add world clock                                ║
-║  L  1395– 1410  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1411– 1438  DRAWER — profile, data, version footer                       ║
-║  L  1439– 1458  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1459– 1470  MODAL-MEM — memory inspector                                 ║
-║  L  1471– 1477  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1478– 1479  TOAST: container                                             ║
+║  L  1017– 1035  APP: shell — header, brand, top clock, settings              ║
+║  L  1036– 1043  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L  1044– 1082  TAB-OVERVIEW — map, clocks, today, profile                   ║
+║  L  1083– 1092  TAB-NETWORK — contacts list                                  ║
+║  L  1093– 1186  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1187– 1201  TAB-VAULT — insights                                         ║
+║  L  1202– 1323  MODAL-CONTACT — add/edit contact                             ║
+║  L  1324– 1364  MODAL-COMM — add/edit communication                          ║
+║  L  1365– 1386  MODAL-PROFILE — edit your profile                            ║
+║  L  1387– 1401  MODAL-CLOCK — add world clock                                ║
+║  L  1402– 1417  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1418– 1445  DRAWER — profile, data, version footer                       ║
+║  L  1446– 1465  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1466– 1477  MODAL-MEM — memory inspector                                 ║
+║  L  1478– 1484  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1485– 1486  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1482– 1692  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1693– 1970  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  1971– 2008  g, esc, uid, toast helpers + state globals                   ║
-║  L  2009– 2498  freshState, loadState (migrations), saveState                ║
-║  L  2499– 2724  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2725– 2758  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2759– 2804  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2805– 3998  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  3999– 4119  getCommBucket + age helpers, setCommsView                    ║
-║  L  4120– 4481  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4482– 4643  renderComms — full status/triage rendering                   ║
-║  L  4644– 4671  archiveComm + reviveComm                                     ║
-║  L  4672– 4798  renderReportsPanel + computeMonthStats                       ║
-║  L  4799– 5011  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  5012– 5285  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5286– 5336  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5337– 5613  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5614– 5764  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5765– 5832  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  5833– 6122  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1489– 1699  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1700– 1979  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  1980– 2017  g, esc, uid, toast helpers + state globals                   ║
+║  L  2018– 2507  freshState, loadState (migrations), saveState                ║
+║  L  2508– 2733  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2734– 2767  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2768– 2813  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2814– 4007  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  4008– 4128  getCommBucket + age helpers, setCommsView                    ║
+║  L  4129– 4490  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4491– 4652  renderComms — full status/triage rendering                   ║
+║  L  4653– 4680  archiveComm + reviveComm                                     ║
+║  L  4681– 4807  renderReportsPanel + computeMonthStats                       ║
+║  L  4808– 5020  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  5021– 5294  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5295– 5345  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5346– 5622  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5623– 5773  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  5774– 5841  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  5842– 6131  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  6123– 6237  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6238– 6268  saveProfile + clock save/remove                              ║
-║  L  6269– 6422  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6423– 6602  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6603– 6847  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  6848– 7266  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7267– 7625  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7626– 7637  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7638– 7682  saveGroqKey, clearGroqKey                                    ║
-║  L  7683– 8639  exportAll, importJson, wipeAll                               ║
+║  L  6132– 6246  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6247– 6277  saveProfile + clock save/remove                              ║
+║  L  6278– 6431  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6432– 6611  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6612– 6856  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  6857– 7275  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7276– 7634  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  7635– 7646  initCrewBlock, drawer toggle, crew status                    ║
+║  L  7647– 7691  saveGroqKey, clearGroqKey                                    ║
+║  L  7692– 8648  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -407,7 +407,14 @@
 ║      with a thin rule in the theme's teal between one note and the next      ║
 ║      (callNotesHtml; never after the last, never for a blank line); the      ║
 ║      stored notes and the form are untouched. tests/calls_check.js N4 to N8. ║
-║  L  8640– 8969  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.19.2 THE GREETING RULE: a generic inbox opens "Hi," alone unless the  ║
+║      Sources rows verify a one-person operation (two of: a team page naming  ║
+║      one person, a site bylined only by the founder, a profile listing one   ║
+║      employee); fewer rows and a named salutation is NO, named as the        ║
+║      missing evidence. The opener tells the target what his page does not    ║
+║      say (never a NO). "push back" in any form is banned in a comm. Doctrine ║
+║      string, tests/pane_prompt_check.js, README; no JS, no DOM.              ║
+║  L  8649– 8978  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -1021,7 +1028,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.19.1</span>
+      <span class="version-pill" title="INFRABOT build">v0.19.2</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1432,7 +1439,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.19.1 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.19.2 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1479,7 +1486,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.19.1';
+const APP_VERSION='infrabot-v0.19.2';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -1752,6 +1759,7 @@ The founder delivers tactical intel from expertise. The target is being filtered
 - "or if this isn't your problem" / "if I'm off base" / "if this isn't a fit"; preemptive disqualification is supplicant dressed as detachment
 - "Reply 'send'" / "Reply 'yes'" / "Reply 'confirmed'" / "Reply 'interested'" / "Reply 'go'" / "Reply with 'X'" / "Type 'X'" / "Text 'X'" / any magic-word reply protocol; scammy, banned in every comm
 - "If this is relevant,..." / "If [condition], reply..." / "If [condition], let me know..."; conditional begging
+- "push back" / "pushback" / "push-back" / "pushing back" / "pushed back"; in any form, in any comm the founder sends (the posture rules below use the words about you, never about a draft)
 
 **The frame.** You present an asset and a filter, you ask for nothing. Engage = qualified, silence = the answer. Build CTAs assuming silence = no (Eduardo Principle).
 
@@ -1791,7 +1799,8 @@ A line that breaks a rule above makes it NO; no such line makes it YES. Never a 
 **Same body, same answer.** If the body has not changed since your last readiness answer, the verdict is the same and the lines named are the same lines: name them again in the same words. You never contradict a line you endorsed in a prior turn unless the body changed; check before you answer.
 
 ## LPI OUTREACH HEURISTICS
-- **Addressing.** The Target field is the inbox. When it is a generic inbox (info@, hello@, contact@, sales@, office@, team@, press@ and their kind) and the record or the hook places the company at more than one location outside its own state or country, the draft opens with "Hi," alone and names no person. When the company is one location, or the Target is a person's own address, the salutation names that person. A nameless opener is never a missing salutation, and it is a NO only when the Target is a person's own address or the record shows one location; when the record does not show the locations, that is unverifiable from here and you say so.
+- **Addressing.** The Target field is the inbox. When it is a generic inbox (info@, hello@, contact@, sales@, office@, team@, press@ and their kind), the draft opens with "Hi," alone and names no person, unless the record verifies the company as a one-person operation: then the salutation names the founder. Verified means the Sources rows carry, in their own shape (the claim, the page, where on the page), at least two of these three: a team page naming one person; a site or blog bylined only by the founder; a public company profile listing one employee. Fewer than two such rows is "Hi,". One location is not verification. When the Target is a person's own address, the salutation names that person. A nameless opener is never a missing salutation; it is a NO only when the Target is a person's own address. A named salutation at a generic inbox with fewer than two such rows is a NO, named as the missing evidence: say which of the three the rows do not carry. As under Sources, the rows count toward NO only by being missing, never by being false.
+- **The opener.** The first sentence tells the target something about his own situation that his page does not say; a sentence that repeats his page back to him is cut. This binds drafts, rewrites and the DRAFT-posture critique. It is never a reason for NO; the readiness verdict is unchanged by it.
 - **Brevity is status.** Cold = 3-4 sentences max.
 - **Value first.** Lead with relevance to their specific wound.
 - **No thirst.** No phone number in cold outreach, no "reach out anytime," no soft-multi-option CTAs.
