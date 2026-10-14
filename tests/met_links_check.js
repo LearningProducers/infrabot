@@ -67,8 +67,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   g.toast=function(msg){toasts.push(String(msg));};
   g.esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
   var ge=eval;
-  ['EVENT_STATUSES','EVENT_OUTCOMES','uid'].forEach(function(n){ge(extractVar(html,n));});
-  ['eventsList','homeTzNow','normalizeCost','normalizeEvent','eventStatusRank','setEventStatus',
+  ['HOST_NAME_FLOOR','EVENT_STATUSES','EVENT_OUTCOMES','uid'].forEach(function(n){ge(extractVar(html,n));});
+  ['eventsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','homeTzNow','normalizeCost','normalizeEvent','eventStatusRank','setEventStatus',
    'moveEventStatus','parseMetNames','findContactByName','linkMetNames','syncMetLinks',
    'metNamesText','metAtHtml','remapImportedMet'].forEach(function(n){ge(extractFn(html,n));});
 
@@ -167,7 +167,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('S4 an unknown status is refused',moveEventStatus(ev,'hosted',T)===false&&ev.status==='selected');
   check('S5 the form path and the card path call the one act (source)',
     /function saveEvent\([\s\S]*?moved=moveEventStatus\(e,status,now\)/.test(html)&&/function quickEventStatus\([\s\S]*?if\(!moveEventStatus\(e,status\)\)return;/.test(html));
-  check('S6 setEventStatus has three sites: its definition, the act, the import ladder (source)',(html.match(/setEventStatus\(/g)||[]).length===3,String((html.match(/setEventStatus\(/g)||[]).length));
+  check('S6 setEventStatus has four sites: its definition, the act, the import ladder, the block (v0.21.0 applyBlockToEvents) (source)',(html.match(/setEventStatus\(/g)||[]).length===4&&extractFn(html,'applyBlockToEvents').indexOf("setEventStatus(e,'skipped',when)")>0,String((html.match(/setEventStatus\(/g)||[]).length));
   check('S7 the select note names the pick and the save (source)',html.indexOf("'MOVES TO '+pick.toUpperCase()+' ON SAVE EVENT'")>0&&html.indexOf("g('ev-status').addEventListener('change',eventStatusNote)")>0);
 
   // --- F: the form and the record (source pins) ------------------------------

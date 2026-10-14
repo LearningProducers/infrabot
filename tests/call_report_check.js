@@ -94,8 +94,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   glob.document={createElement:function(){return {click:function(){}};},body:{appendChild:function(){},removeChild:function(){}}};
 
   var ge=eval;
-  ['esc','CALL_STATUSES','APP_VERSION'].forEach(function(n){ge(extractVar(html,n));});
-  ['localYearMonth','callsList','normalizeSupport','normalizeCall','calledAt','callCommItems','callsInMonth',
+  ['HOST_NAME_FLOOR','esc','CALL_STATUSES','APP_VERSION'].forEach(function(n){ge(extractVar(html,n));});
+  ['localYearMonth','callsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','wallTimeToDate','eventStartMonth','byEventStart','personTier','acquaintanceMonth','normalizeSupport','normalizeCall','calledAt','callCommItems','callsInMonth',
    'sentRecord','standingArchiveEntries','computeMonthStats','roomsInMonth','metInMonth','renderReportsPanel','downloadMonthReport'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;

@@ -69,8 +69,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var rendered=0;
   g.renderNetwork=function(){rendered++;};
   var ge=eval;
-  ['EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','networkView','eventsCityFilter'].forEach(function(n){ge(extractVar(html,n));});
-  ['eventsList','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','localYearMonth','archiveMonth',
+  ['HOST_NAME_FLOOR','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','networkView','eventsCityFilter'].forEach(function(n){ge(extractVar(html,n));});
+  ['eventsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','localYearMonth','archiveMonth',
    'inMonthWindow','inArchiveWindow','eventStartMonth','byEventStart','roomsInMonth','eventCities','eventsShown',
    'personTier','acquaintanceMonth','callsList','networkViewBar','setNetworkView'].forEach(function(n){ge(extractFn(html,n));});
 
@@ -91,7 +91,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
     var day=ym+'-15';
     var hist=[{status:'candidate',timestamp:day+'T15:00:00.000Z'}];
     if(status!=='candidate')hist.push({status:status,timestamp:day+'T16:00:00.000Z'});
-    return Object.assign({id:id,title:title,organizer:'Fixture Guild',venue:'Fixture Hall',city:city,tz:'America/Chicago',
+    return Object.assign({id:id,title:title,organizer:'Fixture Guild',organizerId:'',coHosts:[],venue:'Fixture Hall',city:city,tz:'America/Chicago',
       start:day+'T18:00',url:'',cost:'free',status:status,statusHistory:hist,whyThisRoom:'Synthetic reason.',met:[],outcome:'none',
       notes:'',createdAt:day+'T15:00:00.000Z',updatedAt:day+'T16:00:00.000Z'},extra||{});
   }

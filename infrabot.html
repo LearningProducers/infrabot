@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.20.0 (THE OVERVIEW) 26-10-09                                             ║
+║  v0.21.0 (BLOCK HOST) 26-10-13                                               ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  463  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  473  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   465–  491  :root, CSS variables, fonts, reset, body                     ║
-║  L   492–  549  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   550–  592  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   593–  610  CLOCKS — live clock grid                                     ║
-║  L   611–  689  CARDS — contact card, comm card, status pills                ║
-║  L   690–  716  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   717–  726  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   727–  732  EMPTY: state placeholder                                     ║
-║  L   733–  756  MODAL — bg, box, header, footer                              ║
-║  L   757–  768  DRAWER — settings drawer + backdrop                          ║
-║  L   769–  774  COUNCIL: stream items (legacy reused)                        ║
-║  L   775–  781  TOAST: notification                                          ║
-║  L   782–  857  STATS: grid + profile block                                  ║
-║  L   858–  880  CREW BLOCK — Groq key row, council slots                     ║
-║  L   881–  902  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   903–  908  Per-response copy button (v1.2)                              ║
-║  L   909–  928  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   929–  935  v1.4: Foundation context source blocks                       ║
-║  L   936– 1016  FULLSCREEN OVERLAY for response boxes                        ║
-║  L  1017– 1043  INSIGHT VAULT                                                ║
+║  L   475–  501  :root, CSS variables, fonts, reset, body                     ║
+║  L   502–  559  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   560–  602  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   603–  620  CLOCKS — live clock grid                                     ║
+║  L   621–  699  CARDS — contact card, comm card, status pills                ║
+║  L   700–  726  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   727–  736  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   737–  742  EMPTY: state placeholder                                     ║
+║  L   743–  766  MODAL — bg, box, header, footer                              ║
+║  L   767–  782  DRAWER — settings drawer + backdrop                          ║
+║  L   783–  788  COUNCIL: stream items (legacy reused)                        ║
+║  L   789–  795  TOAST: notification                                          ║
+║  L   796–  871  STATS: grid + profile block                                  ║
+║  L   872–  894  CREW BLOCK — Groq key row, council slots                     ║
+║  L   895–  916  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   917–  922  Per-response copy button (v1.2)                              ║
+║  L   923–  942  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   943–  949  v1.4: Foundation context source blocks                       ║
+║  L   950– 1030  FULLSCREEN OVERLAY for response boxes                        ║
+║  L  1031– 1057  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L  1048– 1066  APP: shell — header, brand, top clock, settings              ║
-║  L  1067– 1074  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L  1075– 1113  TAB-OVERVIEW — map, clocks, by month, today, profile         ║
-║  L  1114– 1123  TAB-NETWORK — contacts list                                  ║
-║  L  1124– 1217  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1218– 1232  TAB-VAULT — insights                                         ║
-║  L  1233– 1354  MODAL-CONTACT — add/edit contact                             ║
-║  L  1355– 1395  MODAL-COMM — add/edit communication                          ║
-║  L  1396– 1417  MODAL-PROFILE — edit your profile                            ║
-║  L  1418– 1432  MODAL-CLOCK — add world clock                                ║
-║  L  1433– 1448  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1449– 1476  DRAWER — profile, data, version footer                       ║
-║  L  1477– 1496  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1497– 1508  MODAL-MEM — memory inspector                                 ║
-║  L  1509– 1515  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1516– 1517  TOAST: container                                             ║
+║  L  1062– 1080  APP: shell — header, brand, top clock, settings              ║
+║  L  1081– 1088  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L  1089– 1127  TAB-OVERVIEW — map, clocks, by month, today, profile         ║
+║  L  1128– 1137  TAB-NETWORK — contacts list                                  ║
+║  L  1138– 1231  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1232– 1246  TAB-VAULT — insights                                         ║
+║  L  1247– 1368  MODAL-CONTACT — add/edit contact                             ║
+║  L  1369– 1409  MODAL-COMM — add/edit communication                          ║
+║  L  1410– 1431  MODAL-PROFILE — edit your profile                            ║
+║  L  1432– 1446  MODAL-CLOCK — add world clock                                ║
+║  L  1447– 1462  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1463– 1496  DRAWER — profile, data, version footer                       ║
+║  L  1497– 1516  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1517– 1528  MODAL-MEM — memory inspector                                 ║
+║  L  1529– 1535  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1536– 1537  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1520– 1730  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1731– 2010  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  2011– 2048  g, esc, uid, toast helpers + state globals                   ║
-║  L  2049– 2538  freshState, loadState (migrations), saveState                ║
-║  L  2539– 2764  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2765– 2798  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2799– 2844  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2845– 4170  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  4171– 4291  getCommBucket + age helpers, setCommsView                    ║
-║  L  4292– 4653  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4654– 4815  renderComms — full status/triage rendering                   ║
-║  L  4816– 4843  archiveComm + reviveComm                                     ║
-║  L  4844– 4970  renderReportsPanel + computeMonthStats                       ║
-║  L  4971– 5183  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  5184– 5457  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5458– 5508  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5509– 5785  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5786– 5936  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  5937– 6004  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  6005– 6294  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1540– 1750  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1751– 2030  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  2031– 2068  g, esc, uid, toast helpers + state globals                   ║
+║  L  2069– 2562  freshState, loadState (migrations), saveState                ║
+║  L  2563– 2788  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2789– 2822  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2823– 2868  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2869– 4372  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  4373– 4493  getCommBucket + age helpers, setCommsView                    ║
+║  L  4494– 4855  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4856– 5017  renderComms — full status/triage rendering                   ║
+║  L  5018– 5045  archiveComm + reviveComm                                     ║
+║  L  5046– 5172  renderReportsPanel + computeMonthStats                       ║
+║  L  5173– 5385  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  5386– 5659  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5660– 5710  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5711– 5987  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5988– 6138  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  6139– 6206  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  6207– 6496  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  6295– 6409  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6410– 6440  saveProfile + clock save/remove                              ║
-║  L  6441– 6594  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6595– 6774  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6775– 7019  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  7020– 7438  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7439– 7797  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7798– 7809  initCrewBlock, drawer toggle, crew status                    ║
-║  L  7810– 7854  saveGroqKey, clearGroqKey                                    ║
-║  L  7855– 8811  exportAll, importJson, wipeAll                               ║
+║  L  6497– 6611  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6612– 6642  saveProfile + clock save/remove                              ║
+║  L  6643– 6796  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6797– 6976  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6977– 7221  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  7222– 7640  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7641– 8000  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  8001– 8012  initCrewBlock, drawer toggle, crew status                    ║
+║  L  8013– 8057  saveGroqKey, clearGroqKey                                    ║
+║  L  8058– 9034  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -423,7 +423,17 @@
 ║      (HTML, renderer, CSS; scoreboardCounts stays, pinned). TODAY restyled   ║
 ║      under the chart, ROOMS by event date; YOU is three fields with what     ║
 ║      each drives, the set-up pitch gone. tests/overview_chart_check.js.      ║
-║  L  8812– 9147  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.21.0 BLOCK HOST: state.blockedHosts, a record list of hosts the       ║
+║      founder blocked from a room card (name, the platform's organizer id,    ║
+║      the instant); absolute and permanent: a blocked host's rooms are        ║
+║      refused at import, hidden on every surface (eventsVisible), kept on     ║
+║      the file at merge, and the list survives export, both full-replace      ║
+║      imports and the merge; UNBLOCK in SETTINGS is the only way off. The     ║
+║      event record carries organizerId and coHosts; import dedupes on the     ║
+║      platform key and the title-start-venue match key beside eventKey and    ║
+║      folds the other listing's host in as a co-host. The event card sits in  ║
+║      the call card's frame, one across. tests/block_host_check.js.           ║
+║  L  9035– 9373  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -763,6 +773,10 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .drawer-block{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .drawer-block:last-child{border-bottom:none}
 .drawer-block-h{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--text-bright);margin-bottom:10px;text-transform:uppercase}
+/* v0.21.0 BLOCKED HOSTS: one row per blocked host in the drawer, UNBLOCK at its end */
+.blocked-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.blocked-name{font-family:var(--mono);font-size:12px;color:var(--text);line-height:1.5;min-width:0;overflow-wrap:anywhere}
+.blocked-when{font-size:10px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase}
 #drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:199;display:none}
 #drawer-backdrop.show{display:block}
 
@@ -1059,7 +1073,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.20.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.21.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1469,8 +1483,14 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
     <p class="tiny dim mono" style="margin-top:10px">IMPORT DRAFTS reads a prospect-research .txt dossier and ADDS draft cards (never replaces). STATUS MIRROR exports a .txt of SENT/SCHEDULED card decisions for an external step to mirror into the tracker (that step writes; this app only records the decision). Wipe is irreversible. Export first.</p>
   </div>
 
+  <div class="drawer-block">
+    <div class="drawer-block-h">BLOCKED HOSTS</div>
+    <p class="tiny dim mono" style="margin-bottom:8px">Hosts you blocked from a room card. Absolute and permanent: nothing of theirs is written, imported or shown anywhere. UNBLOCK here is the only way off the list.</p>
+    <div id="blocked-hosts"></div>
+  </div>
+
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.20.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.21.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1517,7 +1537,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.20.0';
+const APP_VERSION='infrabot-v0.21.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -2063,6 +2083,7 @@ function freshState(){
     events:[],
     artifacts:[],
     calls:[],
+    blockedHosts:[],
     insights:[],
     customCities:{},
     groqKey:'',
@@ -2146,6 +2167,9 @@ function loadState(){
       }
     });
   }
+  // v0.21.0 migration: the block list exists on every book; a book from
+  // before this version carries none and starts empty.
+  if(!Array.isArray(s.blockedHosts))s.blockedHosts=[];
   // v3.0: persisted triage view (DRAFTS / PIPELINE / ARCHIVE / REPORTS). Defaults to drafts on
   // first load so a new user lands on their work-in-progress, not an empty pipeline.
   if(!s.commsView||!['drafts','pipeline','archive','reports'].includes(s.commsView))s.commsView='drafts';
@@ -2883,7 +2907,7 @@ function activityMonths(){
     if(Array.isArray(c.statusHistory))c.statusHistory.forEach(x=>stamps.push(x.timestamp));
     stamps.forEach(x=>{const ym=localYearMonth(x);if(ym)set.add(ym);});
   });
-  eventsList().forEach(e=>{if(e.status==='attended'){const ym=eventStartMonth(e);if(ym)set.add(ym);}});
+  eventsVisible().forEach(e=>{if(e.status==='attended'){const ym=eventStartMonth(e);if(ym)set.add(ym);}});
   (state.network||[]).forEach(c=>{if(personTier(c)==='acquaintance'){const ym=acquaintanceMonth(c);if(ym)set.add(ym);}});
   callCommItems().forEach(it=>{const ym=localYearMonth(it.when);if(ym)set.add(ym);});
   return Array.from(set).sort();
@@ -3152,7 +3176,7 @@ function changePersonTier(id,tier){
 // by that room's date; with no dated room, the last downgrade's month;
 // neither, null, which the window renders (fail visible).
 function acquaintanceMonth(c){
-  const rooms=(Array.isArray(c.metAt)?c.metAt:[]).map(m=>eventsList().find(e=>e.id===m.eventId)).filter(e=>e&&wallTimeToDate(e.start,e.tz)).sort(byEventStart);
+  const rooms=(Array.isArray(c.metAt)?c.metAt:[]).map(m=>eventsVisible().find(e=>e.id===m.eventId)).filter(e=>e&&wallTimeToDate(e.start,e.tz)).sort(byEventStart);
   if(rooms.length)return eventStartMonth(rooms[rooms.length-1]);
   const h=Array.isArray(c.tierHistory)?c.tierHistory:[];
   for(let i=h.length-1;i>=0;i--){if(h[i]&&h[i].tier==='acquaintance')return localYearMonth(h[i].timestamp);}
@@ -3160,7 +3184,7 @@ function acquaintanceMonth(c){
 }
 // The latest dated room a person was met at, for the report's MET line.
 function latestMetRoom(c){
-  const rooms=(Array.isArray(c.metAt)?c.metAt:[]).map(m=>eventsList().find(e=>e.id===m.eventId)).filter(e=>e&&wallTimeToDate(e.start,e.tz)).sort(byEventStart);
+  const rooms=(Array.isArray(c.metAt)?c.metAt:[]).map(m=>eventsVisible().find(e=>e.id===m.eventId)).filter(e=>e&&wallTimeToDate(e.start,e.tz)).sort(byEventStart);
   return rooms.length?rooms[rooms.length-1]:null;
 }
 // The acquaintances of one month, sorted by name: the report's MET section.
@@ -3174,7 +3198,8 @@ function applyTierLayout(tier,c){
   const acq=tier==='acquaintance';
   ['c-f-company','c-f-website','c-f-email','c-f-cityrow','c-f-tier'].forEach(id=>g(id).classList.toggle('hidden',acq));
   g('c-notes-label').textContent=acq?'Notes':'Intel';
-  const rooms=c&&Array.isArray(c.metAt)?c.metAt.filter(m=>m&&m.title):[];
+  const hid=new Set(eventsList().filter(hostBlocked).map(e=>e.id)); // v0.21.0: no title of a blocked host's room
+  const rooms=c&&Array.isArray(c.metAt)?c.metAt.filter(m=>m&&m.title&&!hid.has(m.eventId)):[];
   g('c-metat').textContent=rooms.length?rooms.map(m=>m.title).join(' · '):'Nowhere logged yet.';
   g('c-tier-note').textContent=c?'':'A new person is a contact; ACQUAINTANCE on the card moves them once saved.';
 }
@@ -3219,7 +3244,8 @@ function normalizeCost(v){
 // byte-identical, which is what keeps export then import byte-stable.
 function normalizeEvent(e){
   if(!e||typeof e!=='object')return e;
-  ['title','organizer','venue','city','tz','start','url','whyThisRoom','notes'].forEach(k=>{if(typeof e[k]!=='string')e[k]=e[k]==null?'':String(e[k]);});
+  ['title','organizer','organizerId','venue','city','tz','start','url','whyThisRoom','notes'].forEach(k=>{if(typeof e[k]!=='string')e[k]=e[k]==null?'':String(e[k]);});
+  e.coHosts=normalizeCoHosts(e.coHosts);
   const st=String(e.status||'').toLowerCase();
   e.status=EVENT_STATUSES.includes(st)?st:'candidate';
   const oc=String(e.outcome||'').toLowerCase();
@@ -3329,7 +3355,8 @@ function metNamesText(e){
   return (Array.isArray(e.met)?e.met:[]).map(id=>{const c=state.network.find(x=>x.id===id);return c?c.name:'';}).filter(Boolean).join('\n');
 }
 function metAtHtml(c){
-  const list=Array.isArray(c.metAt)?c.metAt.filter(m=>m&&m.title):[];
+  const hid=new Set(eventsList().filter(hostBlocked).map(e=>e.id)); // v0.21.0: no title of a blocked host's room
+  const list=Array.isArray(c.metAt)?c.metAt.filter(m=>m&&m.title&&!hid.has(m.eventId)):[];
   if(!list.length)return '';
   return `<div class="card-section"><div class="card-section-h">Met at</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">${list.map(m=>esc(m.title)).join(' · ')}</div></div>`;
 }
@@ -3351,6 +3378,168 @@ function eventKey(e){
   const u=String(e.url||'').trim().toLowerCase().replace(/\/+$/,'');
   const day=String(e.start||'').trim().slice(0,10);
   return (u?u:'title:'+String(e.title||'').trim().toLowerCase())+'|'+day;
+}
+// THE EVENT KEYS, two beside eventKey (v0.21.0). The platform key: one room
+// is one room whatever slug or host spelling a source printed it under,
+// Meetup's numeric event id, Eventbrite's trailing id, Luma's slug with
+// lu.ma folded into luma.com, else the link itself, each with the day. The
+// match key: same title, same start minute, same venue, the venue read as
+// its first comma segment because two sources print one place two ways.
+function eventPlatformKey(e){
+  const u=String(e.url||'').trim().split('?')[0].replace(/\/+$/,'').toLowerCase();
+  const day=String(e.start||'').trim().slice(0,10);
+  let m=/meetup\.com\/.*\/events\/(\d+)/.exec(u);
+  if(m)return 'meetup:'+m[1]+'|'+day;
+  m=/eventbrite\.[a-z.]+\/e\/.*?(\d{6,})$/.exec(u);
+  if(m)return 'eventbrite:'+m[1]+'|'+day;
+  m=/^https?:\/\/(?:www\.)?(?:lu\.ma|luma\.com)\/([^\/]+)$/.exec(u);
+  if(m)return 'luma:'+m[1]+'|'+day;
+  return u?u+'|'+day:'';
+}
+function venueHead(v){return normHostName(String(v||'').split(',')[0]);}
+function eventMatchKey(e){
+  const t=normHostName(e.title),s=String(e.start||'').trim().slice(0,16),v=venueHead(e.venue);
+  return (t&&s&&v)?t+'|'+s+'|'+v:'';
+}
+// THE BLOCK LIST (v0.21.0). A host the founder blocked is absolute and
+// permanent: nothing of theirs reaches him on any surface. A block record
+// holds the name as the card carried it, the source platform's organizer id
+// when the feed wrote one, and the instant. The only way off the list is
+// the founder's own hand in SETTINGS (unblockHost); nothing else removes a
+// row. Comments in this block authored with zero brace pairs.
+function blockedHostsList(){
+  if(!state)return [];
+  if(!Array.isArray(state.blockedHosts))state.blockedHosts=[];
+  return state.blockedHosts;
+}
+// A name read the one way everywhere: curly quotes straight, whitespace
+// runs to one space, case folded.
+function normHostName(s){
+  return String(s==null?'':s).replace(/[\u201c\u201d]/g,'"').replace(/[\u2018\u2019]/g,"'").replace(/\s+/g,' ').trim().toLowerCase();
+}
+const HOST_NAME_FLOOR=5;
+// One block against one host: the platform id decides when both carry one;
+// else the whole normalized name, equal, or standing whole inside the host's
+// name when the block's name is HOST_NAME_FLOOR characters or longer (the
+// exclusions read's floor, so a short name never matches by accident).
+function hostMatches(block,name,organizerId){
+  const bid=String((block&&block.organizerId)||'').trim(),hid=String(organizerId||'').trim();
+  if(bid&&hid&&bid===hid)return true;
+  const bn=normHostName(block&&block.name),hn=normHostName(name);
+  if(!bn||!hn)return false;
+  if(bn===hn)return true;
+  if(bn.length<HOST_NAME_FLOOR)return false;
+  return new RegExp('(^|[^a-z0-9])'+bn.replace(/[.*+?^$()|[\]\\]/g,'\\$&')+'([^a-z0-9]|$)').test(hn);
+}
+// Every host a room carries: its organizer and each co-host.
+function eventHosts(e){
+  const out=[{name:String((e&&e.organizer)||''),organizerId:String((e&&e.organizerId)||'')}];
+  (e&&Array.isArray(e.coHosts)?e.coHosts:[]).forEach(h=>{if(h&&(h.name||h.organizerId))out.push({name:String(h.name||''),organizerId:String(h.organizerId||'')});});
+  return out;
+}
+function hostBlocked(e){
+  if(!e)return false;
+  const hosts=eventHosts(e);
+  return blockedHostsList().some(b=>hosts.some(h=>hostMatches(b,h.name,h.organizerId)));
+}
+// The rooms a surface may show: every room whose hosts are unblocked. The
+// record list itself (eventsList) keeps every room; a blocked host's rooms
+// stay on the file and leave every surface.
+function eventsVisible(){
+  return eventsList().filter(e=>!hostBlocked(e));
+}
+// Co-hosts: the other listing groups of one room, folded at import; a name
+// and a platform id each, empties dropped, one row per host.
+function normalizeCoHosts(list){
+  const out=[];const seen={};
+  (Array.isArray(list)?list:[]).forEach(h=>{
+    const row=typeof h==='string'?{name:h.trim(),organizerId:''}:{name:String((h&&h.name)||'').trim(),organizerId:String((h&&h.organizerId)||'').trim()};
+    const k=row.organizerId||normHostName(row.name);
+    if(!k||seen[k])return;
+    seen[k]=true;out.push(row);
+  });
+  return out;
+}
+// The other listing's hosts join the card as co-hosts: every host of the
+// incoming record that no host of the local record already is (the block
+// list's own match, both ways). Returns whether a row was added.
+function addCoHosts(local,inc,when){
+  const have=eventHosts(local);let added=false;
+  eventHosts(inc).forEach(h=>{
+    if(!h.name&&!h.organizerId)return;
+    if(have.some(x=>hostMatches(x,h.name,h.organizerId)||hostMatches(h,x.name,x.organizerId)))return;
+    local.coHosts=normalizeCoHosts((Array.isArray(local.coHosts)?local.coHosts:[]).concat([h]));have.push(h);added=true;
+  });
+  if(added)local.updatedAt=when||new Date().toISOString();
+  return added;
+}
+// Two block lists as one: every row of either, one row per host (the id
+// when both carry one, else the normalized name), the earlier instant kept.
+function unionBlockedHosts(a,b){
+  const out=[];
+  (Array.isArray(a)?a:[]).concat(Array.isArray(b)?b:[]).forEach(r=>{
+    if(!r||typeof r!=='object')return;
+    const name=String(r.name||'').trim(),oid=String(r.organizerId||'').trim();
+    if(!name&&!oid)return;
+    const hit=out.find(x=>(oid&&x.organizerId===oid)||(normHostName(name)&&normHostName(x.name)===normHostName(name)));
+    if(hit){if(oid&&!hit.organizerId)hit.organizerId=oid;if(r.blockedAt&&(!hit.blockedAt||r.blockedAt<hit.blockedAt))hit.blockedAt=r.blockedAt;return;}
+    out.push({id:r.id||uid(),name:name,organizerId:oid,blockedAt:r.blockedAt||new Date().toISOString()});
+  });
+  return out;
+}
+// One host onto the list, once: a row already there that matches this host
+// (the same id, the same name, or a name standing whole inside this one)
+// is returned and learns the id when it had none; a shorter name than a
+// row on the list is its own row, because the longer row would not reach
+// the shorter host's other rooms.
+function addBlockedHost(name,organizerId,when){
+  const list=blockedHostsList();
+  const nid=String(organizerId||'').trim();
+  const hit=list.find(b=>hostMatches(b,name,nid));
+  if(hit){if(nid&&!hit.organizerId)hit.organizerId=nid;return hit;}
+  const rec={id:uid(),name:String(name||'').trim(),organizerId:nid,blockedAt:when||new Date().toISOString()};
+  list.push(rec);return rec;
+}
+// Every room of a blocked host that is not yet terminal moves to skipped,
+// through the one transition (setEventStatus); attended and skipped rooms
+// keep their state. Returns the count moved.
+function applyBlockToEvents(when){
+  let n=0;
+  eventsList().forEach(e=>{if(hostBlocked(e)&&eventStatusRank(e.status)<2&&setEventStatus(e,'skipped',when))n++;});
+  return n;
+}
+// BLOCK HOST, the one act. The founder's press on a card: asks once, puts
+// every host of that room on the list, skips their open rooms, and the
+// rooms leave every surface from this render on.
+function blockHost(eventId){
+  const e=eventsList().find(x=>x.id===eventId);if(!e)return false;
+  const hosts=eventHosts(e).filter(h=>h.name||h.organizerId);
+  if(!hosts.length){toast('NO HOST NAMED ON THIS ROOM','err');return false;}
+  const names=hosts.map(h=>h.name||h.organizerId).join(', ');
+  if(!confirm('BLOCK '+names+'?\n\nAbsolute and permanent: nothing of theirs reaches you again, on any surface. Their open rooms are skipped now. The only way back is your own hand in SETTINGS, BLOCKED HOSTS.'))return false;
+  const now=new Date().toISOString();
+  hosts.forEach(h=>addBlockedHost(h.name,h.organizerId,now));
+  const moved=applyBlockToEvents(now);
+  saveState();renderNetwork();renderOverview();renderBlockedHosts();
+  toast('BLOCKED · '+names.toUpperCase()+' · '+moved+' ROOM'+(moved===1?'':'S')+' SKIPPED','amber');
+  return true;
+}
+// The founder's hand in SETTINGS: the one way a host leaves the list. The
+// rooms the block skipped stay skipped (the fold at the foot of CANDIDATES
+// holds them) and show again from the next render.
+function unblockHost(id){
+  const list=blockedHostsList();const b=list.find(x=>x.id===id);if(!b)return false;
+  if(!confirm('UNBLOCK '+(b.name||b.organizerId)+'? Their rooms show again from now on and the feed may write them again.'))return false;
+  state.blockedHosts=list.filter(x=>x.id!==id);
+  saveState();renderBlockedHosts();renderNetwork();renderOverview();
+  toast('UNBLOCKED · '+String(b.name||b.organizerId).toUpperCase(),'green');
+  return true;
+}
+function renderBlockedHosts(){
+  const box=g('blocked-hosts');if(!box)return;
+  const list=blockedHostsList().slice().sort((a,b)=>normHostName(a.name).localeCompare(normHostName(b.name)));
+  if(!list.length){box.innerHTML='<p class="tiny dim mono">No host blocked. BLOCK HOST on a room card puts its host here.</p>';return;}
+  box.innerHTML=list.map(b=>`<div class="blocked-row"><div class="blocked-name">${esc(b.name||'(no name)')}${b.organizerId?` <span class="dim">· ${esc(b.organizerId)}</span>`:''}<div class="blocked-when">since ${esc(String(b.blockedAt||'').slice(0,10))}</div></div><button class="btn ghost sm" data-act="unblock-host" data-id="${esc(b.id)}">UNBLOCK</button></div>`).join('');
 }
 // Wall time in a zone to an instant: read the guess back through Intl in that
 // zone and correct by the difference, twice, which settles a DST edge. No
@@ -3388,7 +3577,7 @@ function fmtEventWhen(e){
 // any statusHistory entry of that status lands in the month, once per event.
 function eventMonthCounts(ym){
   const out={selected:0,attended:0};
-  eventsList().forEach(e=>{
+  eventsVisible().forEach(e=>{
     const h=Array.isArray(e.statusHistory)?e.statusHistory:[];
     let sel=false,att=false;
     h.forEach(x=>{if(!x||localYearMonth(x.timestamp)!==ym)return;if(x.status==='selected')sel=true;if(x.status==='attended')att=true;});
@@ -3427,15 +3616,15 @@ function byEventStart(a,b){
 // lane and the ROOMS THIS MONTH cell keep their own keys (the attended
 // transition's month) and are not this function.
 function roomsInMonth(ym){
-  return eventsList().map(normalizeEvent).filter(e=>e.status==='attended'&&eventStartMonth(e)===ym).sort(byEventStart);
+  return eventsVisible().map(normalizeEvent).filter(e=>e.status==='attended'&&eventStartMonth(e)===ym).sort(byEventStart);
 }
 function eventCities(){
-  return Array.from(new Set(eventsList().map(e=>String(e.city||'').trim()).filter(Boolean))).sort((a,b)=>a.localeCompare(b));
+  return Array.from(new Set(eventsVisible().map(e=>String(e.city||'').trim()).filter(Boolean))).sort((a,b)=>a.localeCompare(b));
 }
 // The events the city filter lets through, every pill reading the same list;
 // a filter naming a city no room carries any more clears itself.
 function eventsShown(){
-  const list=eventsList().map(normalizeEvent);
+  const list=eventsVisible().map(normalizeEvent);
   if(eventsCityFilter&&!eventCities().some(c=>c.toLowerCase()===eventsCityFilter))eventsCityFilter='';
   return eventsCityFilter?list.filter(e=>e.city.trim().toLowerCase()===eventsCityFilter):list;
 }
@@ -3463,11 +3652,11 @@ function setNetworkView(v){
   renderNetwork();
 }
 function renderEventsView(){
-  if(!eventsList().length)return `<div class="empty-state"><div class="es-h">NO EVENTS YET</div><button class="btn" data-open="event">+ ADD EVENT</button></div>`;
+  if(!eventsVisible().length)return `<div class="empty-state"><div class="es-h">NO EVENTS YET</div><button class="btn" data-open="event">+ ADD EVENT</button></div>`;
   const cities=eventCities();
   const shown=eventsShown();
   let html=`<div class="field" style="max-width:280px"><label>City</label><select id="ev-city-filter"><option value="">ALL CITIES</option>${cities.map(c=>`<option value="${esc(c.toLowerCase())}"${c.toLowerCase()===eventsCityFilter?' selected':''}>${esc(c.toUpperCase())}</option>`).join('')}</select></div>`;
-  const grid=list=>`<div class="card-grid">${list.map(renderEventCard).join('')}</div>`;
+  const grid=list=>`<div class="card-grid calls-grid">${list.map(renderEventCard).join('')}</div>`;
   const empty=(h,sub)=>`<div class="empty-state"><div class="es-h">${h}</div><div class="es-sub">${sub}</div></div>`;
   if(networkView==='candidates'){
     const cands=shown.filter(e=>e.status==='candidate').sort(byEventStart);
@@ -3487,20 +3676,27 @@ function renderEventsView(){
   if(earlier)html+=`<div class="tiny dim mono" style="margin-top:14px">${earlier} EARLIER ROOM${earlier===1?'':'S'} · IN THEIR MONTH'S REPORT (COMMUNICATIONS, REPORTS)</div>`;
   return html;
 }
-// Sibling of the comm card: title; organizer, venue, city; when; two pills;
-// the reason where a comm shows its opener; the link; what the room produced,
-// quiet until the start has passed; notes.
+// Sibling of the comm card, in the call card's frame since v0.21.0 (one
+// across, the body a size up, the mono sections at the call card's sizes):
+// title; organizer with its co-hosts, venue, city; when; two pills; the
+// reason where a comm shows its opener; the link; what the room produced,
+// quiet until the start has passed; notes. BLOCK HOST on every card beside
+// SKIP: the one press that puts the room's hosts on the block list.
 function renderEventCard(e){
   const passed=eventPassed(e);
   const metNames=e.met.map(id=>{const c=state.network.find(x=>x.id===id);return c?c.name:null;}).filter(Boolean);
-  const line2=[e.organizer,e.venue,e.city?e.city.toUpperCase():''].filter(Boolean).map(s=>esc(s)).join(' · ');
-  const link=e.url?`<div class="card-section"><div class="card-section-h">Verify</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px;word-break:break-all">${linkHtml(e.url)}</div></div>`:'';
-  const after=`<div class="card-section" style="${passed?'':'opacity:.5'}"><div class="card-section-h">After the room</div><div class="card-section-body" style="font-family:var(--mono);font-size:11px">MET: ${metNames.length?esc(metNames.join(', ')):'nobody logged'} · OUTCOME: ${esc(e.outcome.toUpperCase())}</div></div>`;
-  const notes=e.notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(e.notes)}</div></div>`:'';
+  const co=(Array.isArray(e.coHosts)?e.coHosts:[]).map(h=>h&&h.name).filter(Boolean);
+  const host=e.organizer+(co.length?' with '+co.join(', '):'');
+  const line2=[host,e.venue,e.city?e.city.toUpperCase():''].filter(Boolean).map(s=>esc(s)).join(' · ');
+  const link=e.url?`<div class="card-section"><div class="card-section-h">Verify</div><div class="card-section-body cite-page">${linkHtml(e.url)}</div></div>`:'';
+  const after=`<div class="card-section" style="${passed?'':'opacity:.5'}"><div class="card-section-h">After the room</div><div class="card-section-body call-mono">MET: ${metNames.length?esc(metNames.join(', ')):'nobody logged'} · OUTCOME: ${esc(e.outcome.toUpperCase())}</div></div>`;
+  const notes=e.notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body call-mono">${esc(e.notes)}</div></div>`:'';
+  const block=`<button class="btn muted sm" data-act="block-host" data-id="${esc(e.id)}">BLOCK HOST</button>`;
   let quick='';
   if(e.status==='candidate')quick=`<button class="btn muted sm" data-act="select-event" data-id="${esc(e.id)}">SELECT</button><button class="btn muted sm" data-act="skip-event" data-id="${esc(e.id)}">SKIP</button>`;
   else if(e.status==='selected')quick=`<button class="btn muted sm" data-act="attend-event" data-id="${esc(e.id)}">ATTENDED</button><button class="btn muted sm" data-act="skip-event" data-id="${esc(e.id)}">SKIP</button>`;
-  return `<div class="card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(e.title||'(untitled)')}</div><div class="card-sub">${line2}</div><div class="card-age">${fmtEventWhen(e)}</div></div><div class="card-h-right"><span class="card-status ${e.cost==='free'?'ev-free':'ev-paid'}">${esc(fmtCost(e.cost))}</span><span class="card-status ${esc(e.status)}">${esc(e.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Why this room</div><div class="card-section-body">${esc(e.whyThisRoom)}</div></div>${link}${after}${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-event" data-id="${esc(e.id)}">OPEN</button>${quick}</div></div>`;
+  quick+=block;
+  return `<div class="card call-card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(e.title||'(untitled)')}</div><div class="card-sub">${line2}</div><div class="card-age">${fmtEventWhen(e)}</div></div><div class="card-h-right"><span class="card-status ${e.cost==='free'?'ev-free':'ev-paid'}">${esc(fmtCost(e.cost))}</span><span class="card-status ${esc(e.status)}">${esc(e.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Why this room</div><div class="card-section-body">${esc(e.whyThisRoom)}</div></div>${link}${after}${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-event" data-id="${esc(e.id)}">OPEN</button>${quick}</div></div>`;
 }
 // The event zone select carries the TIMEZONES list; a zone the city resolves
 // to that the list lacks is appended so the pick is never silently wrong.
@@ -3579,25 +3775,30 @@ function quickEventStatus(id,status){
   saveState();renderNetwork();renderOverview();
 }
 // The additive import leg for events (called by additiveImportState). Dedupe
-// on eventKey. A match moves status only up the ladder, never back, and fills
-// whyThisRoom, notes, met, outcome only where the local record has none: a
-// hand-written field is never overwritten. An incoming record with no
-// whyThisRoom is refused and counted, never stored.
+// on eventKey, then on the platform key, then on the match key (v0.21.0:
+// one room under two slugs, two host spellings or two venue spellings is
+// one card; the first link stays and the other listing's host joins the
+// card as a co-host). A match moves status only up the ladder, never back,
+// and fills whyThisRoom, notes, met, outcome only where the local record
+// has none: a hand-written field is never overwritten. An incoming record
+// with no whyThisRoom is refused and counted, never stored; a record whose
+// host is on the block list is refused and counted, never stored.
 function importEvents(incoming){
-  var res={added:0,updated:0,skipped:0,refused:0};
+  var res={added:0,updated:0,skipped:0,refused:0,blocked:0};
   if(!Array.isArray(incoming)||!incoming.length)return res;
   var list=eventsList();
-  var byKey={};
-  list.forEach(function(e){byKey[eventKey(e)]=e;});
+  var byKey={},byPlatform={},byMatch={};
+  var index=function(e){byKey[eventKey(e)]=e;var p=eventPlatformKey(e);if(p&&!byPlatform[p])byPlatform[p]=e;var m=eventMatchKey(e);if(m&&!byMatch[m])byMatch[m]=e;};
+  list.forEach(index);
   incoming.forEach(function(raw){
     if(!raw||typeof raw!=='object'){res.refused++;return;}
     var inc=normalizeEvent(Object.assign({},raw));
     if(!String(inc.whyThisRoom||'').trim()){res.refused++;return;}
-    var k=eventKey(inc);
-    var local=byKey[k];
+    if(hostBlocked(inc)){res.blocked++;return;}
+    var local=byKey[eventKey(inc)]||byPlatform[eventPlatformKey(inc)]||byMatch[eventMatchKey(inc)];
     if(!local){
       if(!inc.id||list.some(function(e){return e.id===inc.id;}))inc.id=uid();
-      list.push(inc);byKey[k]=inc;res.added++;return;
+      list.push(inc);index(inc);res.added++;return;
     }
     var moved=false;
     if(eventStatusRank(inc.status)>eventStatusRank(local.status))moved=setEventStatus(local,inc.status)||moved;
@@ -3605,6 +3806,7 @@ function importEvents(incoming){
     if(!String(local.notes||'').trim()&&String(inc.notes||'').trim()){local.notes=inc.notes;moved=true;}
     if((!Array.isArray(local.met)||!local.met.length)&&inc.met.length){local.met=inc.met.slice();moved=true;}
     if((!local.outcome||local.outcome==='none')&&inc.outcome!=='none'){local.outcome=inc.outcome;moved=true;}
+    if(addCoHosts(local,inc))moved=true;
     if(moved)res.updated++;else res.skipped++;
   });
   return res;
@@ -4011,7 +4213,7 @@ function scoreboardCounts(ym){
     const h=Array.isArray(c.statusHistory)?c.statusHistory:[];
     if(h.some(x=>x&&x.status==='replied'&&localYearMonth(x.timestamp)===ym))out.sends.conversation++;
   });
-  eventsList().forEach(e=>{if(out.rooms[e.outcome]!==undefined&&eventOutcomeMonth(e)===ym)out.rooms[e.outcome]++;});
+  eventsVisible().forEach(e=>{if(out.rooms[e.outcome]!==undefined&&eventOutcomeMonth(e)===ym)out.rooms[e.outcome]++;});
   artifactsList().forEach(a=>{if(out.artifacts[a.outcome]!==undefined&&artifactMonth(a)===ym)out.artifacts[a.outcome]++;});
   return out;
 }
@@ -4852,7 +5054,7 @@ function renderReportsPanel(){
     stamps.forEach(s=>{const ym=localYearMonth(s);if(ym)monthSet.add(ym);});
   });
   // v0.12.0: a month with an attended room (by event date) is a report month too.
-  eventsList().forEach(e=>{if(e.status==='attended'){const ym=eventStartMonth(e);if(ym)monthSet.add(ym);}});
+  eventsVisible().forEach(e=>{if(e.status==='attended'){const ym=eventStartMonth(e);if(ym)monthSet.add(ym);}});
   // v0.13.0: a month somebody was met in is a report month too.
   state.network.forEach(c=>{if(personTier(c)==='acquaintance'){const ym=acquaintanceMonth(c);if(ym)monthSet.add(ym);}});
   // v0.18.0: a month with a completed call (by its called instant) is a report month too.
@@ -7785,6 +7987,7 @@ function refreshTextLinks(inputId){
 // ====== END TTS + FULLSCREEN ======
 
 function openDrawer(){
+  renderBlockedHosts();
   g('drawer').classList.add('open');g('drawer-backdrop').classList.add('show');
 }
 function closeDrawer(){g('drawer').classList.remove('open');g('drawer-backdrop').classList.remove('show');}
@@ -7903,7 +8106,8 @@ function buildStateExport(){
   var events=eventsList().slice().sort(byId);
   var artifacts=artifactsList().slice().sort(byId);
   var calls=callsList().slice().sort(byId);
-  var payload={schemaVersion:STATE_SCHEMA_VERSION,comms:comms,network:network,events:events,artifacts:artifacts,calls:calls};
+  var blockedHosts=blockedHostsList().slice().sort(byId);
+  var payload={schemaVersion:STATE_SCHEMA_VERSION,comms:comms,network:network,events:events,artifacts:artifacts,calls:calls,blockedHosts:blockedHosts};
   return JSON.stringify(_canonicalJson(payload),null,2);
 }
 function exportState(){
@@ -7974,14 +8178,21 @@ function additiveImportState(payload){
   var metIdMap={};var localByKey={};
   state.network.forEach(function(c){metIdMap[c.id]=c.id;localByKey[contactKey(c)]=c.id;});
   contacts.forEach(function(fc){if(fc&&fc.id&&localByKey[contactKey(fc)])metIdMap[fc.id]=localByKey[contactKey(fc)];});
+  // v0.21.0 THE BLOCK LIST: the file's blocks join this book's before its
+  // rooms are read, so a host blocked in either copy is refused below and
+  // every open room of a newly blocked host is skipped.
+  var blocksBefore=blockedHostsList().length;
+  state.blockedHosts=unionBlockedHosts(blockedHostsList(),payload.blockedHosts);
+  var blocksAdded=blockedHostsList().length-blocksBefore;
+  var blockMoved=blocksAdded>0?applyBlockToEvents(new Date().toISOString()):0;
   var ev=importEvents(remapImportedMet(Array.isArray(payload.events)?payload.events:[],metIdMap));
   var ar=importArtifacts(Array.isArray(payload.artifacts)?payload.artifacts:[]);
   var cl=importCalls(Array.isArray(payload.calls)?payload.calls:[]);
   var linksMoved=syncMetLinks(new Date().toISOString());
-  if(addedC>0||addedN>0||ev.added>0||ev.updated>0||ar.added>0||ar.updated>0||cl.added>0||cl.updated>0||linksMoved){saveState();renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();}
+  if(addedC>0||addedN>0||ev.added>0||ev.updated>0||ar.added>0||ar.updated>0||cl.added>0||cl.updated>0||linksMoved||blocksAdded>0||blockMoved>0){saveState();renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();renderBlockedHosts();}
   var wentQuiet=autoArchiveStaleComms();
   if(wentQuiet.length>0){renderComms();renderOverview();renderMapPins();}
-  return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,addedEvents:ev.added,updatedEvents:ev.updated,skippedEvents:ev.skipped,refusedEvents:ev.refused,addedArtifacts:ar.added,updatedArtifacts:ar.updated,skippedArtifacts:ar.skipped,refusedArtifacts:ar.refused,addedCalls:cl.added,updatedCalls:cl.updated,skippedCalls:cl.skipped,refusedCalls:cl.refused,wentQuiet:wentQuiet};
+  return {addedComms:addedC,skippedComms:skippedC,addedContacts:addedN,skippedContacts:skippedN,addedEvents:ev.added,updatedEvents:ev.updated,skippedEvents:ev.skipped,refusedEvents:ev.refused,blockedEvents:ev.blocked,blockedHostsAdded:blocksAdded,addedArtifacts:ar.added,updatedArtifacts:ar.updated,skippedArtifacts:ar.skipped,refusedArtifacts:ar.refused,addedCalls:cl.added,updatedCalls:cl.updated,skippedCalls:cl.skipped,refusedCalls:cl.refused,wentQuiet:wentQuiet};
 }
 function importStateFile(file){
   var reader=new FileReader();
@@ -7995,6 +8206,8 @@ function importStateFile(file){
     if(r.addedEvents||r.updatedEvents)msg+=' · '+r.addedEvents+' EVENT'+(r.addedEvents===1?'':'S')+(r.updatedEvents?' + '+r.updatedEvents+' UPDATED':'');
     if(r.skippedComms||r.skippedContacts||r.skippedEvents)msg+=' · '+(r.skippedComms+r.skippedContacts+r.skippedEvents)+' ALREADY PRESENT';
     if(r.refusedEvents)msg+=' · '+r.refusedEvents+' EVENT'+(r.refusedEvents===1?'':'S')+' REFUSED: NO REASON GIVEN';
+    if(r.blockedEvents)msg+=' · '+r.blockedEvents+' EVENT'+(r.blockedEvents===1?'':'S')+' REFUSED: BLOCKED HOST';
+    if(r.blockedHostsAdded)msg+=' · '+r.blockedHostsAdded+' HOST'+(r.blockedHostsAdded===1?'':'S')+' BLOCKED FROM THE FILE';
     if(r.addedArtifacts||r.updatedArtifacts)msg+=' · '+r.addedArtifacts+' ARTIFACT'+(r.addedArtifacts===1?'':'S')+(r.updatedArtifacts?' + '+r.updatedArtifacts+' UPDATED':'');
     if(r.refusedArtifacts)msg+=' · '+r.refusedArtifacts+' ARTIFACT'+(r.refusedArtifacts===1?'':'S')+' REFUSED: NO TITLE OR NO REASON';
     if(r.addedCalls||r.updatedCalls)msg+=' · '+r.addedCalls+' CALL'+(r.addedCalls===1?'':'S')+(r.updatedCalls?' + '+r.updatedCalls+' UPDATED':'');
@@ -8167,7 +8380,7 @@ var _stateRev=0;               // the rev this tab last built on / received
 var _syncedIds=null;
 function allStateIds(){
   var ids={};
-  [state.comms,state.network,eventsList(),artifactsList(),callsList()].forEach(function(list){(list||[]).forEach(function(r){if(r&&r.id)ids[r.id]=true;});});
+  [state.comms,state.network,eventsList(),artifactsList(),callsList(),blockedHostsList()].forEach(function(list){(list||[]).forEach(function(r){if(r&&r.id)ids[r.id]=true;});});
   return ids;
 }
 function loadSyncedIds(){
@@ -8295,6 +8508,9 @@ function mergeServerState(file){
     state.artifacts.forEach(function(a){normalizeArtifact(a);});
     state.calls=take(mergeRecordSlice(callsList(),Array.isArray(file.calls)?file.calls:[],editingCallId,_syncedIds));
     state.calls.forEach(function(c){normalizeCall(c);});
+    // v0.21.0: the block list merges per row like every record; a row the
+    // file let go (the founder's hand in another tab) leaves by the drop rule.
+    state.blockedHosts=take(mergeRecordSlice(blockedHostsList(),Array.isArray(file.blockedHosts)?file.blockedHosts:[],null,_syncedIds));
     if(syncMetLinks(new Date().toISOString()))owed=true; // v0.11.0: metAt follows the merged events; a change owes the file a sync
     state.comms.forEach(function(c){
       if(!Array.isArray(c.history))c.history=[];
@@ -8304,11 +8520,11 @@ function mergeServerState(file){
     });
     if(typeof file.rev==='number')_stateRev=file.rev;
     // v0.10.0: the ledger is the file's ids as of this merge.
-    var fileIds={};[file.comms,file.network,Array.isArray(file.events)?file.events:[],Array.isArray(file.artifacts)?file.artifacts:[],Array.isArray(file.calls)?file.calls:[]].forEach(function(list){list.forEach(function(r){if(r&&r.id)fileIds[r.id]=true;});});
+    var fileIds={};[file.comms,file.network,Array.isArray(file.events)?file.events:[],Array.isArray(file.artifacts)?file.artifacts:[],Array.isArray(file.calls)?file.calls:[],Array.isArray(file.blockedHosts)?file.blockedHosts:[]].forEach(function(list){list.forEach(function(r){if(r&&r.id)fileIds[r.id]=true;});});
     saveSyncedIds(fileIds);
     saveState(); // the ONE canonical writer persists the merge locally; the
                  // _isMergingServerState guard keeps it from echoing a POST
-    renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();
+    renderComms();renderNetwork();renderVault();renderOverview();renderMapPins();renderBlockedHosts();
   }finally{_isMergingServerState=false;}
   if(dropped.length)toast(dropped.length+' RECORD'+(dropped.length===1?'':'S')+' DROPPED · THE FILE NO LONGER CARRIES THEM','amber');
   // v0.7.0: a merge that kept this tab's newer copies, or carried records
@@ -8558,7 +8774,9 @@ function snapshotLoad(file){
     const commCount=parsed.comms.length;
     if(!confirm('Load this snapshot? It REPLACES all current data with '+commCount+' comm'+(commCount===1?'':'s')+' from the file.\n\nIf you have unsaved changes here, save a snapshot first.'))return;
     // run through the same migrations loadState applies, by stashing then re-loading
+    const priorBlocks=blockedHostsList().slice(); // v0.21.0: a block survives a full replace
     state=Object.assign(freshState(),parsed);
+    state.blockedHosts=unionBlockedHosts(priorBlocks,parsed.blockedHosts);applyBlockToEvents();
     if(!Array.isArray(state.network))state.network=[];
     if(!Array.isArray(state.insights))state.insights=[];
     state.comms.forEach(c=>{if(!Array.isArray(c.history))c.history=[];if(!Array.isArray(c.statusHistory))c.statusHistory=[{status:c.status||'draft',timestamp:c.createdAt||new Date().toISOString()}];});
@@ -8577,11 +8795,16 @@ function importJson(file){
       const parsed=JSON.parse(e.target.result);
       if(!confirm('Replace ALL current data with imported file?'))return;
       const priorKey=state.groqKey;
+      const priorBlocks=blockedHostsList().slice(); // v0.21.0: a block survives a full replace
       state=Object.assign(freshState(),parsed);
       // v0.4.7: exports no longer carry groqKey, so a full replace must not
       // silently log the user out of the council. An imported key wins when a
       // pre-v0.4.7 backup carries one; else the pre-import session key survives.
       state.groqKey=parsed.groqKey||priorKey;
+      // v0.21.0 THE BLOCK LIST survives a full replace: the file's rows and the
+      // rows this book held before, as one list; a blocked host's open rooms
+      // the file brings in are skipped, and none renders.
+      state.blockedHosts=unionBlockedHosts(priorBlocks,parsed.blockedHosts);applyBlockToEvents();
       saveState();renderAll();toast('IMPORTED','green');
     }catch(err){toast('INVALID JSON','err');}
   };
@@ -8850,6 +9073,7 @@ function wireEvents(){
     if(act==='select-event')quickEventStatus(id,'selected');
     if(act==='attend-event')quickEventStatus(id,'attended');
     if(act==='skip-event')quickEventStatus(id,'skipped');
+    if(act==='block-host')blockHost(id);
     if(act==='edit-call')openCallModal(id);
     if(act==='called-call')quickCallStatus(id,'called');
     if(act==='skip-call')quickCallStatus(id,'skipped');
@@ -9126,6 +9350,8 @@ function wireEvents(){
   g('btn-import-state').addEventListener('click',()=>g('import-state-file').click());
   g('import-state-file').addEventListener('change',e=>{if(e.target.files&&e.target.files[0]){importStateFile(e.target.files[0]);e.target.value='';}});
   g('btn-wipe').addEventListener('click',wipeAll);
+  // v0.21.0: UNBLOCK in the drawer, delegated since the list re-renders.
+  g('blocked-hosts').addEventListener('click',e=>{const btn=e.target.closest('[data-act="unblock-host"]');if(btn)unblockHost(btn.dataset.id);});
   // v3.3: city popup — click any list item to fast-path into the comm modal.
   // Delegated since list items are re-rendered every time the popup opens.
   g('modal-city-body').addEventListener('click',e=>{
