@@ -86,9 +86,9 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   g.document=undefined;
 
   var ge=eval;
-  ['esc','CALL_STATUSES','EVENT_STATUSES','EVENT_OUTCOMES','OVERVIEW_SERIES','MONTH_SHORT','MONTH_LONG'].forEach(function(n){ge(extractVar(html,n));});
+  ['HOST_NAME_FLOOR','esc','CALL_STATUSES','EVENT_STATUSES','EVENT_OUTCOMES','OVERVIEW_SERIES','MONTH_SHORT','MONTH_LONG'].forEach(function(n){ge(extractVar(html,n));});
   ['localYearMonth','sentRecord','standingArchiveEntries','callsList','normalizeSupport','normalizeCall','calledAt','callCommItems','callsInMonth',
-   'computeMonthStats','eventsList','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','eventStartMonth','byEventStart','roomsInMonth',
+   'computeMonthStats','eventsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','eventStartMonth','byEventStart','roomsInMonth',
    'personTier','acquaintanceMonth','metInMonth','monthFigures','activityMonths','monthRange','monthLabelLong','monthLabelShort','overviewChartSvg'
   ].forEach(function(n){ge(extractFn(html,n));});
 

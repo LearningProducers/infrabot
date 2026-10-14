@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.20.0.
+dependencies beyond Python 3 and a browser. This README describes v0.21.0.
 
 ## What it does
 
@@ -21,7 +21,16 @@ The app has four tabs.
   considering and the phone calls you are about to make, behind six pills:
   CONTACTS, ACQUAINTANCES, CANDIDATES, SELECTED, ATTENDED and CALLS, each
   with its count; SKIPPED rooms sit folded at the foot of CANDIDATES, and a
-  city filter narrows every events pill.
+  city filter narrows every events pill. Event cards sit in the call card's
+  frame, one per row. BLOCK HOST on any event card, beside SKIP, asks once
+  and puts the room's host (and its co-hosts) on the block list: absolute
+  and permanent, nothing of theirs is imported or shown again on any
+  surface, their open rooms are skipped, their attended rooms keep their
+  state and leave the pills, and the people you met there stay. The list
+  is in the settings drawer under BLOCKED HOSTS, where UNBLOCK is the only
+  way off it. An import folds one room listed under two links into one
+  card (the same platform event id, or the same title, start and venue)
+  and names the other listing's group as a co-host on the card.
   Every person carries a tier. A CONTACT is someone you have had a live
   conversation with: the full card (company, website, email, CHANNEL,
   city, intel), the gold mark, a COUNCIL button and an ACQUAINTANCE
@@ -81,6 +90,14 @@ SECOND VOICE. No model id is pinned in the code, so a retired model never
 strands a slot. The labels say what is actually running. The prompt the crew
 judges by lives inside `infrabot.html`; edit it to impose your own definition
 of send-worthy. The key stays in your browser's storage and is never exported.
+
+**Blocked hosts.** The settings drawer lists every host you blocked from a
+room card, with the date, and an UNBLOCK button on each: the one way a host
+leaves the list. The list rides the state export and survives both IMPORT
+JSON and the snapshot load (the file's rows and yours become one list), and
+the state file merge carries it like every record. A room whose host is on
+the list is refused at import and counted in the toast, is never shown, and
+stays on the file as it was.
 
 **Data.** The settings drawer has EXPORT JSON (the whole state), IMPORT JSON
 (a full replace), IMPORT DRAFTS (adds draft cards from a text file of
@@ -332,6 +349,16 @@ Every check in `tests/` runs standalone from the repo root against the real
   chart's own last point. The YOU block is three fields, home city (the map
   pin), time zone (the clocks) and what you offer (read by the crew), with
   EDIT; the set-up pitch is gone.
+- **v0.21.0.** Block host: a BLOCK HOST button on every event card puts the
+  room's hosts on a block list in the state (name, the platform's organizer
+  id when the feed wrote one, the instant); absolute and permanent: a
+  blocked host's rooms are refused at import, hidden on every surface, kept
+  on the file at the merge, and the list survives the export, both
+  full-replace imports and the merge; UNBLOCK in the settings drawer is the
+  only way off. An event carries `organizerId` and `coHosts`; the import
+  dedupes on the platform event id and on title, start and venue beside the
+  link, folding the other listing's group in as a co-host. Event cards sit
+  in the call card's frame, one per row, the body a size up.
 
 ## Licenses
 

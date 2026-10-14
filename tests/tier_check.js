@@ -79,8 +79,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
 
   var g=(typeof globalThis!=='undefined')?globalThis:this;
   var ge=eval;
-  ['EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','PERSON_TIERS','RENDERED_TIERS','networkView','eventsCityFilter','uid'].forEach(function(n){ge(extractVar(html,n));});
-  ['eventsList','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','localYearMonth','inMonthWindow',
+  ['HOST_NAME_FLOOR','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','PERSON_TIERS','RENDERED_TIERS','networkView','eventsCityFilter','uid'].forEach(function(n){ge(extractVar(html,n));});
+  ['eventsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','localYearMonth','inMonthWindow',
    'eventStartMonth','byEventStart','eventCities','eventsShown','findContactByName','linkMetNames',
    'personTier','normalizePerson','setPersonTier','goldFor','networkMatch','acquaintanceMonth','latestMetRoom','metInMonth','callsList','networkViewBar'].forEach(function(n){ge(extractFn(html,n));});
 

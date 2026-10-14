@@ -65,6 +65,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   g.state={comms:[],network:[],events:[],artifacts:[]};
   g.eventsList=function(){return g.state.events;};
   g.artifactsList=function(){return g.state.artifacts;};
+  g.blockedHostsList=function(){return g.state.blockedHosts||[];}; // v0.21.0: the sixth slice
   g._syncedIds=null;
   var ge=eval;
   ge(extractConstLine(html,'SYNCED_IDS_KEY'));
@@ -124,14 +125,14 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('L3 the ledger round-trips', back&&back.id_a===true&&back.id_b===true&&Object.keys(back).length===2, JSON.stringify(back));
   store[SYNCED_IDS_KEY]='not json';
   check('L4 an unreadable ledger reads null (the boot seeds a fresh one)', loadSyncedIds()===null, String(loadSyncedIds()));
-  check('L5 allStateIds covers all four slices', seeded.id_fx_keep===true&&seeded.id_ev_smoke===true&&seeded.id_ar_smoke===true&&Object.keys(seeded).length===5, JSON.stringify(seeded));
+  check('L5 allStateIds covers every slice (the block list empty here)', seeded.id_fx_keep===true&&seeded.id_ev_smoke===true&&seeded.id_ar_smoke===true&&Object.keys(seeded).length===5, JSON.stringify(seeded));
 
   // --- S: the source pins ---------------------------------------------------
   var init=extractFn(html,'initStateSync');
   check('S1 the boot loads the ledger and seeds it from what the tab holds when none is stored', init.indexOf('_syncedIds=loadSyncedIds();if(_syncedIds===null)saveSyncedIds(allStateIds());')!==-1&&init.indexOf('_syncedIds')<init.indexOf('fetch(STATE_ENDPOINT_PATH'), '');
   check('S2 the boot export re-arms after the first merge', /mergeServerState\(f\);scheduleAutoExport\(\);/.test(init), '');
   var msv=extractFn(html,'mergeServerState');
-  check('S3 every slice merges with the ledger', (msv.match(/,_syncedIds\)\)/g)||[]).length===5, String((msv.match(/,_syncedIds\)\)/g)||[]).length));
+  check('S3 every slice merges with the ledger (six since v0.21.0, the block list the sixth)', (msv.match(/,_syncedIds\)\)/g)||[]).length===6, String((msv.match(/,_syncedIds\)\)/g)||[]).length));
   check('S4 after a merge the ledger is the file\'s ids', msv.indexOf('saveSyncedIds(fileIds)')!==-1&&msv.indexOf('var fileIds={}')!==-1, '');
   check('S5 a merge that dropped records says so once', /if\(dropped\.length\)toast\(dropped\.length\+' RECORD'/.test(msv), '');
   var sync=extractFn(html,'syncStateToServer');
