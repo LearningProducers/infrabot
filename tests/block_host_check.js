@@ -153,22 +153,22 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   ]);
   check('I1 a blocked host is refused at import by id, by name and as a co-host, counted, never stored',r.blocked===3&&r.added===1&&r.refused===0&&eventsList().length===8&&!eventsList().some(function(e){return e.id==='i1'||e.id==='i2'||e.id==='i3';}),JSON.stringify(r));
   fresh();
-  var r2=importEvents([room('k1','Twin Room','Alpha Fixture Co',{url:'https://www.meetup.com/old-slug/events/316000001/',venue:'Aon Center'}),
-                       room('k2','Twin Room','Alpha Fixture Co (formerly Alpha)',{url:'https://www.meetup.com/new-slug/events/316000001/',venue:'Aon Center, 200 E Sample St, Chicago, IL'})]);
+  var r2=importEvents([room('k1','Twin Room','Alpha Fixture Co',{url:'https://www.meetup.com/old-slug/events/316000001/',venue:'Sample Center'}),
+                       room('k2','Twin Room','Alpha Fixture Co (formerly Alpha)',{url:'https://www.meetup.com/new-slug/events/316000001/',venue:'Sample Center, 200 E Sample St, Fixture City, FX'})]);
   var twin=eventsList().filter(function(e){return e.title==='Twin Room';});
   check('K1 one Meetup event id under two slugs is one card; the first link stays',r2.added===1&&(r2.skipped===1||r2.updated===1)&&twin.length===1&&twin[0].url==='https://www.meetup.com/old-slug/events/316000001/',JSON.stringify(r2));
   check('K1 the second listing\'s host is the same host, so no co-host is added',twin[0].coHosts.length===0,JSON.stringify(twin[0].coHosts));
   fresh();
-  var r3=importEvents([room('k3','Builder Lab','Group One',{url:'https://rooms.invalid/k3',venue:'311 North Green Street'}),
-                       room('k4','Builder Lab','Group Two',{url:'https://rooms.invalid/k4',venue:'311 North Green Street, 311 N Green St, Chicago, IL 60607'})]);
+  var r3=importEvents([room('k3','Builder Lab','Group One',{url:'https://rooms.invalid/k3',venue:'311 Fixture Street'}),
+                       room('k4','Builder Lab','Group Two',{url:'https://rooms.invalid/k4',venue:'311 Fixture Street, 311 Fixture St, Fixture City, FX 00000'})]);
   var lab=eventsList().filter(function(e){return e.title==='Builder Lab';});
   check('K2 same title, start minute and venue head under two links is one card with the other group as co-host',r3.added===1&&r3.updated===1&&lab.length===1&&lab[0].url==='https://rooms.invalid/k3'&&lab[0].coHosts.length===1&&lab[0].coHosts[0].name==='Group Two',JSON.stringify(lab[0]&&lab[0].coHosts));
   fresh();
-  var r4=importEvents([room('k5','Builder Lab','Group One',{url:'https://rooms.invalid/k5',venue:'311 North Green Street'}),
-                       room('k6','Builder Lab','Group Three',{url:'https://rooms.invalid/k6',venue:'800 W Fulton Market'})]);
+  var r4=importEvents([room('k5','Builder Lab','Group One',{url:'https://rooms.invalid/k5',venue:'311 Fixture Street'}),
+                       room('k6','Builder Lab','Group Three',{url:'https://rooms.invalid/k6',venue:'800 Placeholder Market'})]);
   check('K3 the same title and start at a different venue stays its own card',r4.added===2);
-  check('K4 the platform key folds lu.ma into luma.com and reads the three ids',eventPlatformKey({url:'https://lu.ma/play-6wlq',start:'2026-03-20T18:00'})===eventPlatformKey({url:'https://luma.com/play-6wlq/',start:'2026-03-20T18:00'})&&eventPlatformKey({url:'https://www.meetup.com/x/events/316000001/',start:'2026-03-20T18:00'})==='meetup:316000001|2026-03-20'&&eventPlatformKey({url:'https://www.eventbrite.com/e/some-room-tickets-2002609710553',start:'2026-03-20T18:00'})==='eventbrite:2002609710553|2026-03-20'&&eventPlatformKey({url:'',start:'2026-03-20T18:00'})==='');
-  check('K5 the match key is empty without a title, a start or a venue',eventMatchKey({title:'T',start:'',venue:'V'})===''&&eventMatchKey({title:'',start:'2026-03-20T18:00',venue:'V'})===''&&eventMatchKey({title:'T',start:'2026-03-20T18:00',venue:''})===''&&eventMatchKey({title:'T',start:'2026-03-20T18:00',venue:'Aon Center, 200 E'})==='t|2026-03-20T18:00|aon center');
+  check('K4 the platform key folds lu.ma into luma.com and reads the three ids',eventPlatformKey({url:'https://lu.ma/fixture-ab12',start:'2026-03-20T18:00'})===eventPlatformKey({url:'https://luma.com/fixture-ab12/',start:'2026-03-20T18:00'})&&eventPlatformKey({url:'https://www.meetup.com/x/events/316000001/',start:'2026-03-20T18:00'})==='meetup:316000001|2026-03-20'&&eventPlatformKey({url:'https://www.eventbrite.com/e/some-room-tickets-1000000000001',start:'2026-03-20T18:00'})==='eventbrite:1000000000001|2026-03-20'&&eventPlatformKey({url:'',start:'2026-03-20T18:00'})==='');
+  check('K5 the match key is empty without a title, a start or a venue',eventMatchKey({title:'T',start:'',venue:'V'})===''&&eventMatchKey({title:'',start:'2026-03-20T18:00',venue:'V'})===''&&eventMatchKey({title:'T',start:'2026-03-20T18:00',venue:''})===''&&eventMatchKey({title:'T',start:'2026-03-20T18:00',venue:'Sample Center, 200 E'})==='t|2026-03-20T18:00|sample center');
   check('K6 a same-key import still moves status up only and fills nothing written',(function(){fresh();state.events=[room('x1','Twin','Alpha Fixture Co',{url:'https://www.meetup.com/a/events/316000002/',status:'selected',notes:'hand'})];var rr=importEvents([room('x2','Twin','Alpha Fixture Co',{url:'https://www.meetup.com/b/events/316000002/',status:'candidate',notes:'machine'})]);return rr.skipped===1&&state.events.length===1&&state.events[0].status==='selected'&&state.events[0].notes==='hand';})());
 
   // --- E: the export and the two full-replace doors --------------------------

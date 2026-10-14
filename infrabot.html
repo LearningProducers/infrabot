@@ -61,31 +61,31 @@
 ║  L  2563– 2788  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
 ║  L  2789– 2822  launchApp (gate flow removed in v0.2.5)                      ║
 ║  L  2823– 2868  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2869– 4369  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  4370– 4490  getCommBucket + age helpers, setCommsView                    ║
-║  L  4491– 4852  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  4853– 5014  renderComms — full status/triage rendering                   ║
-║  L  5015– 5042  archiveComm + reviveComm                                     ║
-║  L  5043– 5169  renderReportsPanel + computeMonthStats                       ║
-║  L  5170– 5382  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  5383– 5656  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5657– 5707  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5708– 5984  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  5985– 6135  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  6136– 6203  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  6204– 6493  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  2869– 4372  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  4373– 4493  getCommBucket + age helpers, setCommsView                    ║
+║  L  4494– 4855  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  4856– 5017  renderComms — full status/triage rendering                   ║
+║  L  5018– 5045  archiveComm + reviveComm                                     ║
+║  L  5046– 5172  renderReportsPanel + computeMonthStats                       ║
+║  L  5173– 5385  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  5386– 5659  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5660– 5710  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  5711– 5987  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  5988– 6138  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  6139– 6206  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  6207– 6496  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  6494– 6608  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6609– 6639  saveProfile + clock save/remove                              ║
-║  L  6640– 6793  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  6794– 6973  buildCouncilContext (system+profile+body+intel)              ║
-║  L  6974– 7218  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  7219– 7637  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7638– 7997  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  7998– 8009  initCrewBlock, drawer toggle, crew status                    ║
-║  L  8010– 8054  saveGroqKey, clearGroqKey                                    ║
-║  L  8055– 9031  exportAll, importJson, wipeAll                               ║
+║  L  6497– 6611  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6612– 6642  saveProfile + clock save/remove                              ║
+║  L  6643– 6796  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  6797– 6976  buildCouncilContext (system+profile+body+intel)              ║
+║  L  6977– 7221  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  7222– 7640  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7641– 8000  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  8001– 8012  initCrewBlock, drawer toggle, crew status                    ║
+║  L  8013– 8057  saveGroqKey, clearGroqKey                                    ║
+║  L  8058– 9034  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -423,17 +423,17 @@
 ║      (HTML, renderer, CSS; scoreboardCounts stays, pinned). TODAY restyled   ║
 ║      under the chart, ROOMS by event date; YOU is three fields with what     ║
 ║      each drives, the set-up pitch gone. tests/overview_chart_check.js.      ║
-║  ·  v0.21.0 BLOCK HOST: state.blockedHosts, a record list of hosts the      ║
-║      founder blocked from a room card (name, the platform's organizer id,   ║
-║      the instant); absolute and permanent: a blocked host's rooms are       ║
-║      refused at import, hidden on every surface (eventsVisible), kept on    ║
-║      the file at merge, and the list survives export, both full-replace     ║
-║      imports and the merge; UNBLOCK in SETTINGS is the only way off. The    ║
-║      event record carries organizerId and coHosts; import dedupes on the    ║
-║      platform key and the title-start-venue match key beside eventKey and   ║
-║      folds the other listing's host in as a co-host. The event card sits in ║
-║      the call card's frame, one across. tests/block_host_check.js.          ║
-║  L  9032– 9370  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.21.0 BLOCK HOST: state.blockedHosts, a record list of hosts the       ║
+║      founder blocked from a room card (name, the platform's organizer id,    ║
+║      the instant); absolute and permanent: a blocked host's rooms are        ║
+║      refused at import, hidden on every surface (eventsVisible), kept on     ║
+║      the file at merge, and the list survives export, both full-replace      ║
+║      imports and the merge; UNBLOCK in SETTINGS is the only way off. The     ║
+║      event record carries organizerId and coHosts; import dedupes on the     ║
+║      platform key and the title-start-venue match key beside eventKey and    ║
+║      folds the other listing's host in as a co-host. The event card sits in  ║
+║      the call card's frame, one across. tests/block_host_check.js.           ║
+║  L  9035– 9373  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
