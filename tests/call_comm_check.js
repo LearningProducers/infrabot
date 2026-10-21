@@ -49,8 +49,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   glob.state={comms:[],network:[],calls:[],profile:{homeTz:'America/Chicago'}};
   glob.saveState=function(){throw new Error('saveState must never run from a derived render');};
   var ge=eval;
-  ['esc','URL_TOKEN_RE','CALL_STATUSES'].forEach(function(n){ge(extractVar(html,n));});
-  ['linkHref','linkHtml','urlTokenParts','linkedTextHtml','hookHtml','homeTzNow','normalizeSupport','normalizeCall','callsList','calledAt','callCommItems','renderCallCommCard'].forEach(function(n){ge(extractFn(html,n));});
+  ['esc','URL_TOKEN_RE','CALL_STATUSES','CALL_DISPOSITIONS','CALL_STAGE_LABELS','CALL_TERMINAL'].forEach(function(n){ge(extractVar(html,n));});
+  ['linkHref','linkHtml','urlTokenParts','linkedTextHtml','hookHtml','homeTzNow','normalizeSupport','normalizeAttempts','lastAttempt','legacyDialAt','callDialed','callStage','normalizeCall','callsList','calledAt','callCommItems','attemptWall','attemptsHtml','renderCallCommCard'].forEach(function(n){ge(extractFn(html,n));}); // v0.22.0: the stage and the attempt lines
 
   var failures=0,checks=0;
   function check(name,ok,detail){
@@ -66,7 +66,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
 
   // --- D: derivation --------------------------------------------------------
   var items=callCommItems();
-  check('D1 only the completed call becomes an item; queued and skipped stay off the tab', items.length===1&&items[0].kind==='call'&&items[0].c.id==='id_fix_call1', JSON.stringify(items.map(function(i){return i.c.id;})));
+  check('D1 only the dialed, open brief becomes an item; queued and closed (the skipped brief from before v0.22.0) stay off the tab', items.length===1&&items[0].kind==='call'&&items[0].c.id==='id_fix_call1'&&skipped.status==='closed', JSON.stringify(items.map(function(i){return i.c.id;})));
+  check('D1b a brief with an attempt line rides at the line\'s instant; a closed one leaves the tab', (function(){var a={id:'id_fix_call4',company:'Lined Co',hook:'A hook.',attempts:[{at:'2026-01-05T15:00:00.000Z',disposition:'no answer',note:''}],statusHistory:[{status:'queued',timestamp:'2026-01-05T10:00:00.000Z'}],createdAt:'2026-01-05T10:00:00.000Z'};glob.state.calls=[queued,called,skipped,a];var it=callCommItems();var on=it.length===2&&it[1].c.id==='id_fix_call4'&&it[1].when==='2026-01-05T15:00:00.000Z'&&a.status==='attempted';a.closedAt='2026-01-06T00:00:00.000Z';var off=callCommItems().length===1;glob.state.calls=[queued,called,skipped];return on&&off;})(), '');
   check('D2 the item\'s instant is the call\'s called transition, not its creation', items[0].when==='2026-01-02T19:36:00.000Z', items[0].when);
   check('D3 a called record with no called transition falls back to its stamps', calledAt({status:'called',updatedAt:'2026-02-01T00:00:00.000Z',statusHistory:[]})==='2026-02-01T00:00:00.000Z', '');
   check('D4 the derivation reads the record and writes nothing (no saveState, no state.comms push)', (function(){var src=extractFn(html,'callCommItems')+extractFn(html,'renderCallCommCard')+extractFn(html,'calledAt');return src.indexOf('saveState')===-1&&src.indexOf('comms.push')===-1&&src.indexOf('state.comms')===-1;})(), '');
@@ -74,14 +75,14 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   // --- R: the card -----------------------------------------------------------
   var h=renderCallCommCard(normalizeCall(called));
   check('R1 the card names the company and reads OUT, PHONE, the number and the location in its sub line', h.indexOf('card-name">Fixture Fasteners<')!==-1&&h.indexOf('OUT →</span> · PHONE · (555) 010-0100 · FIXTURE CITY')!==-1, h.slice(0,400));
-  check('R2 the status pill reads CALLED in the called style', h.indexOf('<span class="card-status called">CALLED</span>')!==-1, '');
-  check('R3 the outcome is the call\'s notes, escaped, in its own section', h.indexOf('card-section-h">Outcome<')!==-1&&h.indexOf('Spoke with &lt;Pat&gt; &amp; the desk; they asked for one page in writing.')!==-1&&h.indexOf('<Pat>')===-1, h);
+  check('R2 the status pill reads the stage (a dial from before v0.22.0 with a follow-through name reads FOLLOW-UP)', h.indexOf('<span class="card-status followup">FOLLOW-UP</span>')!==-1, h.slice(0,400));
+  check('R3 the notes render escaped in their own section, under the attempt lines', h.indexOf('card-section-h">Notes<')!==-1&&h.indexOf('Spoke with &lt;Pat&gt; &amp; the desk; they asked for one page in writing.')!==-1&&h.indexOf('<Pat>')===-1&&h.indexOf('card-section-h">Attempts<')!==-1&&h.indexOf('card-section-h">Attempts<')<h.indexOf('card-section-h">Notes<')&&h.indexOf('dialed, outcome not logged')!==-1, h);
   check('R4 the hook renders through the one hook renderer', h.indexOf('card-section-h">Hook<')!==-1&&h.indexOf('OPERATOR. The one reason for the call.')!==-1, '');
   check('R5 the follow-through names the person and the channel', h.indexOf('card-section-h">Follow-through<')!==-1&&h.indexOf('Pat Fixture · (555) 010-0199')!==-1, '');
-  check('R6 the day it was made renders as a local date', /card-section-h">Called<[\s\S]*?>2026-01-02</.test(h), h.slice(h.indexOf('Called')));
+  check('R6 the last dial renders as a local date', /card-section-h">Last dial<[\s\S]*?>2026-01-02</.test(h), h.slice(h.indexOf('Last dial')));
   check('R7 OPEN carries the call\'s own action and id, nothing else acts', h.indexOf('data-act="edit-call" data-id="id_fix_call1"')!==-1&&(h.match(/data-act=/g)||[]).length===1, '');
   var h2=renderCallCommCard(normalizeCall(Object.assign({},called,{notes:'',followName:'',followChannel:'',location:'',phone:''})));
-  check('R8 a call with no notes says so, and empty fields render nothing', h2.indexOf('no notes on the call')!==-1&&h2.indexOf('Follow-through')===-1&&h2.indexOf('OUT →</span> · PHONE</div>')!==-1, h2.slice(0,300));
+  check('R8 a call with no notes carries no Notes section, and empty fields render nothing', h2.indexOf('Notes<')===-1&&h2.indexOf('Follow-through')===-1&&h2.indexOf('OUT →</span> · PHONE</div>')!==-1&&h2.indexOf('card-status attempted">ATTEMPTED')!==-1, h2.slice(0,300));
 
   // --- S: source pins ---------------------------------------------------------
   var rc=extractFn(html,'renderComms');

@@ -69,10 +69,10 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var rendered=0;
   g.renderNetwork=function(){rendered++;};
   var ge=eval;
-  ['HOST_NAME_FLOOR','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','networkView','eventsCityFilter'].forEach(function(n){ge(extractVar(html,n));});
+  ['HOST_NAME_FLOOR','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','networkView','eventsCityFilter','CALL_STATUSES','CALL_STAGE_LABELS','CALL_DISPOSITIONS','CALL_TERMINAL','esc'].forEach(function(n){ge(extractVar(html,n));}); // v0.22.0: the bar reads every brief's stage
   ['eventsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','homeTzNow','normalizeCost','normalizeEvent','wallTimeToDate','localYearMonth','archiveMonth',
    'inMonthWindow','inArchiveWindow','eventStartMonth','byEventStart','roomsInMonth','eventCities','eventsShown',
-   'personTier','acquaintanceMonth','callsList','networkViewBar','setNetworkView'].forEach(function(n){ge(extractFn(html,n));});
+   'personTier','acquaintanceMonth','callsList','normalizeSupport','normalizeAttempts','lastAttempt','legacyDialAt','callDialed','callStage','normalizeCall','callStageStrip','networkViewBar','setNetworkView'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
   function check(name,ok,detail){

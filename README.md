@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.21.0.
+dependencies beyond Python 3 and a browser. This README describes v0.22.0.
 
 ## What it does
 
@@ -47,12 +47,26 @@ The app has four tabs.
   link), the website, the hook (the one reason for the call), the support
   (citations, each with the exact words, the page they read on and the day
   you checked it; a citation with no page, no date or a flag reads
-  UNVERIFIED on the card), and the follow-through: the person you were
-  given, typed as "Name (number or channel)", who links to a Network person
-  of that name or becomes one. Each brief spans the pane, one per row. A
-  brief is written by your agent through the state door or typed in the
-  form, where SUPPORT and NOTES each open in the fullscreen editor the
-  message body has; the page generates none of it.
+  UNVERIFIED on the card), the attempts (every dial a dated line carrying
+  exactly one disposition from a fixed list: no answer, voicemail left,
+  gatekeeper, connected, callback booked, not interested, wrong number,
+  and a note), and the follow-through: the person you were given, typed as
+  "Name (number or channel)", the one place for the name; it links to the
+  Network person of that name or creates one, and a changed spelling on
+  the brief renames the linked person. The briefs sit in five pipeline
+  stages, each a section with its count and all five counts on the CALLS
+  pill: QUEUED (no dial yet), ATTEMPTED (dialed, nobody reached),
+  CONNECTED (the last line connected), FOLLOW-UP (a callback booked or a
+  person to reach) and CLOSED (folded at the foot). The stage is read from
+  the record and never typed: the LOG row on the card stamps a line now
+  with the disposition you pick, a terminal disposition closes the brief,
+  a later dial reopens it, CLOSE and REOPEN are the hand acts, and the
+  form's ATTEMPTS box takes the lines typed (a date, an optional time,
+  the disposition, then any note; a line with none of the seven is
+  refused). Each brief spans the pane, one per row. A brief is written by
+  your agent through the state door or typed in the form, where SUPPORT,
+  ATTEMPTS and NOTES each open in the fullscreen editor the message body
+  has; the page generates none of it.
 - **COMMUNICATIONS.** Draft cards, one per message. A card carries the
   person, the company, the address, a one-line hook (why they would care and
   what you are handing them), its sources (one row per claim the hook or the
@@ -359,6 +373,17 @@ Every check in `tests/` runs standalone from the repo root against the real
   dedupes on the platform event id and on title, start and venue beside the
   link, folding the other listing's group in as a co-host. Event cards sit
   in the call card's frame, one per row, the body a size up.
+- **v0.22.0.** Call dispositions: five pipeline stages on the CALLS pill
+  (queued, attempted, connected, follow-up, closed), each a section with
+  its count and all five counts in the pill; every dial a dated line on
+  the brief (`attempts`: the instant, one disposition from the fixed seven,
+  a note), logged from the card's LOG row or typed in the form's ATTEMPTS
+  box; the stage read from the record and never typed (`closedAt` the one
+  close mark, set by CLOSE or a terminal disposition, cleared by REOPEN or
+  a later dial); the follow-through field the one place for the name, the
+  Network person renamed or relinked to it; a call made is a dial in the
+  month report and the chart; a brief from before reads ATTEMPTED on its
+  recorded dial and a skipped one reads CLOSED.
 
 ## Licenses
 

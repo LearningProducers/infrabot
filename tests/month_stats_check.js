@@ -114,8 +114,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   // named FAIL, and a stub stands in so the count assertions still run and
   // show what the old rule reports.
   var ge=eval;
-  ['callsList','normalizeSupport','normalizeCall','calledAt','callCommItems','callsInMonth'].forEach(function(n){ge(extractFn(html,n));});
-  ge(extractVar(html,'CALL_STATUSES'));
+  ['CALL_STATUSES','CALL_DISPOSITIONS','CALL_STAGE_LABELS','CALL_TERMINAL'].forEach(function(n){ge(extractVar(html,n));}); // v0.22.0: the dial helpers ride along
+  ['callsList','normalizeSupport','normalizeAttempts','lastAttempt','legacyDialAt','callDialed','callStage','normalizeCall','calledAt','callCommItems','callAttemptItems','callsInMonth'].forEach(function(n){ge(extractFn(html,n));});
   ['localYearMonth','computeMonthStats'].forEach(function(n){ge(extractFn(html,n));});
   ['sentRecord','standingArchiveEntries'].forEach(function(n){
     if(html.indexOf('function '+n+'(')>=0){ge(extractFn(html,n));}

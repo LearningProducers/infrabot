@@ -70,6 +70,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   ];
   // the re-called record: a second called entry; the LAST called instant is the one counted, once
   calls[4].statusHistory.push({status:'called',timestamp:stamp('2026-03',2)});
+  // v0.22.0: the normalizer is the migration (attempt lines, the close mark, the stage read from the record); it runs once here so the frozen copy is the migrated record and the renders after it must write nothing
   var frozen=JSON.stringify(calls);
 
   glob.state={comms:[],network:[{id:'fx-person-1',name:'Fixture Person',tier:'acquaintance',channel:'phone'}],events:[],calls:calls,profile:{homeTz:'America/Chicago',name:'Fixture Founder',company:'Fixture Co'}};
@@ -94,8 +95,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   glob.document={createElement:function(){return {click:function(){}};},body:{appendChild:function(){},removeChild:function(){}}};
 
   var ge=eval;
-  ['HOST_NAME_FLOOR','esc','CALL_STATUSES','APP_VERSION'].forEach(function(n){ge(extractVar(html,n));});
-  ['localYearMonth','callsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','wallTimeToDate','eventStartMonth','byEventStart','personTier','acquaintanceMonth','normalizeSupport','normalizeCall','calledAt','callCommItems','callsInMonth',
+  ['HOST_NAME_FLOOR','esc','CALL_STATUSES','CALL_DISPOSITIONS','CALL_STAGE_LABELS','CALL_TERMINAL','APP_VERSION'].forEach(function(n){ge(extractVar(html,n));});
+  ['localYearMonth','callsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','wallTimeToDate','eventStartMonth','byEventStart','personTier','acquaintanceMonth','normalizeSupport','normalizeAttempts','lastAttempt','legacyDialAt','callDialed','callStage','normalizeCall','calledAt','callCommItems','callAttemptItems','callsInMonth',
    'sentRecord','standingArchiveEntries','computeMonthStats','roomsInMonth','metInMonth','renderReportsPanel','downloadMonthReport'].forEach(function(n){ge(extractFn(html,n));});
 
   var failures=0,checks=0;
@@ -107,7 +108,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
 
   // THE DERIVATION
   var mar=glob.callsInMonth('2026-03'),apr=glob.callsInMonth('2026-04'),may=glob.callsInMonth('2026-05');
-  check('March holds the two completed calls, queued and skipped stay out',mar.length===2&&mar.map(function(it){return it.c.id;}).join(',')==='fx-call-a,fx-call-e',mar.map(function(it){return it.c.id;}));
+  check('March holds the two recorded dials (briefs from before v0.22.0), queued and skipped stay out',mar.length===2&&mar.map(function(it){return it.c.id;}).join(',')==='fx-call-a,fx-call-e',mar.map(function(it){return it.c.id;}));
   check('April holds its one completed call',apr.length===1&&apr[0].c.id==='fx-call-b',apr.length);
   check('a month with no call is empty',may.length===0,may.length);
   check('a re-called record is counted once, by its last called instant',mar.filter(function(it){return it.c.id==='fx-call-e';}).length===1&&mar[1].when===stamp('2026-03',2),mar[1]&&mar[1].when);
@@ -128,13 +129,21 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   captured=null; glob.downloadMonthReport('2026-03'); var marTxt=captured;
   check('March .txt carries Calls: 2 in SUMMARY',marTxt!==null&&marTxt.indexOf('\nCalls: 2\n')>=0,marTxt&&marTxt.slice(0,300));
   check('March .txt carries a CALLS (2) section with both companies',marTxt.indexOf('\nCALLS (2)\n')>=0&&marTxt.indexOf('[1] Granite Fork Marine')>=0&&marTxt.indexOf('[2] Tidewater Piling')>=0,marTxt.slice(marTxt.indexOf('CALLS'),marTxt.indexOf('CALLS')+300));
-  check('the outcome prints when the record carries one, indented across lines',marTxt.indexOf('  Outcome:   reached the desk\n             asked for a follow-up in April')>=0,marTxt.slice(marTxt.indexOf('CALLS'),marTxt.indexOf('CALLS')+400));
-  check('the outcome line is absent when the record carries none (one Outcome line for two calls)',(marTxt.match(/\n  Outcome:/g)||[]).length===1,(marTxt.match(/\n  Outcome:/g)||[]).length);
+  check('the notes print when the record carries any, indented across lines',marTxt.indexOf('  Notes:     reached the desk\n             asked for a follow-up in April')>=0,marTxt.slice(marTxt.indexOf('CALLS'),marTxt.indexOf('CALLS')+400));
+  check('the notes line is absent when the record carries none (one Notes line for two calls)',(marTxt.match(/\n  Notes:/g)||[]).length===1,(marTxt.match(/\n  Notes:/g)||[]).length);
+  check('a dial from before v0.22.0 prints its disposition as not logged, and the stage now',marTxt.indexOf('  Disposition: not logged (a dial from before v0.22.0)')>=0&&marTxt.indexOf('  Stage now: FOLLOW-UP')>=0&&marTxt.indexOf('  Stage now: ATTEMPTED')>=0,marTxt.slice(marTxt.indexOf('CALLS'),marTxt.indexOf('CALLS')+500));
   check('the follow-through prints the given name with its channel',marTxt.indexOf('  Follow-through: Fixture Follow (left a message)')>=0);
   check('the called day prints as a local date-time',marTxt.indexOf('  Called on: 2026-03-08 12:00')>=0,marTxt.slice(marTxt.indexOf('Called on'),marTxt.indexOf('Called on')+40));
   check('the location prints',marTxt.indexOf('  Location:  Fixture City, FX')>=0);
   captured=null; glob.downloadMonthReport('2026-04'); var aprTxt=captured;
-  check('April .txt: Calls: 1, CALLS (1), the follow-through named through the linked person',aprTxt.indexOf('\nCalls: 1\n')>=0&&aprTxt.indexOf('\nCALLS (1)\n')>=0&&aprTxt.indexOf('  Follow-through: Fixture Person (connected)')>=0&&aprTxt.indexOf('Outcome:')<0,aprTxt.slice(aprTxt.indexOf('CALLS'),aprTxt.indexOf('CALLS')+300));
+  check('April .txt: Calls: 1, CALLS (1), the follow-through named through the linked person',aprTxt.indexOf('\nCalls: 1\n')>=0&&aprTxt.indexOf('\nCALLS (1)\n')>=0&&aprTxt.indexOf('  Follow-through: Fixture Person (connected)')>=0&&aprTxt.indexOf('Notes:')<0,aprTxt.slice(aprTxt.indexOf('CALLS'),aprTxt.indexOf('CALLS')+300));
+  // v0.22.0: a call made is a dial. Two lines in one month on one brief are two calls, each with its disposition.
+  glob.state.calls.push({id:'fx-call-f',company:'Harbor Fixture Co',location:'',phone:'',website:'https://fx-call-f.invalid/',hook:'fixture hook',support:[],notes:'',followName:'',followChannel:'',contactId:'',status:'queued',createdAt:stamp('2026-06',0),statusHistory:[{status:'queued',timestamp:stamp('2026-06',0)}],attempts:[{at:stamp('2026-06',1),disposition:'no answer',note:''},{at:stamp('2026-06',2),disposition:'gatekeeper',note:'asked for the publisher'}]});
+  var jun=glob.callsInMonth('2026-06');
+  captured=null; glob.downloadMonthReport('2026-06'); var junTxt=captured;
+  check('two attempt lines in one month are two calls, oldest first, each at its own instant',jun.length===2&&jun[0].attempt.disposition==='no answer'&&jun[1].attempt.disposition==='gatekeeper'&&jun[0].when===stamp('2026-06',1)&&glob.computeMonthStats(2026,6).calls===2,JSON.stringify(jun.map(function(it){return it.when;})));
+  check('the .txt prints each dial with its disposition and note',junTxt.indexOf('\nCalls: 2\n')>=0&&junTxt.indexOf('\nCALLS (2)\n')>=0&&junTxt.indexOf('[1] Harbor Fixture Co')>=0&&junTxt.indexOf('[2] Harbor Fixture Co')>=0&&junTxt.indexOf('  Disposition: no answer')>=0&&junTxt.indexOf('  Disposition: gatekeeper\n  Note:      asked for the publisher')>=0&&junTxt.indexOf('  Stage now: ATTEMPTED')>=0,junTxt.slice(junTxt.indexOf('CALLS'),junTxt.indexOf('CALLS')+600));
+  glob.state.calls.pop();
   captured=null; glob.downloadMonthReport('2026-05'); var mayTxt=captured;
   check('a month with no call prints Calls: 0 and CALLS (0) (none)',mayTxt.indexOf('\nCalls: 0\n')>=0&&mayTxt.indexOf('\nCALLS (0)\n(none)\n')>=0,mayTxt.slice(0,400));
   check('the CALLS section sits between ARCHIVED and ROOMS',marTxt.indexOf('ARCHIVED (')<marTxt.indexOf('CALLS (')&&marTxt.indexOf('CALLS (')<marTxt.indexOf('ROOMS ('));
@@ -144,7 +153,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('downloadMonthReport reads callsInMonth',dl.indexOf('callsInMonth(')>=0);
   check('computeMonthStats reads callsInMonth',cm.indexOf('callsInMonth(')>=0);
   check('renderReportsPanel prints stats.calls and enumerates call months from callCommItems',rp.indexOf('stats.calls')>=0&&rp.indexOf('callCommItems()')>=0);
-  check('no call record was written by the renders',JSON.stringify(glob.state.calls)===frozen);
+  check('no call record was written by the renders (beyond the one-time v0.22.0 migration, pinned here)',(function(){var c=JSON.parse(frozen);c.forEach(function(r){glob.normalizeCall(r);});return JSON.stringify(glob.state.calls)===JSON.stringify(c)&&c[0].status==='followup'&&c[1].status==='followup'&&c[2].status==='queued'&&c[3].status==='closed'&&c[3].closedAt===c[3].statusHistory[1].timestamp&&c[4].status==='attempted';})(),JSON.stringify(glob.state.calls).slice(0,200));
 
   out('call_report_check: '+checks+' checks, '+failures+' failure(s) ('+htmlPath+')');
   if(failures){if(isNode)process.exit(1);throw new Error('call_report_check FAILED');}
