@@ -1,7 +1,9 @@
-// call_comm_check.js: THE CALL ON THE COMMUNICATIONS TAB (infrabot v0.17.0).
-// A completed call (status called) shows on the Communications tab as its own
-// card in the PIPELINE view, outbound, channel PHONE, with its outcome, the
-// follow-through and the day it was made, sorted among the email cards and
+// call_comm_check.js: THE CALL ON THE COMMUNICATIONS TAB (infrabot v0.17.0;
+// re-read for v0.22.0 CALL DISPOSITIONS). A dialed, open brief (at least one
+// attempt line or a dial recorded before v0.22.0, and not closed) shows on
+// the Communications tab as its own card in the PIPELINE view, outbound,
+// channel PHONE, with its stage on the pill, its attempt lines, its notes,
+// the follow-through and the last dial, sorted among the email cards and
 // counted in the pill; derived at render from the call record, written
 // nowhere; the Network tab's calls untouched; OPEN opens the call brief.
 //

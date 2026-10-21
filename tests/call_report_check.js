@@ -1,10 +1,11 @@
-// call_report_check.js: CALLS IN THE MONTH REPORT (infrabot v0.18.0).
-// A completed call (status called) is a figure in its month's report: the
-// month card shows "n calls", the downloaded .txt carries a Calls line in
-// SUMMARY and a CALLS section (company, location, the day, the outcome when
-// the record carries one, the follow-through when one was given). The card
-// and the file read one list, callsInMonth, keyed by the called instant the
-// Communications tab's phone card derives from, so a call is counted once.
+// call_report_check.js: CALLS IN THE MONTH REPORT (infrabot v0.18.0; re-read
+// for v0.22.0 CALL DISPOSITIONS, where a call made is a dial). Every attempt
+// line is a call in its month, and a brief from before v0.22.0 with no line
+// counts its one recorded dial: the month card shows "n calls", the
+// downloaded .txt carries a Calls line in SUMMARY and a CALLS section (one
+// entry per dial: company, location, the instant, the disposition, the note,
+// the stage now, the notes when the record carries any, the follow-through
+// when one was given). The card and the file read one list, callsInMonth.
 //
 // Runs the REAL callsInMonth, computeMonthStats, renderReportsPanel and
 // downloadMonthReport (with the call-record helpers they read) extracted
