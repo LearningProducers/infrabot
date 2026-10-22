@@ -68,9 +68,10 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var toasts=[];
   g.toast=function(msg){toasts.push(String(msg));};
   var ge=eval;
-  ['HOST_NAME_FLOOR','CALL_STATUSES','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','STATE_SCHEMA_VERSION','EDIT_WIDE_MODALS','networkView','eventsCityFilter','uid','esc'].forEach(function(n){ge(extractVar(html,n));});
+  ['HOST_NAME_FLOOR','CALL_STATUSES','CALL_STAGE_LABELS','CALL_DISPOSITIONS','CALL_TERMINAL','EVENT_STATUSES','EVENT_OUTCOMES','NETWORK_VIEWS','STATE_SCHEMA_VERSION','EDIT_WIDE_MODALS','networkView','eventsCityFilter','uid','esc'].forEach(function(n){ge(extractVar(html,n));});
   ['linkHref','linkHtml','callsList','eventsList','eventsVisible','blockedHostsList','hostBlocked','hostMatches','eventHosts','normHostName','normalizeCoHosts','artifactsList','homeTzNow','normalizeSupport','normalizeCall',
    'parseSupportLines','supportLinesText','citationVerified','supportHtml','telHref','telHtml','callKey',
+   'normalizeAttempts','lastAttempt','legacyDialAt','callDialed','callStage','attemptWall','parseAttemptLines','attemptLinesText','attemptsHtml','logAttempt','closeCall','reopenCall','resolveFollowThrough','callStageStrip',
    'callStatusRank','setCallStatus','moveCallStatus','findContactByName','linkCallContact','callNotesHtml','renderCallCard',
    'renderCallsView','importCalls','supportRowsHtml','parseFollowThrough','followThroughText','personTier','normalizePerson','inMonthWindow','localYearMonth','acquaintanceMonth',
    'latestMetRoom','wallTimeToDate','eventStartMonth','eventCities','eventsShown','normalizeEvent','normalizeCost',
@@ -88,7 +89,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var PAGE='https://jobs.fixture-fastener.invalid/roles/4';
   function brief(extra){
     return Object.assign({id:'call_fixture_1',company:'Fixture Fastener Works',location:'Placeholder, IL',phone:'(312) 555-0142',phoneNote:'',website:SITE,hook:'Their posting asks for faster writing.',
-      support:[{quote:'Accelerate the writing.',url:PAGE,checked:'2026-09-29',unverified:false}],followName:'',followChannel:'',contactId:'',status:'queued',
+      support:[{quote:'Accelerate the writing.',url:PAGE,checked:'2026-09-29',unverified:false}],attempts:[],closedAt:'',followName:'',followChannel:'',contactId:'',status:'queued',
       statusHistory:[{status:'queued',timestamp:T}],notes:'',createdAt:T,updatedAt:T},extra||{});
   }
   function fresh(){
@@ -97,9 +98,9 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   }
 
   // --- E: the enum and the pill -------------------------------------------
-  check('E1 the status ladder is queued, called, skipped',JSON.stringify(CALL_STATUSES)==='["queued","called","skipped"]');
+  check('E1 the five stages, in order, and the seven dispositions, exactly (v0.22.0)',JSON.stringify(CALL_STATUSES)==='["queued","attempted","connected","followup","closed"]'&&JSON.stringify(CALL_DISPOSITIONS)==='["no answer","voicemail left","gatekeeper","connected","callback booked","not interested","wrong number"]'&&JSON.stringify(CALL_TERMINAL)==='["not interested","wrong number"]');
   check('E2 CALLS is the last pill on the NETWORK bar',NETWORK_VIEWS[NETWORK_VIEWS.length-1]==='calls'&&NETWORK_VIEWS.length===6);
-  check('E3 the form select offers the three (source)',/<select id="cl-status"><option value="queued">QUEUED<\/option><option value="called">CALLED<\/option><option value="skipped">SKIPPED<\/option><\/select>/.test(html));
+  check('E3 the form carries no status select: the attempts box and the close mark instead (source)',html.indexOf('id="cl-status"')<0&&html.indexOf('<textarea id="cl-attempts"')>0&&html.indexOf('<input type="checkbox" id="cl-closed">')>0&&html.indexOf('<div id="cl-stage"')>0);
 
   // --- T: tap to dial ------------------------------------------------------
   check('T1 a formatted number dials its digits',telHref('(312) 555-0142')==='tel:3125550142');
@@ -140,7 +141,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var n1=normalizeCall(brief());
   check('N1 a well-formed record passes through byte-identical',JSON.stringify(normalizeCall(JSON.parse(JSON.stringify(n1))))===JSON.stringify(n1));
   var n2=normalizeCall({company:'Fixture Fastener Works',hook:'h',support:'not a list',status:'CALLED',phone:7});
-  check('N2 types are forced, the status lower-cased, an unknown status queued',n2.support.length===0&&n2.status==='called'&&n2.phone==='7'&&n2.statusHistory.length===1&&normalizeCall({status:'wat'}).status==='queued');
+  check('N2 types are forced, the stage read from the record (a called history reads attempted), an unknown status queued',n2.support.length===0&&n2.status==='attempted'&&n2.statusHistory.length===1&&n2.statusHistory[0].status==='called'&&n2.phone==='7'&&JSON.stringify(n2.attempts)==='[]'&&n2.closedAt===''&&normalizeCall({status:'wat'}).status==='queued');
   check('N3 callKey is the website, trailing slash dropped, else the company',callKey({website:'HTTPS://Fixture-Fastener.invalid//',company:'x'})==='https://fixture-fastener.invalid'&&callKey({website:'',company:' Fixture Fastener Works '})==='company:fixture fastener works');
   // --- N4 to N8: the notes divider (v0.19.1) ------------------------------
   check('N4 one note per line, a rule between notes, none after the last',callNotesHtml('LIKELY OWNER: a line.\nLOCATIONS: another.\nEvery citation re-opened.')==='<div class="call-note">LIKELY OWNER: a line.</div><div class="note-rule"></div><div class="call-note">LOCATIONS: another.</div><div class="note-rule"></div><div class="call-note">Every citation re-opened.</div>');
@@ -149,10 +150,10 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('N7 each note is escaped and the stored notes are untouched',(function(){var b=brief({notes:'<b>x</b>\ny'});var h=renderCallCard(normalizeCall(b));return h.indexOf('<div class="call-note">&lt;b&gt;x&lt;/b&gt;</div><div class="note-rule"></div><div class="call-note">y</div>')>0&&h.indexOf('<b>x')<0&&b.notes==='<b>x</b>\ny';})());
   check('N8 the card renders notes through the helper and the rule is the theme teal (source)',extractFn(html,'renderCallCard').indexOf('${callNotesHtml(c.notes)}')>0&&/\.call-card \.note-rule\{[^\n]*var\(--cyan-dim\)[^\n]*var\(--cyan\)[^\n]*\}/.test(html));
   var s1=brief();
-  check('S1 setCallStatus appends and stamps; a no-change call appends nothing',setCallStatus(s1,'called',T)===true&&s1.status==='called'&&s1.statusHistory.length===2&&s1.updatedAt===T&&setCallStatus(s1,'called',T)===false&&setCallStatus(s1,'wat',T)===false);
+  check('S1 setCallStatus appends and stamps; a no-change call appends nothing; a word outside the five is refused',setCallStatus(s1,'attempted',T)===true&&s1.status==='attempted'&&s1.statusHistory.length===2&&s1.updatedAt===T&&setCallStatus(s1,'attempted',T)===false&&setCallStatus(s1,'called',T)===false&&setCallStatus(s1,'wat',T)===false);
   toasts.length=0;
-  check('S2 moveCallStatus toasts the company and the status',moveCallStatus(brief(),'skipped',T)===true&&toasts[0]==='FIXTURE FASTENER WORKS · SKIPPED');
-  check('S3 called and skipped share the top rank',callStatusRank('queued')===0&&callStatusRank('called')===1&&callStatusRank('skipped')===1&&callStatusRank('wat')===0);
+  check('S2 moveCallStatus toasts the company and the stage label',moveCallStatus(brief(),'closed',T)===true&&toasts[0]==='FIXTURE FASTENER WORKS · CLOSED');
+  check('S3 the rank is the stage order',callStatusRank('queued')===0&&callStatusRank('attempted')===1&&callStatusRank('connected')===2&&callStatusRank('followup')===3&&callStatusRank('closed')===4&&callStatusRank('wat')===0);
 
   // --- L: the follow-through -----------------------------------------------
   fresh();
@@ -177,14 +178,14 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('R4 the hook sits where a room shows its reason',card.indexOf('<div class="card-section-h">Hook</div><div class="card-section-body">Their posting asks for faster writing.</div>')>0);
   check('R5 the support renders with its CHECKED pill',card.indexOf('CHECKED 2026-09-29')>0);
   check('R6 the follow-through reads blank until after the call',card.indexOf('<div class="card-section-h">Follow-through</div><div class="card-section-body call-mono">blank until after the call</div>')>0);
-  check('R7 a queued card offers CALLED and SKIP; OPEN always',card.indexOf('data-act="called-call"')>0&&card.indexOf('data-act="skip-call"')>0&&card.indexOf('data-act="edit-call"')>0);
+  check('R7 an open card offers the LOG row (the seven, LOG) and CLOSE; OPEN always; no CALLED, no SKIP',card.indexOf('data-act="log-call"')>0&&card.indexOf('select data-log-for="call_fixture_1"')>0&&(card.match(/<option value="/g)||[]).length===7&&card.indexOf('data-act="close-call"')>0&&card.indexOf('data-act="edit-call"')>0&&card.indexOf('called-call')<0&&card.indexOf('skip-call')<0&&card.indexOf('reopen-call')<0,card);
   var legacy=normalizeCall(brief({phoneNote:'a note from before v0.15.0'}));
   var pn=renderCallCard(legacy);
   check('R8 a legacy phoneNote key passes through untouched and renders nothing (its home is NOTES now)',legacy.phoneNote==='a note from before v0.15.0'&&pn.indexOf('a note from before')<0&&pn.indexOf('</a> <span class="cite-pill unverified">')<0,pn);
   check('R8b the card is a wide call card and the view lays one per row (source)',card.indexOf('<div class="card call-card">')===0&&extractFn(html,'renderCallsView').indexOf('<div class="card-grid calls-grid">')>0&&html.indexOf('.card-grid.calls-grid{grid-template-columns:1fr}')>0&&html.indexOf('.call-card .card-section-body{font-size:15px;line-height:1.6}')>0);
   state.network.push({id:'c_fixture_9',name:'Ada Fixture',channel:'(312) 555-0144'});
-  var fc=renderCallCard(normalizeCall(brief({status:'called',contactId:'c_fixture_9',followName:'stale name',followChannel:'(312) 555-0144'})));
-  check('R9 a called card names the linked person (the book, not the stale field) with their channel dialable, and offers no quick action',fc.indexOf('Ada Fixture · <a class="url-link" href="tel:3125550144">(312) 555-0144</a>')>0&&fc.indexOf('data-act="called-call"')<0&&fc.indexOf('data-act="skip-call"')<0,fc);
+  var fc=renderCallCard(normalizeCall(brief({attempts:[{at:T,disposition:'gatekeeper',note:''}],contactId:'c_fixture_9',followName:'stale name',followChannel:'(312) 555-0144'})));
+  check('R9 a dialed card with a linked person reads FOLLOW-UP, names the person (the book, not the stale field) with their channel dialable, and stays open (LOG, CLOSE, no REOPEN)',fc.indexOf('Ada Fixture · <a class="url-link" href="tel:3125550144">(312) 555-0144</a>')>0&&fc.indexOf('<span class="card-status followup">FOLLOW-UP</span>')>0&&fc.indexOf('data-act="log-call"')>0&&fc.indexOf('data-act="close-call"')>0&&fc.indexOf('data-act="reopen-call"')<0,fc);
   check('R9b the support rows render through one helper the form preview reads too (source)',extractFn(html,'supportHtml').indexOf('supportRowsHtml(list)')>0&&extractFn(html,'refreshSupportPreview').indexOf('supportRowsHtml(parseSupportLines(')>0);
   check('R10 a card with nothing to dial says so',renderCallCard(normalizeCall({company:'X',hook:'h'})).indexOf('no location, no number')>0);
   check('R11 the card escapes its fields',renderCallCard(normalizeCall({company:'<b>X</b>',hook:'<i>h</i>',location:'<u>L</u>'})).indexOf('<b>')<0);
@@ -200,27 +201,27 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   // --- G: the view and the pill ----------------------------------------------
   fresh();
   check('G1 no briefs: the empty state with its NEW CALL button',renderCallsView().indexOf('NO CALLS YET')>0&&renderCallsView().indexOf('data-open="call"')>0);
-  state.calls=[brief({id:'a',status:'queued'}),brief({id:'b',status:'called',website:'https://b.invalid/'}),brief({id:'c',status:'skipped',website:'https://c.invalid/'})];
+  state.calls=[brief({id:'a'}),brief({id:'b',attempts:[{at:T,disposition:'no answer',note:''}],website:'https://b.invalid/'}),brief({id:'c',closedAt:T,website:'https://c.invalid/'})];
   var view=renderCallsView();
-  check('G2 queued and called render grouped; skipped folds at the foot',view.indexOf('QUEUED · 1')>0&&view.indexOf('CALLED · 1')>0&&view.indexOf('SKIPPED · 1')>0&&view.indexOf('<details class="skip-fold">')>0);
+  check('G2 the stages render as sections in order; closed (the skipped brief from before) folds at the foot',view.indexOf('QUEUED · 1')>0&&view.indexOf('ATTEMPTED · 1')>0&&view.indexOf('CLOSED · 1')>0&&view.indexOf('QUEUED · 1')<view.indexOf('ATTEMPTED · 1')&&view.indexOf('<details class="skip-fold">')>0&&view.indexOf('CALLED · ')<0&&view.indexOf('SKIPPED')<0,view);
   var bar=networkViewBar();
-  check('G3 the CALLS pill counts queued and called, never skipped',/data-view="calls">CALLS<span class="triage-count">· 2<\/span>/.test(bar),bar);
+  check('G3 the CALLS pill counts the open briefs, never closed, and carries the five stage counts in order',/data-view="calls">CALLS<span class="triage-count">· 2<\/span><span class="stage-counts" title="QUEUED 1 · ATTEMPTED 1 · CONNECTED 0 · FOLLOW-UP 0 · CLOSED 1">1·1·0·0·1<\/span>/.test(bar),bar);
   check('G4 the CALLS pill is the last on the bar',bar.lastIndexOf('data-view="calls"')>bar.lastIndexOf('data-view="attended"'));
   setNetworkView('calls');
   check('G5 setNetworkView accepts calls',networkView==='calls');
   setNetworkView('wat');
   check('G6 an unknown view is refused',networkView==='calls');
-  state.calls=[brief({id:'c',status:'skipped'})];
-  check('G7 only skipped briefs: the fold still renders under a named empty line',renderCallsView().indexOf('NO CALLS QUEUED')>0&&renderCallsView().indexOf('SKIPPED · 1')>0);
+  state.calls=[brief({id:'c',closedAt:T})];
+  check('G7 only closed briefs: the fold still renders under a named empty line',renderCallsView().indexOf('NO OPEN CALLS')>0&&renderCallsView().indexOf('CLOSED · 1')>0);
 
   // --- I: the import -------------------------------------------------------
   fresh();
   var r1=importCalls([brief(),{company:'',hook:'h'},{company:'No Hook Co'},null]);
   check('I1 a brief lands; no company, no hook and a non-object are refused and counted',r1.added===1&&r1.refused===3&&state.calls.length===1,JSON.stringify(r1));
-  var r2=importCalls([brief({status:'called',notes:'from the import',phone:'(312) 555-0199'})]);
-  check('I2 a match by website moves the status up and fills only empty fields',r2.updated===1&&state.calls[0].status==='called'&&state.calls[0].notes==='from the import'&&state.calls[0].phone==='(312) 555-0142',JSON.stringify(state.calls[0]));
+  var r2=importCalls([brief({attempts:[{at:T,disposition:'no answer',note:''}],notes:'from the import',phone:'(312) 555-0199'})]);
+  check('I2 a match by website takes the attempt line it lacks, reads its stage from it, and fills only empty fields',r2.updated===1&&state.calls[0].status==='attempted'&&state.calls[0].attempts.length===1&&state.calls[0].notes==='from the import'&&state.calls[0].phone==='(312) 555-0142',JSON.stringify(state.calls[0]));
   var r3=importCalls([brief({status:'queued',hook:'a different hook'})]);
-  check('I3 a match never moves back down and never overwrites the hook',r3.skipped===1&&state.calls[0].status==='called'&&state.calls[0].hook==='Their posting asks for faster writing.');
+  check('I3 a match never loses a line (the stage never reads back) and never overwrites the hook',r3.skipped===1&&state.calls[0].status==='attempted'&&state.calls[0].attempts.length===1&&state.calls[0].hook==='Their posting asks for faster writing.');
   var r4=importCalls([brief({id:'call_fixture_1',website:'https://other.invalid/'})]);
   check('I4 a colliding id on a new website is re-minted',r4.added===1&&state.calls.length===2&&state.calls[1].id!=='call_fixture_1');
   check('I5 a support list fills only an empty one',(function(){fresh();importCalls([brief({support:[]})]);var r=importCalls([brief({support:[{quote:'later',url:PAGE,checked:'2026-09-29'}]})]);return r.updated===1&&state.calls[0].support.length===1&&state.calls[0].support[0].quote==='later';})());
@@ -234,9 +235,9 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('X2 the merge slices calls per record, normalizes them and ledgers their ids (source)',(function(){var m=extractFn(html,'mergeServerState');return m.indexOf("state.calls=take(mergeRecordSlice(callsList(),Array.isArray(file.calls)?file.calls:[],editingCallId,_syncedIds))")>0&&m.indexOf('state.calls.forEach(function(c){normalizeCall(c);});')>0&&m.indexOf('Array.isArray(file.calls)?file.calls:[],Array.isArray(file.blockedHosts)?file.blockedHosts:[]].forEach')>0;})());
   check('X3 the sync ledger and the additive import read the key (source)',extractFn(html,'allStateIds').indexOf('callsList()')>0&&extractFn(html,'additiveImportState').indexOf('importCalls(Array.isArray(payload.calls)?payload.calls:[])')>0);
   check('X4 freshState carries calls (source; v0.21.0 placed the block list between calls and insights)',/calls:\[\],\n\s*blockedHosts:\[\],\n\s*insights:\[\]/.test(extractFn(html,'freshState')));
-  check('X5 the wiring routes the three acts, the add button, the save, the delete, the phone link and the support preview (source)',["if(act==='edit-call')openCallModal(id);","if(act==='called-call')quickCallStatus(id,'called');","if(act==='skip-call')quickCallStatus(id,'skipped');","g('btn-add-call').addEventListener('click',()=>openCallModal());","g('btn-save-call').addEventListener('click',saveCall);","g('btn-delete-call').addEventListener('click',deleteCall);","g('cl-phone').addEventListener('input',()=>refreshPhoneLink('cl-phone'));","g('cl-support').addEventListener('input',refreshSupportPreview);","if(which==='call')openCallModal();"].every(function(s){return html.indexOf(s)>0;}));
+  check('X5 the wiring routes the three acts, the add button, the save, the delete, the phone link and the support preview (source)',["if(act==='edit-call')openCallModal(id);","if(act==='log-call'){const sel=g('network-body').querySelector('select[data-log-for=\"'+id+'\"]');quickLogAttempt(id,sel?sel.value:'');}","if(act==='close-call')quickCloseCall(id);","if(act==='reopen-call')quickReopenCall(id);","g('cl-attempts').addEventListener('input',refreshStagePreview);","g('cl-closed').addEventListener('change',refreshStagePreview);","g('btn-add-call').addEventListener('click',()=>openCallModal());","g('btn-save-call').addEventListener('click',saveCall);","g('btn-delete-call').addEventListener('click',deleteCall);","g('cl-phone').addEventListener('input',()=>refreshPhoneLink('cl-phone'));","g('cl-support').addEventListener('input',refreshSupportPreview);","if(which==='call')openCallModal();"].every(function(s){return html.indexOf(s)>0;}));
   check('X6 the website field joins the link-line list and the NEW CALL button swaps with the view (source)',html.indexOf("['ev-url','ar-url','cl-website']")>0&&html.indexOf("g('btn-add-call').classList.toggle('hidden',networkView!=='calls');")>0&&html.indexOf('<button class="btn hidden" id="btn-add-call">+ NEW CALL</button>')>0);
-  check('X7 the form gate is the import gate (source)',(function(){var s=extractFn(html,'saveCall');return s.indexOf('COMPANY REQUIRED')>0&&s.indexOf('NO HOOK, NO BRIEF')>0&&s.indexOf('linkCallContact(data.followName,data.followChannel,data.location,now)')>0;})());
+  check('X7 the form gate is the import gate, plus the attempt-line gate; the follow-through resolves through the one place (source)',(function(){var s=extractFn(html,'saveCall');return s.indexOf('COMPANY REQUIRED')>0&&s.indexOf('NO HOOK, NO BRIEF')>0&&s.indexOf('NOT A DISPOSITION')>0&&s.indexOf("resolveFollowThrough(c?c.contactId:'',ft.name,ft.channel,data.location,now)")>0&&s.indexOf('cl-status')<0;})());
   check('X8 the nine MET-pinned symbols are not read by the new block for a write (source)',(function(){var s=extractFn(html,'saveCall')+extractFn(html,'linkCallContact')+extractFn(html,'importCalls');return s.indexOf('linkMetNames')<0&&s.indexOf('syncMetLinks')<0&&s.indexOf('parseMetNames')<0;})());
 
   out('');
