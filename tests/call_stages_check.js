@@ -185,14 +185,14 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
 
   // --- F: one place for the name --------------------------------------------
   fresh();
-  state.network.push({id:'p_1',name:'Julie Fixture',channel:'',city:'',tier:'acquaintance',metAt:[]});
-  var f1=resolveFollowThrough('','julie fixture','(312) 555-0150','Placeholder, IL',T);
-  check('F1 a typed name links the person of that name and fills an empty channel',f1.contactId==='p_1'&&f1.followName==='Julie Fixture'&&f1.renamed===false&&state.network[0].channel==='(312) 555-0150'&&state.network.length===1);
-  var f2=resolveFollowThrough('p_1','Julie Fixtura','','',T);
-  check('F2 a changed spelling on a linked brief RENAMES the linked person (the field is the source; nobody new is made)',f2.contactId==='p_1'&&f2.followName==='Julie Fixtura'&&f2.renamed===true&&state.network[0].name==='Julie Fixtura'&&state.network[0].updatedAt===T&&state.network.length===1);
+  state.network.push({id:'p_1',name:'Zelda Fixture',channel:'',city:'',tier:'acquaintance',metAt:[]});
+  var f1=resolveFollowThrough('','zelda fixture','(312) 555-0150','Placeholder, IL',T);
+  check('F1 a typed name links the person of that name and fills an empty channel',f1.contactId==='p_1'&&f1.followName==='Zelda Fixture'&&f1.renamed===false&&state.network[0].channel==='(312) 555-0150'&&state.network.length===1);
+  var f2=resolveFollowThrough('p_1','Zelda Fixtura','','',T);
+  check('F2 a changed spelling on a linked brief RENAMES the linked person (the field is the source; nobody new is made)',f2.contactId==='p_1'&&f2.followName==='Zelda Fixtura'&&f2.renamed===true&&state.network[0].name==='Zelda Fixtura'&&state.network[0].updatedAt===T&&state.network.length===1);
   state.network.push({id:'p_2',name:'Ada Fixture',channel:'ada@fixture.invalid',city:'',tier:'contact',metAt:[]});
   var f3=resolveFollowThrough('p_1','Ada Fixture','(312) 555-0199','',T);
-  check('F3 a changed name that already names a person RELINKS to that person; the old person keeps their name and the set channel is never overwritten',f3.contactId==='p_2'&&f3.followName==='Ada Fixture'&&f3.renamed===false&&state.network[0].name==='Julie Fixtura'&&state.network[1].channel==='ada@fixture.invalid');
+  check('F3 a changed name that already names a person RELINKS to that person; the old person keeps their name and the set channel is never overwritten',f3.contactId==='p_2'&&f3.followName==='Ada Fixture'&&f3.renamed===false&&state.network[0].name==='Zelda Fixtura'&&state.network[1].channel==='ada@fixture.invalid');
   var f4=resolveFollowThrough('p_2','','','',T);
   check('F4 a blank field unlinks and deletes nobody',f4.contactId===''&&f4.followName===''&&state.network.length===2);
   var f5=resolveFollowThrough('','New Fixture Person','(312) 555-0160','Placeholder, IL',T);
