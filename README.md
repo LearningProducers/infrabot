@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.22.0.
+dependencies beyond Python 3 and a browser. This README describes v0.23.0.
 
 ## What it does
 
@@ -227,6 +227,39 @@ EOF
 curl -s -X POST http://127.0.0.1:8119/state --data @post.json
 ```
 
+## The call card
+
+A call card is read in the minute before you dial. It is organized in the
+order a call runs, five sections, for any line of work. Take a landscaping
+crew pitching a property manager at an invented Example Plaza:
+
+1. **THE DOOR.** Who picks up and what to ask for at that layer, one or two
+   lines. *front desk; ask for whoever handles vendor contracts.* Nothing
+   renders when it is empty.
+2. **WHY NOW.** The hook: the one reason this company, this week. *Their
+   services page says they take new grounds contracts in the fall.*
+3. **THE CASE.** One citation per line, their words with the page and the
+   day you checked it, each followed by `=>` and the one sentence you argue
+   back for that cited point:
+
+   ```
+   2026-10-28 https://example.com/services "We only hire crews with a 4-season portfolio." => Our crew has run four seasons on the Example Plaza grounds.
+   ```
+
+   The card shows the quote, the page as a link with its CHECKED or
+   UNVERIFIED pill, and your answer under it. The answer never changes the
+   pill; a line that fails the check still fails it with an answer written.
+   A line may carry no `=>` at all. The split is on the last `=>` in the
+   line, so a quote that itself contains an arrow keeps it.
+4. **THE ASK.** One line: what a win on this call is. *a 20-minute walk of
+   the property next week.* Nothing renders when it is empty.
+5. **ATTEMPTS, FOLLOW-THROUGH, NOTES.** Every dial as a dated line with its
+   disposition, the one person to follow through with, and your notes.
+
+The fields keep their stored names (`door`, `hook`, `support` with `answer`
+on each line, `ask`). A card saved before v0.23.0 has no door, no ask and no
+answers; it renders exactly as it did.
+
 ## The loop
 
 1. **Your agent researches and drafts.** It writes the blocks; you import
@@ -384,6 +417,8 @@ Every check in `tests/` runs standalone from the repo root against the real
   Network person renamed or relinked to it; a call made is a dial in the
   month report and the chart; a brief from before reads ATTEMPTED on its
   recorded dial and a skipped one reads CLOSED.
+- **v0.23.0.** The call card organized for the dial: THE DOOR, WHY NOW,
+  THE CASE with "=>" answers on cited lines, THE ASK.
 
 ## Licenses
 

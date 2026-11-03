@@ -88,8 +88,8 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   var SITE='https://fixture-fastener.invalid/';
   var PAGE='https://jobs.fixture-fastener.invalid/roles/4';
   function brief(extra){
-    return Object.assign({id:'call_fixture_1',company:'Fixture Fastener Works',location:'Placeholder, IL',phone:'(312) 555-0142',phoneNote:'',website:SITE,hook:'Their posting asks for faster writing.',
-      support:[{quote:'Accelerate the writing.',url:PAGE,checked:'2026-09-29',unverified:false}],attempts:[],closedAt:'',followName:'',followChannel:'',contactId:'',status:'queued',
+    return Object.assign({id:'call_fixture_1',company:'Fixture Fastener Works',location:'Placeholder, IL',phone:'(312) 555-0142',phoneNote:'',website:SITE,door:'',hook:'Their posting asks for faster writing.',ask:'',
+      support:[{quote:'Accelerate the writing.',url:PAGE,checked:'2026-09-29',unverified:false,answer:''}],attempts:[],closedAt:'',followName:'',followChannel:'',contactId:'',status:'queued',
       statusHistory:[{status:'queued',timestamp:T}],notes:'',createdAt:T,updatedAt:T},extra||{});
   }
   function fresh(){
@@ -122,7 +122,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('P4 UNVERIFIED inside the words is words, not the flag',parseSupportLines('the page is UNVERIFIED today')[0].unverified===false);
   var rt=supportLinesText(p1.concat(p2));
   check('P5 the text form round-trips through the parser',JSON.stringify(parseSupportLines(rt))===JSON.stringify(p1.concat(p2)),rt);
-  check('P6 normalizeSupport drops an entry with neither words nor a page and types every field',JSON.stringify(normalizeSupport([{quote:'',url:''},{url:PAGE,checked:5,unverified:1}]))==='[{"quote":"","url":"'+PAGE+'","checked":"5","unverified":true}]');
+  check('P6 normalizeSupport drops an entry with neither words nor a page and types every field',JSON.stringify(normalizeSupport([{quote:'',url:''},{url:PAGE,checked:5,unverified:1}]))==='[{"quote":"","url":"'+PAGE+'","checked":"5","unverified":true,"answer":""}]');
 
   // --- V: verified or not --------------------------------------------------
   check('V1 a page, a date and no flag is VERIFIED',citationVerified({quote:'x',url:PAGE,checked:'2026-09-29',unverified:false})===true);
@@ -175,7 +175,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('R1 the company is the card name and the status pill reads QUEUED',card.indexOf('<div class="card-name">Fixture Fastener Works</div>')>0&&card.indexOf('<span class="card-status queued">QUEUED</span>')>0);
   check('R2 the number is a tel: anchor in the sub line beside the location',card.indexOf('Placeholder, IL · <a class="url-link" href="tel:3125550142">(312) 555-0142</a>')>0,card);
   check('R3 the website renders the exact anchor linkHtml renders',card.indexOf('<div class="card-section-h">Website</div><div class="card-section-body cite-page">'+linkHtml(SITE)+'</div>')>0);
-  check('R4 the hook sits where a room shows its reason',card.indexOf('<div class="card-section-h">Hook</div><div class="card-section-body">Their posting asks for faster writing.</div>')>0);
+  check('R4 the hook sits where a room shows its reason, under WHY NOW (v0.23.0)',card.indexOf('<div class="card-section-h">Why now</div><div class="card-section-body">Their posting asks for faster writing.</div>')>0);
   check('R5 the support renders with its CHECKED pill',card.indexOf('CHECKED 2026-09-29')>0);
   check('R6 the follow-through reads blank until after the call',card.indexOf('<div class="card-section-h">Follow-through</div><div class="card-section-body call-mono">blank until after the call</div>')>0);
   check('R7 an open card offers the LOG row (the seven, LOG) and CLOSE; OPEN always; no CALLED, no SKIP',card.indexOf('data-act="log-call"')>0&&card.indexOf('select data-log-for="call_fixture_1"')>0&&(card.match(/<option value="/g)||[]).length===7&&card.indexOf('data-act="close-call"')>0&&card.indexOf('data-act="edit-call"')>0&&card.indexOf('called-call')<0&&card.indexOf('skip-call')<0&&card.indexOf('reopen-call')<0,card);
