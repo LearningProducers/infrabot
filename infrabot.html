@@ -2,7 +2,7 @@
 <!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  INFRABOT — FILE MAP                                                       ║
-║  v0.22.0 (CALL DISPOSITIONS) 26-10-21                                        ║
+║  v0.23.0 (THE CALL CARD) 26-11-03                                            ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
 ║  Single-file static HTML. Section line ranges below act as a TOC             ║
@@ -11,81 +11,81 @@
 ║  rewrites them; a stale range or a missing anchor fails the check).          ║
 ║                                                                              ║
 ║  ── HEAD ────────────────────────────────────────────────────────────        ║
-║  L     1–  484  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
+║  L     1–  492  DOCTYPE, FILE MAP comment, <html><head>, meta, title         ║
 ║                                                                              ║
 ║  ── CSS ─────────────────────────────────────────────────────────────        ║
-║  L   486–  512  :root, CSS variables, fonts, reset, body                     ║
-║  L   513–  570  SHELL — app shell, header, top bar, tabs, main               ║
-║  L   571–  613  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
-║  L   614–  631  CLOCKS — live clock grid                                     ║
-║  L   632–  722  CARDS — contact card, comm card, status pills                ║
-║  L   723–  749  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
-║  L   750–  759  REPORTS PANEL (v3.0) — monthly accordion                     ║
-║  L   760–  765  EMPTY: state placeholder                                     ║
-║  L   766–  789  MODAL — bg, box, header, footer                              ║
-║  L   790–  805  DRAWER — settings drawer + backdrop                          ║
-║  L   806–  811  COUNCIL: stream items (legacy reused)                        ║
-║  L   812–  818  TOAST: notification                                          ║
-║  L   819–  894  STATS: grid + profile block                                  ║
-║  L   895–  917  CREW BLOCK — Groq key row, council slots                     ║
-║  L   918–  939  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
-║  L   940–  945  Per-response copy button (v1.2)                              ║
-║  L   946–  965  MEMORY INSPECTOR (v1.3)                                      ║
-║  L   966–  972  v1.4: Foundation context source blocks                       ║
-║  L   973– 1053  FULLSCREEN OVERLAY for response boxes                        ║
-║  L  1054– 1080  INSIGHT VAULT                                                ║
+║  L   494–  520  :root, CSS variables, fonts, reset, body                     ║
+║  L   521–  578  SHELL — app shell, header, top bar, tabs, main               ║
+║  L   579–  621  *** v3.3 MAP — 1800x900, hover-magnify, city popup           ║
+║  L   622–  639  CLOCKS — live clock grid                                     ║
+║  L   640–  733  CARDS — contact card, comm card, status pills                ║
+║  L   734–  760  TRIAGE BAR (v3.0) — DRAFTS/PIPELINE/ARCHIVE/REPORTS          ║
+║  L   761–  770  REPORTS PANEL (v3.0) — monthly accordion                     ║
+║  L   771–  776  EMPTY: state placeholder                                     ║
+║  L   777–  800  MODAL — bg, box, header, footer                              ║
+║  L   801–  816  DRAWER — settings drawer + backdrop                          ║
+║  L   817–  822  COUNCIL: stream items (legacy reused)                        ║
+║  L   823–  829  TOAST: notification                                          ║
+║  L   830–  905  STATS: grid + profile block                                  ║
+║  L   906–  928  CREW BLOCK — Groq key row, council slots                     ║
+║  L   929–  950  INLINE COUNCIL SURFACE — ctx strip, resp grid                ║
+║  L   951–  956  Per-response copy button (v1.2)                              ║
+║  L   957–  976  MEMORY INSPECTOR (v1.3)                                      ║
+║  L   977–  983  v1.4: Foundation context source blocks                       ║
+║  L   984– 1064  FULLSCREEN OVERLAY for response boxes                        ║
+║  L  1065– 1091  INSIGHT VAULT                                                ║
 ║                                                                              ║
 ║  ── HTML BODY ───────────────────────────────────────────────────────        ║
-║  L  1085– 1103  APP: shell — header, brand, top clock, settings              ║
-║  L  1104– 1111  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
-║  L  1112– 1150  TAB-OVERVIEW — map, clocks, by month, today, profile         ║
-║  L  1151– 1160  TAB-NETWORK — contacts list                                  ║
-║  L  1161– 1254  TAB-COMMS — crew block (Groq) + comms list                   ║
-║  L  1255– 1269  TAB-VAULT — insights                                         ║
-║  L  1270– 1397  MODAL-CONTACT — add/edit contact                             ║
-║  L  1398– 1438  MODAL-COMM — add/edit communication                          ║
-║  L  1439– 1460  MODAL-PROFILE — edit your profile                            ║
-║  L  1461– 1475  MODAL-CLOCK — add world clock                                ║
-║  L  1476– 1491  MODAL-INSIGHT — add/edit insight                             ║
-║  L  1492– 1525  DRAWER — profile, data, version footer                       ║
-║  L  1526– 1545  FS-OVERLAY — fullscreen response viewer                      ║
-║  L  1546– 1557  MODAL-MEM — memory inspector                                 ║
-║  L  1558– 1564  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
-║  L  1565– 1566  TOAST: container                                             ║
+║  L  1096– 1114  APP: shell — header, brand, top clock, settings              ║
+║  L  1115– 1122  TABS: nav — OVERVIEW/NETWORK/COMMS/VAULT                     ║
+║  L  1123– 1161  TAB-OVERVIEW — map, clocks, by month, today, profile         ║
+║  L  1162– 1171  TAB-NETWORK — contacts list                                  ║
+║  L  1172– 1265  TAB-COMMS — crew block (Groq) + comms list                   ║
+║  L  1266– 1280  TAB-VAULT — insights                                         ║
+║  L  1281– 1410  MODAL-CONTACT — add/edit contact                             ║
+║  L  1411– 1451  MODAL-COMM — add/edit communication                          ║
+║  L  1452– 1473  MODAL-PROFILE — edit your profile                            ║
+║  L  1474– 1488  MODAL-CLOCK — add world clock                                ║
+║  L  1489– 1504  MODAL-INSIGHT — add/edit insight                             ║
+║  L  1505– 1538  DRAWER — profile, data, version footer                       ║
+║  L  1539– 1558  FS-OVERLAY — fullscreen response viewer                      ║
+║  L  1559– 1570  MODAL-MEM — memory inspector                                 ║
+║  L  1571– 1577  *** MODAL-CITY (v3.3) — city pin popup ***                   ║
+║  L  1578– 1579  TOAST: container                                             ║
 ║                                                                              ║
 ║  ── JS ──────────────────────────────────────────────────────────────        ║
-║  L  1569– 1779  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
-║  L  1780– 2059  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
-║  L  2060– 2097  g, esc, uid, toast helpers + state globals                   ║
-║  L  2098– 2596  freshState, loadState (migrations), saveState                ║
-║  L  2597– 2822  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
-║  L  2823– 2856  launchApp (gate flow removed in v0.2.5)                      ║
-║  L  2857– 2902  populateTimezoneSelects, startLiveClock (live clock loop)    ║
-║  L  2903– 4627  switchTab, renderAll, renderOverview, renderNetwork          ║
-║  L  4628– 4748  getCommBucket + age helpers, setCommsView                    ║
-║  L  4749– 5120  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
-║  L  5121– 5282  renderComms — full status/triage rendering                   ║
-║  L  5283– 5310  archiveComm + reviveComm                                     ║
-║  L  5311– 5437  renderReportsPanel + computeMonthStats                       ║
-║  L  5438– 5655  *** v3.3 downloadMonthReport — slim format ***               ║
-║  L  5656– 5929  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
-║  L  5930– 5980  resolveStateFallback, resolveCity, pointInPolygon            ║
-║  L  5981– 6257  *** v3.3 buildMap: map render — pin builders ***             ║
-║  L  6258– 6408  showModal, hideModal, contact CRUD, logTouch, openComm       ║
-║  L  6409– 6476  *** openCityPopup (v3.3) + updateCityHint ***                ║
-║  L  6477– 6766  commitCommRecord, closeCommModal, deleteComm,                ║
+║  L  1582– 1792  APP_VERSION + constants: *_KEY, MAX_PRIOR_DRAFTS, TZ         ║
+║  L  1793– 2072  COUNCIL_SYSTEM_BASE doctrine + buildSystemPrompt             ║
+║  L  2073– 2110  g, esc, uid, toast helpers + state globals                   ║
+║  L  2111– 2609  freshState, loadState (migrations), saveState                ║
+║  L  2610– 2835  fmtClockHMS, fmtTzShort, fmtDateShort (clock formatters)     ║
+║  L  2836– 2869  launchApp (gate flow removed in v0.2.5)                      ║
+║  L  2870– 2915  populateTimezoneSelects, startLiveClock (live clock loop)    ║
+║  L  2916– 4655  switchTab, renderAll, renderOverview, renderNetwork          ║
+║  L  4656– 4776  getCommBucket + age helpers, setCommsView                    ║
+║  L  4777– 5148  AUTO_ARCHIVE_DAYS + autoArchiveStaleComms (v3.2)             ║
+║  L  5149– 5310  renderComms — full status/triage rendering                   ║
+║  L  5311– 5338  archiveComm + reviveComm                                     ║
+║  L  5339– 5465  renderReportsPanel + computeMonthStats                       ║
+║  L  5466– 5683  *** v3.3 downloadMonthReport — slim format ***               ║
+║  L  5684– 5957  MAP_W: map data — MAP_W/H, projection, polys, coords         ║
+║  L  5958– 6008  resolveStateFallback, resolveCity, pointInPolygon            ║
+║  L  6009– 6285  *** v3.3 buildMap: map render — pin builders ***             ║
+║  L  6286– 6436  showModal, hideModal, contact CRUD, logTouch, openComm       ║
+║  L  6437– 6504  *** openCityPopup (v3.3) + updateCityHint ***                ║
+║  L  6505– 6794  commitCommRecord, closeCommModal, deleteComm,                ║
 ║                 commPlainText / COPY ALL helpers                             ║
 ║                 + councilTranscriptText / downloadCouncilTranscript (v4.1.0) ║
-║  L  6767– 6881  *** INSIGHT VAULT *** — render/open/save/delete              ║
-║  L  6882– 6912  saveProfile + clock save/remove                              ║
-║  L  6913– 7066  openCouncil, closeCouncil, refreshUI, renderStream           ║
-║  L  7067– 7246  buildCouncilContext (system+profile+body+intel)              ║
-║  L  7247– 7491  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
-║  L  7492– 7910  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7911– 8271  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  8272– 8283  initCrewBlock, drawer toggle, crew status                    ║
-║  L  8284– 8328  saveGroqKey, clearGroqKey                                    ║
-║  L  8329– 9305  exportAll, importJson, wipeAll                               ║
+║  L  6795– 6909  *** INSIGHT VAULT *** — render/open/save/delete              ║
+║  L  6910– 6940  saveProfile + clock save/remove                              ║
+║  L  6941– 7094  openCouncil, closeCouncil, refreshUI, renderStream           ║
+║  L  7095– 7274  buildCouncilContext (system+profile+body+intel)              ║
+║  L  7275– 7519  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
+║  L  7520– 7938  TTS (Web Speech) + Memory Inspector modal                    ║
+║  L  7939– 8299  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  8300– 8311  initCrewBlock, drawer toggle, crew status                    ║
+║  L  8312– 8356  saveGroqKey, clearGroqKey                                    ║
+║  L  8357– 9333  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -444,7 +444,15 @@
 ║      to it on save; a call made is a dial in the month report and the        ║
 ║      chart; a brief from before reads attempted on its recorded dial,        ║
 ║      skipped reads closed. tests/call_stages_check.js.                       ║
-║  L  9306– 9647  wireEvents + DOMContentLoaded boot                           ║
+║  ·  v0.23.0 THE CALL CARD, ORGANIZED FOR THE DIAL: the brief reads in the    ║
+║      order a call runs: THE DOOR (door: who picks up, what to ask for),      ║
+║      WHY NOW (the hook), THE CASE (the support lines; a line may end         ║
+║      " => " + the one sentence argued back, parsed on the last " => ",       ║
+║      carried as answer, round-tripped, never touching CHECKED, a             ║
+║      cite-answer row under the page), THE ASK (ask: what a win is), then     ║
+║      ATTEMPTS, FOLLOW-THROUGH, NOTES. normalizeCall carries door and ask;    ║
+║      a record from before renders as it did. tests/call_card_check.js.       ║
+║  L  9334– 9675  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -712,10 +720,13 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 .call-card .card-sub{font-size:12px}
 .call-card .card-section-body{font-size:15px;line-height:1.6}
 .call-card .cite-page{font-family:var(--mono);font-size:13px;word-break:break-all}
+/* v0.23.0 THE CASE: the one sentence argued back for a cited point, under the page row */
+.cite-answer{font-family:var(--mono);color:var(--cyan);font-size:13px;line-height:1.5;margin-top:2px;overflow-wrap:anywhere}
 .call-card .call-mono{font-family:var(--mono);font-size:14px;line-height:1.55;white-space:pre-wrap}
 .call-card .note-rule{height:1px;margin:9px 0;background:var(--cyan-dim);box-shadow:0 0 6px var(--cyan);opacity:.85}
 .support-preview{margin-top:6px;font-size:12px;line-height:1.5}
 .support-preview .cite-page{font-family:var(--mono);font-size:11px;word-break:break-all}
+.support-preview .cite-answer{font-size:11px}
 .label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px}
 .label-row label{margin-bottom:0}
 .card-status.ar-type{color:var(--cyan);border-color:var(--cyan-dim);margin-left:8px;vertical-align:middle}
@@ -1096,7 +1107,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       <span class="city" id="top-clock-city">HOME · CHICAGO</span>
     </div>
     <div class="top-actions">
-      <span class="version-pill" title="INFRABOT build">v0.22.0</span>
+      <span class="version-pill" title="INFRABOT build">v0.23.0</span>
       <button class="icon-btn" id="btn-drawer">⚙ <span class="drawer-label-full">SETTINGS</span></button>
     </div>
   </header>
@@ -1338,12 +1349,14 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
       </div>
       <div class="field"><label>Website</label><input type="text" id="cl-website" placeholder="https://..."><div class="field-link" id="cl-website-link"></div></div>
       <div class="field"><label>Stage (read from the record, never typed)</label><div id="cl-stage" class="mono" style="padding:8px 0;letter-spacing:.2em;color:var(--cyan)">QUEUED</div><div class="tiny dim mono">QUEUED until a dial is logged; then the last line's disposition, the follow-through name and the close mark decide.</div><label style="display:flex;align-items:center;gap:8px;margin-top:10px;cursor:pointer"><input type="checkbox" id="cl-closed"> CLOSED (the close mark; a terminal line sets it, REOPEN clears it)</label></div>
-      <div class="field wide-span"><label>Hook *</label><textarea id="cl-hook" placeholder="The one-line reason for the call. No hook, no brief." style="min-height:64px"></textarea><div id="cl-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
+      <div class="field wide-span"><label>The door</label><textarea id="cl-door" placeholder="Who picks up and what to ask for at that layer, e.g. front desk; ask for whoever handles vendor contracts" style="min-height:52px"></textarea></div>
+      <div class="field wide-span"><label>Why now *</label><textarea id="cl-hook" placeholder="The one-line reason for the call. No hook, no brief." style="min-height:64px"></textarea><div id="cl-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div></div>
       <div class="field wide-span">
-        <div class="label-row"><label>Support (one citation per line)</label><button type="button" class="btn ghost sm" data-fs-edit="cl-support" data-fs-label="EDIT SUPPORT" title="Edit the support in fullscreen; typing there syncs back here" style="margin:0">&#x26F6; EXPAND</button></div>
-        <textarea id="cl-support" placeholder="2026-01-15 https://example.com/page &quot;the exact words&quot; (a line starting UNVERIFIED is flagged)" style="min-height:96px"></textarea>
+        <div class="label-row"><label>THE CASE (ONE CITATION PER LINE; "=>" YOUR ANSWER)</label><button type="button" class="btn ghost sm" data-fs-edit="cl-support" data-fs-label="EDIT THE CASE" title="Edit the case in fullscreen; typing there syncs back here" style="margin:0">&#x26F6; EXPAND</button></div>
+        <textarea id="cl-support" placeholder="2026-01-15 https://example.com/page &quot;the exact words&quot; => your one sentence back   (a line starting UNVERIFIED is flagged)" style="min-height:96px"></textarea>
         <div class="support-preview" id="cl-support-preview"></div>
       </div>
+      <div class="field wide-span"><label>The ask</label><input type="text" id="cl-ask" placeholder="What a win on this call is, e.g. a 20-minute walk of the property next week"></div>
       <div class="field wide-span">
         <div class="label-row"><label>Attempts (one dated line per dial)</label><button type="button" class="btn ghost sm" data-fs-edit="cl-attempts" data-fs-label="EDIT ATTEMPTS" title="Edit the attempts in fullscreen; typing there syncs back here" style="margin:0">&#x26F6; EXPAND</button></div>
         <textarea id="cl-attempts" placeholder="2026-10-21 14:05 voicemail left asked for the publisher   (a date, an optional time, one disposition, then any note)" style="min-height:72px"></textarea>
@@ -1351,11 +1364,11 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
         <div id="cl-attempts-gate" class="tiny mono" style="margin-top:6px;color:var(--red)"></div>
       </div>
       <div class="field-row">
+        <div class="field"><label>Follow-through</label><input type="text" id="cl-follow" placeholder="Name (number or channel), after the call"><div class="tiny dim mono" style="margin-top:6px">The one place for the name. It links to the Network person of that name or creates one carrying the channel; a changed spelling here renames the linked person; the card reads the person.</div></div>
         <div class="field">
           <div class="label-row"><label>Notes</label><button type="button" class="btn ghost sm" data-fs-edit="cl-notes" data-fs-label="EDIT NOTES" title="Edit the notes in fullscreen; typing there syncs back here" style="margin:0">&#x26F6; EXPAND</button></div>
           <textarea id="cl-notes" placeholder="What the call opened. An unverified number's note lives here." style="min-height:96px"></textarea>
         </div>
-        <div class="field"><label>Follow-through</label><input type="text" id="cl-follow" placeholder="Name (number or channel), after the call"><div class="tiny dim mono" style="margin-top:6px">The one place for the name. It links to the Network person of that name or creates one carrying the channel; a changed spelling here renames the linked person; the card reads the person.</div></div>
       </div>
     </div>
     <div class="modal-foot">
@@ -1519,7 +1532,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
   </div>
 
   <div class="drawer-block" style="border-bottom:none">
-    <p class="tiny dim mono">INFRABOT v0.22.0 · LPI · Single-user · In-person first · Email last</p>
+    <p class="tiny dim mono">INFRABOT v0.23.0 · LPI · Single-user · In-person first · Email last</p>
   </div>
 </div>
 
@@ -1566,7 +1579,7 @@ textarea{font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
 
 <script>
 'use strict';
-const APP_VERSION='infrabot-v0.22.0';
+const APP_VERSION='infrabot-v0.23.0';
 // v0.2.3 HUMANIZED STATUS LABELS (display layer ONLY). The stored status
 // VALUES ('ghosted','dead') are permanent data anchors, same law as the
 // earthinfra_* storage keys (see D-NAME guard): statusHistory, the mirror
@@ -3882,14 +3895,16 @@ function callsList(){
   if(!Array.isArray(state.calls))state.calls=[];
   return state.calls;
 }
-// One citation: the exact words, the page, the day checked, the flag. Every
-// field present with its type; an entry with neither words nor a page is
-// dropped, so a blank line in the form stores nothing.
+// One citation: the exact words, the page, the day checked, the flag, and
+// (v0.23.0) the answer: the one sentence argued back for that cited point,
+// empty when none was written. Every field present with its type; an entry
+// with neither words nor a page is dropped, so a blank line in the form
+// stores nothing.
 function normalizeSupport(list){
   const out=[];
   (Array.isArray(list)?list:[]).forEach(s=>{
     if(!s||typeof s!=='object')return;
-    const e={quote:String(s.quote==null?'':s.quote).trim(),url:String(s.url==null?'':s.url).trim(),checked:String(s.checked==null?'':s.checked).trim(),unverified:!!s.unverified};
+    const e={quote:String(s.quote==null?'':s.quote).trim(),url:String(s.url==null?'':s.url).trim(),checked:String(s.checked==null?'':s.checked).trim(),unverified:!!s.unverified,answer:String(s.answer==null?'':s.answer).trim()};
     if(!e.quote&&!e.url)return;
     out.push(e);
   });
@@ -3956,7 +3971,7 @@ function normalizeCall(c){
   if(!Array.isArray(c.attempts)&&String(c.status||'').toLowerCase()==='called'&&Array.isArray(c.statusHistory)&&c.statusHistory.length&&!c.statusHistory.some(x=>x&&x.status==='called')){
     c.statusHistory.push({status:'called',timestamp:c.updatedAt||c.createdAt||new Date().toISOString()});
   }
-  ['company','location','phone','website','hook','followName','followChannel','contactId','notes','closedAt'].forEach(k=>{if(typeof c[k]!=='string')c[k]=c[k]==null?'':String(c[k]);});
+  ['company','location','phone','website','door','hook','ask','followName','followChannel','contactId','notes','closedAt'].forEach(k=>{if(typeof c[k]!=='string')c[k]=c[k]==null?'':String(c[k]);});
   c.support=normalizeSupport(c.support);
   c.attempts=normalizeAttempts(c.attempts);
   if(!c.createdAt)c.createdAt=new Date().toISOString();
@@ -4045,11 +4060,17 @@ function reopenCall(c,when){
 // The form's support box, one citation per line, in any order of tokens: a
 // leading UNVERIFIED word flags it, a YYYY-MM-DD token is the check date, an
 // http or https token is the page, and everything else is the words (outer
-// straight quotes dropped). The text form of a record is the same line back.
+// straight quotes dropped). v0.23.0: a line may end " => " + the answer,
+// the one sentence argued back for that point; the line is split once on
+// its LAST " => " (so a quote that carries the arrow keeps it), the left
+// half goes through the token parser unchanged, the right half trimmed is
+// the answer. The text form of a record is the same line back.
 function parseSupportLines(text){
   const out=[];
-  String(text||'').split('\n').forEach(line=>{
-    const e={quote:'',url:'',checked:'',unverified:false};
+  String(text||'').split('\n').forEach(raw=>{
+    const cut=raw.lastIndexOf(' => ');
+    const line=cut>=0?raw.slice(0,cut):raw;
+    const e={quote:'',url:'',checked:'',unverified:false,answer:cut>=0?raw.slice(cut+4).trim():''};
     const words=[];
     line.trim().split(/\s+/).forEach((tok,i)=>{
       if(!tok)return;
@@ -4064,7 +4085,7 @@ function parseSupportLines(text){
   return out;
 }
 function supportLinesText(list){
-  return normalizeSupport(list).map(s=>[s.unverified?'UNVERIFIED':'',s.checked,s.url,s.quote?'"'+s.quote+'"':''].filter(Boolean).join(' ')).join('\n');
+  return normalizeSupport(list).map(s=>[s.unverified?'UNVERIFIED':'',s.checked,s.url,s.quote?'"'+s.quote+'"':''].filter(Boolean).join(' ')+(s.answer?' => '+s.answer:'')).join('\n');
 }
 // A citation stands only when its page is one the link helper accepts, it
 // carries a check date and nobody flagged it. The rule: nothing goes on a
@@ -4078,13 +4099,14 @@ function supportRowsHtml(list){
     const pill=ok?'<span class="cite-pill">CHECKED '+esc(s.checked)+'</span>':'<span class="cite-pill unverified">UNVERIFIED</span>';
     const words=s.quote?'<div>&ldquo;'+esc(s.quote)+'&rdquo;</div>':'';
     const page=s.url?'<div class="cite-page">'+linkHtml(s.url)+pill+'</div>':'<div class="cite-page">no page'+pill+'</div>';
-    return '<div style="margin-bottom:8px">'+words+page+'</div>';
+    const answer=s.answer?'<div class="cite-answer">'+esc('=> '+s.answer)+'</div>':'';
+    return '<div style="margin-bottom:8px">'+words+page+answer+'</div>';
   }).join('');
 }
 function supportHtml(list){
   const rows=supportRowsHtml(list);
   if(!rows)return '';
-  return '<div class="card-section"><div class="card-section-h">Support</div><div class="card-section-body">'+rows+'</div></div>';
+  return '<div class="card-section"><div class="card-section-h">The case</div><div class="card-section-body">'+rows+'</div></div>';
 }
 // The live line under the form's support box: each citation as the card will
 // read it, the page clickable, the pill deciding before the save.
@@ -4236,9 +4258,12 @@ function callNotesHtml(notes){
   return String(notes||'').split('\n').map(s=>s.trim()).filter(Boolean).map(n=>'<div class="call-note">'+esc(n)+'</div>').join('<div class="note-rule"></div>');
 }
 // Sibling of the event card: company; location and the number to dial;
-// the hook where a room shows its reason; the website through the one link
-// helper; the citations; the attempt lines; the follow-through; notes. The
-// pill is the stage. An open brief carries the LOG row (one disposition
+// then (v0.23.0) the sections in the order a call runs: THE DOOR (who picks
+// up, what to ask for; nothing when empty), WHY NOW (the hook, where a room
+// shows its reason), the website through the one link helper, THE CASE
+// (the citations, each with its answer), THE ASK (what a win is; nothing
+// when empty), the attempt lines, the follow-through, notes. The pill is
+// the stage. An open brief carries the LOG row (one disposition
 // picked, LOG stamps the line now) and CLOSE; a closed one carries REOPEN.
 function renderCallCard(c){
   const line2=[c.location?esc(c.location):'',c.phone?telHtml(c.phone):''].filter(Boolean).join(' · ');
@@ -4248,8 +4273,11 @@ function renderCallCard(c){
   const follow=`<div class="card-section"><div class="card-section-h">Follow-through</div><div class="card-section-body call-mono">${followName?esc(followName)+(c.followChannel?' · '+telHtml(c.followChannel):''):'blank until after the call'}</div></div>`;
   const attempts=`<div class="card-section"><div class="card-section-h">Attempts</div><div class="card-section-body call-mono">${attemptsHtml(c)}</div></div>`;
   const notes=c.notes?`<div class="card-section"><div class="card-section-h">Notes</div><div class="card-section-body call-mono">${callNotesHtml(c.notes)}</div></div>`:'';
+  const door=c.door?`<div class="card-section"><div class="card-section-h">The door</div><div class="card-section-body call-mono">${esc(c.door)}</div></div>`:'';
+  const why=`<div class="card-section"><div class="card-section-h">Why now</div><div class="card-section-body">${esc(c.hook)}</div></div>`;
+  const ask=c.ask?`<div class="card-section"><div class="card-section-h">The ask</div><div class="card-section-body">${esc(c.ask)}</div></div>`:'';
   const quick=c.status==='closed'?`<button class="btn muted sm" data-act="reopen-call" data-id="${esc(c.id)}">REOPEN</button>`:`<span class="call-log"><select data-log-for="${esc(c.id)}">${CALL_DISPOSITIONS.map(d=>`<option value="${esc(d)}">${esc(d.toUpperCase())}</option>`).join('')}</select><button class="btn muted sm" data-act="log-call" data-id="${esc(c.id)}">LOG</button></span><button class="btn muted sm" data-act="close-call" data-id="${esc(c.id)}">CLOSE</button>`;
-  return `<div class="card call-card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(c.company||'(no company)')}</div><div class="card-sub">${line2||'no location, no number'}</div></div><div class="card-h-right"><span class="card-status ${esc(c.status)}">${esc(CALL_STAGE_LABELS[c.status]||c.status.toUpperCase())}</span></div></div><div class="card-body"><div class="card-section"><div class="card-section-h">Hook</div><div class="card-section-body">${esc(c.hook)}</div></div>${site}${supportHtml(c.support)}${attempts}${follow}${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-call" data-id="${esc(c.id)}">OPEN</button>${quick}</div></div>`;
+  return `<div class="card call-card"><div class="card-h"><div style="min-width:0;flex:1"><div class="card-name">${esc(c.company||'(no company)')}</div><div class="card-sub">${line2||'no location, no number'}</div></div><div class="card-h-right"><span class="card-status ${esc(c.status)}">${esc(CALL_STAGE_LABELS[c.status]||c.status.toUpperCase())}</span></div></div><div class="card-body">${door}${why}${site}${supportHtml(c.support)}${ask}${attempts}${follow}${notes}</div><div class="card-actions"><button class="btn ghost sm" data-act="edit-call" data-id="${esc(c.id)}">OPEN</button>${quick}</div></div>`;
 }
 // The call modal is an explicit-save surface, the event modal's shape: not
 // an autosave surface, so a cancel discards and the gate can refuse.
@@ -4260,10 +4288,10 @@ function openCallModal(callId){
   if(isEdit&&!c){editingCallId=null;return;}
   g('modal-call-title').textContent=isEdit?'// EDIT CALL':'// NEW CALL';
   g('btn-delete-call').classList.toggle('hidden',!isEdit);
-  const v=c?normalizeCall(c):{company:'',location:'',phone:'',website:'',hook:'',support:[],attempts:[],closedAt:'',followName:'',followChannel:'',contactId:'',status:'queued',statusHistory:[],notes:''};
+  const v=c?normalizeCall(c):{company:'',location:'',phone:'',website:'',door:'',hook:'',ask:'',support:[],attempts:[],closedAt:'',followName:'',followChannel:'',contactId:'',status:'queued',statusHistory:[],notes:''};
   const person=state.network.find(x=>x.id===v.contactId);
   g('cl-company').value=v.company;g('cl-location').value=v.location;g('cl-phone').value=v.phone;
-  g('cl-website').value=v.website;g('cl-hook').value=v.hook;g('cl-support').value=supportLinesText(v.support);
+  g('cl-website').value=v.website;g('cl-door').value=v.door;g('cl-hook').value=v.hook;g('cl-ask').value=v.ask;g('cl-support').value=supportLinesText(v.support);
   g('cl-attempts').value=attemptLinesText(v.attempts);g('cl-closed').checked=!!String(v.closedAt||'').trim();
   g('cl-follow').value=followThroughText(person?person.name:v.followName,v.followChannel);g('cl-notes').value=v.notes;
   openedCallHistory=Array.isArray(v.statusHistory)?v.statusHistory.slice():[];openedCallAttempts=normalizeAttempts(v.attempts);refreshStagePreview();
@@ -4291,7 +4319,7 @@ function saveCall(){
   const ft=parseFollowThrough(g('cl-follow').value);
   const wasEdit=!!editingCallId;
   const c=wasEdit?callsList().find(x=>x.id===editingCallId):null;
-  const data={company:company,location:g('cl-location').value.trim(),phone:g('cl-phone').value.trim(),website:g('cl-website').value.trim(),hook:hook,support:parseSupportLines(g('cl-support').value),attempts:parsed.attempts,followChannel:ft.channel,notes:g('cl-notes').value.trim()};
+  const data={company:company,location:g('cl-location').value.trim(),phone:g('cl-phone').value.trim(),website:g('cl-website').value.trim(),door:g('cl-door').value.trim(),hook:hook,ask:g('cl-ask').value.trim(),support:parseSupportLines(g('cl-support').value),attempts:parsed.attempts,followChannel:ft.channel,notes:g('cl-notes').value.trim()};
   const who=resolveFollowThrough(c?c.contactId:'',ft.name,ft.channel,data.location,now);
   data.contactId=who.contactId;data.followName=who.followName;
   const closed=g('cl-closed').checked;
@@ -4373,7 +4401,7 @@ function importCalls(incoming){
     var merged=normalizeAttempts(local.attempts.concat(inc.attempts));
     if(merged.length!==local.attempts.length){local.attempts=merged;moved=true;}
     if(!String(local.closedAt||'').trim()&&String(inc.closedAt||'').trim()){local.closedAt=inc.closedAt;moved=true;}
-    ['location','phone','website','followName','followChannel','contactId','notes'].forEach(function(f){if(!String(local[f]||'').trim()&&String(inc[f]||'').trim()){local[f]=inc[f];moved=true;}});
+    ['location','phone','website','door','ask','followName','followChannel','contactId','notes'].forEach(function(f){if(!String(local[f]||'').trim()&&String(inc[f]||'').trim()){local[f]=inc[f];moved=true;}});
     if(!normalizeSupport(local.support).length&&inc.support.length){local.support=inc.support.slice();moved=true;}
     if(moved){setCallStatus(local,callStage(local));res.updated++;}else res.skipped++;
   });
