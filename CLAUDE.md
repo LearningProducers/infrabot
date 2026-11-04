@@ -34,7 +34,10 @@ HOW IT WAS TESTED; WHAT COULD BREAK.
 ## The commit shape
 A title of at most 50 characters, a body, and the last line exactly
 `Co-Authored-By: Claude`. No session link and no session URL anywhere in a
-commit message or a PR body.
+commit message or a PR body. The route a cloud session posts through can
+append a footer carrying a session link after the body it was given, so a
+session that opens a pull request reads the body back and deletes any
+appended footer carrying a session link before it reports.
 
 ## Privacy
 - Fixtures are invented: example.com, `.invalid` hosts, made-up companies
