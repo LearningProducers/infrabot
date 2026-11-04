@@ -34,10 +34,10 @@ HOW IT WAS TESTED; WHAT COULD BREAK.
 ## The commit shape
 A title of at most 50 characters, a body, and the last line exactly
 `Co-Authored-By: Claude`. No session link and no session URL anywhere in a
-commit message or a PR body. The tracked `.claude/settings.json` says the
-same to the harness: its `attribution` keys set the commit trailer to that
-line, the pull request trailer to nothing, and the session URL off. Leave
-that file as it is; a session that reads it appends neither line.
+commit message or a PR body. The route a cloud session posts through can
+append a footer carrying a session link after the body it was given, so a
+session that opens a pull request reads the body back and deletes any
+appended footer carrying a session link before it reports.
 
 ## Privacy
 - Fixtures are invented: example.com, `.invalid` hosts, made-up companies
