@@ -82,10 +82,10 @@
 ║  L  7109– 7288  buildCouncilContext (system+profile+body+intel)              ║
 ║  L  7289– 7533  callGroq, fireSlot, clearCouncilHistory, wipeMem             ║
 ║  L  7534– 7952  TTS (Web Speech) + Memory Inspector modal                    ║
-║  L  7953– 8313  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
-║  L  8314– 8325  initCrewBlock, drawer toggle, crew status                    ║
-║  L  8326– 8370  saveGroqKey, clearGroqKey                                    ║
-║  L  8371– 9347  exportAll, importJson, wipeAll                               ║
+║  L  7953– 8316  EXPAND TO FULLSCREEN OVERLAY — open/close/render/size        ║
+║  L  8317– 8328  initCrewBlock, drawer toggle, crew status                    ║
+║  L  8329– 8373  saveGroqKey, clearGroqKey                                    ║
+║  L  8374– 9350  exportAll, importJson, wipeAll                               ║
 ║  ·  v4.7.0 READ LOOP: parseDossierText + additiveImportComms +              ║
 ║      importDraftsFile + fetchDossierOnLoad (before wipeAll; grep by name)    ║
 ║  ·  v0.2.0 STATUS MIRROR: buildStatusMirror + exportStatusMirror            ║
@@ -458,7 +458,7 @@
 ║      modals keep the translucent backdrop and touch neither. The page        ║
 ║      behind an expanded call card can no longer show through or move         ║
 ║      under it. tests/wide_modal_check.js.                                    ║
-║  L  9348– 9689  wireEvents + DOMContentLoaded boot                           ║
+║  L  9351– 9692  wireEvents + DOMContentLoaded boot                           ║
 ║                                                                              ║
 ║  ── DOCTRINE LOCK ───────────────────────────────────────────────────        ║
 ║  · L ranges computed by tests/file_map_check.js --write on every ship        ║
@@ -8113,7 +8113,10 @@ function closeFullscreen(){
   ttsStop();
   const wasEditMode=(fsKind==='comm-edit');
   g('fs-overlay').classList.remove('show');
-  document.body.style.overflow='';
+  // v0.23.1: the viewer opened from an EXPAND button inside a wide form (a call's
+  // support, attempts or notes, a comm's body) closes over a form still shown;
+  // the lock stays until that form hides. The same test hideModal uses.
+  if(!document.querySelector('.modal-bg.wide-bg.show'))document.body.style.overflow='';
   // Clear ALL fs state so the next open() starts clean regardless of kind.
   fsActiveSlot=null;
   fsActiveCommId=null;

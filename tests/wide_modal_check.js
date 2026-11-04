@@ -21,8 +21,10 @@
 // modal leaves it alone both ways; a small modal closed over a wide one
 // leaves the lock in place, and the wide one's close lifts it); the source
 // (every wide-bg modal in the page, the four forms, opens through showModal
-// and closes through hideModal; nothing else adds show to a modal-bg); and
-// the four version sites.
+// and closes through hideModal; nothing else adds show to a modal-bg); the
+// viewer (closeFullscreen, run for real over a wide form still shown, leaves
+// the lock in place, and releases only on the test hideModal uses); and the
+// four version sites.
 //
 // Run from the repo root:   node tests/wide_modal_check.js
 //                     or:   jsc  tests/wide_modal_check.js
@@ -135,6 +137,19 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   body.style.overflow='';
   hideModal('modal-contact');
   check('L11 hiding an already-hidden small modal never writes body overflow',body.style.overflow==='');
+  // The viewer opened from an EXPAND button inside a wide form: the real
+  // closeFullscreen, with the viewer's own globals stubbed, over a form still shown.
+  el('fs-overlay',['fs-overlay']);
+  glob.ttsStop=function(){};glob.fsKind=null;glob.fsActiveSlot=null;glob.fsActiveCommId=null;glob.fsEditTargetId=null;
+  glob.requestAnimationFrame=function(){};
+  ge(extractFn(html,'closeFullscreen'));
+  body.style.overflow='';
+  showModal('modal-call');
+  els['fs-overlay'].classList.add('show');body.style.overflow='hidden'; // what openFullscreen does for the lock
+  glob.closeFullscreen();
+  var afterViewer=body.style.overflow;
+  hideModal('modal-call');
+  check('L13 the viewer closed over a wide form still shown leaves the lock; the form closing lifts it',afterViewer==='hidden'&&!els['fs-overlay'].classList.contains('show')&&body.style.overflow==='',JSON.stringify([afterViewer,body.style.overflow]));
   check('L12 showModal and hideModal name the wide class and body overflow (source)',(function(){var s=extractFn(html,'showModal'),h=extractFn(html,'hideModal');return s.indexOf("classList.contains('wide-bg')")>0&&s.indexOf("document.body.style.overflow='hidden'")>0&&h.indexOf("classList.contains('wide-bg')")>0&&h.indexOf("document.body.style.overflow=''")>0&&h.indexOf("querySelector('.modal-bg.wide-bg.show')")>0;})());
 
   // --- S: the source -----------------------------------------------------------
@@ -143,7 +158,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('S1 the page carries four wide-bg modals: event, call, artifact, comm',wideIds.join(',')==='modal-event,modal-call,modal-artifact,modal-comm',wideIds.join(','));
   check('S2 each opens through showModal and closes through hideModal',wideIds.every(function(id){return html.indexOf("showModal('"+id+"')")>0&&html.indexOf("hideModal('"+id+"')")>0;}));
   check('S3 nothing else adds show to a modal element: the only classList.add(\'show\') calls are showModal, the toast, the overlay, the drawer backdrop and the dirty dot',(function(){var n=(html.match(/classList\.add\('show'\)/g)||[]).length;var named=['function toast(','function showModal(',"g('fs-overlay').classList.add('show')","g('drawer-backdrop').classList.add('show')","if(dot)dot.classList.add('show')"];return n===7&&named.every(function(t){return html.indexOf(t)>0;});})(),String((html.match(/classList\.add\('show'\)/g)||[]).length));
-  check('S4 the fullscreen viewer keeps its own lock and release, untouched',extractFn(html,'openFullscreen').indexOf("document.body.style.overflow='hidden'")>0&&extractFn(html,'closeFullscreen').indexOf("document.body.style.overflow=''")>0);
+  check('S4 the fullscreen viewer keeps its lock, and its release is guarded by the test hideModal uses (source)',extractFn(html,'openFullscreen').indexOf("document.body.style.overflow='hidden'")>0&&extractFn(html,'closeFullscreen').indexOf("if(!document.querySelector('.modal-bg.wide-bg.show'))document.body.style.overflow='';")>0);
 
   // --- V: the version ----------------------------------------------------------
   check('V1 the four version sites read v0.23.1',html.indexOf("const APP_VERSION='infrabot-v0.23.1';")>0&&html.indexOf('<span class="version-pill" title="INFRABOT build">v0.23.1</span>')>0&&html.indexOf('INFRABOT v0.23.1 · LPI ·')>0&&/║  v0\.23\.1 \(THE WIDE BACKDROP\)/.test(html));
