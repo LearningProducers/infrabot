@@ -1,5 +1,8 @@
 dossier.txt
-.claude
+# The folder stays private except the tracked settings file, which carries
+# the attribution keys the commit-shape section of CLAUDE.md names.
+.claude/*
+!.claude/settings.json
 .DS_Store
 scratch/
 exports/
