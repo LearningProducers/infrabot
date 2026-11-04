@@ -194,7 +194,7 @@ var SCRIPT_ARGS=IS_NODE?process.argv.slice(2):(typeof arguments!=='undefined'?Ar
   check('I2 and never overwrites one already written',r2.skipped===1&&state.calls[0].door===DOOR&&state.calls[0].ask===ASK,JSON.stringify(r2));
 
   // --- V: the version ---------------------------------------------------------
-  check('V1 the four version sites read v0.23.0',html.indexOf("const APP_VERSION='infrabot-v0.23.0';")>0&&html.indexOf('<span class="version-pill" title="INFRABOT build">v0.23.0</span>')>0&&html.indexOf('INFRABOT v0.23.0 · LPI ·')>0&&/║  v0\.23\.0 \(THE CALL CARD\)/.test(html));
+  check('V1 the four version sites read v0.23.1',html.indexOf("const APP_VERSION='infrabot-v0.23.1';")>0&&html.indexOf('<span class="version-pill" title="INFRABOT build">v0.23.1</span>')>0&&html.indexOf('INFRABOT v0.23.1 · LPI ·')>0&&/║  v0\.23\.1 \(THE WIDE BACKDROP\)/.test(html));
 
   out('');
   out('call_card_check: '+(failures?'FAIL':'PASS')+' ('+(checks-failures)+'/'+checks+' checks)');

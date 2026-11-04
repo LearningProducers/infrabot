@@ -3,7 +3,7 @@
 infrabot is a single-file HTML console for outreach, built so your AI agent
 does the researching and drafting and you do the sending. It runs on your
 machine: one HTML file, one small Python server, no build step, no
-dependencies beyond Python 3 and a browser. This README describes v0.23.0.
+dependencies beyond Python 3 and a browser. This README describes v0.23.1.
 
 ## What it does
 
@@ -419,6 +419,11 @@ Every check in `tests/` runs standalone from the repo root against the real
   recorded dial and a skipped one reads CLOSED.
 - **v0.23.0.** The call card organized for the dial: THE DOOR, WHY NOW,
   THE CASE with "=>" answers on cited lines, THE ASK.
+- **v0.23.1.** The wide backdrop: the backdrop under a wide form (the
+  expanded call, room, artifact and comm cards) is opaque, and body scroll
+  is locked while one is shown and restored when it hides, so the page
+  behind can neither show through nor move under it. Small modals keep
+  their translucent backdrop.
 
 ## Licenses
 
