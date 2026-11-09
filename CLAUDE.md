@@ -24,12 +24,15 @@ Before any pull request:
 - Open an issue for the change first; the PR body says `Closes #N`.
 
 ## Where the version is bumped
-Every ship moves all of these together:
+Every ship that touches `infrabot.html` moves all of these together:
 - `APP_VERSION` in the JS of `infrabot.html`
 - the version pill in the page header (`.version-pill`)
 - the drawer footer line (`INFRABOT vX.Y.Z · ...`)
 - the FILE MAP banner's header line, plus a history line in the banner
 - a ship entry in `README.md` under "What changed since v0.7.0"
+
+A ship that does not touch `infrabot.html` (the server, the launcher, a
+check, the CI job, a doc) moves none of them.
 
 ## The PR body
 Four sections, in this order: WHAT CHANGED; WHY (with `Closes #N`);
