@@ -5,6 +5,11 @@
 # named *_check.js under node, files named *_check.py under python3) from the repository
 # root. Any failing step fails the job; a loop that ran no checks fails too.
 #
+# On a pull request one more step measures the title (the subject line) of every non-merge
+# commit the pull request carries, base to head, and fails the job on a title over 72
+# characters, naming the commit and its length (CLAUDE.md, "The commit shape"). It does not
+# run on a push to main: merged history cannot be rewritten, so a red there could not be cured.
+#
 # The job runs on macOS, not Linux: tests/detach_check.py and tests/launcher_pull_check.py
 # drive the real open-infrabot.command and stop-infrabot.command, which are zsh scripts, and
 # serve.py finds the listener on the port with lsof; the ubuntu-24.04 runner image lists
@@ -69,4 +74,45 @@ jobs:
           done
           echo "ran $n checks"
           [ "$n" -gt 0 ] || rc=1
+          exit $rc
+      - name: Every commit title on the pull request is 72 characters or under
+        # `!cancelled()`: the titles are measured even when a step above failed, so one run shows both.
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          LC_ALL: en_US.UTF-8   # ${#title} counts characters under a UTF-8 locale, bytes without one
+        run: |
+          # The checkout step fetches one commit and no history (the merge of the head into the
+          # base, depth 1), so neither the base nor the pull request's own commits are in the
+          # clone. Fetch the two ends by commit, with their history, so the range between them
+          # can be listed, and the base branch's tip as it is now: the base commit the event
+          # names can be older than that tip, and a branch that has since merged the base in
+          # must not answer for titles the base already carries. Nothing else is fetched (no
+          # tags, no other branch).
+          git fetch --no-tags --quiet origin "$BASE_SHA" "$HEAD_SHA" "+refs/heads/$BASE_REF:refs/remotes/origin/$BASE_REF"
+          shas=$(git rev-list --reverse --no-merges "$HEAD_SHA" --not "$BASE_SHA" "refs/remotes/origin/$BASE_REF")
+          limit=72
+          rc=0
+          n=0
+          longest=0
+          for sha in $shas; do
+            n=$((n + 1))
+            short=$(git rev-parse --short "$sha")
+            title=$(git log -1 --format=%s "$sha")
+            len=${#title}
+            [ "$len" -le "$longest" ] || longest=$len
+            if [ "$len" -gt "$limit" ]; then
+              echo "::error::commit $short: the title is $len characters, the limit is $limit: $title"
+              rc=1
+            else
+              echo "ok   $short  $len  $title"
+            fi
+          done
+          echo "measured $n commit titles, the longest $longest characters, the limit $limit"
+          if [ "$n" -eq 0 ]; then
+            echo "::error::no non-merge commit found on $HEAD_SHA that $BASE_REF does not carry; nothing was measured"
+            rc=1
+          fi
           exit $rc

@@ -15,7 +15,9 @@ Before any pull request:
 - `node tests/file_map_check.js --write` recomputes the banner's line ranges
   after any edit that moves lines; then run it again without `--write`.
 - GitHub runs this gate on every pull request and every push to main: the
-  `checks` job in `.github/workflows/checks.yml`.
+  `checks` job in `.github/workflows/checks.yml`. On a pull request the job
+  also measures the title of every non-merge commit the pull request carries
+  and fails, naming the commit and its length, on a title over 72 characters.
 
 ## One change, one pull request
 - One change per PR. Open every PR as a DRAFT. Never merge; a human merges.
@@ -34,7 +36,7 @@ Four sections, in this order: WHAT CHANGED; WHY (with `Closes #N`);
 HOW IT WAS TESTED; WHAT COULD BREAK.
 
 ## The commit shape
-A title of at most 50 characters, a body, and the last line exactly
+A title of at most 72 characters, a body, and the last line exactly
 `Co-Authored-By: Claude`. No session link and no session URL anywhere in a
 commit message or a PR body. The route a cloud session posts through can
 append a footer carrying a session link after the body it was given, so a
