@@ -11,6 +11,14 @@
 # neither zsh nor lsof among its packages (measured 2026-11-09), so on it two of the three
 # Python checks would fail before measuring anything. macOS carries zsh, lsof and ps.
 #
+# The hostname step (measured on this workflow's first run, 2026-11-09, actions run
+# 42680567851): a hosted macOS runner's hostname is a `.local` name it cannot resolve, and
+# Python's HTTPServer calls socket.getfqdn() between bind() and listen(), so the detached
+# server sat bound and silent for about 35 seconds, past the launcher's 10-second wait, and
+# tests/detach_check.py failed its START case (actions/runner-images issues 14568 and 14409).
+# Giving the runner a plain hostname that /etc/hosts resolves is the cure those reports
+# measured; the step times the same lookup before and after so the log shows the number.
+#
 # Actions are pinned to commits; the comment names the tag the commit carried when pinned.
 name: checks
 on:
@@ -34,6 +42,13 @@ jobs:
         uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
         with:
           python-version: '3.12'
+      - name: Give the runner a hostname it can resolve (the macOS getfqdn stall)
+        run: |
+          python3 -c 'import socket,time; t=time.time(); n=socket.getfqdn("127.0.0.1"); print("before: getfqdn(127.0.0.1) -> %s in %.2f s" % (n, time.time()-t))'
+          sudo scutil --set HostName infrabot-ci
+          sudo scutil --set LocalHostName infrabot-ci
+          echo "127.0.0.1 infrabot-ci" | sudo tee -a /etc/hosts >/dev/null
+          python3 -c 'import socket,time; t=time.time(); n=socket.getfqdn("127.0.0.1"); print("after: getfqdn(127.0.0.1) -> %s in %.2f s" % (n, time.time()-t)); t=time.time(); socket.getaddrinfo(socket.gethostname(), 0); print("after: getaddrinfo(%s) in %.2f s" % (socket.gethostname(), time.time()-t))'
       - name: node --check on the script extracted from the page
         run: |
           # `|| true`: a missing anchor must reach the error line below, not end the step at the assignment.
