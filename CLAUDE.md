@@ -14,6 +14,8 @@ Before any pull request:
   `python3 tests/<name>.py`, run from the repo root.
 - `node tests/file_map_check.js --write` recomputes the banner's line ranges
   after any edit that moves lines; then run it again without `--write`.
+- GitHub runs this gate on every pull request and every push to main: the
+  `checks` job in `.github/workflows/checks.yml`.
 
 ## One change, one pull request
 - One change per PR. Open every PR as a DRAFT. Never merge; a human merges.
