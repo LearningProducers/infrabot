@@ -11,15 +11,11 @@
 # neither zsh nor lsof among its packages (measured 2026-11-09), so on it two of the three
 # Python checks would fail before measuring anything. macOS carries zsh, lsof and ps.
 #
-# The resolver measurement (this workflow's first three runs, 2026-11-09, actions runs
-# 42680567851, 42681798939 and 42682989629): Python's HTTPServer calls socket.getfqdn("127.0.0.1")
-# between bind() and listen(). On a hosted macOS runner the FIRST reverse lookup a Python process
-# makes took 35.03 s and every later one in the same process 0.00 s; dig -x and dscacheutil
-# answered in under 0.1 s; a plain hostname cured the forward lookup of the runner's own name
-# and nothing else; a resolver file for 127.in-addr.arpa changed nothing. So the detached server
-# sits bound and silent past the launcher's 10-second wait and tests/detach_check.py fails its
-# START case, on the runner only. The cure belongs where the lookup is made, the server's bind;
-# this step only records the number in every run's log, so the day it changes is measured.
+# The job runs on macOS, not Linux (above). One more thing the first runs found (2026-11-09,
+# actions runs 42680567851 to 42690688953): a hosted macOS runner's first reverse lookup of
+# 127.0.0.1 in a Python process takes 35 s, and HTTPServer.server_bind used to make that lookup
+# inside serve.py's detached server, past the launcher's 10-second wait. serve.py binds without
+# it now (LoopbackOnlyServer.server_bind), so the job carries no runner-side step for it.
 #
 # Actions are pinned to commits; the comment names the tag the commit carried when pinned.
 name: checks
@@ -44,21 +40,6 @@ jobs:
         uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
         with:
           python-version: '3.12'
-      - name: Measure the first reverse lookup of 127.0.0.1 (the macOS getfqdn stall)
-        run: |
-          python3 - <<'PY'
-          import socket, time
-          def t(label, fn):
-              s = time.time()
-              try:
-                  r = fn()
-              except Exception as e:
-                  r = "raised %s" % e.__class__.__name__
-              print("%-32s %6.2f s  %s" % (label, time.time() - s, r), flush=True)
-          t("getfqdn(127.0.0.1), first call", lambda: socket.getfqdn("127.0.0.1"))
-          t("getfqdn(127.0.0.1), second call", lambda: socket.getfqdn("127.0.0.1"))
-          t("getnameinfo(127.0.0.1)", lambda: socket.getnameinfo(("127.0.0.1", 0), 0)[0])
-          PY
       - name: node --check on the script extracted from the page
         run: |
           # `|| true`: a missing anchor must reach the error line below, not end the step at the assignment.
