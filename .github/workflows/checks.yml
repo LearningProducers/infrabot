@@ -11,15 +11,15 @@
 # neither zsh nor lsof among its packages (measured 2026-11-09), so on it two of the three
 # Python checks would fail before measuring anything. macOS carries zsh, lsof and ps.
 #
-# The resolver step (measured on this workflow's first two runs, 2026-11-09, actions runs
-# 42680567851 and 42681798939): Python's HTTPServer calls socket.getfqdn("127.0.0.1") between
-# bind() and listen(), and on a hosted macOS runner that reverse lookup took 35.05 s, past the
-# launcher's 10-second wait, so the detached server sat bound and silent and
-# tests/detach_check.py failed its START case. A plain hostname (actions/runner-images issue
-# 14568's cure) made the forward lookup of the runner's own name instant and left the reverse
-# lookup of 127.0.0.1 at 35.04 s. The step keeps the hostname, times every resolver path the
-# server could take so each run's log carries the numbers, and gives the loopback reverse zone
-# a resolver file so that lookup is answered locally instead of waiting on the network.
+# The resolver measurement (this workflow's first three runs, 2026-11-09, actions runs
+# 42680567851, 42681798939 and 42682989629): Python's HTTPServer calls socket.getfqdn("127.0.0.1")
+# between bind() and listen(). On a hosted macOS runner the FIRST reverse lookup a Python process
+# makes took 35.03 s and every later one in the same process 0.00 s; dig -x and dscacheutil
+# answered in under 0.1 s; a plain hostname cured the forward lookup of the runner's own name
+# and nothing else; a resolver file for 127.in-addr.arpa changed nothing. So the detached server
+# sits bound and silent past the launcher's 10-second wait and tests/detach_check.py fails its
+# START case, on the runner only. The cure belongs where the lookup is made, the server's bind;
+# this step only records the number in every run's log, so the day it changes is measured.
 #
 # Actions are pinned to commits; the comment names the tag the commit carried when pinned.
 name: checks
@@ -44,32 +44,21 @@ jobs:
         uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
         with:
           python-version: '3.12'
-      - name: Resolver for 127.0.0.1 (the macOS getfqdn stall), every path timed
+      - name: Measure the first reverse lookup of 127.0.0.1 (the macOS getfqdn stall)
         run: |
-          cat > "$RUNNER_TEMP/resolve_time.py" <<'PY'
-          import socket, sys, time
+          python3 - <<'PY'
+          import socket, time
           def t(label, fn):
               s = time.time()
               try:
                   r = fn()
               except Exception as e:
                   r = "raised %s" % e.__class__.__name__
-              print("%-44s %6.2f s  %s" % (label, time.time() - s, r), flush=True)
-          tag = sys.argv[1] if len(sys.argv) > 1 else ""
-          t(tag + " getfqdn(127.0.0.1)", lambda: socket.getfqdn("127.0.0.1"))
-          t(tag + " gethostbyaddr(127.0.0.1)", lambda: socket.gethostbyaddr("127.0.0.1")[0])
-          t(tag + " getnameinfo(127.0.0.1)", lambda: socket.getnameinfo(("127.0.0.1", 0), 0)[0])
-          t(tag + " getaddrinfo(gethostname())", lambda: socket.getaddrinfo(socket.gethostname(), 0)[0][4][0])
+              print("%-32s %6.2f s  %s" % (label, time.time() - s, r), flush=True)
+          t("getfqdn(127.0.0.1), first call", lambda: socket.getfqdn("127.0.0.1"))
+          t("getfqdn(127.0.0.1), second call", lambda: socket.getfqdn("127.0.0.1"))
+          t("getnameinfo(127.0.0.1)", lambda: socket.getnameinfo(("127.0.0.1", 0), 0)[0])
           PY
-          python3 "$RUNNER_TEMP/resolve_time.py" "before:"
-          echo "dig -x 127.0.0.1 (unicast DNS only):"; time dig +short -x 127.0.0.1 || true
-          echo "dscacheutil (the libinfo path):"; time dscacheutil -q host -a ip_address 127.0.0.1 || true
-          sudo scutil --set HostName infrabot-ci
-          sudo scutil --set LocalHostName infrabot-ci
-          echo "127.0.0.1 infrabot-ci" | sudo tee -a /etc/hosts >/dev/null
-          sudo mkdir -p /etc/resolver
-          printf 'nameserver 127.0.0.1\ntimeout 1\n' | sudo tee /etc/resolver/127.in-addr.arpa >/dev/null
-          python3 "$RUNNER_TEMP/resolve_time.py" "after:"
       - name: node --check on the script extracted from the page
         run: |
           # `|| true`: a missing anchor must reach the error line below, not end the step at the assignment.
