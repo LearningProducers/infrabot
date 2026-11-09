@@ -1,0 +1,72 @@
+# One job, `checks`, on every pull request targeting main and on each push to main: check
+# out the repository, set up Node and Python, extract the page's script and run `node --check`
+# on it (the same anchors the tests use: the one `<script>` line and the one `</script>` line
+# of infrabot.html, found by name, never by number), then run every check in tests/ (files
+# named *_check.js under node, files named *_check.py under python3) from the repository
+# root. Any failing step fails the job; a loop that ran no checks fails too.
+#
+# The job runs on macOS, not Linux: tests/detach_check.py and tests/launcher_pull_check.py
+# drive the real open-infrabot.command and stop-infrabot.command, which are zsh scripts, and
+# serve.py finds the listener on the port with lsof; the ubuntu-24.04 runner image lists
+# neither zsh nor lsof among its packages (measured 2026-11-09), so on it two of the three
+# Python checks would fail before measuring anything. macOS carries zsh, lsof and ps.
+#
+# The job runs on macOS, not Linux (above). One more thing the first runs found (2026-11-09,
+# actions runs 42680567851 to 42690688953): a hosted macOS runner's first reverse lookup of
+# 127.0.0.1 in a Python process takes 35 s, and HTTPServer.server_bind used to make that lookup
+# inside serve.py's detached server, past the launcher's 10-second wait. serve.py binds without
+# it now (LoopbackOnlyServer.server_bind), so the job carries no runner-side step for it.
+#
+# Actions are pinned to commits; the comment names the tag the commit carried when pinned.
+name: checks
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: macos-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - name: Set up Node
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+      - name: Set up Python
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
+        with:
+          python-version: '3.12'
+      - name: node --check on the script extracted from the page
+        run: |
+          # `|| true`: a missing anchor must reach the error line below, not end the step at the assignment.
+          opens=$(grep -n '^<script>$' infrabot.html | cut -d: -f1 || true)
+          closes=$(grep -n '^</script>$' infrabot.html | cut -d: -f1 || true)
+          if [ "$(printf '%s\n' "$opens" | grep -c .)" -ne 1 ] || [ "$(printf '%s\n' "$closes" | grep -c .)" -ne 1 ]; then
+            echo "::error::infrabot.html must carry exactly one <script> line and one </script> line at column 0 (the anchors the tests extract by); found: <script> at [$opens] and </script> at [$closes]"
+            exit 1
+          fi
+          sed -n "$((opens + 1)),$((closes - 1))p" infrabot.html > "$RUNNER_TEMP/app.js"
+          echo "script: lines $((opens + 1)) to $((closes - 1)) of infrabot.html, $(wc -l < "$RUNNER_TEMP/app.js") lines"
+          node --check "$RUNNER_TEMP/app.js"
+      - name: Run every check in tests/
+        run: |
+          shopt -s nullglob   # an unmatched glob is nothing, not a literal, so n counts real files only
+          rc=0
+          n=0
+          for f in tests/*_check.js; do
+            n=$((n + 1))
+            echo "== $f"
+            node "$f" || rc=1
+          done
+          for f in tests/*_check.py; do
+            n=$((n + 1))
+            echo "== $f"
+            python3 "$f" || rc=1
+          done
+          echo "ran $n checks"
+          [ "$n" -gt 0 ] || rc=1
+          exit $rc

@@ -61,6 +61,7 @@ import subprocess
 import sys
 import time
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from socketserver import TCPServer
 
 BIND_HOST = "127.0.0.1"
 # INFRABOT_PORT is a harness seam (v0.7.0): a check binds a free port beside
@@ -155,6 +156,17 @@ def is_loopback(host):
 
 
 class LoopbackOnlyServer(ThreadingHTTPServer):
+    def server_bind(self):
+        # HTTPServer.server_bind resolves the bound address back to a name with
+        # socket.getfqdn() between bind() and listen(), a reverse lookup of
+        # 127.0.0.1 this server never reads. Where the resolver is slow the
+        # door stays shut while it waits: measured 35 s on GitHub's hosted
+        # macOS runners (infrabot PR #52, 2026-11-09), past the launcher's
+        # SERVE_START_WAIT_S. The address is known before the bind; use it.
+        TCPServer.server_bind(self)
+        self.server_name = BIND_HOST
+        self.server_port = self.socket.getsockname()[1]
+
     def verify_request(self, request, client_address):
         return is_loopback(client_address[0])
 
