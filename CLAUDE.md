@@ -17,7 +17,9 @@ Before any pull request:
 - GitHub runs this gate on every pull request and every push to main: the
   `checks` job in `.github/workflows/checks.yml`. On a pull request the job
   also measures the title of every non-merge commit the pull request carries
-  and fails, naming the commit and its length, on a title over 72 characters.
+  and fails, naming the commit and its length, on a title over 72 characters,
+  and fails when the pull request changes `infrabot.html` without moving
+  `APP_VERSION`.
 
 ## One change, one pull request
 - One change per PR. Open every PR as a DRAFT. Never merge; a human merges.

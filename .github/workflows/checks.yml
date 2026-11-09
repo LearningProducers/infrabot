@@ -10,6 +10,15 @@
 # characters, naming the commit and its length (CLAUDE.md, "The commit shape"). It does not
 # run on a push to main: merged history cannot be rewritten, so a red there could not be cured.
 #
+# On a pull request a last step measures the version: when the pull request changes
+# infrabot.html, APP_VERSION on its head must differ from APP_VERSION at the commit it forked
+# from (the pull request itself moved it) and from APP_VERSION on the base branch's tip (no
+# later ship has taken that version) (CLAUDE.md, "Where the version is bumped"); when the page
+# is unchanged the step says so and passes. One direction only: every version site lives in
+# the page, so a version cannot move without the page changing. tests/version_step_check.py
+# runs this step's own script against throwaway repositories, so its failing branches are
+# proven on every run.
+#
 # The job runs on macOS, not Linux: tests/detach_check.py and tests/launcher_pull_check.py
 # drive the real open-infrabot.command and stop-infrabot.command, which are zsh scripts, and
 # serve.py finds the listener on the port with lsof; the ubuntu-24.04 runner image lists
@@ -116,3 +125,45 @@ jobs:
             rc=1
           fi
           exit $rc
+      - name: A pull request that changes the page moves APP_VERSION
+        # `!cancelled()`: the version is measured even when a step above failed, so one run shows all of it.
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # The checkout holds one commit and no history (above), so fetch the head and the base
+          # branch's tip with their history: the fork point between them is what the pull request
+          # itself changed, and the tip carries the version a new ship must differ from. Both
+          # are compared: a branch behind a base that has shipped since differs from the tip
+          # without having moved anything.
+          git fetch --no-tags --quiet origin "$HEAD_SHA" "+refs/heads/$BASE_REF:refs/remotes/origin/$BASE_REF"
+          base="refs/remotes/origin/$BASE_REF"
+          if ! fork=$(git merge-base "$base" "$HEAD_SHA"); then
+            echo "::error::no common commit between $BASE_REF and $HEAD_SHA; nothing was measured"
+            exit 1
+          fi
+          if git diff --quiet "$fork" "$HEAD_SHA" -- infrabot.html; then
+            echo "infrabot.html is unchanged on this pull request: no version is owed"
+            exit 0
+          fi
+          # `|| true`: a side with no page must reach the error line below, not end the step here.
+          version_of() { git show "$1:infrabot.html" 2>/dev/null | sed -n "s/^const APP_VERSION='\(.*\)';\$/\1/p" || true; }
+          forked=$(version_of "$fork")
+          tip=$(version_of "$base")
+          now=$(version_of "$HEAD_SHA")
+          for v in "$forked" "$tip" "$now"; do
+            if [ "$(printf '%s\n' "$v" | grep -c .)" -ne 1 ]; then
+              echo "::error::infrabot.html must carry exactly one \`const APP_VERSION='...';\` line at column 0; found [$forked] at the fork point, [$tip] on $BASE_REF and [$now] on the pull request"
+              exit 1
+            fi
+          done
+          if [ "$now" = "$forked" ]; then
+            echo "::error::this pull request changes infrabot.html and APP_VERSION still reads $now, the value it forked from: a ship that touches the page moves the version sites (CLAUDE.md, Where the version is bumped)"
+            exit 1
+          fi
+          if [ "$now" = "$tip" ]; then
+            echo "::error::this pull request changes infrabot.html and APP_VERSION reads $now, the value $BASE_REF already carries: a ship that touches the page takes a version of its own (CLAUDE.md, Where the version is bumped)"
+            exit 1
+          fi
+          echo "infrabot.html changed and APP_VERSION moved: $forked -> $now ($BASE_REF reads $tip)"
